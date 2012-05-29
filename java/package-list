@@ -1,6 +1,9 @@
 org.mule.modules.config
 org.mule.modules.config.spring
 org.mule.modules.github
+org.mule.modules.github.adapters
 org.mule.modules.github.config
 org.mule.modules.github.config.spring
+org.mule.modules.github.processors
+org.mule.modules.github.transformers
 

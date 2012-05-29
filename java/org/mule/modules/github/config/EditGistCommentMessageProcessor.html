@@ -63,6 +63,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -84,6 +86,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../../../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../../../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../../../../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -102,6 +105,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule GitHub Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -184,10 +208,16 @@
   <a href="../../../../../../java/org/mule/modules/config/spring/package-summary.html">org.mule.modules.config.spring</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/package-summary.html">org.mule.modules.github</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/github/adapters/package-summary.html">org.mule.modules.github.adapters</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/config/package-summary.html">org.mule.modules.github.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/config/spring/package-summary.html">org.mule.modules.github.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/github/processors/package-summary.html">org.mule.modules.github.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/github/transformers/package-summary.html">org.mule.modules.github.transformers</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -197,108 +227,209 @@
               
     <li><h2>Classes</h2>
       <ul>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/AddCollaboratorDefinitionParser.html">AddCollaboratorDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/AddCollaboratorMessageProcessor.html">AddCollaboratorMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/AddCommentDefinitionParser.html">AddCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/AddCommentMessageProcessor.html">AddCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/AddEmailsDefinitionParser.html">AddEmailsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/AddEmailsMessageProcessor.html">AddEmailsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/AddTeamMemberDefinitionParser.html">AddTeamMemberDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/AddTeamMemberMessageProcessor.html">AddTeamMemberMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/AddTeamRepositoryDefinitionParser.html">AddTeamRepositoryDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/AddTeamRepositoryMessageProcessor.html">AddTeamRepositoryMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CloseIssueDefinitionParser.html">CloseIssueDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CloseIssueMessageProcessor.html">CloseIssueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateCommentDefinitionParser.html">CreateCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateCommentMessageProcessor.html">CreateCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateDeployKeyDefinitionParser.html">CreateDeployKeyDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateDeployKeyMessageProcessor.html">CreateDeployKeyMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateGistCommentDefinitionParser.html">CreateGistCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateGistCommentMessageProcessor.html">CreateGistCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateIssueDefinitionParser.html">CreateIssueDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateIssueMessageProcessor.html">CreateIssueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateKeyDefinitionParser.html">CreateKeyDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateKeyMessageProcessor.html">CreateKeyMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateLabelDefinitionParser.html">CreateLabelDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateLabelMessageProcessor.html">CreateLabelMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateMilestoneDefinitionParser.html">CreateMilestoneDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateMilestoneMessageProcessor.html">CreateMilestoneMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateRepositoryDefinitionParser.html">CreateRepositoryDefinitionParser</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateRepositoryForOrgDefinitionParser.html">CreateRepositoryForOrgDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateRepositoryForOrgMessageProcessor.html">CreateRepositoryForOrgMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateRepositoryMessageProcessor.html">CreateRepositoryMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateResourceDefinitionParser.html">CreateResourceDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateResourceMessageProcessor.html">CreateResourceMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateTeamDefinitionParser.html">CreateTeamDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/CreateTeamMessageProcessor.html">CreateTeamMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteCommentDefinitionParser.html">DeleteCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteCommentMessageProcessor.html">DeleteCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteCommitCommentDefinitionParser.html">DeleteCommitCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteCommitCommentMessageProcessor.html">DeleteCommitCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteDeployKeyDefinitionParser.html">DeleteDeployKeyDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteDeployKeyMessageProcessor.html">DeleteDeployKeyMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteDownloadDefinitionParser.html">DeleteDownloadDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteDownloadMessageProcessor.html">DeleteDownloadMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteGistCommentDefinitionParser.html">DeleteGistCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteGistCommentMessageProcessor.html">DeleteGistCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteGistDefinitionParser.html">DeleteGistDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteGistMessageProcessor.html">DeleteGistMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteKeyDefinitionParser.html">DeleteKeyDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteKeyMessageProcessor.html">DeleteKeyMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteLabelDefinitionParser.html">DeleteLabelDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteLabelMessageProcessor.html">DeleteLabelMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteMilestoneDefinitionParser.html">DeleteMilestoneDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteMilestoneMessageProcessor.html">DeleteMilestoneMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteTeamDefinitionParser.html">DeleteTeamDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/DeleteTeamMessageProcessor.html">DeleteTeamMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditCommentDefinitionParser.html">EditCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditCommentMessageProcessor.html">EditCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditCommitCommentDefinitionParser.html">EditCommitCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditCommitCommentMessageProcessor.html">EditCommitCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditDeployKeyDefinitionParser.html">EditDeployKeyDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditDeployKeyMessageProcessor.html">EditDeployKeyMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditGistCommentDefinitionParser.html">EditGistCommentDefinitionParser</a></li>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditGistCommentMessageProcessor.html">EditGistCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditKeyDefinitionParser.html">EditKeyDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditKeyMessageProcessor.html">EditKeyMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditRepositoryDefinitionParser.html">EditRepositoryDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditRepositoryMessageProcessor.html">EditRepositoryMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditTeamDefinitionParser.html">EditTeamDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/EditTeamMessageProcessor.html">EditTeamMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/FollowDefinitionParser.html">FollowDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/FollowMessageProcessor.html">FollowMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/ForkGistDefinitionParser.html">ForkGistDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/ForkGistMessageProcessor.html">ForkGistMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/ForkRepositoryDefinitionParser.html">ForkRepositoryDefinitionParser</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/ForkRepositoryForOrgDefinitionParser.html">ForkRepositoryForOrgDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/ForkRepositoryForOrgMessageProcessor.html">ForkRepositoryForOrgMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/ForkRepositoryMessageProcessor.html">ForkRepositoryMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetBranchesDefinitionParser.html">GetBranchesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetBranchesMessageProcessor.html">GetBranchesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCollaboratorsDefinitionParser.html">GetCollaboratorsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCollaboratorsMessageProcessor.html">GetCollaboratorsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommentDefinitionParser.html">GetCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommentMessageProcessor.html">GetCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommentsDefinitionParser.html">GetCommentsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommentsMessageProcessor.html">GetCommentsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommitDefinitionParser.html">GetCommitDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommitMessageProcessor.html">GetCommitMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommitsByShaDefinitionParser.html">GetCommitsByShaDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommitsByShaMessageProcessor.html">GetCommitsByShaMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommitsDefinitionParser.html">GetCommitsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommitsMessageProcessor.html">GetCommitsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommmitCommentsDefinitionParser.html">GetCommmitCommentsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCommmitCommentsMessageProcessor.html">GetCommmitCommentsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetContributorsDefinitionParser.html">GetContributorsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetContributorsMessageProcessor.html">GetContributorsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCurrentUserDefinitionParser.html">GetCurrentUserDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetCurrentUserMessageProcessor.html">GetCurrentUserMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetDeployKeyDefinitionParser.html">GetDeployKeyDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetDeployKeyMessageProcessor.html">GetDeployKeyMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetDeployKeysDefinitionParser.html">GetDeployKeysDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetDeployKeysMessageProcessor.html">GetDeployKeysMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetDownloadDefinitionParser.html">GetDownloadDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetDownloadMessageProcessor.html">GetDownloadMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetEmailsDefinitionParser.html">GetEmailsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetEmailsMessageProcessor.html">GetEmailsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetFollowersDefinitionParser.html">GetFollowersDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetFollowersMessageProcessor.html">GetFollowersMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetFollowingDefinitionParser.html">GetFollowingDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetFollowingMessageProcessor.html">GetFollowingMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetForksDefinitionParser.html">GetForksDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetForksMessageProcessor.html">GetForksMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetGistCommentDefinitionParser.html">GetGistCommentDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetGistCommentMessageProcessor.html">GetGistCommentMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetGistCommentsDefinitionParser.html">GetGistCommentsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetGistCommentsMessageProcessor.html">GetGistCommentsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetGistDefinitionParser.html">GetGistDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetGistMessageProcessor.html">GetGistMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetGistsDefinitionParser.html">GetGistsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetGistsMessageProcessor.html">GetGistsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetIssueDefinitionParser.html">GetIssueDefinitionParser</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetIssueEventDefinitionParser.html">GetIssueEventDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetIssueEventMessageProcessor.html">GetIssueEventMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetIssueMessageProcessor.html">GetIssueMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetIssuesCretedAfterDefinitionParser.html">GetIssuesCretedAfterDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetIssuesCretedAfterMessageProcessor.html">GetIssuesCretedAfterMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetIssuesDefinitionParser.html">GetIssuesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetIssuesMessageProcessor.html">GetIssuesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetIssuesSinceNumberDefinitionParser.html">GetIssuesSinceNumberDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetIssuesSinceNumberMessageProcessor.html">GetIssuesSinceNumberMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetKeyDefinitionParser.html">GetKeyDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetKeyMessageProcessor.html">GetKeyMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetKeysDefinitionParser.html">GetKeysDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetKeysMessageProcessor.html">GetKeysMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetLabelDefinitionParser.html">GetLabelDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetLabelMessageProcessor.html">GetLabelMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetLabelsDefinitionParser.html">GetLabelsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetLabelsMessageProcessor.html">GetLabelsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetLanguagesDefinitionParser.html">GetLanguagesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetLanguagesMessageProcessor.html">GetLanguagesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetMilestoneDefinitionParser.html">GetMilestoneDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetMilestoneMessageProcessor.html">GetMilestoneMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetMilestonesDefinitionParser.html">GetMilestonesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetMilestonesMessageProcessor.html">GetMilestonesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetOrgRepositoriesDefinitionParser.html">GetOrgRepositoriesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetOrgRepositoriesMessageProcessor.html">GetOrgRepositoriesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetRepositoriesDefinitionParser.html">GetRepositoriesDefinitionParser</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetRepositoriesForUserDefinitionParser.html">GetRepositoriesForUserDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetRepositoriesForUserMessageProcessor.html">GetRepositoriesForUserMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetRepositoriesMessageProcessor.html">GetRepositoriesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetRepositoryDefinitionParser.html">GetRepositoryDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetRepositoryMessageProcessor.html">GetRepositoryMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetStarredGistDefinitionParser.html">GetStarredGistDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetStarredGistMessageProcessor.html">GetStarredGistMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetTagsDefinitionParser.html">GetTagsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetTagsMessageProcessor.html">GetTagsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetTeamDefinitionParser.html">GetTeamDefinitionParser</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetTeamMembersDefinitionParser.html">GetTeamMembersDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetTeamMembersMessageProcessor.html">GetTeamMembersMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetTeamMessageProcessor.html">GetTeamMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetTeamRepositoriesDefinitionParser.html">GetTeamRepositoriesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetTeamRepositoriesMessageProcessor.html">GetTeamRepositoriesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetTeamsForOrgDefinitionParser.html">GetTeamsForOrgDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetTeamsForOrgMessageProcessor.html">GetTeamsForOrgMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetUserByLoginNameDefinitionParser.html">GetUserByLoginNameDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetUserByLoginNameMessageProcessor.html">GetUserByLoginNameMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetWatchedDefinitionParser.html">GetWatchedDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetWatchedMessageProcessor.html">GetWatchedMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetWatchersDefinitionParser.html">GetWatchersDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GetWatchersMessageProcessor.html">GetWatchersMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GitHubModuleCapabilitiesAdapter.html">GitHubModuleCapabilitiesAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GitHubModuleConfigDefinitionParser.html">GitHubModuleConfigDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GitHubModuleLifecycleAdapter.html">GitHubModuleLifecycleAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/GitHubModuleNamespaceHandler.html">GitHubModuleNamespaceHandler</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/IsCollaboratorDefinitionParser.html">IsCollaboratorDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/IsCollaboratorMessageProcessor.html">IsCollaboratorMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/IsFollowingDefinitionParser.html">IsFollowingDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/IsFollowingMessageProcessor.html">IsFollowingMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/IsStarredDefinitionParser.html">IsStarredDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/IsStarredMessageProcessor.html">IsStarredMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/IsTeamMemberDefinitionParser.html">IsTeamMemberDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/IsTeamMemberMessageProcessor.html">IsTeamMemberMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/IsWatchingDefinitionParser.html">IsWatchingDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/IsWatchingMessageProcessor.html">IsWatchingMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/RemoveCollaboratorDefinitionParser.html">RemoveCollaboratorDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/RemoveCollaboratorMessageProcessor.html">RemoveCollaboratorMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/RemoveEmailsDefinitionParser.html">RemoveEmailsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/RemoveEmailsMessageProcessor.html">RemoveEmailsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/RemoveTeamMemberDefinitionParser.html">RemoveTeamMemberDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/RemoveTeamMemberMessageProcessor.html">RemoveTeamMemberMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/RemoveTeamRepositoryDefinitionParser.html">RemoveTeamRepositoryDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/RemoveTeamRepositoryMessageProcessor.html">RemoveTeamRepositoryMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/StarGistDefinitionParser.html">StarGistDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/StarGistMessageProcessor.html">StarGistMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/StringToDateTransformer.html">StringToDateTransformer</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/TeamPermissionEnumTransformer.html">TeamPermissionEnumTransformer</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/UnfollowDefinitionParser.html">UnfollowDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/UnfollowMessageProcessor.html">UnfollowMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/UnstarGistDefinitionParser.html">UnstarGistDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/UnstarGistMessageProcessor.html">UnstarGistMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/UnwatchDefinitionParser.html">UnwatchDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/UnwatchMessageProcessor.html">UnwatchMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/UpdateCurrentUserDefinitionParser.html">UpdateCurrentUserDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/UpdateCurrentUserMessageProcessor.html">UpdateCurrentUserMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/WatchDefinitionParser.html">WatchDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/github/config/WatchMessageProcessor.html">WatchMessageProcessor</a></li>
       </ul>
     </li>

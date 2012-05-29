@@ -64,6 +64,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -85,6 +87,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -101,6 +104,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule GitHub Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -196,7 +220,6 @@ Summary:
 <div id="jd-header">
     org.mule.modules
 <h1>mule-module-github</h1>
-    1.1-SNAPSHOT
 
 </div><!-- end header -->
 
@@ -205,15 +228,17 @@ Summary:
 <div id="jd-content" class="api apilevel-">
 
 
+<br/>
+
 <div class="jd-tagdata">
       <table class="jd-tagtable">
         <tbody><tr>
           <th>Namespace</th><td>http://www.mulesoft.org/schema/mule/github</td>
         </tr><tr>
-          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/github/1.0/mule-github.xsd</td>
+          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd&nbsp;&nbsp;(<a href="github-schema.html">View Schema</a>)</td>
         </tr>
 <tr>
-          <th>Version</th><td>1.0</td>
+          <th>Schema Version</th><td>1.0</td>
         </tr>
 <tr>
           <th>Minimum Mule Version</th><td>3.2</td>
@@ -273,7 +298,7 @@ Summary:
         
         <div class="jd-descrdiv">Adds a collaborator to the given repository
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -285,7 +310,7 @@ Summary:
         
         <div class="jd-descrdiv">Creates a commit comment
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -297,7 +322,7 @@ Summary:
         
         <div class="jd-descrdiv">Add one or more e-mail addresses to the currently authenticated user's account
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -309,7 +334,7 @@ Summary:
         
         <div class="jd-descrdiv">Add given user to team with given id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -321,7 +346,7 @@ Summary:
         
         <div class="jd-descrdiv">Add repository to team
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -333,7 +358,7 @@ Summary:
         
         <div class="jd-descrdiv">Closes a GitHub issue
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -345,7 +370,7 @@ Summary:
         
         <div class="jd-descrdiv">Create comment on specified issue id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -357,7 +382,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a new deploy key
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -369,7 +394,7 @@ Summary:
         
         <div class="jd-descrdiv">Creates a comment on the specified gist id
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -381,7 +406,7 @@ Summary:
         
         <div class="jd-descrdiv">Creates a GitHub issue
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -393,7 +418,7 @@ Summary:
         
         <div class="jd-descrdiv">Create key for currently authenticated user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -405,7 +430,7 @@ Summary:
         
         <div class="jd-descrdiv">Creates a new label
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -417,7 +442,7 @@ Summary:
         
         <div class="jd-descrdiv">Creates a new milestone
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -429,7 +454,7 @@ Summary:
         
         <div class="jd-descrdiv">Create a new repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -441,7 +466,7 @@ Summary:
         
         <div class="jd-descrdiv">Create a new repository for the given organization
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -453,7 +478,7 @@ Summary:
         
         <div class="jd-descrdiv">Creates a new download resource
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -465,7 +490,7 @@ Summary:
         
         <div class="jd-descrdiv">Create the given team
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -477,7 +502,7 @@ Summary:
         
         <div class="jd-descrdiv">Delete the issue comment with the given id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -489,7 +514,7 @@ Summary:
         
         <div class="jd-descrdiv">Deletes the given comment
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -501,7 +526,7 @@ Summary:
         
         <div class="jd-descrdiv">Deletes a deploy key given the given id
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -513,7 +538,7 @@ Summary:
         
         <div class="jd-descrdiv">Deletes a download given the provided id
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -525,7 +550,7 @@ Summary:
         
         <div class="jd-descrdiv">Deletes the given gist
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -537,7 +562,7 @@ Summary:
         
         <div class="jd-descrdiv">Deletes the given comment
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -549,7 +574,7 @@ Summary:
         
         <div class="jd-descrdiv">Delete key with given id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -561,7 +586,7 @@ Summary:
         
         <div class="jd-descrdiv">Deletes the given label
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -573,7 +598,7 @@ Summary:
         
         <div class="jd-descrdiv">Deletes a given milestone
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -585,7 +610,7 @@ Summary:
         
         <div class="jd-descrdiv">Delete the team with the given id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -597,7 +622,7 @@ Summary:
         
         <div class="jd-descrdiv">Edits the body of the comment represented by the given comment id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -609,7 +634,7 @@ Summary:
         
         <div class="jd-descrdiv">Edits a given comment
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -621,7 +646,7 @@ Summary:
         
         <div class="jd-descrdiv">Edits a given deploy key
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -633,7 +658,7 @@ Summary:
         
         <div class="jd-descrdiv">Updates the given comment
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -645,7 +670,7 @@ Summary:
         
         <div class="jd-descrdiv">Edit key for currently authenticated user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -655,7 +680,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github.html#edit-repository">&lt;github:edit-repository&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Edit given repository.<br/></div>
+        <div class="jd-descrdiv">Edit given repository.</div>
         
   </td></tr>
 
@@ -665,7 +690,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github.html#edit-team">&lt;github:edit-team&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Edit the given team.<br/></div>
+        <div class="jd-descrdiv">Edit the given team.</div>
         
   </td></tr>
 
@@ -677,7 +702,7 @@ Summary:
         
         <div class="jd-descrdiv">Make the currently authenticated user follow the given user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -689,7 +714,7 @@ Summary:
         
         <div class="jd-descrdiv">Forks the given gist
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -700,7 +725,7 @@ Summary:
         <span class="sympad"><a href="../mule/github.html#fork-repository">&lt;github:fork-repository&gt;</a></nobr>
         
         <div class="jd-descrdiv">Fork given repository into new repository under the currently
- authenticated user.<br/></div>
+ authenticated user.</div>
         
   </td></tr>
 
@@ -710,7 +735,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github.html#fork-repository-for-org">&lt;github:fork-repository-for-org&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Fork given repository into new repository.<br/></div>
+        <div class="jd-descrdiv">Fork given repository into new repository.</div>
         
   </td></tr>
 
@@ -722,7 +747,7 @@ Summary:
         
         <div class="jd-descrdiv">Get branches in given repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -734,7 +759,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns the list of collaborators of the given repository
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -746,7 +771,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a comment from commit with the given id
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -758,7 +783,7 @@ Summary:
         
         <div class="jd-descrdiv">Get an issue's comments
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -770,7 +795,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a commit with given SHA-1 from given repository
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -782,7 +807,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a list of the commits for a given repository
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -793,7 +818,7 @@ Summary:
         <span class="sympad"><a href="../mule/github.html#get-commits-by-sha">&lt;github:get-commits-by-sha&gt;</a></nobr>
         
         <div class="jd-descrdiv">Returns all commits in given repository beginning at an optional commit SHA-1
- and affecting an optional path.<br/></div>
+ and affecting an optional path.</div>
         
   </td></tr>
 
@@ -805,7 +830,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns all comments on commit with given Sha
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -817,7 +842,7 @@ Summary:
         
         <div class="jd-descrdiv">Get contributors to repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -829,7 +854,7 @@ Summary:
         
         <div class="jd-descrdiv">Get the currently authenticated user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -841,7 +866,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns the key that corresponds to the given id
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -853,7 +878,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns all deploys keys associated with the given repository
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -865,7 +890,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a single download given the provided id
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -877,7 +902,7 @@ Summary:
         
         <div class="jd-descrdiv">Get all e-mail addresses for the currently authenticated user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -889,7 +914,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a list of followers for given user, if no one is provided the current authenticated user will be used
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -901,7 +926,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a list users following the given user, if no one is provided the current authenticated user will be used
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -913,7 +938,7 @@ Summary:
         
         <div class="jd-descrdiv">Get all the forks of the given repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -925,7 +950,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns the gist according to the given id
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -937,7 +962,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns the comment according to the given id
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -949,7 +974,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a list of comments for the given gist
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -961,7 +986,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a list of gists for the specified user
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -973,7 +998,7 @@ Summary:
         
         <div class="jd-descrdiv">Get the issue represented by the given issueId
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -985,7 +1010,7 @@ Summary:
         
         <div class="jd-descrdiv">Get issue event for repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -995,9 +1020,9 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github.html#get-issues">&lt;github:get-issues&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Get a list of <br/>Issue objects that match the specified filter data
+        <div class="jd-descrdiv">Get a list of Issue objects that match the specified filter data
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1009,7 +1034,7 @@ Summary:
         
         <div class="jd-descrdiv">Custom processor
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1021,7 +1046,7 @@ Summary:
         
         <div class="jd-descrdiv">Custom processor
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1033,7 +1058,7 @@ Summary:
         
         <div class="jd-descrdiv">Get key with given id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1045,7 +1070,7 @@ Summary:
         
         <div class="jd-descrdiv">Get all public keys for currently authenticated user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1057,7 +1082,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a single label
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1069,7 +1094,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a list of labels for the given repository and user
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1081,7 +1106,7 @@ Summary:
         
         <div class="jd-descrdiv">Get languages used in given repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1093,7 +1118,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a single milestone
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1105,7 +1130,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns a list of milestones for the given repository
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1117,7 +1142,7 @@ Summary:
         
         <div class="jd-descrdiv">Get organization repositories for the given organization
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1129,7 +1154,7 @@ Summary:
         
         <div class="jd-descrdiv">Get repositories for the currently authenticated user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1141,7 +1166,7 @@ Summary:
         
         <div class="jd-descrdiv">Get repositories for the given user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1153,7 +1178,7 @@ Summary:
         
         <div class="jd-descrdiv">Get repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1165,7 +1190,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns the starred gists for the currently authenticated user
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1177,7 +1202,7 @@ Summary:
         
         <div class="jd-descrdiv">Get tags in given repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1189,7 +1214,7 @@ Summary:
         
         <div class="jd-descrdiv">Get team with given id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1201,7 +1226,7 @@ Summary:
         
         <div class="jd-descrdiv">Get members of team with given id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1213,7 +1238,7 @@ Summary:
         
         <div class="jd-descrdiv">Get all repositories for given team
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1225,7 +1250,7 @@ Summary:
         
         <div class="jd-descrdiv">Get all teams in the given organization
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1237,7 +1262,7 @@ Summary:
         
         <div class="jd-descrdiv">Get user with given login name
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1249,7 +1274,7 @@ Summary:
         
         <div class="jd-descrdiv">Get repositories watched by the given user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1261,7 +1286,7 @@ Summary:
         
         <div class="jd-descrdiv">Get users watching given repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1273,7 +1298,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns whether the user is a collaborator of the given repository
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1285,7 +1310,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns wether the authenticated user is following the given user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1297,7 +1322,7 @@ Summary:
         
         <div class="jd-descrdiv">Returns whether the gist is starred or not
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1309,7 +1334,7 @@ Summary:
         
         <div class="jd-descrdiv">Is the given user a member of the team with the given id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1321,7 +1346,7 @@ Summary:
         
         <div class="jd-descrdiv">Is currently authenticated user watching given repository?
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1333,7 +1358,7 @@ Summary:
         
         <div class="jd-descrdiv">Removes a collaborator from the given repository
  </p>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1345,7 +1370,7 @@ Summary:
         
         <div class="jd-descrdiv">Removes one or more e-mail addresses to the currently authenticated user's account
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1357,7 +1382,7 @@ Summary:
         
         <div class="jd-descrdiv">Remove given user from team with given id
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1369,7 +1394,7 @@ Summary:
         
         <div class="jd-descrdiv">Remove repository from team
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1380,9 +1405,9 @@ Summary:
         <span class="sympad"><a href="../mule/github.html#star-gist">&lt;github:star-gist&gt;</a></nobr>
         
         <div class="jd-descrdiv"></p>
- <br/>
+ 
  <p/>
- Star the gist with the given id<br/></div>
+ Star the gist with the given id</div>
         
   </td></tr>
 
@@ -1394,7 +1419,7 @@ Summary:
         
         <div class="jd-descrdiv">Make the currently authenticated user unfollow the given user
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1405,9 +1430,9 @@ Summary:
         <span class="sympad"><a href="../mule/github.html#unstar-gist">&lt;github:unstar-gist&gt;</a></nobr>
         
         <div class="jd-descrdiv"></p>
- <br/>
+ 
  <p/>
- Unstar the gist with the given id<br/></div>
+ Unstar the gist with the given id</div>
         
   </td></tr>
 
@@ -1419,7 +1444,7 @@ Summary:
         
         <div class="jd-descrdiv">Remove currently authenticated user as a watcher of the given repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1429,7 +1454,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github.html#update-current-user">&lt;github:update-current-user&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Updates the currently authenticated user using the given attributes.<br/></div>
+        <div class="jd-descrdiv">Updates the currently authenticated user using the given attributes.</div>
         
   </td></tr>
 
@@ -1441,7 +1466,7 @@ Summary:
         
         <div class="jd-descrdiv">Add currently authenticated user as a watcher of the given repository
  <p/>
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -1459,7 +1484,6 @@ Summary:
 </div><!-- jd-descr (summary) -->
 
 
-
 <!-- ========= CONFIGURATION DETAIL ======== -->
 <A NAME="config"></A>
 <h2>Configuration</h2>
@@ -1473,14 +1497,15 @@ similar to the following:</p>
                http://www.mulesoft.org/schema/mule/core
                http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                http://www.mulesoft.org/schema/mule/github
-               http://www.mulesoft.org/schema/mule/github/1.0/mule-github.xsd"&gt;
+               http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd"&gt;
 
       &lt;!-- here goes your flows and configuration elements --&gt;
 
 &lt;/mule&gt;
 </pre>
+
 <p>This module is configured using the <i>config</i> element. This element must be placed outside of your flows and at
-the root of your Mule application. You can create as many configurations as you deem necesary as long as each carries
+the root of your Mule application. You can create as many configurations as you deem necessary as long as each carries
 its own name.</p>
 <p>Each message processor, message source or transformer carries a <i>config-ref</i> attribute that allows the invoker to
 specify which configuration to use.</p>
@@ -1514,6 +1539,7 @@ specify which configuration to use.</p>
       
     
 </table>
+
 
 
 
@@ -1605,10 +1631,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -1738,10 +1766,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -1809,14 +1839,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -1894,14 +1926,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -1990,14 +2024,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -2086,10 +2122,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -2189,10 +2227,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -2292,10 +2332,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -2373,10 +2415,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -2487,10 +2531,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -2572,14 +2618,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -2679,10 +2727,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -2804,10 +2854,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -2865,7 +2917,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>isPrivate</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">false</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>True to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false.</td>
                 </tr>
                 
@@ -2874,7 +2926,7 @@ specify which configuration to use.</p>
                 
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>hasIssues</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">true</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>True to enable issues for this repository, false to disable them. Default is true.</td>
                 </tr>
                 
@@ -2883,7 +2935,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>hasWiki</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">true</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>True to enable the wiki for this repository, false to disable it. Default is true.</td>
                 </tr>
                 
@@ -2892,7 +2944,7 @@ specify which configuration to use.</p>
                 
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>hasDownloads</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">true</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>True to enable downloads for this repository, false to disable them. Default is true.</td>
                 </tr>
                 
@@ -2933,14 +2985,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3007,7 +3061,7 @@ specify which configuration to use.</p>
                 
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>isPrivate</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">false</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>True to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false.</td>
                 </tr>
                 
@@ -3016,7 +3070,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>hasIssues</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">true</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>True to enable issues for this repository, false to disable them. Default is true.</td>
                 </tr>
                 
@@ -3025,7 +3079,7 @@ specify which configuration to use.</p>
                 
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>hasWiki</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">true</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>True to enable the wiki for this repository, false to disable it. Default is true.</td>
                 </tr>
                 
@@ -3034,7 +3088,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>hasDownloads</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">true</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>True to enable downloads for this repository, false to disable them. Default is true.</td>
                 </tr>
                 
@@ -3077,14 +3131,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3206,10 +3262,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3267,7 +3325,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>teamPermission</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">PULL</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The team's <code><a href="../java/org/mule/modules/github/TeamPermission.html">TeamPermission</a></code></td>
                 </tr>
                 
@@ -3291,7 +3349,7 @@ specify which configuration to use.</p>
             
           
             
-            <tr><th colspan="12"><nobr>&lt;github:repoNames&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>The associated repository names</span></th></tr>
+            <tr><th colspan="12"><nobr>&lt;github:repo-names&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>The associated repository names</span></th></tr>
             
             
           
@@ -3309,14 +3367,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3401,10 +3461,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3489,10 +3551,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3577,10 +3641,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3665,10 +3731,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3731,10 +3799,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3797,10 +3867,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3867,14 +3939,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -3959,10 +4033,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -4047,10 +4123,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -4117,14 +4195,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -4224,10 +4304,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -4357,10 +4439,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -4460,10 +4544,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -4541,10 +4627,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -4637,14 +4725,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -4781,14 +4871,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -4881,14 +4973,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -4955,14 +5049,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5029,10 +5125,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5111,10 +5209,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5206,10 +5306,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5291,14 +5393,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5376,10 +5480,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5468,10 +5574,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5560,10 +5668,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5652,10 +5762,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5733,10 +5845,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5837,10 +5951,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5929,10 +6045,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -5990,7 +6108,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>includeAnonymous</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">false</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Whether to include anonymus contributors</td>
                 </tr>
                 
@@ -6025,14 +6143,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6092,14 +6212,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6188,10 +6310,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6269,10 +6393,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6361,10 +6487,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6424,14 +6552,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6502,14 +6632,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6580,14 +6712,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6665,10 +6799,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6735,10 +6871,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6805,10 +6943,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6875,10 +7015,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -6945,10 +7087,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7037,10 +7181,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7129,10 +7275,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7203,7 +7351,7 @@ specify which configuration to use.</p>
             
           
             
-            <tr><th colspan="12"><nobr>&lt;github:filterData&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>Data to filter issues, if non is specified all issues will be returned</span></th></tr>
+            <tr><th colspan="12"><nobr>&lt;github:filter-data&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>Data to filter issues, if non is specified all issues will be returned</span></th></tr>
             
             
           
@@ -7221,14 +7369,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>java.io.IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7317,10 +7467,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7409,10 +7561,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7483,14 +7637,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7550,14 +7706,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7646,10 +7804,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7727,10 +7887,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7812,14 +7974,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException\</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -7908,10 +8072,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8000,10 +8166,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8063,7 +8231,7 @@ specify which configuration to use.</p>
             
           
             
-            <tr><th colspan="12"><nobr>&lt;github:filterData&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>Data to filter repos, if non is specified all repos will be returned</span></th></tr>
+            <tr><th colspan="12"><nobr>&lt;github:filter-data&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>Data to filter repos, if non is specified all repos will be returned</span></th></tr>
             
             
           
@@ -8081,14 +8249,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8137,7 +8307,7 @@ specify which configuration to use.</p>
           
           
             
-            <tr><th colspan="12"><nobr>&lt;github:filterData&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>Data to filter repos, if non is specified all repos will be returned</span></th></tr>
+            <tr><th colspan="12"><nobr>&lt;github:filter-data&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>Data to filter repos, if non is specified all repos will be returned</span></th></tr>
             
             
           
@@ -8155,14 +8325,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8233,14 +8405,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8322,14 +8496,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8385,10 +8561,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8470,14 +8648,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8548,14 +8728,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8626,14 +8808,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8704,14 +8888,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8782,14 +8968,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8860,14 +9048,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -8934,10 +9124,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9015,10 +9207,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9107,10 +9301,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9181,14 +9377,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9255,10 +9453,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9340,14 +9540,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9425,10 +9627,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9513,10 +9717,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9584,14 +9790,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9669,14 +9877,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9765,14 +9975,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9836,10 +10048,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9906,14 +10120,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -9977,10 +10193,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -10054,10 +10272,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -10184,14 +10404,16 @@ specify which configuration to use.</p>
     </div>
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IOException</td>
         </tr>
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
@@ -10265,10 +10487,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IOException</td>
+            <td>IOException</td>
             <td></td>
         </tr>
       </table>
