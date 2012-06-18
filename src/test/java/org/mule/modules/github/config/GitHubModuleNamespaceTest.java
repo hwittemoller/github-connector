@@ -10,7 +10,11 @@
 
 package org.mule.modules.github.config;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
+import org.mule.api.MuleEvent;
+import org.mule.api.processor.MessageProcessor;
 import org.mule.tck.junit4.FunctionalTestCase;
 
 public class GitHubModuleNamespaceTest extends FunctionalTestCase {
@@ -23,5 +27,17 @@ public class GitHubModuleNamespaceTest extends FunctionalTestCase {
     @Test
     public void checkSchemaIsValid() {
         // by loading the mule-config.xml will validate the schema is deployable in Mule
+    }
+    
+    @Test
+    public void flowTest() throws Exception
+    {
+//        MuleEvent response = lookupFlow("flowName").process(getTestEvent(null));
+//        assertNotNull(response.getMessage().getPayload());
+    }
+    
+    public MessageProcessor lookupFlow(final String flowName)
+    {
+        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(flowName);
     }
 }
