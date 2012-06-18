@@ -13,6 +13,15 @@
  */
 package org.mule.modules.github;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
 import org.eclipse.egit.github.core.Comment;
 import org.eclipse.egit.github.core.CommitComment;
 import org.eclipse.egit.github.core.Contributor;
@@ -39,13 +48,6 @@ import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Generic module
  *
@@ -68,10 +70,6 @@ public class GitHubModule {
     @Password
     private String password;
     private ServiceFactory serviceFactory;
-
-    public GitHubModule() {
-        serviceFactory = new ServiceFactory(user, password);
-    }
 
     /**
      * Get a list of {@link Issue} objects that match the specified filter data
@@ -1782,6 +1780,12 @@ public class GitHubModule {
     public List<Contributor> getContributors(String owner, String name, @Optional @Default("false") boolean includeAnonymous) throws IOException {
         return serviceFactory.getRepositoryService().getContributors(RepositoryId.create(owner, name), includeAnonymous);
     }
+    
+    @PostConstruct
+    public void setupFactory()
+    {
+        serviceFactory = new ServiceFactory(user, password);
+    }
 
     public void setuser(String user) {
         this.user = user;
@@ -1798,4 +1802,12 @@ public class GitHubModule {
     private String getUser(String user) {
         return user != null ? user : this.user;
     }
+    
+    /**
+     * For testing purposes
+     * */
+    public void setServiceFactory(ServiceFactory serviceFactory) {
+        this.serviceFactory = serviceFactory;
+    }
+
 }
