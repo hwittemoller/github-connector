@@ -13,6 +13,18 @@
  */
 package org.mule.modules.github;
 
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.egit.github.core.Contributor;
 import org.eclipse.egit.github.core.Issue;
 import org.eclipse.egit.github.core.Key;
@@ -33,22 +45,6 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 public class GitHubModuleTest {
 
     private static final String REPOSITORY = "myRepo";
@@ -60,7 +56,7 @@ public class GitHubModuleTest {
     private static final int TEAM_ID = 5322;
     private static final String ORGANIZATION = "some org";
     private static final String TEAM_NAME = "some team name";
-    private static final int ORG_ID = 12043;
+//    private static final int ORG_ID = 12043;
     @Mock
     private IssueService issueService;
     @Mock

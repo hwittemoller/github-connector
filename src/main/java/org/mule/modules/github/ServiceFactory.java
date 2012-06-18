@@ -10,6 +10,7 @@
 
 package org.mule.modules.github;
 
+import org.apache.commons.lang.Validate;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.CollaboratorService;
 import org.eclipse.egit.github.core.service.CommitService;
@@ -43,6 +44,8 @@ public class ServiceFactory {
     private final String user;
 
     public ServiceFactory(String user, String password) {
+        Validate.notNull(user);
+        Validate.notNull(password);
         this.user = user;
         this.password = password;
     }
