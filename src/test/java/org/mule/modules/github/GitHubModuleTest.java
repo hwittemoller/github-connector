@@ -103,6 +103,7 @@ public class GitHubModuleTest {
         filterData.put("key1", "value1");
         gitHubModule = new GitHubModule();
         gitHubModule.setUser(USER);
+        gitHubModule.setServiceFactory(new ServiceFactory(USER, "password"));
     }
 
     @Test
