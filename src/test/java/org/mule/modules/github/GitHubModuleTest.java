@@ -13,18 +13,7 @@
  */
 package org.mule.modules.github;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.eclipse.egit.github.core.Authorization;
 import org.eclipse.egit.github.core.Contributor;
 import org.eclipse.egit.github.core.Issue;
 import org.eclipse.egit.github.core.Key;
@@ -35,6 +24,7 @@ import org.eclipse.egit.github.core.RepositoryTag;
 import org.eclipse.egit.github.core.Team;
 import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.service.IssueService;
+import org.eclipse.egit.github.core.service.OAuthService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
@@ -45,18 +35,34 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 public class GitHubModuleTest {
 
     private static final String REPOSITORY = "myRepo";
     private static final String USER = "pepe";
     private static final String ISSUE_ID = "321";
     private static final String LOGIN_NAME = "login name";
+    private static final String TOKEN = "token";
     private static final List<String> EMAILS = Arrays.asList("email1", "email2");
     private static final int KEY_ID = 6655;
     private static final int TEAM_ID = 5322;
     private static final String ORGANIZATION = "some org";
     private static final String TEAM_NAME = "some team name";
-//    private static final int ORG_ID = 12043;
     @Mock
     private IssueService issueService;
     @Mock
@@ -65,6 +71,8 @@ public class GitHubModuleTest {
     private TeamService teamService;
     @Mock
     private RepositoryService repositoryService;
+    @Mock
+    private OAuthService oAuthService;
     @Mock
     private Issue issue1;
     @Mock
@@ -93,17 +101,19 @@ public class GitHubModuleTest {
     private Team team2;
 
     @Before
-    public void setUpTests() {
+    public void setUpTests() throws Exception {
         MockitoAnnotations.initMocks(this);
         ServiceFactory.setDefaultIssueService(issueService);
         ServiceFactory.setDefaultUserService(userService);
         ServiceFactory.setDefaultTeamService(teamService);
         ServiceFactory.setDefaultRepositoryService(repositoryService);
+        
+        when(oAuthService.getAuthorizations()).thenReturn(createAuths());
+        ServiceFactory.setDefaultOAuthService(oAuthService);
         filterData = new HashMap<String, String>(1);
         filterData.put("key1", "value1");
         gitHubModule = new GitHubModule();
         gitHubModule.setUser(USER);
-        gitHubModule.setServiceFactory(new ServiceFactory(USER, "password"));
     }
 
     @Test
@@ -463,5 +473,13 @@ public class GitHubModuleTest {
         List<T> result = new ArrayList<T>(elements.length);
         Collections.addAll(result, elements);
         return result;
+    }
+    
+    private List<Authorization> createAuths() {
+        Authorization auth = new Authorization();
+        auth.setToken(TOKEN);
+        auth.setScopes(createList("public_repo"));
+        List<Authorization> auths = createList(auth);
+        return auths;
     }
 }

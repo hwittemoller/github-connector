@@ -10,7 +10,11 @@
 
 package org.mule.modules.github;
 
-import org.apache.commons.lang.Validate;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+import org.eclipse.egit.github.core.Authorization;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.CollaboratorService;
 import org.eclipse.egit.github.core.service.CommitService;
@@ -20,6 +24,7 @@ import org.eclipse.egit.github.core.service.GistService;
 import org.eclipse.egit.github.core.service.IssueService;
 import org.eclipse.egit.github.core.service.LabelService;
 import org.eclipse.egit.github.core.service.MilestoneService;
+import org.eclipse.egit.github.core.service.OAuthService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
@@ -40,122 +45,140 @@ public class ServiceFactory {
     private static UserService defaultUserService;
     private static TeamService defaultTeamService;
     private static RepositoryService defaultRepositoryService;
+    private static OAuthService defaultOAuthService;
     private final String password;
     private final String user;
+    private String token;
 
-    public ServiceFactory(String user, String password) {
-        Validate.notNull(user);
-        Validate.notNull(password);
+    public ServiceFactory(String user, String password) throws IOException {
         this.user = user;
         this.password = password;
+        if (getOAuthService().getAuthorizations().size() > 0) {
+            this.token = getOAuthService().getAuthorizations().get(0).getToken();
+        } else {
+            Authorization auth = new Authorization();
+            List<String> scopes = Arrays.asList("public_repo", "repo");
+            auth.setScopes(scopes);
+            auth.setNote("Mule GitHub connector");
+            this.token = getOAuthService().createAuthorization(auth).getToken();
+        }
+    }
+    
+    public OAuthService getOAuthService() {
+        if (defaultOAuthService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setCredentials(user, password);
+            setDefaultOAuthService(new OAuthService(client));
+        }
+        return defaultOAuthService;
     }
 
     public IssueService getIssueService() {
-        if (defaultIssueService != null) {
-            return defaultIssueService;
+        if (defaultIssueService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setDefaultIssueService(new IssueService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new IssueService(client);
+        return defaultIssueService;
     }
 
     public WatcherService getWatcherService() {
-        if (defaultWatcherService != null) {
-            return defaultWatcherService;
+        if (defaultWatcherService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setDefaultWatcherService(new WatcherService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new WatcherService(client);
+        return defaultWatcherService;
     }
 
     public CommitService getCommitService() {
-        if (defaultCommitService != null) {
-            return defaultCommitService;
+        if (defaultCommitService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setDefaultCommitService(new CommitService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new CommitService(client);
+        return defaultCommitService;
     }
 
     public CollaboratorService getCollaboratorService() {
-        if (defaultCollaboratorService != null) {
-            return defaultCollaboratorService;
+        if (defaultCollaboratorService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setDefaultCollaboratorService(new CollaboratorService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new CollaboratorService(client);
+        return defaultCollaboratorService;
     }
 
     public DeployKeyService getDeployKeyService() {
-        if (defaultDeployKeyService != null) {
-            return defaultDeployKeyService;
+        if (defaultDeployKeyService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setDefaultDeployKeyService(new DeployKeyService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new DeployKeyService(client);
+        return defaultDeployKeyService;
     }
 
     public DownloadService getDownloadService() {
-        if (defaultDownloadService != null) {
-            return defaultDownloadService;
+        if (defaultDownloadService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setDefaultDownloadService(new DownloadService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new DownloadService(client);
+        return defaultDownloadService;
     }
 
     public GistService getGistService() {
-        if (defaultGistService != null) {
-            return defaultGistService;
+        if (defaultGistService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setGistService(new GistService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new GistService(client);
+        return defaultGistService;
     }
 
     public LabelService getLabelService() {
-        if (defaultLabelService != null) {
-            return defaultLabelService;
+        if (defaultLabelService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setLabelService(new LabelService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new LabelService(client);
+        return defaultLabelService;
     }
 
     public MilestoneService getMilestoneService() {
-        if (defaultMilestoneService != null) {
-            return defaultMilestoneService;
+        if (defaultMilestoneService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setMilestoneService(new MilestoneService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new MilestoneService(client);
+        return defaultMilestoneService;
     }
 
     public UserService getUserService() {
-        if (defaultUserService != null) {
-            return defaultUserService;
+        if (defaultUserService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setDefaultUserService(new UserService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new UserService(client);
+        return defaultUserService;
     }
 
     public TeamService getTeamService() {
-        if (defaultTeamService != null) {
-            return defaultTeamService;
+        if (defaultTeamService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setDefaultTeamService(new TeamService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new TeamService(client);
+        return defaultTeamService;
     }
 
     public RepositoryService getRepositoryService() {
-        if (defaultRepositoryService != null) {
-            return defaultRepositoryService;
+        if (defaultRepositoryService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setOAuth2Token(token);
+            setDefaultRepositoryService(new RepositoryService(client));
         }
-        GitHubClient client = new GitHubClient(BASE_URL);
-        client.setCredentials(user, password);
-        return new RepositoryService(client);
+        return defaultRepositoryService;
     }
 
     public static void setDefaultIssueService(IssueService defaultIssueService) {
@@ -204,5 +227,19 @@ public class ServiceFactory {
 
     public static void setDefaultRepositoryService(RepositoryService defaultRepositoryService) {
         ServiceFactory.defaultRepositoryService = defaultRepositoryService;
+    }
+
+    public static void setDefaultOAuthService(OAuthService defaultOAuthService) {
+        ServiceFactory.defaultOAuthService = defaultOAuthService;
+    }
+
+    public static void setDefaultDeployKeyService(
+            DeployKeyService defaultDeployKeyService) {
+        ServiceFactory.defaultDeployKeyService = defaultDeployKeyService;
+    }
+
+    public static void setDefaultDownloadService(
+            DownloadService defaultDownloadService) {
+        ServiceFactory.defaultDownloadService = defaultDownloadService;
     }
 }
