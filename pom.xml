@@ -13,6 +13,12 @@
         <version>3.3.0</version>
     </parent>
 
+    <properties>
+        <devkit.studio.package.skip>false</devkit.studio.package.skip>
+        <category>Community</category>
+        <licensePath>LICENSE.md</licensePath>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.eclipse.mylyn.github</groupId>
