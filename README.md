@@ -1,7 +1,7 @@
-Mule Netsuite Connector
+Mule GitHub Connector
 =========================
 
-NetSuite is the world's leading provider of cloud-based business management software. NetSuite helps companies manage core business processes with a single, fully integrated system covering ERP/financials, CRM, ecommerce, inventory and more.
+GitHub is a web-based hosting service for software development projects that use the Git revision control system.
 
 Installation and Usage
 ----------------------
