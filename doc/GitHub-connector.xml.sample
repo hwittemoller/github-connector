@@ -4,7 +4,7 @@
             <github:filter-datum key="state">closed</github:filter-datum>
         </github:filter-data>
     </github:get-issues>
-<!-- BEGIN_INCLUDE(github:getIssues) -->
+<!-- END_INCLUDE(github:getIssues) -->
 
 <!-- BEGIN_INCLUDE(github:getIssuesCretedAfter) -->
     <github:get-issues-creted-after repository="mule-devkit" minutes="10" />
@@ -47,7 +47,7 @@
 <!-- END_INCLUDE(github:getIssueEvent) -->
 
 <!-- BEGIN_INCLUDE(github:getWatchers) -->
-     <github:get-watchers owner="mulesoft" name="mule-devkit" />
+     <github:get-watchers owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getWatchers) -->
 
 <!-- BEGIN_INCLUDE(github:getWatched) -->
@@ -55,95 +55,95 @@
 <!-- END_INCLUDE(github:getWatched) -->
 
 <!-- BEGIN_INCLUDE(github:isWatching) -->
-     <github:is-watching owner="KentBeck" name="junit" />
+     <github:is-watching owner="KentBeck" repositoryName="junit" />
 <!-- END_INCLUDE(github:isWatching) -->
 
 <!-- BEGIN_INCLUDE(github:watch) -->
-     <github:watch owner="KentBeck" name="junit" />
+     <github:watch owner="KentBeck" repositoryName="junit" />
 <!-- END_INCLUDE(github:watch) -->
 
 <!-- BEGIN_INCLUDE(github:unwatch) -->
-     <github:unwatch owner="KentBeck" name="junit" />
+     <github:unwatch owner="KentBeck" repositoryName="junit" />
 <!-- END_INCLUDE(github:unwatch) -->
 
 <!-- BEGIN_INCLUDE(github:getCollaborators) -->
-     <github:get-collaborators owner="KentBeck" name="junit" />
+     <github:get-collaborators owner="KentBeck" repositoryName="junit" />
 <!-- END_INCLUDE(github:getCollaborators) -->
 
 <!-- BEGIN_INCLUDE(github:isCollaborator) -->
-     <github:is-collaborator owner="mulesoft" name="mule-devkit" user="federecio" />
+     <github:is-collaborator owner="mulesoft" repositoryName="mule-devkit" user="federecio" />
 <!-- END_INCLUDE(github:isCollaborator) -->
 
 <!-- BEGIN_INCLUDE(github:addCollaborator) -->
-     <github:add-collaborator owner="mulesoft" name="mule-devkit" user="federecio" />
+     <github:add-collaborator owner="mulesoft" repositoryName="mule-devkit" user="federecio" />
 <!-- END_INCLUDE(github:addCollaborator) -->
 
 <!-- BEGIN_INCLUDE(github:removeCollaborator) -->
-     <github:remove-collaborator owner="mulesoft" name="mule-devkit" user="federecio" />
+     <github:remove-collaborator owner="mulesoft" repositoryName="mule-devkit" user="federecio" />
 <!-- END_INCLUDE(github:removeCollaborator) -->
 
 <!-- BEGIN_INCLUDE(github:getCommits) -->
-     <github:get-commits owner="mulesoft" name="mule-devkit" />
+     <github:get-commits owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getCommits) -->
 
 <!-- BEGIN_INCLUDE(github:getCommitsBySha) -->
-     <github:get-commits-by-sha owner="mulesoft" name="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
+     <github:get-commits-by-sha owner="mulesoft" repositoryName="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
 <!-- END_INCLUDE(github:getCommitsBySha) -->
 
 <!-- BEGIN_INCLUDE(github:getCommit) -->
-     <github:get-commits-by-sha owner="mulesoft" name="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
+     <github:get-commits-by-sha owner="mulesoft" repositoryName="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
 <!-- END_INCLUDE(github:getCommit) -->
 
 <!-- BEGIN_INCLUDE(github:getCommmitComments) -->
-     <github:get-commmit-comments owner="mulesoft" name="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
+     <github:get-commmit-comments owner="mulesoft" repositoryName="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
 <!-- END_INCLUDE(github:getCommmitComments) -->
 
 <!-- BEGIN_INCLUDE(github:getComment) -->
-     <github:get-comment owner="mulesoft" name="mule-devkit" commentId="3332" />
+     <github:get-comment owner="mulesoft" repositoryName="mule-devkit" commentId="3332" />
 <!-- END_INCLUDE(github:getComment) -->
 
 <!-- BEGIN_INCLUDE(github:addComment) -->
-     <github:add-comment owner="mulesoft" name="mule-devkit" body="commit comment body" commitId="443" line="150" path="config.properties" position="4" />
+     <github:add-comment owner="mulesoft" repositoryName="mule-devkit" body="commit comment body" commitId="443" line="150" path="config.properties" position="4" />
 <!-- END_INCLUDE(github:addComment) -->
 
 <!-- BEGIN_INCLUDE(github:editCommitComment) -->
-     <github:edit-commit-comment owner="mulesoft" name="mule-devkit" body="commit comment body" commitId="443" line="150" path="config.properties" position="4" />
+     <github:edit-commit-comment owner="mulesoft" repositoryName="mule-devkit" body="commit comment body" commitId="443" line="150" path="config.properties" position="4" />
 <!-- END_INCLUDE(github:editCommitComment) -->
 
 <!-- BEGIN_INCLUDE(github:deleteCommitComment) -->
-     <github:delete-commit-comment owner="mulesoft" name="mule-devkit" commentId="123" />
+     <github:delete-commit-comment owner="mulesoft" repositoryName="mule-devkit" commentId="123" />
 <!-- END_INCLUDE(github:deleteCommitComment) -->
 
 <!-- BEGIN_INCLUDE(github:getDeployKeys) -->
-     <github:get-deploy-keys owner="mulesoft" name="mule-devkit" />
+     <github:get-deploy-keys owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getDeployKeys) -->
 
 <!-- BEGIN_INCLUDE(github:getDeployKey) -->
-     <github:get-deploy-key owner="mulesoft" name="mule-devkit" id="33" />
+     <github:get-deploy-key owner="mulesoft" repositoryName="mule-devkit" id="33" />
 <!-- END_INCLUDE(github:getDeployKey) -->
 
 <!-- BEGIN_INCLUDE(github:createDeployKey) -->
-     <github:create-deploy-key owner="mulesoft" name="mule-devkit" title="key title" key="1111" />
+     <github:create-deploy-key owner="mulesoft" repositoryName="mule-devkit" title="key title" key="1111" />
 <!-- END_INCLUDE(github:createDeployKey) -->
 
 <!-- BEGIN_INCLUDE(github:editDeployKey) -->
-     <github:edit-deploy-key owner="mulesoft" name="mule-devkit" title="key title" key="1111" />
+     <github:edit-deploy-key owner="mulesoft" repositoryName="mule-devkit" title="key title" key="1111" />
 <!-- END_INCLUDE(github:editDeployKey) -->
 
 <!-- BEGIN_INCLUDE(github:deleteDeployKey) -->
-     <github:delete-deploy-key owner="mulesoft" name="mule-devkit" id="1" />
+     <github:delete-deploy-key owner="mulesoft" repositoryName="mule-devkit" id="1" />
 <!-- END_INCLUDE(github:deleteDeployKey) -->
 
 <!-- BEGIN_INCLUDE(github:getDownload) -->
-     <github:get-download owner="mulesoft" name="mule-devkit" id="1" />
+     <github:get-download owner="mulesoft" repositoryName="mule-devkit" id="1" />
 <!-- END_INCLUDE(github:getDownload) -->
 
 <!-- BEGIN_INCLUDE(github:deleteDownload) -->
-     <github:delete-download owner="mulesoft" name="mule-devkit" id="1" />
+     <github:delete-download owner="mulesoft" repositoryName="mule-devkit" id="1" />
 <!-- END_INCLUDE(github:deleteDownload) -->
 
 <!-- BEGIN_INCLUDE(github:createResource) -->
-     <github:create-resource owner="mulesoft" name="mule-devkit" resourceName="resource name" size="1000" />
+     <github:create-resource owner="mulesoft" repositoryName="mule-devkit" resourceName="resource name" size="1000" />
 <!-- END_INCLUDE(github:createResource) -->
 
 <!-- BEGIN_INCLUDE(github:getGist) -->
@@ -211,7 +211,7 @@
 <!-- END_INCLUDE(github:deleteLabel) -->
 
 <!-- BEGIN_INCLUDE(github:createLabel) -->
-     <github:create-label repository="mule-devkit" name="some-label" color="f29513" />
+     <github:create-label repository="mule-devkit" labelName="some-label" color="f29513" />
 <!-- END_INCLUDE(github:createLabel) -->
 
 <!-- BEGIN_INCLUDE(github:getMilestones) -->
@@ -287,9 +287,9 @@
 <!-- BEGIN_INCLUDE(github:getKeys) -->
      <github:get-keys />
 <!-- END_INCLUDE(github:getKeys) -->
-
+     
 <!-- BEGIN_INCLUDE(github:getKey) -->
-
+    <github:get-key id="1" />
 <!-- END_INCLUDE(github:getKey) -->
 
 <!-- BEGIN_INCLUDE(github:getKey) -->
@@ -321,7 +321,7 @@
 <!-- END_INCLUDE(github:createTeam) -->
 
 <!-- BEGIN_INCLUDE(github:editTeam) -->
-     <github:edit-team id="1" name="new name" teamPermission="ADMIN" />
+     <github:edit-team id="1" teamName="new name" teamPermission="ADMIN" />
 <!-- END_INCLUDE(github:editTeam) -->
 
 <!-- BEGIN_INCLUDE(github:deleteTeam) -->
@@ -349,11 +349,11 @@
 <!-- END_INCLUDE(github:getTeamRepositories) -->
 
 <!-- BEGIN_INCLUDE(github:addTeamRepository) -->
-     <github:add-team-repository id="1" owner="mulesoft" name="mule-devkit" />
+     <github:add-team-repository id="1" owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:addTeamRepository) -->
 
 <!-- BEGIN_INCLUDE(github:removeTeamRepository) -->
-     <github:remove-team-repository id="1" owner="mulesoft" name="mule-devkit" />
+     <github:remove-team-repository id="1" owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:removeTeamRepository) -->
 
 <!-- BEGIN_INCLUDE(github:getRepositories) -->
@@ -369,47 +369,47 @@
 <!-- END_INCLUDE(github:getOrgRepositories) -->
 
 <!-- BEGIN_INCLUDE(github:createRepository) -->
-     <github:create-repository name="cool-repo" description="this is a cool repo" hasIssues="true" />
+     <github:create-repository repositoryName="cool-repo" description="this is a cool repo" hasIssues="true" />
 <!-- END_INCLUDE(github:createRepository) -->
 
 <!-- BEGIN_INCLUDE(github:createRepositoryForOrg) -->
-     <github:create-repository-for-org organization="some org" name="cool-repo" description="this is a cool repo" hasIssues="true" />
+     <github:create-repository-for-org organization="some org" repositoryName="cool-repo" description="this is a cool repo" hasIssues="true" />
 <!-- END_INCLUDE(github:createRepositoryForOrg) -->
 
 <!-- BEGIN_INCLUDE(github:getRepository) -->
-     <github:get-repository owner="mulesoft" name="mule-devkit" />
+     <github:get-repository owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getRepository) -->
 
 <!-- BEGIN_INCLUDE(github:editRepository) -->
-     <github:edit-repository owner="mulesoft" name="mule-devkit" hasWiki="false" />
+     <github:edit-repository owner="mulesoft" repositoryName="mule-devkit" hasWiki="false" />
 <!-- END_INCLUDE(github:editRepository) -->
 
 <!-- BEGIN_INCLUDE(github:getForks) -->
-     <github:get-forks owner="mulesoft" name="mule-devkit" />
+     <github:get-forks owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getForks) -->
 
 <!-- BEGIN_INCLUDE(github:forkRepository) -->
-     <github:fork-repository owner="mulesoft" name="mule-devkit" />
+     <github:fork-repository owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:forkRepository) -->
 
 <!-- BEGIN_INCLUDE(github:forkRepositoryForOrg) -->
-     <github:fork-repository-for-org organization="some org" owner="mulesoft" name="mule-devkit" />
+     <github:fork-repository-for-org organization="some org" owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:forkRepositoryForOrg) -->
 
 <!-- BEGIN_INCLUDE(github:getLanguages) -->
-     <github:get-languages owner="mulesoft" name="mule-devkit" />
+     <github:get-languages owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getLanguages) -->
 
 <!-- BEGIN_INCLUDE(github:getBranches) -->
-     <github:get-branches owner="mulesoft" name="mule-devkit" />
+     <github:get-branches owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getBranches) -->
 
 <!-- BEGIN_INCLUDE(github:getTags) -->
-     <github:get-tags owner="mulesoft" name="mule-devkit" />
+     <github:get-tags owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getTags) -->
 
 <!-- BEGIN_INCLUDE(github:getContributors) -->
-     <github:get-contributors owner="mulesoft" name="mule-devkit" />
+     <github:get-contributors owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getContributors) -->
 
 
