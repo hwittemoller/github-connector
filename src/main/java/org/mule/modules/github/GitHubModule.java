@@ -65,6 +65,16 @@ public class GitHubModule {
     @Placement(order = 2)
     @Password
     private String password;
+    
+    /**
+     * The Auth scope. It's possible to add more than one separated by comma
+     */
+    @Configurable
+    @Placement(order = 3)
+    @Optional
+    @Default("repo")
+    private String scope;
+    
     private ServiceFactory serviceFactory;
 
     /**
@@ -1807,7 +1817,7 @@ public class GitHubModule {
 
     private ServiceFactory getServiceFactory() throws IOException {
         if (serviceFactory == null) {
-            serviceFactory = new ServiceFactory(user, password);
+            serviceFactory = new ServiceFactory(user, password, scope);
         }
         return serviceFactory;
     }
@@ -1822,5 +1832,13 @@ public class GitHubModule {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 }

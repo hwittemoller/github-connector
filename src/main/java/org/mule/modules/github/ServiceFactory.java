@@ -48,14 +48,14 @@ public class ServiceFactory {
     private final String user;
     private String token;
 
-    public ServiceFactory(String user, String password) throws IOException {
+    public ServiceFactory(String user, String password, String scope) throws IOException {
         this.user = user;
         this.password = password;
         if (getOAuthService().getAuthorizations().size() > 0) {
             this.token = getOAuthService().getAuthorizations().get(0).getToken();
         } else {
             Authorization auth = new Authorization();
-            List<String> scopes = Arrays.asList("public_repo", "repo");
+            List<String> scopes = Arrays.asList(scope);
             auth.setScopes(scopes);
             auth.setNote("Mule GitHub connector");
             this.token = getOAuthService().createAuthorization(auth).getToken();
