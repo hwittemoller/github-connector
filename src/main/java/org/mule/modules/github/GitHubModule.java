@@ -1798,6 +1798,21 @@ public class GitHubModule {
     public List<Contributor> getContributors(String owner, String repositoryName, @Optional @Default("false") boolean includeAnonymous) throws IOException {
         return getServiceFactory().getRepositoryService().getContributors(RepositoryId.create(owner, repositoryName), includeAnonymous);
     }
+    
+    /**
+     * List downloads for a repository
+     * <p/>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:list-downloads-for-repository}
+     *
+     * @param owner            the owner of the repository
+     * @param repositoryName             the name of the repository
+     * @return list of downloads
+     * @throws java.io.IOException when the connection to the client failed
+     */
+    @Processor
+    public List<Download> listDownloadsForRepository(String owner, String repositoryName) throws IOException {
+        return getServiceFactory().getDownloadService().getDownloads(RepositoryId.create(owner, repositoryName));
+    }
 
     public void setuser(String user) {
         this.user = user;

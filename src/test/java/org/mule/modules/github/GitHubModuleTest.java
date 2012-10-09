@@ -13,6 +13,7 @@ package org.mule.modules.github;
 
 import org.eclipse.egit.github.core.Authorization;
 import org.eclipse.egit.github.core.Contributor;
+import org.eclipse.egit.github.core.Download;
 import org.eclipse.egit.github.core.Issue;
 import org.eclipse.egit.github.core.Key;
 import org.eclipse.egit.github.core.Repository;
@@ -21,6 +22,7 @@ import org.eclipse.egit.github.core.RepositoryId;
 import org.eclipse.egit.github.core.RepositoryTag;
 import org.eclipse.egit.github.core.Team;
 import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.service.DownloadService;
 import org.eclipse.egit.github.core.service.IssueService;
 import org.eclipse.egit.github.core.service.OAuthService;
 import org.eclipse.egit.github.core.service.RepositoryService;
@@ -72,6 +74,8 @@ public class GitHubModuleTest {
     @Mock
     private OAuthService oAuthService;
     @Mock
+    private DownloadService downloadService;
+    @Mock
     private Issue issue1;
     @Mock
     private Issue issue2;
@@ -105,6 +109,7 @@ public class GitHubModuleTest {
         ServiceFactory.setDefaultUserService(userService);
         ServiceFactory.setDefaultTeamService(teamService);
         ServiceFactory.setDefaultRepositoryService(repositoryService);
+        ServiceFactory.setDefaultDownloadService(downloadService);
         
         when(oAuthService.getAuthorizations()).thenReturn(createAuths());
         ServiceFactory.setDefaultOAuthService(oAuthService);
@@ -465,6 +470,14 @@ public class GitHubModuleTest {
         List<Contributor> contributors = Arrays.asList(contributor);
         when(repositoryService.getContributors(eq(new RepositoryId("owner", "name")), eq(true))).thenReturn(contributors);
         assertEquals(contributors, gitHubModule.getContributors("owner", "name", true));
+    }
+    
+    @Test
+    public void listDownloadsForRepository() throws Exception {
+        Download download = mock(Download.class);
+        List<Download> downloads = Arrays.asList(download);
+        when(downloadService.getDownloads(eq(new RepositoryId("owner", "name")))).thenReturn(downloads);
+        assertEquals(downloads, gitHubModule.listDownloadsForRepository("owner", "name"));
     }
 
     private <T> List<T> createList(T... elements) {

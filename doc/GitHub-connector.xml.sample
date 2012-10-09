@@ -412,6 +412,10 @@
      <github:get-contributors owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getContributors) -->
 
+<!-- BEGIN_INCLUDE(github:list-downloads-for-repository) -->
+     <github:list-downloads-for-repository owner="mulesoft" repositoryName="mule-devkit" />
+<!-- END_INCLUDE(github:list-downloads-for-repository) -->
+
 
 
 
