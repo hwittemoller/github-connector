@@ -38,6 +38,7 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -721,6 +722,21 @@ public class GitHubModule {
         return getServiceFactory().getDownloadService().createResource(RepositoryId.create(owner, repositoryName), download);
     }
 
+    /**
+     * Uploads a new resource
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:uploadResource}
+     *
+     * @param downloadResource	a download resource that contains the meta data of the file to be updated
+     * @param content			the content to be uploaded
+     * @return void
+     * @throws java.io.IOException when the connection to the client failed
+     */
+    @Processor
+    public void uploadResource(DownloadResource downloadResource, InputStream content) throws IOException {
+    	getServiceFactory().getDownloadService().uploadResource(downloadResource, content, downloadResource.getSize());
+    }
+    
     //TODO add upload resource and missing create download methods
 
     /**

@@ -416,7 +416,6 @@
      <github:list-downloads-for-repository owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:list-downloads-for-repository) -->
 
-
-
-
-
+<!-- BEGIN_INCLUDE(github:uploadResource) -->
+     <github:upload-resource downloadResource="my download resource" content="foo bar" />
+<!-- END_INCLUDE(github:uploadResource) -->
