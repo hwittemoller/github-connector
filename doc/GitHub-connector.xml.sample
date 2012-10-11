@@ -417,5 +417,7 @@
 <!-- END_INCLUDE(github:list-downloads-for-repository) -->
 
 <!-- BEGIN_INCLUDE(github:uploadResource) -->
-     <github:upload-resource downloadResource="my download resource" content="foo bar" />
+     <github:upload-resource content-ref="foo bar">
+      <github:download-resource ref="downloadResourceObj" />
+     </github:upload-resource>
 <!-- END_INCLUDE(github:uploadResource) -->

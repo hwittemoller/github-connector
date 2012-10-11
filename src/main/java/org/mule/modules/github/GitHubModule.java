@@ -727,9 +727,8 @@ public class GitHubModule {
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:uploadResource}
      *
-     * @param downloadResource	a download resource that contains the meta data of the file to be updated
-     * @param content			the content to be uploaded
-     * @return void
+     * @param downloadResource  download resource that contains the meta data of the file to be updated
+     * @param content           the content to be uploaded  
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
