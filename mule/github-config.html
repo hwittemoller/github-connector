@@ -1354,6 +1354,18 @@ Summary:
 	 
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/github-config.html#list-downloads-for-repository">&lt;github:list-downloads-for-repository&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">List downloads for a repository
+ <p/>
+ </div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github-config.html#remove-collaborator">&lt;github:remove-collaborator&gt;</a></nobr>
         
         <div class="jd-descrdiv">Removes a collaborator from the given repository
@@ -1364,7 +1376,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github-config.html#remove-emails">&lt;github:remove-emails&gt;</a></nobr>
         
@@ -1376,7 +1388,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github-config.html#remove-team-member">&lt;github:remove-team-member&gt;</a></nobr>
         
@@ -1388,7 +1400,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github-config.html#remove-team-repository">&lt;github:remove-team-repository&gt;</a></nobr>
         
@@ -1400,7 +1412,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github-config.html#star-gist">&lt;github:star-gist&gt;</a></nobr>
         
@@ -1413,7 +1425,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github-config.html#unfollow">&lt;github:unfollow&gt;</a></nobr>
         
@@ -1425,7 +1437,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github-config.html#unstar-gist">&lt;github:unstar-gist&gt;</a></nobr>
         
@@ -1438,7 +1450,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github-config.html#unwatch">&lt;github:unwatch&gt;</a></nobr>
         
@@ -1450,11 +1462,23 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/github-config.html#update-current-user">&lt;github:update-current-user&gt;</a></nobr>
         
         <div class="jd-descrdiv">Updates the currently authenticated user using the given attributes.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/github-config.html#upload-resource">&lt;github:upload-resource&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Uploads a new resource
+ </p>
+ </div>
         
   </td></tr>
 
@@ -10360,6 +10384,99 @@ specify which configuration to use.</p>
 </div>
 
 
+<A NAME="list-downloads-for-repository"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;github:list-downloads-for-repository&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>List downloads for a repository
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;github:list-downloads-for-repository owner="mulesoft" repositoryName="mule-devkit" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>owner</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The owner of the repository</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>repositoryName</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The name of the repository</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">List&lt;Download&gt;</td>
+                <td class="jd-descrcol">list of downloads</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
+        <tr>
+            <td>IOException</td>
+            <td>when the connection to the client failed
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="remove-collaborator"></A>
 
 <div class="jd-details api apilevel-">
@@ -11141,6 +11258,88 @@ specify which configuration to use.</p>
         <tr>
             <td>IOException</td>
             <td>when the connection to the client failed</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="upload-resource"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;github:upload-resource&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Uploads a new resource
+ </p>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;github:upload-resource content-ref="foo bar"&gt;
+ &lt;github:download-resource ref="downloadResourceObj" /&gt;
+&lt;/github:upload-resource&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>downloadResource</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">Download resource that contains the meta data of the file to be updated</td>
+                        <td class="jd-descrcol">DownloadResource</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>content</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The content to be uploaded  </td>
+                        <td class="jd-descrcol">InputStream</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+    
+  
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
+        <tr>
+            <td>IOException</td>
+            <td>when the connection to the client failed
+</td>
         </tr>
       </table>
   </div>

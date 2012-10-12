@@ -1,3 +1,5 @@
+org.eclipse.egit.github.core.holders
+org.eclipse.egit.github.core.transformers
 org.mule.modules.config
 org.mule.modules.config.spring
 org.mule.modules.github
