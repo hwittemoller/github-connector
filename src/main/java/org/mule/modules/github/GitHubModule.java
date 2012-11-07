@@ -1816,7 +1816,7 @@ public class GitHubModule {
     /**
      * List downloads for a repository
      * <p/>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:list-downloads-for-repository}
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:listDownloadsForRepository}
      *
      * @param owner            the owner of the repository
      * @param repositoryName             the name of the repository
@@ -1831,10 +1831,11 @@ public class GitHubModule {
     /**
      * Get Tree Recursively
      * <p/>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:get-tree-recursively}
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getTreeRecursively}
      *
      * @param owner            the owner of the repository
      * @param repositoryName             the name of the repository
+     * @param sha   a sha to start listing the structure
      * @return a tree structure of the repository
      * @throws java.io.IOException when the connection to the client failed
      */
