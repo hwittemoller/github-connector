@@ -16,6 +16,7 @@ import org.eclipse.egit.github.core.Authorization;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.CollaboratorService;
 import org.eclipse.egit.github.core.service.CommitService;
+import org.eclipse.egit.github.core.service.DataService;
 import org.eclipse.egit.github.core.service.DeployKeyService;
 import org.eclipse.egit.github.core.service.DownloadService;
 import org.eclipse.egit.github.core.service.GistService;
@@ -44,6 +45,7 @@ public class ServiceFactory {
     private static TeamService defaultTeamService;
     private static RepositoryService defaultRepositoryService;
     private static OAuthService defaultOAuthService;
+    private static DataService defaultDataService;
     private final String password;
     private final String user;
     private String token;
@@ -69,6 +71,15 @@ public class ServiceFactory {
             setDefaultOAuthService(new OAuthService(client));
         }
         return defaultOAuthService;
+    }
+    
+    public DataService getDataService() {
+        if (defaultDataService == null) {
+            GitHubClient client = new GitHubClient(BASE_URL);
+            client.setCredentials(user, password);
+            setDefaultDataService(new DataService(client));
+        }
+        return defaultDataService;
     }
 
     public IssueService getIssueService() {
@@ -183,6 +194,10 @@ public class ServiceFactory {
         ServiceFactory.defaultIssueService = defaultIssueService;
     }
 
+    public static void setDefaultDataService(DataService defaultDataService) {
+        ServiceFactory.defaultDataService = defaultDataService;
+    }
+    
     public static void setDefaultWatcherService(WatcherService defaultWatcherService) {
         ServiceFactory.defaultWatcherService = defaultWatcherService;
     }

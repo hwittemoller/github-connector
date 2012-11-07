@@ -28,6 +28,7 @@ import org.eclipse.egit.github.core.RepositoryCommit;
 import org.eclipse.egit.github.core.RepositoryId;
 import org.eclipse.egit.github.core.RepositoryTag;
 import org.eclipse.egit.github.core.Team;
+import org.eclipse.egit.github.core.Tree;
 import org.eclipse.egit.github.core.User;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
@@ -735,8 +736,6 @@ public class GitHubModule {
     public void uploadResource(DownloadResource downloadResource, InputStream content) throws IOException {
     	getServiceFactory().getDownloadService().uploadResource(downloadResource, content, downloadResource.getSize());
     }
-    
-    //TODO add upload resource and missing create download methods
 
     /**
      * Returns the gist according to the given id
@@ -1829,6 +1828,21 @@ public class GitHubModule {
         return getServiceFactory().getDownloadService().getDownloads(RepositoryId.create(owner, repositoryName));
     }
 
+    /**
+     * Get Tree Recursively
+     * <p/>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:get-tree-recursively}
+     *
+     * @param owner            the owner of the repository
+     * @param repositoryName             the name of the repository
+     * @return a tree structure of the repository
+     * @throws java.io.IOException when the connection to the client failed
+     */
+    @Processor
+    public Tree getTreeRecursively(String owner, String repositoryName, String sha) throws IOException {
+        return getServiceFactory().getDataService().getTree(RepositoryId.create(owner, repositoryName), sha, true);
+    }
+    
     public void setuser(String user) {
         this.user = user;
     }

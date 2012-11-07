@@ -412,12 +412,16 @@
      <github:get-contributors owner="mulesoft" repositoryName="mule-devkit" />
 <!-- END_INCLUDE(github:getContributors) -->
 
-<!-- BEGIN_INCLUDE(github:list-downloads-for-repository) -->
+<!-- BEGIN_INCLUDE(github:listDownloadsForRepository) -->
      <github:list-downloads-for-repository owner="mulesoft" repositoryName="mule-devkit" />
-<!-- END_INCLUDE(github:list-downloads-for-repository) -->
+<!-- END_INCLUDE(github:listDownloadsForRepository) -->
 
 <!-- BEGIN_INCLUDE(github:uploadResource) -->
      <github:upload-resource content-ref="foo bar">
       <github:download-resource ref="downloadResourceObj" />
      </github:upload-resource>
 <!-- END_INCLUDE(github:uploadResource) -->
+
+<!-- BEGIN_INCLUDE(github:getTreeRecursively) -->
+     <github:get-tree-recursively owner="mulesoft" repositoryName="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
+<!-- END_INCLUDE(github:getTreeRecursively) -->

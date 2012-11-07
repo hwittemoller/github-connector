@@ -440,4 +440,19 @@
     <flow name="getContributors">
         <github:get-contributors owner="mulesoft" repositoryName="mule-devkit"/>
     </flow>
+    
+    <flow name="listDownloadsForRepository">
+        <github:list-downloads-for-repository owner="mulesoft" repositoryName="mule-devkit" />
+    </flow>
+    
+    <flow name="uploadResource">
+    	<github:upload-resource content-ref="foo bar">
+     		<github:download-resource ref="downloadResourceObj" />
+    	</github:upload-resource>
+    </flow>
+    
+    <flow name="getTreeRecursively">
+		<github:get-tree-recursively owner="mulesoft" repositoryName="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
+    </flow>
+    
 </mule>
