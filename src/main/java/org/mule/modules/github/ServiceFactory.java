@@ -24,7 +24,6 @@ import org.eclipse.egit.github.core.service.IssueService;
 import org.eclipse.egit.github.core.service.LabelService;
 import org.eclipse.egit.github.core.service.MilestoneService;
 import org.eclipse.egit.github.core.service.OAuthService;
-import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
 import org.eclipse.egit.github.core.service.WatcherService;
@@ -43,7 +42,7 @@ public class ServiceFactory {
     private static MilestoneService defaultMilestoneService;
     private static UserService defaultUserService;
     private static TeamService defaultTeamService;
-    private static RepositoryService defaultRepositoryService;
+    private static ExtendedRepositoryService defaultRepositoryService;
     private static OAuthService defaultOAuthService;
     private static DataService defaultDataService;
     private final String password;
@@ -181,11 +180,11 @@ public class ServiceFactory {
         return defaultTeamService;
     }
 
-    public RepositoryService getRepositoryService() {
+    public ExtendedRepositoryService getRepositoryService() {
         if (defaultRepositoryService == null) {
             GitHubClient client = new GitHubClient(BASE_URL);
             client.setOAuth2Token(token);
-            setDefaultRepositoryService(new RepositoryService(client));
+            setDefaultRepositoryService(new ExtendedRepositoryService(client));
         }
         return defaultRepositoryService;
     }
@@ -238,7 +237,7 @@ public class ServiceFactory {
         ServiceFactory.defaultTeamService = defaultTeamService;
     }
 
-    public static void setDefaultRepositoryService(RepositoryService defaultRepositoryService) {
+    public static void setDefaultRepositoryService(ExtendedRepositoryService defaultRepositoryService) {
         ServiceFactory.defaultRepositoryService = defaultRepositoryService;
     }
 

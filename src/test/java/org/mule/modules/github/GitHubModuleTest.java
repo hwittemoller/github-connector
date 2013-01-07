@@ -12,6 +12,7 @@
 package org.mule.modules.github;
 
 import org.eclipse.egit.github.core.Authorization;
+import org.eclipse.egit.github.core.Blob;
 import org.eclipse.egit.github.core.Contributor;
 import org.eclipse.egit.github.core.Download;
 import org.eclipse.egit.github.core.Issue;
@@ -25,7 +26,6 @@ import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.service.DownloadService;
 import org.eclipse.egit.github.core.service.IssueService;
 import org.eclipse.egit.github.core.service.OAuthService;
-import org.eclipse.egit.github.core.service.RepositoryService;
 import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
 import org.junit.Before;
@@ -34,7 +34,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mule.api.transformer.TransformerException;
+import org.mule.transformer.codec.Base64Encoder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -70,7 +73,7 @@ public class GitHubModuleTest {
     @Mock
     private TeamService teamService;
     @Mock
-    private RepositoryService repositoryService;
+    private ExtendedRepositoryService repositoryService;
     @Mock
     private OAuthService oAuthService;
     @Mock
@@ -478,6 +481,16 @@ public class GitHubModuleTest {
         List<Download> downloads = Arrays.asList(download);
         when(downloadService.getDownloads(eq(new RepositoryId("owner", "name")))).thenReturn(downloads);
         assertEquals(downloads, gitHubModule.listDownloadsForRepository("owner", "name"));
+    }
+
+    @Test
+    public void getFileContent() throws TransformerException, IOException {
+        final String fileContent = "This is some file";
+        final Blob content = new Blob();
+        content.setContent(new Base64Encoder().doTransform(fileContent,"utf-8").toString());
+        content.setEncoding("utf-8");
+        when(repositoryService.getContents(eq(new RepositoryId(USER, REPOSITORY)), eq("some/path"))).thenReturn(content);
+        assertEquals(fileContent, gitHubModule.getFileContent(USER, REPOSITORY, "some/path"));
     }
 
     private <T> List<T> createList(T... elements) {

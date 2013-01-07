@@ -425,3 +425,7 @@
 <!-- BEGIN_INCLUDE(github:getTreeRecursively) -->
      <github:get-tree-recursively owner="mulesoft" repositoryName="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
 <!-- END_INCLUDE(github:getTreeRecursively) -->
+
+<!-- BEGIN_INCLUDE(github:getFileContent) -->
+     <github:get-file-content owner="mulesoft" repositoryName="mule-devkit" path="README" />
+<!-- END_INCLUDE(github:getFileContent) -->
