@@ -177,6 +177,14 @@
         <github:create-resource owner="mulesoft" repositoryName="mule-devkit" resourceName="resource name" size="1000"/>
     </flow>
 
+	<flow name="createGist">
+        <github:create-gist isPublic="true" description="description for gist">
+	     	<github:files>
+	     		<github:file key="HelloWorld.java" value-ref="#[payload]" />
+	     	</github:files>
+      	</github:create-gist>
+    </flow>
+	
     <flow name="getGist">
         <github:get-gist id="3334"/>
     </flow>

@@ -18,6 +18,7 @@ import org.eclipse.egit.github.core.Contributor;
 import org.eclipse.egit.github.core.Download;
 import org.eclipse.egit.github.core.DownloadResource;
 import org.eclipse.egit.github.core.Gist;
+import org.eclipse.egit.github.core.GistFile;
 import org.eclipse.egit.github.core.Issue;
 import org.eclipse.egit.github.core.IssueEvent;
 import org.eclipse.egit.github.core.Key;
@@ -753,6 +754,35 @@ public class GitHubModule {
     public Gist getGist(String id) throws IOException {
         return getServiceFactory().getGistService().getGist(id);
     }
+    
+    /**
+	 * Creates a gist for the given files. 
+	 * </p> 
+	 * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createGist}
+	 * 
+	 * @param isPublic
+	 *            whether or not the gist is public
+	 * @param description
+	 *            optional description for the gist
+	 * @param files
+	 *            map of gist files to create
+	 * @return returns the {@link Gist} created
+	 * @throws java.io.IOException
+	 *             when the connection to the client failed
+	 */
+	@Processor
+	public Gist createGist(Boolean isPublic, @Optional String description,
+			Map<String, String> files) throws IOException {
+		Gist gist = new Gist()
+				.setDescription(description);
+
+		for (Map.Entry<String, String> entry : files.entrySet()) {
+			GistFile file = new GistFile().setContent(entry.getValue());
+			gist.setFiles(Collections.singletonMap(entry.getKey(), file));
+		}
+
+		return getServiceFactory().getGistService().createGist(gist);
+	}
 
     /**
      * Returns the starred gists for the currently authenticated user

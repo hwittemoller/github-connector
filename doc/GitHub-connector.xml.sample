@@ -150,6 +150,15 @@
      <github:get-gist id="3334" />
 <!-- END_INCLUDE(github:getGist) -->
 
+<!-- BEGIN_INCLUDE(github:createGist) -->
+     <github:create-gist isPublic="true" description="description for gist">
+     	<github:files>
+     		<github:string>something</github:string>
+     		<github:gist-file filename="test.txt" content="text file content" />
+     	</github:files>
+  	</github:create-gist>
+<!-- END_INCLUDE(github:createGist) -->
+
 <!-- BEGIN_INCLUDE(github:getStarredGist) -->
      <github:get-starred-gist />
 <!-- END_INCLUDE(github:getStarredGist) -->

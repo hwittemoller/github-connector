@@ -30,228 +30,249 @@ import org.eclipse.egit.github.core.service.WatcherService;
 
 public class ServiceFactory {
 
-    private static final String BASE_URL = "api.github.com";
-    private static IssueService defaultIssueService;
-    private static WatcherService defaultWatcherService;
-    private static CollaboratorService defaultCollaboratorService;
-    private static CommitService defaultCommitService;
-    private static DeployKeyService defaultDeployKeyService;
-    private static DownloadService defaultDownloadService;
-    private static GistService defaultGistService;
-    private static LabelService defaultLabelService;
-    private static MilestoneService defaultMilestoneService;
-    private static UserService defaultUserService;
-    private static TeamService defaultTeamService;
-    private static ExtendedRepositoryService defaultRepositoryService;
-    private static OAuthService defaultOAuthService;
-    private static DataService defaultDataService;
-    private final String password;
-    private final String user;
-    private String token;
+	private static final String BASE_URL = "api.github.com";
+	private static IssueService defaultIssueService;
+	private static WatcherService defaultWatcherService;
+	private static CollaboratorService defaultCollaboratorService;
+	private static CommitService defaultCommitService;
+	private static DeployKeyService defaultDeployKeyService;
+	private static DownloadService defaultDownloadService;
+	private static GistService defaultGistService;
+	private static LabelService defaultLabelService;
+	private static MilestoneService defaultMilestoneService;
+	private static UserService defaultUserService;
+	private static TeamService defaultTeamService;
+	private static ExtendedRepositoryService defaultRepositoryService;
+	private static OAuthService defaultOAuthService;
+	private static DataService defaultDataService;
+	private final String password;
+	private final String user;
+	private String token;
 
-    public ServiceFactory(String user, String password, String scope) throws IOException {
-        this.user = user;
-        this.password = password;
-        if (getOAuthService().getAuthorizations().size() > 0) {
-            this.token = getOAuthService().getAuthorizations().get(0).getToken();
-        } else {
-            Authorization auth = new Authorization();
-            List<String> scopes = Arrays.asList(scope);
-            auth.setScopes(scopes);
-            auth.setNote("Mule GitHub connector");
-            this.token = getOAuthService().createAuthorization(auth).getToken();
-        }
-    }
-    
-    public OAuthService getOAuthService() {
-        if (defaultOAuthService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setCredentials(user, password);
-            setDefaultOAuthService(new OAuthService(client));
-        }
-        return defaultOAuthService;
-    }
-    
-    public DataService getDataService() {
-        if (defaultDataService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setCredentials(user, password);
-            setDefaultDataService(new DataService(client));
-        }
-        return defaultDataService;
-    }
+	public ServiceFactory(String user, String password, String scope)
+			throws IOException {
+		this.user = user;
+		this.password = password;
+		if (getOAuthService().getAuthorizations().size() > 0) {
+			List<Authorization> authorizations = getOAuthService()
+					.getAuthorizations();
 
-    public IssueService getIssueService() {
-        if (defaultIssueService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setDefaultIssueService(new IssueService(client));
-        }
-        return defaultIssueService;
-    }
+			if (scope != null && !scope.equals("")) {
+				// Check the authorization contains the required scope
+				for (Authorization authorization : authorizations) {
+					if (authorization.getScopes().contains(scope)) {
+						this.token = authorization.getToken();
+						break;
+					}else{
+						// Otherwise, just take the first authorization
+						authorizations.get(0).getToken();
+					}
+				}
+			}
+		} else {
+			Authorization auth = new Authorization();
+			List<String> scopes = Arrays.asList(scope);
+			auth.setScopes(scopes);
+			auth.setNote("Mule GitHub connector");
+			this.token = getOAuthService().createAuthorization(auth).getToken();
+		}
+	}
 
-    public WatcherService getWatcherService() {
-        if (defaultWatcherService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setDefaultWatcherService(new WatcherService(client));
-        }
-        return defaultWatcherService;
-    }
+	public OAuthService getOAuthService() {
+		if (defaultOAuthService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setCredentials(user, password);
+			setDefaultOAuthService(new OAuthService(client));
+		}
+		return defaultOAuthService;
+	}
 
-    public CommitService getCommitService() {
-        if (defaultCommitService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setDefaultCommitService(new CommitService(client));
-        }
-        return defaultCommitService;
-    }
+	public DataService getDataService() {
+		if (defaultDataService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setCredentials(user, password);
+			setDefaultDataService(new DataService(client));
+		}
+		return defaultDataService;
+	}
 
-    public CollaboratorService getCollaboratorService() {
-        if (defaultCollaboratorService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setDefaultCollaboratorService(new CollaboratorService(client));
-        }
-        return defaultCollaboratorService;
-    }
+	public IssueService getIssueService() {
+		if (defaultIssueService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setDefaultIssueService(new IssueService(client));
+		}
+		return defaultIssueService;
+	}
 
-    public DeployKeyService getDeployKeyService() {
-        if (defaultDeployKeyService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setDefaultDeployKeyService(new DeployKeyService(client));
-        }
-        return defaultDeployKeyService;
-    }
+	public WatcherService getWatcherService() {
+		if (defaultWatcherService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setDefaultWatcherService(new WatcherService(client));
+		}
+		return defaultWatcherService;
+	}
 
-    public DownloadService getDownloadService() {
-        if (defaultDownloadService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setDefaultDownloadService(new DownloadService(client));
-        }
-        return defaultDownloadService;
-    }
+	public CommitService getCommitService() {
+		if (defaultCommitService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setDefaultCommitService(new CommitService(client));
+		}
+		return defaultCommitService;
+	}
 
-    public GistService getGistService() {
-        if (defaultGistService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setGistService(new GistService(client));
-        }
-        return defaultGistService;
-    }
+	public CollaboratorService getCollaboratorService() {
+		if (defaultCollaboratorService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setDefaultCollaboratorService(new CollaboratorService(client));
+		}
+		return defaultCollaboratorService;
+	}
 
-    public LabelService getLabelService() {
-        if (defaultLabelService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setLabelService(new LabelService(client));
-        }
-        return defaultLabelService;
-    }
+	public DeployKeyService getDeployKeyService() {
+		if (defaultDeployKeyService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setDefaultDeployKeyService(new DeployKeyService(client));
+		}
+		return defaultDeployKeyService;
+	}
 
-    public MilestoneService getMilestoneService() {
-        if (defaultMilestoneService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setMilestoneService(new MilestoneService(client));
-        }
-        return defaultMilestoneService;
-    }
+	public DownloadService getDownloadService() {
+		if (defaultDownloadService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setDefaultDownloadService(new DownloadService(client));
+		}
+		return defaultDownloadService;
+	}
 
-    public UserService getUserService() {
-        if (defaultUserService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setDefaultUserService(new UserService(client));
-        }
-        return defaultUserService;
-    }
+	public GistService getGistService() {
+		if (defaultGistService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setGistService(new GistService(client));
+		}
+		return defaultGistService;
+	}
 
-    public TeamService getTeamService() {
-        if (defaultTeamService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setDefaultTeamService(new TeamService(client));
-        }
-        return defaultTeamService;
-    }
+	public LabelService getLabelService() {
+		if (defaultLabelService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setLabelService(new LabelService(client));
+		}
+		return defaultLabelService;
+	}
 
-    public ExtendedRepositoryService getRepositoryService() {
-        if (defaultRepositoryService == null) {
-            GitHubClient client = new GitHubClient(BASE_URL);
-            client.setOAuth2Token(token);
-            setDefaultRepositoryService(new ExtendedRepositoryService(client));
-        }
-        return defaultRepositoryService;
-    }
+	public MilestoneService getMilestoneService() {
+		if (defaultMilestoneService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setMilestoneService(new MilestoneService(client));
+		}
+		return defaultMilestoneService;
+	}
 
-    public static void setDefaultIssueService(IssueService defaultIssueService) {
-        ServiceFactory.defaultIssueService = defaultIssueService;
-    }
+	public UserService getUserService() {
+		if (defaultUserService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setDefaultUserService(new UserService(client));
+		}
+		return defaultUserService;
+	}
 
-    public static void setDefaultDataService(DataService defaultDataService) {
-        ServiceFactory.defaultDataService = defaultDataService;
-    }
-    
-    public static void setDefaultWatcherService(WatcherService defaultWatcherService) {
-        ServiceFactory.defaultWatcherService = defaultWatcherService;
-    }
+	public TeamService getTeamService() {
+		if (defaultTeamService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setDefaultTeamService(new TeamService(client));
+		}
+		return defaultTeamService;
+	}
 
-    public static void setDefaultCollaboratorService(CollaboratorService defaultCollaboratorService) {
-        ServiceFactory.defaultCollaboratorService = defaultCollaboratorService;
-    }
+	public ExtendedRepositoryService getRepositoryService() {
+		if (defaultRepositoryService == null) {
+			GitHubClient client = new GitHubClient(BASE_URL);
+			client.setOAuth2Token(token);
+			setDefaultRepositoryService(new ExtendedRepositoryService(client));
+		}
+		return defaultRepositoryService;
+	}
 
-    public static void setDefaultCommitService(CommitService defaultCommitService) {
-        ServiceFactory.defaultCommitService = defaultCommitService;
-    }
+	public static void setDefaultIssueService(IssueService defaultIssueService) {
+		ServiceFactory.defaultIssueService = defaultIssueService;
+	}
 
-    public static void setDeployKeyService(DeployKeyService defaultDeployKeyService) {
-        ServiceFactory.defaultDeployKeyService = defaultDeployKeyService;
-    }
+	public static void setDefaultDataService(DataService defaultDataService) {
+		ServiceFactory.defaultDataService = defaultDataService;
+	}
 
-    public static void setDownloadService(DownloadService defaultDownloadService) {
-        ServiceFactory.defaultDownloadService = defaultDownloadService;
-    }
+	public static void setDefaultWatcherService(
+			WatcherService defaultWatcherService) {
+		ServiceFactory.defaultWatcherService = defaultWatcherService;
+	}
 
-    public static void setGistService(GistService defaultGistService) {
-        ServiceFactory.defaultGistService = defaultGistService;
-    }
+	public static void setDefaultCollaboratorService(
+			CollaboratorService defaultCollaboratorService) {
+		ServiceFactory.defaultCollaboratorService = defaultCollaboratorService;
+	}
 
-    public static void setLabelService(LabelService defaultLabelService) {
-        ServiceFactory.defaultLabelService = defaultLabelService;
-    }
+	public static void setDefaultCommitService(
+			CommitService defaultCommitService) {
+		ServiceFactory.defaultCommitService = defaultCommitService;
+	}
 
-    public static void setMilestoneService(MilestoneService defaultMilestoneService) {
-        ServiceFactory.defaultMilestoneService = defaultMilestoneService;
-    }
+	public static void setDeployKeyService(
+			DeployKeyService defaultDeployKeyService) {
+		ServiceFactory.defaultDeployKeyService = defaultDeployKeyService;
+	}
 
-    public static void setDefaultUserService(UserService defaultUserService) {
-        ServiceFactory.defaultUserService = defaultUserService;
-    }
+	public static void setDownloadService(DownloadService defaultDownloadService) {
+		ServiceFactory.defaultDownloadService = defaultDownloadService;
+	}
 
-    public static void setDefaultTeamService(TeamService defaultTeamService) {
-        ServiceFactory.defaultTeamService = defaultTeamService;
-    }
+	public static void setGistService(GistService defaultGistService) {
+		ServiceFactory.defaultGistService = defaultGistService;
+	}
 
-    public static void setDefaultRepositoryService(ExtendedRepositoryService defaultRepositoryService) {
-        ServiceFactory.defaultRepositoryService = defaultRepositoryService;
-    }
+	public static void setLabelService(LabelService defaultLabelService) {
+		ServiceFactory.defaultLabelService = defaultLabelService;
+	}
 
-    public static void setDefaultOAuthService(OAuthService defaultOAuthService) {
-        ServiceFactory.defaultOAuthService = defaultOAuthService;
-    }
+	public static void setMilestoneService(
+			MilestoneService defaultMilestoneService) {
+		ServiceFactory.defaultMilestoneService = defaultMilestoneService;
+	}
 
-    public static void setDefaultDeployKeyService(
-            DeployKeyService defaultDeployKeyService) {
-        ServiceFactory.defaultDeployKeyService = defaultDeployKeyService;
-    }
+	public static void setDefaultUserService(UserService defaultUserService) {
+		ServiceFactory.defaultUserService = defaultUserService;
+	}
 
-    public static void setDefaultDownloadService(
-            DownloadService defaultDownloadService) {
-        ServiceFactory.defaultDownloadService = defaultDownloadService;
-    }
+	public static void setDefaultTeamService(TeamService defaultTeamService) {
+		ServiceFactory.defaultTeamService = defaultTeamService;
+	}
+
+	public static void setDefaultRepositoryService(
+			ExtendedRepositoryService defaultRepositoryService) {
+		ServiceFactory.defaultRepositoryService = defaultRepositoryService;
+	}
+
+	public static void setDefaultOAuthService(OAuthService defaultOAuthService) {
+		ServiceFactory.defaultOAuthService = defaultOAuthService;
+	}
+
+	public static void setDefaultDeployKeyService(
+			DeployKeyService defaultDeployKeyService) {
+		ServiceFactory.defaultDeployKeyService = defaultDeployKeyService;
+	}
+
+	public static void setDefaultDownloadService(
+			DownloadService defaultDownloadService) {
+		ServiceFactory.defaultDownloadService = defaultDownloadService;
+	}
 }
