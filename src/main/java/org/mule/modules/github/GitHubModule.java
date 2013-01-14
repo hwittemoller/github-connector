@@ -783,12 +783,7 @@ public class GitHubModule {
 			gist.setFiles(Collections.singletonMap(entry.getKey(), file));
 		}
 		
-		GistService gs = getServiceFactory().getGistService();
-		
-		Gist gist2 = gs.createGist(gist);
-		
-		System.out.println("Created Gist at " + gist2.getHtmlUrl() + " " + gist.isPublic());
-		return gist2;
+		return getServiceFactory().getGistService().createGist(gist);
 	}
 
     /**
