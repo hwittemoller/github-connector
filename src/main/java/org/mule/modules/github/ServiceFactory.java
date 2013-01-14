@@ -55,7 +55,6 @@ public class ServiceFactory {
 		this.user = user;
 		this.password = password;
 		this.token = getAccessToken(scope);
-
 	}
 
 	public String getAccessToken(String scope) throws IOException {
