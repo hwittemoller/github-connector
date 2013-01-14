@@ -153,10 +153,9 @@
 <!-- BEGIN_INCLUDE(github:createGist) -->
      <github:create-gist isPublic="true" description="description for gist">
      	<github:files>
-     		<github:string>something</github:string>
-     		<github:gist-file filename="test.txt" content="text file content" />
+     		<github:file key="HelloWorld.java" value-ref="#[payload]" />
      	</github:files>
-  	</github:create-gist>
+  	 </github:create-gist>
 <!-- END_INCLUDE(github:createGist) -->
 
 <!-- BEGIN_INCLUDE(github:getStarredGist) -->
