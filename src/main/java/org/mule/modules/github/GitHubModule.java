@@ -32,6 +32,7 @@ import org.eclipse.egit.github.core.RepositoryTag;
 import org.eclipse.egit.github.core.Team;
 import org.eclipse.egit.github.core.Tree;
 import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.service.GistService;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
@@ -773,15 +774,21 @@ public class GitHubModule {
 	@Processor
 	public Gist createGist(Boolean isPublic, @Optional String description,
 			Map<String, String> files) throws IOException {
-		Gist gist = new Gist()
-				.setDescription(description);
+		Gist gist = new Gist();
+		gist.setDescription(description);
+		gist.setPublic(true);
 
 		for (Map.Entry<String, String> entry : files.entrySet()) {
 			GistFile file = new GistFile().setContent(entry.getValue());
 			gist.setFiles(Collections.singletonMap(entry.getKey(), file));
 		}
-
-		return getServiceFactory().getGistService().createGist(gist);
+		
+		GistService gs = getServiceFactory().getGistService();
+		
+		Gist gist2 = gs.createGist(gist);
+		
+		System.out.println("Created Gist at " + gist2.getHtmlUrl() + " " + gist.isPublic());
+		return gist2;
 	}
 
     /**

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.egit.github.core.Application;
 import org.eclipse.egit.github.core.Authorization;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.CollaboratorService;
@@ -53,29 +54,46 @@ public class ServiceFactory {
 			throws IOException {
 		this.user = user;
 		this.password = password;
-		if (getOAuthService().getAuthorizations().size() > 0) {
-			List<Authorization> authorizations = getOAuthService()
-					.getAuthorizations();
+		this.token = getAccessToken(scope);
 
-			if (scope != null && !scope.equals("")) {
-				// Check the authorization contains the required scope
-				for (Authorization authorization : authorizations) {
-					if (authorization.getScopes().contains(scope)) {
-						this.token = authorization.getToken();
-						break;
-					}else{
-						// Otherwise, just take the first authorization
-						authorizations.get(0).getToken();
+	}
+
+	public String getAccessToken(String scope) throws IOException {
+
+		List<String> scopes = null;
+
+		List<Authorization> authorizations = getOAuthService()
+				.getAuthorizations();
+
+		if (!authorizations.isEmpty()) {
+			if (scope != null && !scope.isEmpty()) {
+				scopes = Arrays.asList(scope.split(","));
+				if (scopes != null && !scopes.isEmpty()) {
+					for (Authorization auth : authorizations) {
+						// Check the authorization contains all the required
+						// scopes
+						if (auth.getScopes().containsAll(scopes)) {
+							return auth.getToken();
+						}
 					}
 				}
+			} else {
+				// No specific scope requested, so return default authorization
+				return authorizations.get(0).getToken();
 			}
-		} else {
-			Authorization auth = new Authorization();
-			List<String> scopes = Arrays.asList(scope);
-			auth.setScopes(scopes);
-			auth.setNote("Mule GitHub connector");
-			this.token = getOAuthService().createAuthorization(auth).getToken();
 		}
+		// Otherwise create new authorization
+		return getOAuthService().createAuthorization(
+				createNewAuthorization(scopes)).getToken();
+
+	}
+
+	public Authorization createNewAuthorization(List<String> scopes) {
+		Authorization auth = new Authorization();
+		auth.setScopes(scopes);
+		auth.setNote("Mule GitHub connector");
+
+		return auth;
 	}
 
 	public OAuthService getOAuthService() {
