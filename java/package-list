@@ -7,6 +7,7 @@ org.mule.modules.github.adapters
 org.mule.modules.github.agents
 org.mule.modules.github.config
 org.mule.modules.github.config.spring
+org.mule.modules.github.connectivity
 org.mule.modules.github.process
 org.mule.modules.github.processors
 org.mule.modules.github.transformers
