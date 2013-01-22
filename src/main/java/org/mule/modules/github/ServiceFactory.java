@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.egit.github.core.Application;
 import org.eclipse.egit.github.core.Authorization;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.CollaboratorService;
@@ -32,23 +31,29 @@ import org.eclipse.egit.github.core.service.WatcherService;
 public class ServiceFactory {
 
 	private static final String BASE_URL = "api.github.com";
-	private static IssueService defaultIssueService;
-	private static WatcherService defaultWatcherService;
-	private static CollaboratorService defaultCollaboratorService;
-	private static CommitService defaultCommitService;
-	private static DeployKeyService defaultDeployKeyService;
-	private static DownloadService defaultDownloadService;
-	private static GistService defaultGistService;
-	private static LabelService defaultLabelService;
-	private static MilestoneService defaultMilestoneService;
-	private static UserService defaultUserService;
-	private static TeamService defaultTeamService;
-	private static ExtendedRepositoryService defaultRepositoryService;
-	private static OAuthService defaultOAuthService;
-	private static DataService defaultDataService;
+	private IssueService defaultIssueService;
+	private WatcherService defaultWatcherService;
+	private CollaboratorService defaultCollaboratorService;
+	private CommitService defaultCommitService;
+	private DeployKeyService defaultDeployKeyService;
+	private DownloadService defaultDownloadService;
+	private GistService defaultGistService;
+	private LabelService defaultLabelService;
+	private MilestoneService defaultMilestoneService;
+	private UserService defaultUserService;
+	private TeamService defaultTeamService;
+	private ExtendedRepositoryService defaultRepositoryService;
+	private OAuthService defaultOAuthService;
+	private DataService defaultDataService;
 	private final String password;
 	private final String user;
 	private String token;
+	
+	public ServiceFactory(String user, String password) {
+		this.user = user;
+		this.password = password;
+	}
+	
 
 	public ServiceFactory(String user, String password, String scope)
 			throws IOException {
@@ -115,8 +120,7 @@ public class ServiceFactory {
 
 	public IssueService getIssueService() {
 		if (defaultIssueService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setDefaultIssueService(new IssueService(client));
 		}
 		return defaultIssueService;
@@ -124,8 +128,7 @@ public class ServiceFactory {
 
 	public WatcherService getWatcherService() {
 		if (defaultWatcherService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setDefaultWatcherService(new WatcherService(client));
 		}
 		return defaultWatcherService;
@@ -133,8 +136,7 @@ public class ServiceFactory {
 
 	public CommitService getCommitService() {
 		if (defaultCommitService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setDefaultCommitService(new CommitService(client));
 		}
 		return defaultCommitService;
@@ -142,8 +144,7 @@ public class ServiceFactory {
 
 	public CollaboratorService getCollaboratorService() {
 		if (defaultCollaboratorService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setDefaultCollaboratorService(new CollaboratorService(client));
 		}
 		return defaultCollaboratorService;
@@ -151,8 +152,7 @@ public class ServiceFactory {
 
 	public DeployKeyService getDeployKeyService() {
 		if (defaultDeployKeyService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setDefaultDeployKeyService(new DeployKeyService(client));
 		}
 		return defaultDeployKeyService;
@@ -160,8 +160,7 @@ public class ServiceFactory {
 
 	public DownloadService getDownloadService() {
 		if (defaultDownloadService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setDefaultDownloadService(new DownloadService(client));
 		}
 		return defaultDownloadService;
@@ -169,8 +168,7 @@ public class ServiceFactory {
 
 	public GistService getGistService() {
 		if (defaultGistService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setGistService(new GistService(client));
 		}
 		return defaultGistService;
@@ -178,8 +176,7 @@ public class ServiceFactory {
 
 	public LabelService getLabelService() {
 		if (defaultLabelService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setLabelService(new LabelService(client));
 		}
 		return defaultLabelService;
@@ -187,8 +184,7 @@ public class ServiceFactory {
 
 	public MilestoneService getMilestoneService() {
 		if (defaultMilestoneService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setMilestoneService(new MilestoneService(client));
 		}
 		return defaultMilestoneService;
@@ -196,8 +192,7 @@ public class ServiceFactory {
 
 	public UserService getUserService() {
 		if (defaultUserService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setDefaultUserService(new UserService(client));
 		}
 		return defaultUserService;
@@ -205,8 +200,7 @@ public class ServiceFactory {
 
 	public TeamService getTeamService() {
 		if (defaultTeamService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setDefaultTeamService(new TeamService(client));
 		}
 		return defaultTeamService;
@@ -214,82 +208,91 @@ public class ServiceFactory {
 
 	public ExtendedRepositoryService getRepositoryService() {
 		if (defaultRepositoryService == null) {
-			GitHubClient client = new GitHubClient(BASE_URL);
-			client.setOAuth2Token(token);
+			GitHubClient client = getGitHubClient();
 			setDefaultRepositoryService(new ExtendedRepositoryService(client));
 		}
 		return defaultRepositoryService;
 	}
 
-	public static void setDefaultIssueService(IssueService defaultIssueService) {
-		ServiceFactory.defaultIssueService = defaultIssueService;
+	private GitHubClient getGitHubClient() {
+		GitHubClient client = new GitHubClient(BASE_URL);
+		client.setOAuth2Token(token);
+		return client;
 	}
 
-	public static void setDefaultDataService(DataService defaultDataService) {
-		ServiceFactory.defaultDataService = defaultDataService;
+	public String getUser(){
+		return this.user;
+	}
+	
+	public void setDefaultIssueService(IssueService defaultIssueService) {
+		this.defaultIssueService = defaultIssueService;
 	}
 
-	public static void setDefaultWatcherService(
+	public void setDefaultDataService(DataService defaultDataService) {
+		this.defaultDataService = defaultDataService;
+	}
+
+	public void setDefaultWatcherService(
 			WatcherService defaultWatcherService) {
-		ServiceFactory.defaultWatcherService = defaultWatcherService;
+		this.defaultWatcherService = defaultWatcherService;
 	}
 
-	public static void setDefaultCollaboratorService(
+	public void setDefaultCollaboratorService(
 			CollaboratorService defaultCollaboratorService) {
-		ServiceFactory.defaultCollaboratorService = defaultCollaboratorService;
+		this.defaultCollaboratorService = defaultCollaboratorService;
 	}
 
-	public static void setDefaultCommitService(
+	public void setDefaultCommitService(
 			CommitService defaultCommitService) {
-		ServiceFactory.defaultCommitService = defaultCommitService;
+		this.defaultCommitService = defaultCommitService;
 	}
 
-	public static void setDeployKeyService(
+	public void setDeployKeyService(
 			DeployKeyService defaultDeployKeyService) {
-		ServiceFactory.defaultDeployKeyService = defaultDeployKeyService;
+		this.defaultDeployKeyService = defaultDeployKeyService;
 	}
 
-	public static void setDownloadService(DownloadService defaultDownloadService) {
-		ServiceFactory.defaultDownloadService = defaultDownloadService;
+	public void setDownloadService(DownloadService defaultDownloadService) {
+		this.defaultDownloadService = defaultDownloadService;
 	}
 
-	public static void setGistService(GistService defaultGistService) {
-		ServiceFactory.defaultGistService = defaultGistService;
+	public void setGistService(GistService defaultGistService) {
+		this.defaultGistService = defaultGistService;
 	}
 
-	public static void setLabelService(LabelService defaultLabelService) {
-		ServiceFactory.defaultLabelService = defaultLabelService;
+	public void setLabelService(LabelService defaultLabelService) {
+		this.defaultLabelService = defaultLabelService;
 	}
 
-	public static void setMilestoneService(
+	public void setMilestoneService(
 			MilestoneService defaultMilestoneService) {
-		ServiceFactory.defaultMilestoneService = defaultMilestoneService;
+		this.defaultMilestoneService = defaultMilestoneService;
 	}
 
-	public static void setDefaultUserService(UserService defaultUserService) {
-		ServiceFactory.defaultUserService = defaultUserService;
+	public void setDefaultUserService(UserService defaultUserService) {
+		this.defaultUserService = defaultUserService;
 	}
 
-	public static void setDefaultTeamService(TeamService defaultTeamService) {
-		ServiceFactory.defaultTeamService = defaultTeamService;
+	public void setDefaultTeamService(TeamService defaultTeamService) {
+		this.defaultTeamService = defaultTeamService;
 	}
 
-	public static void setDefaultRepositoryService(
+	public void setDefaultRepositoryService(
 			ExtendedRepositoryService defaultRepositoryService) {
-		ServiceFactory.defaultRepositoryService = defaultRepositoryService;
+		this.defaultRepositoryService = defaultRepositoryService;
 	}
 
-	public static void setDefaultOAuthService(OAuthService defaultOAuthService) {
-		ServiceFactory.defaultOAuthService = defaultOAuthService;
+	public void setDefaultOAuthService(OAuthService defaultOAuthService) {
+		this.defaultOAuthService = defaultOAuthService;
 	}
 
-	public static void setDefaultDeployKeyService(
+	public void setDefaultDeployKeyService(
 			DeployKeyService defaultDeployKeyService) {
-		ServiceFactory.defaultDeployKeyService = defaultDeployKeyService;
+		this.defaultDeployKeyService = defaultDeployKeyService;
 	}
 
-	public static void setDefaultDownloadService(
+	public void setDefaultDownloadService(
 			DownloadService defaultDownloadService) {
-		ServiceFactory.defaultDownloadService = defaultDownloadService;
+		this.defaultDownloadService = defaultDownloadService;
 	}
 }

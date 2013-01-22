@@ -22,9 +22,9 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:github="http://www.mulesoft.org/schema/mule/github"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
-        http://www.mulesoft.org/schema/mule/github http://www.mulesoft.org/schema/mule/github/1.0/mule-github.xsd">
+        http://www.mulesoft.org/schema/mule/github http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd">
 
-    <github:config user="mulesoft" password="##"/>
+    <github:config />
 
     <flow name="getIssues">
         <github:get-issues repository="mule-devkit">
@@ -39,7 +39,7 @@
     </flow>
 
     <flow name="getIssuesSinceNumber">
-        <github:get-issues-since-number repository="mule-devkit" fromIssueNumber="25"/>
+        <github:get-issues-since-number  connectionUser="mulesoft" connectionPassword="##" repository="mule-devkit" fromIssueNumber="25"/>
     </flow>
 
     <flow name="createIssue">

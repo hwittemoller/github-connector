@@ -108,18 +108,19 @@ public class GitHubModuleTest {
     @Before
     public void setUpTests() throws Exception {
         MockitoAnnotations.initMocks(this);
-        ServiceFactory.setDefaultIssueService(issueService);
-        ServiceFactory.setDefaultUserService(userService);
-        ServiceFactory.setDefaultTeamService(teamService);
-        ServiceFactory.setDefaultRepositoryService(repositoryService);
-        ServiceFactory.setDefaultDownloadService(downloadService);
+        ServiceFactory serviceFactory = new ServiceFactory(USER,"");
+        serviceFactory.setDefaultIssueService(issueService);
+        serviceFactory.setDefaultUserService(userService);
+        serviceFactory.setDefaultTeamService(teamService);
+        serviceFactory.setDefaultRepositoryService(repositoryService);
+        serviceFactory.setDefaultDownloadService(downloadService);
         
         when(oAuthService.getAuthorizations()).thenReturn(createAuths());
-        ServiceFactory.setDefaultOAuthService(oAuthService);
+        serviceFactory.setDefaultOAuthService(oAuthService);
         filterData = new HashMap<String, String>(1);
         filterData.put("key1", "value1");
         gitHubModule = new GitHubModule();
-        gitHubModule.setUser(USER);
+        gitHubModule.setServiceFactory(serviceFactory);
     }
 
     @Test

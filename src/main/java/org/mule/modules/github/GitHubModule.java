@@ -11,6 +11,14 @@
  */
 package org.mule.modules.github;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.egit.github.core.Blob;
 import org.eclipse.egit.github.core.Comment;
 import org.eclipse.egit.github.core.CommitComment;
@@ -32,56 +40,29 @@ import org.eclipse.egit.github.core.RepositoryTag;
 import org.eclipse.egit.github.core.Team;
 import org.eclipse.egit.github.core.Tree;
 import org.eclipse.egit.github.core.User;
-import org.eclipse.egit.github.core.service.GistService;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.Module;
+import org.mule.api.ConnectionException;
+import org.mule.api.ConnectionExceptionCode;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Disconnect;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Password;
-import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.codec.Base64Decoder;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Generic module
  *
  * @author MuleSoft, Inc.
  */
-@Module(name = "github", schemaVersion = "1.0", friendlyName = "GitHub")
+@Connector(name = "github", schemaVersion = "1.0", friendlyName = "GitHub")
 public class GitHubModule {
-
-    /**
-     * The user name
-     */
-    @Configurable
-    @Placement(order = 1)
-    private String user;
-    /**
-     * The password
-     */
-    @Configurable
-    @Placement(order = 2)
-    @Password
-    private String password;
-    
-    /**
-     * The Auth scope. It's possible to add more than one separated by comma
-     */
-    @Configurable
-    @Placement(order = 3)
-    @Optional
-    @Default("repo")
-    private String scope;
-    
+  
     private ServiceFactory serviceFactory;
 
     /**
@@ -1899,46 +1880,58 @@ public class GitHubModule {
         return new String(content);
     }
     
-    public void setuser(String user) {
-        this.user = user;
-    }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     private String getUser(String user) {
-        return user != null ? user : this.user;
+        return user != null ? user : serviceFactory.getUser();
     }
 
     private ServiceFactory getServiceFactory() throws IOException {
-        if (serviceFactory == null) {
-            serviceFactory = new ServiceFactory(user, password, scope);
-        }
         return serviceFactory;
     }
 
     public void setServiceFactory(ServiceFactory serviceFactory) {
         this.serviceFactory = serviceFactory;
     }
-
-    public String getUser() {
-        return user;
+   
+    /**
+     * Creates a connection to GitHub by making a login call with the given credentials to the specified address.
+     * The login call, if successfull, returns a token which will be used in the subsequent calls to Jira.
+     *
+     * @param connectionUser     the user login user
+     * @param connectionPassword the user login pass
+     * @param scope  the repository to connect
+     */
+    @Connect
+    public void connect(@ConnectionKey String connectionUser, @Password String connectionPassword, @Optional @Default("repo") String scope) 
+    		throws ConnectionException {
+    	try {
+			setServiceFactory(new ServiceFactory(connectionUser, connectionPassword, scope));
+		} catch (IOException e) {
+			throw new ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
+		}                
     }
-
-    public String getPassword() {
-        return password;
+    
+    @Disconnect
+    public void disconnect(){
+    	setServiceFactory(null);   	
     }
-
-    public String getScope() {
-        return scope;
+    
+    /**
+     * Return serviceFactory was set or not
+     */
+    @ValidateConnection
+    public boolean validateConnection(){
+    	return this.serviceFactory!=null;
     }
-
-    public void setScope(String scope) {
-        this.scope = scope;
+    
+    /**
+     * Returns the connection identifier
+     */
+    @Override
+    @ConnectionIdentifier
+    public String toString(){
+    	return serviceFactory.getUser();
     }
+    
 }
