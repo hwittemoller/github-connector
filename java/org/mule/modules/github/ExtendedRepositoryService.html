@@ -775,7 +775,7 @@ org.eclipse.egit.github.core.service.GitHubService
             Blob</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/github/ExtendedRepositoryService.html#getContents(org.eclipse.egit.github.core.IRepositoryIdProvider, java.lang.String)">getContents</a></span>(IRepositoryIdProvider repository, String path)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/github/ExtendedRepositoryService.html#getContents(org.eclipse.egit.github.core.IRepositoryIdProvider, java.lang.String, java.lang.String)">getContents</a></span>(IRepositoryIdProvider repository, String path, String branch)</nobr>
         
         <div class="jd-descrdiv">Get the contents of a given file@return</div>
   
@@ -2167,7 +2167,7 @@ From class
 
 
 
-<A NAME="getContents(org.eclipse.egit.github.core.IRepositoryIdProvider, java.lang.String)"></A>
+<A NAME="getContents(org.eclipse.egit.github.core.IRepositoryIdProvider, java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2180,7 +2180,7 @@ From class
         Blob
       </span>
       <span class="sympad">getContents</span>
-      <span class="normal">(IRepositoryIdProvider repository, String path)</span>
+      <span class="normal">(IRepositoryIdProvider repository, String path, String branch)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2202,6 +2202,10 @@ From class
         </tr>
         <tr>
           <th>path</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>branch</td>
           <td></td>
         </tr>
       </table>

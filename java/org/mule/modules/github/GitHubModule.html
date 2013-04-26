@@ -1674,7 +1674,7 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/github/GitHubModule.html#getFileContent(java.lang.String, java.lang.String, java.lang.String)">getFileContent</a></span>(String owner, String repositoryName, String path)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/github/GitHubModule.html#getFileContent(java.lang.String, java.lang.String, java.lang.String, java.lang.String)">getFileContent</a></span>(String owner, String repositoryName, String path, String branch)</nobr>
         
         <div class="jd-descrdiv">Returns a utf-8 String representing the contents of the file
  </p>
@@ -6482,7 +6482,7 @@ From class
 </div>
 
 
-<A NAME="getFileContent(java.lang.String, java.lang.String, java.lang.String)"></A>
+<A NAME="getFileContent(java.lang.String, java.lang.String, java.lang.String, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -6495,7 +6495,7 @@ From class
         String
       </span>
       <span class="sympad">getFileContent</span>
-      <span class="normal">(String owner, String repositoryName, String path)</span>
+      <span class="normal">(String owner, String repositoryName, String path, String branch)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -6524,6 +6524,10 @@ From class
         <tr>
           <th>path</td>
           <td>The path of the file to get</td>
+        </tr>
+        <tr>
+          <th>branch</td>
+          <td>Default to master</td>
         </tr>
       </table>
   </div>
