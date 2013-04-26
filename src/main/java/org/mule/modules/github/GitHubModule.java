@@ -1868,13 +1868,17 @@ public class GitHubModule {
      * @param owner       the owner of the repository, leave empty to use {@link this#user}
      * @param repositoryName the name of the repository
      * @param path         the path of the file to get
+     * @param branch       default to master
      * @return s the content of the file
      * @throws java.io.IOException when the connection to the client failed
      * @throws TransformerException when the file's contents couldn't be transformeds
      */
     @Processor
-    public String getFileContent(final String owner, final String repositoryName, final String path) throws IOException, TransformerException {
-        final Blob contents = getServiceFactory().getRepositoryService().getContents(RepositoryId.create(owner, repositoryName), path);
+    public String getFileContent(final String owner, final String repositoryName,
+                                 final String path, @Optional @Default("master") String branch)
+            throws IOException, TransformerException {
+        final Blob contents = getServiceFactory().getRepositoryService().
+                getContents(RepositoryId.create(owner, repositoryName), path, branch);
         final String encondedContent = contents.getContent();
         final byte[] content = (byte[]) new Base64Decoder().doTransform(encondedContent, contents.getEncoding() != null ? contents.getEncoding() : "utf-8");
         return new String(content);

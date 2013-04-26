@@ -490,8 +490,8 @@ public class GitHubModuleTest {
         final Blob content = new Blob();
         content.setContent(new Base64Encoder().doTransform(fileContent,"utf-8").toString());
         content.setEncoding("utf-8");
-        when(repositoryService.getContents(eq(new RepositoryId(USER, REPOSITORY)), eq("some/path"))).thenReturn(content);
-        assertEquals(fileContent, gitHubModule.getFileContent(USER, REPOSITORY, "some/path"));
+        when(repositoryService.getContents(eq(new RepositoryId(USER, REPOSITORY)), eq("some/path"), eq("master"))).thenReturn(content);
+        assertEquals(fileContent, gitHubModule.getFileContent(USER, REPOSITORY, "some/path", "master"));
     }
 
     private <T> List<T> createList(T... elements) {

@@ -11,6 +11,8 @@ package org.mule.modules.github;
 import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_REPOS;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.egit.github.core.Blob;
 import org.eclipse.egit.github.core.IRepositoryIdProvider;
@@ -50,7 +52,7 @@ public class ExtendedRepositoryService extends RepositoryService {
      * @throws IOException
      *             because of connectivity issues or if the file doesn't exist
      */
-    public Blob getContents(IRepositoryIdProvider repository, String path) throws IOException {
+    public Blob getContents(IRepositoryIdProvider repository, String path, String branch) throws IOException {
         String id = getId(repository);
         StringBuilder uri = new StringBuilder(SEGMENT_REPOS);
         uri.append('/').append(id);
@@ -59,6 +61,13 @@ public class ExtendedRepositoryService extends RepositoryService {
         GitHubRequest request = createRequest();
         request.setUri(uri);
         request.setType(Blob.class);
+
+        if (branch != null) {
+            Map<String, String> param = new HashMap<String, String>();
+            param.put("ref", branch);
+            request.setParams(param);
+        }
+
         return (Blob) client.get(request).getBody();
     }
 }
