@@ -14,19 +14,7 @@ import java.util.List;
 
 import org.eclipse.egit.github.core.Authorization;
 import org.eclipse.egit.github.core.client.GitHubClient;
-import org.eclipse.egit.github.core.service.CollaboratorService;
-import org.eclipse.egit.github.core.service.CommitService;
-import org.eclipse.egit.github.core.service.DataService;
-import org.eclipse.egit.github.core.service.DeployKeyService;
-import org.eclipse.egit.github.core.service.DownloadService;
-import org.eclipse.egit.github.core.service.GistService;
-import org.eclipse.egit.github.core.service.IssueService;
-import org.eclipse.egit.github.core.service.LabelService;
-import org.eclipse.egit.github.core.service.MilestoneService;
-import org.eclipse.egit.github.core.service.OAuthService;
-import org.eclipse.egit.github.core.service.TeamService;
-import org.eclipse.egit.github.core.service.UserService;
-import org.eclipse.egit.github.core.service.WatcherService;
+import org.eclipse.egit.github.core.service.*;
 
 public class ServiceFactory {
 
@@ -45,6 +33,7 @@ public class ServiceFactory {
 	private ExtendedRepositoryService defaultRepositoryService;
 	private OAuthService defaultOAuthService;
 	private DataService defaultDataService;
+    private PullRequestService defaultPullRequestService;
 	private final String password;
 	private final String user;
 	private String token;
@@ -214,6 +203,16 @@ public class ServiceFactory {
 		return defaultRepositoryService;
 	}
 
+    public PullRequestService getPullRequestService() {
+
+        if (defaultPullRequestService == null) {
+            GitHubClient client = getGitHubClient();
+            setDefaultPullRequestService(new PullRequestService(client));
+        }
+        return defaultPullRequestService;
+    }
+
+
 	private GitHubClient getGitHubClient() {
 		GitHubClient client = new GitHubClient(BASE_URL);
 		client.setOAuth2Token(token);
@@ -281,6 +280,10 @@ public class ServiceFactory {
 			ExtendedRepositoryService defaultRepositoryService) {
 		this.defaultRepositoryService = defaultRepositoryService;
 	}
+
+    public void setDefaultPullRequestService(PullRequestService defaultPullRequestService) {
+        this.defaultPullRequestService = defaultPullRequestService;
+    }
 
 	public void setDefaultOAuthService(OAuthService defaultOAuthService) {
 		this.defaultOAuthService = defaultOAuthService;

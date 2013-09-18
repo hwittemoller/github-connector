@@ -11,23 +11,11 @@
  */
 package org.mule.modules.github;
 
-import org.eclipse.egit.github.core.Authorization;
-import org.eclipse.egit.github.core.Blob;
-import org.eclipse.egit.github.core.Contributor;
-import org.eclipse.egit.github.core.Download;
-import org.eclipse.egit.github.core.Issue;
-import org.eclipse.egit.github.core.Key;
-import org.eclipse.egit.github.core.Repository;
-import org.eclipse.egit.github.core.RepositoryBranch;
-import org.eclipse.egit.github.core.RepositoryId;
-import org.eclipse.egit.github.core.RepositoryTag;
-import org.eclipse.egit.github.core.Team;
-import org.eclipse.egit.github.core.User;
-import org.eclipse.egit.github.core.service.DownloadService;
-import org.eclipse.egit.github.core.service.IssueService;
-import org.eclipse.egit.github.core.service.OAuthService;
-import org.eclipse.egit.github.core.service.TeamService;
-import org.eclipse.egit.github.core.service.UserService;
+import org.eclipse.egit.github.core.*;
+import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.client.PageIterator;
+import org.eclipse.egit.github.core.client.PagedRequest;
+import org.eclipse.egit.github.core.service.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -48,7 +36,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -78,6 +66,8 @@ public class GitHubModuleTest {
     private OAuthService oAuthService;
     @Mock
     private DownloadService downloadService;
+    @Mock
+    private PullRequestService pullRequestService;
     @Mock
     private Issue issue1;
     @Mock
@@ -114,7 +104,8 @@ public class GitHubModuleTest {
         serviceFactory.setDefaultTeamService(teamService);
         serviceFactory.setDefaultRepositoryService(repositoryService);
         serviceFactory.setDefaultDownloadService(downloadService);
-        
+        serviceFactory.setDefaultPullRequestService(pullRequestService);
+
         when(oAuthService.getAuthorizations()).thenReturn(createAuths());
         serviceFactory.setDefaultOAuthService(oAuthService);
         filterData = new HashMap<String, String>(1);
@@ -494,6 +485,186 @@ public class GitHubModuleTest {
         assertEquals(fileContent, gitHubModule.getFileContent(USER, REPOSITORY, "some/path", "master"));
     }
 
+    @Test
+    public void getPullRequest() throws IOException {
+        final PullRequest pullRequest = new PullRequest();
+        pullRequest.setBody("test");
+        when(pullRequestService.getPullRequest(eq(new RepositoryId(USER, REPOSITORY)), eq(1))).thenReturn(pullRequest);
+        assertEquals(pullRequest.getBody(), gitHubModule.getPullRequest(USER, REPOSITORY, 1).getBody() );
+    }
+
+    @Test
+    public void getPullRequests() throws IOException {
+        final PullRequest pullRequest = new PullRequest();
+        pullRequest.setBody("test");
+        List<PullRequest> pullRequests = Arrays.asList(pullRequest);
+        when(pullRequestService.getPullRequests(eq(new RepositoryId(USER, REPOSITORY)), eq("new"))).thenReturn(pullRequests);
+        assertEquals(pullRequests, gitHubModule.getPullRequests(USER, REPOSITORY, "new") );
+    }
+
+    @Test
+    public void pagePullRequests() throws IOException {
+        PagedRequest<PullRequest> request = new PagedRequest<PullRequest>(0,10);
+        PageIterator<PullRequest> pageIterator = new PageIterator<PullRequest>(request, new GitHubClient());
+        when(pullRequestService.pagePullRequests(eq(new RepositoryId(USER, REPOSITORY)), eq("new"), eq(10), eq(10))).thenReturn(pageIterator);
+        assertEquals(pageIterator, gitHubModule.pagePullRequests(USER, REPOSITORY, "new", 10, 10) );
+    }
+
+    @Test
+    public void createPullRequest ()
+        throws IOException {
+        final PullRequestForTest pullRequest = new PullRequestForTest();
+        pullRequest.setBody("body");
+        pullRequest.setTitle("title");
+        pullRequest.setHead(new PullRequestMarker().setRef("head"));
+        pullRequest.setBase(new PullRequestMarker().setRef("base"));
+        //when(pullRequestService.createPullRequest(eq(new RepositoryId(USER, REPOSITORY)), refEq(pullRequest, "milestone", "base", "head", "assignee", "mergedBy", "user"))).thenReturn(pullRequest);
+        when(pullRequestService.createPullRequest(eq(new RepositoryId(USER, REPOSITORY)), eq(pullRequest))).thenReturn(pullRequest);
+        assertEquals(pullRequest, gitHubModule.createPullRequest(USER,REPOSITORY,"body","title","head","base"));
+    }
+
+    @Test
+    public void createPullRequestFromIssue()
+            throws IOException {
+        final PullRequestForTest pullRequest = new PullRequestForTest();
+        pullRequest.setBody("body");
+        pullRequest.setTitle("title");
+        pullRequest.setHead(new PullRequestMarker().setRef("head"));
+        pullRequest.setBase(new PullRequestMarker().setRef("base"));
+        when(pullRequestService.createPullRequest(eq(new RepositoryId(USER, REPOSITORY)), anyInt(), eq("head"), eq("base"))).thenReturn(pullRequest);
+        assertEquals(pullRequest, gitHubModule.createPullRequestFromIssue(USER, REPOSITORY, 49, "head", "base"));
+    }
+
+    @Test
+    public void createPullRequestComment() throws IOException{
+
+        CommitComment commitComment = new CommitComment();
+        commitComment.setPath("file.txt");
+        commitComment.setPosition(5);
+        commitComment.setLine(1);
+        commitComment.setBody("Great stuff");
+        when(pullRequestService.createComment(eq(new RepositoryId(USER, REPOSITORY)),eq(47),  refEq(commitComment, "user"))).thenReturn(commitComment);
+        assertEquals(commitComment, gitHubModule.createPullRequestComment(USER, REPOSITORY, 47, "Great stuff", "file.txt", 5, 1));
+    }    
+    
+    @Test
+    public void getPullRequestComments() throws IOException{
+    	CommitComment commitComment = new CommitComment();
+        List<CommitComment> comments = Arrays.asList(commitComment);
+        
+        when(pullRequestService.getComments(eq(new RepositoryId(USER, REPOSITORY)), eq(49))).thenReturn(comments);
+        assertEquals(comments, gitHubModule.getPullRequestComments(USER, REPOSITORY, 49));
+    }
+
+    @Test
+    public void pagePullRequestComments() throws IOException{
+        PagedRequest<CommitComment> request = new PagedRequest<CommitComment>(0,10);
+        PageIterator<CommitComment> pageIterator = new PageIterator<CommitComment>(request, new GitHubClient());
+        when(pullRequestService.pageComments(eq(new RepositoryId(USER, REPOSITORY)), eq(49), eq(10), eq(10))).thenReturn(pageIterator);
+        assertEquals(pageIterator, gitHubModule.pagePullRequestComments(USER, REPOSITORY, 49, 10, 10));
+    }
+
+    @Test
+    public void getPullRequestComment() throws IOException{
+    	CommitComment comment = new CommitComment();
+        comment.setId(49);
+
+    	when(pullRequestService.getComment(eq(new RepositoryId(USER, REPOSITORY)), eq(49L))).thenReturn(comment);
+        assertEquals(comment, gitHubModule.getPullRequestComment(USER, REPOSITORY, 49));
+    }
+    
+    @Test
+    public void editPullRequestComment() throws IOException{
+    	
+    	CommitComment commentOld = new CommitComment();
+    	commentOld.setId(10);
+    	commentOld.setLine(1);
+    	commentOld.setPath("file.txt");
+    	commentOld.setPosition(5);
+    	commentOld.setBody("body");              
+        
+        CommitComment commentNew = new CommitComment();
+        commentNew.setId(10);
+        commentNew.setLine(1);
+        commentNew.setPath("file.txt");
+        commentNew.setPosition(5);
+        commentNew.setBody("body updated");
+        
+        when(pullRequestService.getComment(new RepositoryId(USER, REPOSITORY), 10)).thenReturn(commentOld);
+        when(pullRequestService.editComment(new RepositoryId(USER, REPOSITORY), commentOld)).thenReturn(commentNew);
+        
+        assertEquals(commentNew, gitHubModule.editPullRequestComment(USER, REPOSITORY, 10, "body updated"));
+    }
+
+    @Test
+    public void deletePullRequestComment() throws IOException{
+    	long commentId = 1; 
+    	gitHubModule.deletePullRequestComment(USER, REPOSITORY, commentId);    	
+        verify(pullRequestService).deleteComment(new RepositoryId(USER, REPOSITORY), commentId);
+    }
+
+    @Test
+    public void editPullRequest()
+        throws IOException {
+        final PullRequestForTest initialPullRequest = new PullRequestForTest();
+        initialPullRequest.setId(49);
+        initialPullRequest.setBody("body");
+        initialPullRequest.setTitle("title");
+        initialPullRequest.setState("open");
+
+        final PullRequestForTest resultPullRequest = new PullRequestForTest();
+        resultPullRequest.setId(49);
+        resultPullRequest.setBody("body updated");
+        resultPullRequest.setTitle("title updated");
+        resultPullRequest.setState("closed");
+
+        when(pullRequestService.getPullRequest(eq(new RepositoryId(USER, REPOSITORY)), eq(49))).thenReturn(initialPullRequest);
+        when(pullRequestService.editPullRequest(eq(new RepositoryId(USER, REPOSITORY)), eq(initialPullRequest))).thenReturn(resultPullRequest);
+        assertEquals(resultPullRequest, gitHubModule.editPullRequest(USER, REPOSITORY, 49, "title updated", "body updated", "closed"));
+    }
+
+    @Test
+    public void getPullRequestCommits()
+        throws IOException {
+        RepositoryCommit commit = new RepositoryCommit();
+        List<RepositoryCommit> commits = Arrays.asList(commit);
+        when (pullRequestService.getCommits(eq(new RepositoryId(USER, REPOSITORY)), eq(47))).thenReturn(commits);
+        assertEquals(commits, gitHubModule.getPullRequestCommits(USER, REPOSITORY, 47));
+    }
+
+    @Test
+    public void getPullRequestFiles()
+            throws IOException {
+        CommitFile commitFile = new CommitFile();
+        List<CommitFile> files = Arrays.asList(commitFile);
+        when (pullRequestService.getFiles(eq(new RepositoryId(USER, REPOSITORY)), eq(47))).thenReturn(files);
+        assertEquals(files, gitHubModule.getPullRequestFiles(USER, REPOSITORY, 47));
+    }
+
+    @Test
+    public void isPullRequestMerged()
+            throws IOException {
+        when (pullRequestService.isMerged(eq(new RepositoryId(USER, REPOSITORY)), eq(47))).thenReturn(Boolean.TRUE);
+        assertTrue(gitHubModule.isPullRequestMerged(USER, REPOSITORY, 47));
+    }
+
+    @Test
+    public void mergePullRequest()
+        throws IOException {
+        MergeStatus mergeStatus = new MergeStatus();
+        when(pullRequestService.merge(eq(new RepositoryId(USER, REPOSITORY)), eq(47), eq(""))).thenReturn(mergeStatus);
+        assertEquals(mergeStatus, gitHubModule.mergePullRequest(USER, REPOSITORY, 47, ""));
+    }
+
+    @Test
+    public void replyToPullRequestComment()
+        throws IOException {
+        CommitComment commitComment = new CommitComment();
+        when(pullRequestService.replyToComment(eq(new RepositoryId(USER, REPOSITORY)), eq(47), eq(1), eq("Yeah"))).thenReturn(commitComment);
+        assertEquals(commitComment, gitHubModule.replyToPullRequestComment(USER, REPOSITORY, 47, 1, "Yeah"));
+    }
+
+
     private <T> List<T> createList(T... elements) {
         List<T> result = new ArrayList<T>(elements.length);
         Collections.addAll(result, elements);
@@ -507,4 +678,25 @@ public class GitHubModuleTest {
         List<Authorization> auths = createList(auth);
         return auths;
     }
+
+
+    //adding equals that is needed for testing of PullRequest
+    private class PullRequestForTest
+        extends PullRequest
+    {
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+            if (!(obj instanceof PullRequest))
+                return false;
+
+            PullRequest other = (PullRequest) obj;
+            return getId()==other.getId()
+                    && getBody().equals(other.getBody())
+                    && getTitle().equals(other.getTitle());
+        }
+    }
+
 }

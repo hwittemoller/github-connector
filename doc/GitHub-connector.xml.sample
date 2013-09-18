@@ -437,3 +437,74 @@
 <!-- BEGIN_INCLUDE(github:getFileContent) -->
      <github:get-file-content owner="mulesoft" repositoryName="mule-devkit" path="README" />
 <!-- END_INCLUDE(github:getFileContent) -->
+
+<!-- BEGIN_INCLUDE(github:getPullRequest) -->
+     <github:get-pull-request owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+<!-- END_INCLUDE(github:getPullRequest) -->
+
+<!-- BEGIN_INCLUDE(github:getPullRequests) -->
+        <github:get-pull-requests owner="mulesoft" repositoryName="mule-devkit" state="open"/>
+<!-- END_INCLUDE(github:getPullRequests) -->
+
+<!-- BEGIN_INCLUDE(github:pagePullRequests) -->
+        <github:page-pull-requests owner="mulesoft" repositoryName="mule-devkit" state="open"/>
+<!-- END_INCLUDE(github:pagePullRequests) -->
+
+<!-- BEGIN_INCLUDE(github:createPullRequest) -->
+        <github:create-pull-request owner="mulesoft" repositoryName="mule-devkit" body="body" title="title" head="head" base="base"/>
+<!-- END_INCLUDE(github:createPullRequest) -->
+
+<!-- BEGIN_INCLUDE(github:createPullRequestFromIssue) -->
+        <github:create-pull-request-from-issue owner="mulesoft" repositoryName="mule-devkit" issueId="1" head="head" base="base"/>
+<!-- END_INCLUDE(github:createPullRequestFromIssue) -->
+
+<!-- BEGIN_INCLUDE(github:editPullRequest) -->
+        <github:edit-pull-request owner="mulesoft" repositoryName="mule-devkit" id="1" state="closed"/>
+<!-- END_INCLUDE(github:editPullRequest) -->
+
+<!-- BEGIN_INCLUDE(github:getPullRequestCommits) -->
+        <github:get-pull-request-commits owner="mulesoft" repositoryName="mule-devkit" id="1" />
+<!-- END_INCLUDE(github:getPullRequestCommits) -->
+
+<!-- BEGIN_INCLUDE(github:getPullRequestFiles) -->
+        <github:get-pull-request-files owner="mulesoft" repositoryName="mule-devkit" id="1" />
+<!-- END_INCLUDE(github:getPullRequestFiles) -->
+
+<!-- BEGIN_INCLUDE(github:isPullRequestMerged) -->
+        <github:is-pull-request-merged owner="mulesoft" repositoryName="mule-devkit" id="1" />
+<!-- END_INCLUDE(github:isPullRequestMerged) -->
+
+<!-- BEGIN_INCLUDE(github:mergePullRequest) -->
+        <github:merge-pull-request owner="mulesoft" repositoryName="mule-devkit" id="1" commitMessage="message" />
+<!-- END_INCLUDE(github:mergePullRequest) -->
+
+<!-- BEGIN_INCLUDE(github:createPullRequestComment) -->
+        <github:create-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" pullRequestId="1"
+                body="body" path="file.txt" position="5" line="1" />
+<!-- END_INCLUDE(github:createPullRequestComment) -->
+
+<!-- BEGIN_INCLUDE(github:replyToPullRequestComment) -->
+        <github:reply-to-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" pullRequestId="1"
+                                           commentId="1" body="reply" />
+<!-- END_INCLUDE(github:replyToPullRequestComment) -->
+
+<!-- BEGIN_INCLUDE(github:editPullRequestComment) -->
+        <github:edit-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" commentId="1" body="update" />
+<!-- END_INCLUDE(github:editPullRequestComment) -->
+
+<!-- BEGIN_INCLUDE(github:deletePullRequestComment) -->
+        <github:delete-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" commentId="1"/>
+<!-- END_INCLUDE(github:deletePullRequestComment) -->
+
+<!-- BEGIN_INCLUDE(github:getPullRequestComment) -->
+        <github:get-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" commentId="1"/>
+<!-- END_INCLUDE(github:getPullRequestComment) -->
+
+<!-- BEGIN_INCLUDE(github:getPullRequestComments) -->
+        <github:get-pull-request-comments owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+<!-- END_INCLUDE(github:getPullRequestComments) -->
+
+<!-- BEGIN_INCLUDE(github:pagePullRequestComments) -->
+        <github:page-pull-request-comments owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+<!-- END_INCLUDE(github:pagePullRequestComments) -->
+

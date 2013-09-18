@@ -462,5 +462,76 @@
     <flow name="getTreeRecursively">
 		<github:get-tree-recursively owner="mulesoft" repositoryName="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
     </flow>
-    
+
+    <flow name="getPullRequest">
+        <github:get-pull-request owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+    </flow>
+
+    <flow name="getPullRequests">
+        <github:get-pull-requests owner="mulesoft" repositoryName="mule-devkit" state="open"/>
+    </flow>
+
+    <flow name="pagePullRequests">
+        <github:page-pull-requests owner="mulesoft" repositoryName="mule-devkit" state="open"/>
+    </flow>
+
+    <flow name="createPullRequest">
+        <github:create-pull-request owner="mulesoft" repositoryName="mule-devkit" body="body" title="title" head="head" base="base"/>
+    </flow>
+
+    <flow name="createPullRequestFromIssue">
+        <github:create-pull-request-from-issue owner="mulesoft" repositoryName="mule-devkit" issueId="1" head="head" base="base"/>
+    </flow>
+
+    <flow name="editPullRequest">
+        <github:edit-pull-request owner="mulesoft" repositoryName="mule-devkit" id="1" state="closed"/>
+    </flow>
+
+    <flow name="getPullRequestCommits">
+        <github:get-pull-request-commits owner="mulesoft" repositoryName="mule-devkit" id="1" />
+    </flow>
+
+    <flow name="getPullRequestFiles">
+        <github:get-pull-request-files owner="mulesoft" repositoryName="mule-devkit" id="1" />
+    </flow>
+
+    <flow name="isPullRequestMerged">
+        <github:is-pull-request-merged owner="mulesoft" repositoryName="mule-devkit" id="1" />
+    </flow>
+
+    <flow name="mergePullRequest">
+        <github:merge-pull-request owner="mulesoft" repositoryName="mule-devkit" id="1" commitMessage="message" />
+    </flow>
+
+    <flow name="createPullRequestComment">
+        <github:create-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" pullRequestId="1"
+                body="body" path="file.txt" position="5" line="1" />
+    </flow>
+
+    <flow name="replyToPullRequestComment">
+        <github:reply-to-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" pullRequestId="1"
+                                           commentId="1" body="reply" />
+    </flow>
+
+    <flow name="editPullRequestComment">
+        <github:edit-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" commentId="1" body="update" />
+    </flow>
+
+    <flow name="deletePullRequestComment">
+        <github:delete-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" commentId="1"/>
+    </flow>
+
+    <flow name="getPullRequestComment">
+        <github:get-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" commentId="1"/>
+    </flow>
+
+    <flow name="getPullRequestComments">
+        <github:get-pull-request-comments owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+    </flow>
+
+    <flow name="pagePullRequestComments">
+        <github:page-pull-request-comments owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+    </flow>
+
+
 </mule>

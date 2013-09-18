@@ -19,27 +19,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.egit.github.core.Blob;
-import org.eclipse.egit.github.core.Comment;
-import org.eclipse.egit.github.core.CommitComment;
-import org.eclipse.egit.github.core.Contributor;
-import org.eclipse.egit.github.core.Download;
-import org.eclipse.egit.github.core.DownloadResource;
-import org.eclipse.egit.github.core.Gist;
-import org.eclipse.egit.github.core.GistFile;
-import org.eclipse.egit.github.core.Issue;
-import org.eclipse.egit.github.core.IssueEvent;
-import org.eclipse.egit.github.core.Key;
-import org.eclipse.egit.github.core.Label;
-import org.eclipse.egit.github.core.Milestone;
-import org.eclipse.egit.github.core.Repository;
-import org.eclipse.egit.github.core.RepositoryBranch;
-import org.eclipse.egit.github.core.RepositoryCommit;
-import org.eclipse.egit.github.core.RepositoryId;
-import org.eclipse.egit.github.core.RepositoryTag;
-import org.eclipse.egit.github.core.Team;
-import org.eclipse.egit.github.core.Tree;
-import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.*;
+import org.eclipse.egit.github.core.client.PageIterator;
+import org.eclipse.egit.github.core.client.PagedRequest;
 import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Connect;
@@ -1884,7 +1866,365 @@ public class GitHubModule {
         return new String(content);
     }
     
+    /**
+     * Returns pull request by ID
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequest}
+     *
+     * @param owner the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param id the id od pull request
+     * @return pull request
+     * @throws java.io.IOException when the connection to the client failed
+     */
+    @Processor
+    public PullRequest getPullRequest(String owner, String repositoryName, int id)
+            throws IOException {
+        return getServiceFactory().getPullRequestService().getPullRequest(RepositoryId.create(owner, repositoryName), id);
+    }
 
+
+    /**
+     * Get pull requests from repository matching state
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequests}
+     *
+     * @param owner the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param state the state of pull request
+     * @return list of pull requests
+     * @throws java.io.IOException when the connection to the client failed
+     */
+    @Processor
+    public List<PullRequest> getPullRequests(String owner, String repositoryName, String state)
+            throws IOException {
+        return getServiceFactory().getPullRequestService().getPullRequests(RepositoryId.create(owner, repositoryName), state);
+    }
+
+    /**
+     * Page pull requests with given state, offset and page size
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:pagePullRequests}
+     *
+     * @param owner the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param state the state of pull request
+     * @param start the number of first page. Default is <code>PagedRequest.PAGE_FIRST</code>
+     * @param size the page size. Default is <code>PagedRequest.PAGE_SIZE</code>
+     * @return list of pull requests
+     * @throws java.io.IOException when the connection to the client failed
+     */
+    @Processor
+    public PageIterator<PullRequest> pagePullRequests(String owner, String repositoryName, String state, @Optional Integer start, @Optional Integer size) throws IOException {
+        if (start==null)
+            start = PagedRequest.PAGE_FIRST;
+        if (size==null)
+            size = PagedRequest.PAGE_SIZE;
+        return getServiceFactory().getPullRequestService().pagePullRequests(RepositoryId.create(owner, repositoryName), state, start, size);
+    }
+
+
+    /**
+     * Create pull request
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createPullRequest}
+     *
+     * @param owner the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param body the body of pull request
+     * @param title the title of pull request
+     * @param head reference to head
+     * @param base reference to base
+     * @return created pull request
+     * @throws IOException when the connection to the client failed
+     */
+    @Processor
+    public PullRequest createPullRequest(String owner, String repositoryName,
+                                         @Optional String body, String title, String head, String base)
+            throws IOException {
+
+        PullRequest pullRequest = new PullRequest();
+        pullRequest.setBody(body);
+        pullRequest.setTitle(title);
+        pullRequest.setHead(new PullRequestMarker().setRef(head));
+        pullRequest.setBase(new PullRequestMarker().setRef(base));
+        return getServiceFactory().getPullRequestService().createPullRequest(RepositoryId.create(owner, repositoryName), pullRequest);
+    }
+
+    /**
+     * Create pull request from issue
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createPullRequestFromIssue}
+     *
+     * @param owner the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param issueId the id of issue
+     * @param head reference to head
+     * @param base reference to base
+     * @return created pull request
+     * @throws IOException when the connection to the client failed
+     */
+    @Processor
+    public PullRequest createPullRequestFromIssue(String owner, String repositoryName,
+                                         int issueId, String head, String base)
+            throws IOException {
+        return getServiceFactory().getPullRequestService().createPullRequest(RepositoryId.create(owner, repositoryName), issueId, head, base);
+
+    }
+
+    /**
+     * Update pull request
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editPullRequest}
+     *
+     * @param owner the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param id the id of the pull request
+     * @param title the title of the pull request
+     * @param body the body of the pull request
+     * @param state state of the pull request. Valid values are "open" and "closed"
+     * @return updated pull request
+     * @throws IOException if pull request was not found by id or if connection to the client failed
+     */
+    @Processor
+    public PullRequest editPullRequest(String owner, String repositoryName,
+                                       int id, @Optional String title, @Optional String body, @Optional String state)
+            throws IOException {
+
+        PullRequest pullRequest = getPullRequest(owner, repositoryName, id);
+        if (title != null)
+            pullRequest.setTitle(title);
+
+        if (body != null)
+            pullRequest.setBody(body);
+
+        if (state != null)
+            pullRequest.setState(state);
+
+        return getServiceFactory().getPullRequestService().editPullRequest(RepositoryId.create(owner, repositoryName), pullRequest);
+    }
+
+    /**
+     * Get all commits associated with given pull request id
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequestCommits}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param id             the id of pull request
+     * @return list of commits
+     * @throws IOException when the connection to the client failed
+     */
+    @Processor
+    public List<RepositoryCommit> getPullRequestCommits(String owner, String repositoryName, int id)
+            throws IOException {
+
+        return getServiceFactory().getPullRequestService().getCommits(RepositoryId.create(owner, repositoryName), id);
+    }
+
+    /**
+     * Get all files associated with given pull request id
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequestFiles}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param id             the id of pull request
+     * @return list of files
+     * @throws IOException when the connection to the client failed
+     */
+    @Processor
+    public List<CommitFile> getPullRequestFiles(String owner, String repositoryName, int id)
+            throws IOException {
+
+        return getServiceFactory().getPullRequestService().getFiles(RepositoryId.create(owner, repositoryName), id);
+    }
+
+
+    /**
+     * Get if a pull request has been merged
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:isPullRequestMerged}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param id             the id of pull request
+     * @return rue if merged, false otherwise
+     * @throws IOException when the connection to the client failed
+     */
+    @Processor
+    public boolean isPullRequestMerged(String owner, String repositoryName, int id)
+            throws IOException {
+
+        return getServiceFactory().getPullRequestService().isMerged(RepositoryId.create(owner, repositoryName), id);
+    }
+
+    /**
+     * Merge given pull request
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:mergePullRequest}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param id             the id of pull request
+     * @param commitMessage  commit message
+     * @return               status of merge
+     * @throws IOException   when the connection to the client failed
+     */
+    @Processor
+    public MergeStatus mergePullRequest(String owner, String repositoryName, int id, String commitMessage)
+            throws IOException {
+
+        return getServiceFactory().getPullRequestService().merge(RepositoryId.create(owner, repositoryName), id, commitMessage);
+    }
+
+
+    /**
+     * Create comment on given pull request
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createPullRequestComment}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param pullRequestId  the id of pull request
+     * @param body           the body of comment
+     * @param path           Relative path of the file to comment on.
+     * @param position       Line index in the diff to comment on.
+     * @param line           Line number in the file to comment on.
+     * @return               created commit comment
+     * @throws IOException   when the connection to the client failed
+     */
+    @Processor
+    public CommitComment createPullRequestComment(String owner, String repositoryName, int pullRequestId,
+                                       String body, String path, int position, int line ) throws IOException {
+
+        CommitComment commitComment = new CommitComment();
+        commitComment.setBody(body);
+        commitComment.setPath(path);
+        commitComment.setPosition(position);
+        commitComment.setLine(line);
+        return getServiceFactory().getPullRequestService().createComment(RepositoryId.create(owner, repositoryName), pullRequestId, commitComment);
+    }
+
+    /**
+     * Reply to given comment
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:replyToPullRequestComment}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param pullRequestId  the id of pull request
+     * @param commentId      the id of the comment
+     * @param body           the body of response
+     * @return               created comment
+     * @throws IOException   when the connection to the client failed
+     */
+    @Processor
+    public CommitComment replyToPullRequestComment(String owner, String repositoryName, int pullRequestId,
+                                        int commentId, String body)
+            throws IOException {
+
+        return getServiceFactory().getPullRequestService().replyToComment(RepositoryId.create(owner, repositoryName), pullRequestId, commentId, body);
+    }    
+
+    /**
+     * Edit pull request comment
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editPullRequestComment}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param commentId      id of edited comment
+     * @param body           new text for comment
+     * @return created commit comment
+     * @throws IOException when the connection to the client failed
+     */
+    @Processor
+    public CommitComment editPullRequestComment(String owner, String repositoryName, long commentId, String body) throws IOException {
+
+        IRepositoryIdProvider repository = RepositoryId.create(owner, repositoryName);
+        CommitComment comment = getServiceFactory().getPullRequestService().getComment(repository, commentId);
+        comment.setBody(body);
+        return getServiceFactory().getPullRequestService().editComment(repository, comment);
+    }
+
+    /**
+     * Delete pull request commit comment with given id
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:deletePullRequestComment}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param commentId      id of deleted comment
+     * @throws IOException when the connection to the client failed
+     */
+    @Processor
+    public void deletePullRequestComment(String owner, String repositoryName, long commentId) throws IOException {
+
+        getServiceFactory().getPullRequestService().deleteComment(RepositoryId.create(owner, repositoryName), commentId);
+    }
+
+    /**
+     * Get commit comment with given id
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequestComment}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param commentId      id of comment
+     * @return created commit comment
+     * @throws IOException when the connection to the client failed
+     */
+    @Processor
+    public CommitComment getPullRequestComment(String owner, String repositoryName, long commentId)
+            throws IOException {
+
+        return getServiceFactory().getPullRequestService().getComment(RepositoryId.create(owner, repositoryName), commentId);
+    }
+
+    /**
+     * Get all comments on commits in given pull request
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequestComments}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param id             the id of pull request
+     * @return list of comments for given pull request
+     * @throws IOException when the connection to the client failed
+     */
+    @Processor
+    public List<CommitComment> getPullRequestComments(String owner, String repositoryName, int id)
+            throws IOException {
+
+        return getServiceFactory().getPullRequestService().getComments(RepositoryId.create(owner, repositoryName), id);
+    }
+
+
+
+    /**
+     * Page pull request commit comments with given offset and page size
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:pagePullRequestComments}
+     *
+     * @param owner          the owner of the repository
+     * @param repositoryName the name of the repository
+     * @param id             the id of pull request
+     * @param start          the number of first page. Default is <code>PagedRequest.PAGE_FIRST</code>
+     * @param size           the page size. Default is <code>PagedRequest.PAGE_SIZE</code>
+     * @return list of comments for given pull request
+     * @throws IOException when the connection to the client failed
+     */
+    @Processor
+    public PageIterator<CommitComment> pagePullRequestComments(String owner, String repositoryName, int id,  @Optional Integer start, @Optional Integer size)
+            throws IOException {
+        if (start==null)
+            start = PagedRequest.PAGE_FIRST;
+        if (size==null)
+            size = PagedRequest.PAGE_SIZE;
+
+        return getServiceFactory().getPullRequestService().pageComments(RepositoryId.create(owner, repositoryName), id, start, size);
+    }
 
     private String getUser(String user) {
         return user != null ? user : serviceFactory.getUser();
@@ -1937,5 +2277,5 @@ public class GitHubModule {
     public String toString(){
     	return serviceFactory.getUser();
     }
-    
+
 }
