@@ -64,6 +64,7 @@ public class GitHubModule {
         if (filterData == null) {
             filterData = Collections.emptyMap();
         }
+
         return getServiceFactory().getIssueService().getIssues(getUser(user), repository, filterData);
     }
 
@@ -83,11 +84,13 @@ public class GitHubModule {
         List<Issue> issues = getServiceFactory().getIssueService().getIssues(getUser(user), repository, Collections.<String, String>emptyMap());
         Iterator<Issue> iterator = issues.iterator();
         Date since = new Date(System.currentTimeMillis() - minutes * 60 * 1000);
+
         while (iterator.hasNext()) {
             if (since.after(iterator.next().getCreatedAt())) {
                 iterator.remove();
             }
         }
+
         return issues;
     }
 
@@ -106,11 +109,13 @@ public class GitHubModule {
     public List<Issue> getIssuesSinceNumber(@Optional String user, String repository, int fromIssueNumber) throws IOException {
         List<Issue> issues = getServiceFactory().getIssueService().getIssues(getUser(user), repository, Collections.<String, String>emptyMap());
         Iterator<Issue> iterator = issues.iterator();
+
         while (iterator.hasNext()) {
             if (fromIssueNumber >= iterator.next().getNumber()) {
                 iterator.remove();
             }
         }
+
         return issues;
     }
 
@@ -132,10 +137,12 @@ public class GitHubModule {
         Issue issue = new Issue();
         issue.setTitle(title);
         issue.setBody(body);
+
         if (assignee != null) {
             User assigneeUser = new User().setName(assignee);
             issue.setAssignee(assigneeUser);
         }
+
         return getServiceFactory().getIssueService().createIssue(getUser(user), repository, issue);
     }
 
@@ -154,6 +161,7 @@ public class GitHubModule {
     public Issue closeIssue(@Optional String user, String repository, String issueId) throws IOException {
         Issue issue = getIssue(getUser(user), repository, issueId);
         issue.setState("closed");
+
         return getServiceFactory().getIssueService().editIssue(getUser(user), repository, issue);
     }
 
@@ -222,6 +230,7 @@ public class GitHubModule {
     public Comment editComment(@Optional String user, String repository, Long commentId, String body) throws IOException {
         Comment comment = getServiceFactory().getIssueService().getComment(getUser(user), repository, commentId);
         comment.setBody(body);
+
         return getServiceFactory().getIssueService().editComment(getUser(user), repository, comment);
     }
 
@@ -340,8 +349,7 @@ public class GitHubModule {
      */
     @Processor
     public List<User> getCollaborators(String owner, String repositoryName) throws IOException {
-        return getServiceFactory().getCollaboratorService().
-                getCollaborators(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getCollaboratorService().getCollaborators(RepositoryId.create(owner, repositoryName));
     }
 
     /**
@@ -357,8 +365,7 @@ public class GitHubModule {
      */
     @Processor
     public boolean isCollaborator(String owner, String repositoryName, @Optional String user) throws IOException {
-        return getServiceFactory().getCollaboratorService().
-                isCollaborator(RepositoryId.create(owner, repositoryName), getUser(user));
+        return getServiceFactory().getCollaboratorService().isCollaborator(RepositoryId.create(owner, repositoryName), getUser(user));
     }
 
     /**
@@ -373,8 +380,7 @@ public class GitHubModule {
      */
     @Processor
     public void addCollaborator(String owner, String repositoryName, @Optional String user) throws IOException {
-        getServiceFactory().getCollaboratorService().
-        addCollaborator(RepositoryId.create(owner, repositoryName), getUser(user));
+        getServiceFactory().getCollaboratorService().addCollaborator(RepositoryId.create(owner, repositoryName), getUser(user));
     }
 
     /**
@@ -389,8 +395,7 @@ public class GitHubModule {
      */
     @Processor
     public void removeCollaborator(String owner, String repositoryName, @Optional String user) throws IOException {
-        getServiceFactory().getCollaboratorService().
-        removeCollaborator(RepositoryId.create(owner, repositoryName), getUser(user));
+        getServiceFactory().getCollaboratorService().removeCollaborator(RepositoryId.create(owner, repositoryName), getUser(user));
     }
 
     /**
@@ -405,8 +410,7 @@ public class GitHubModule {
      */
     @Processor
     public List<RepositoryCommit> getCommits(String owner, String repositoryName) throws IOException {
-        return getServiceFactory().getCommitService().
-                getCommits(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getCommitService().getCommits(RepositoryId.create(owner, repositoryName));
     }
 
     /**
@@ -423,10 +427,8 @@ public class GitHubModule {
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<RepositoryCommit> getCommitsBySha(String owner, String repositoryName, 
-            @Optional String sha, @Optional String path) throws IOException {
-        return getServiceFactory().getCommitService().
-                getCommits(RepositoryId.create(owner, repositoryName), sha, path);
+    public List<RepositoryCommit> getCommitsBySha(String owner, String repositoryName, @Optional String sha, @Optional String path) throws IOException {
+        return getServiceFactory().getCommitService().getCommits(RepositoryId.create(owner, repositoryName), sha, path);
     }
 
     /**
@@ -442,8 +444,7 @@ public class GitHubModule {
      */
     @Processor
     public RepositoryCommit getCommit(String owner, String repositoryName, String sha) throws IOException {
-        return getServiceFactory().getCommitService().
-                getCommit(RepositoryId.create(owner, repositoryName), sha);
+        return getServiceFactory().getCommitService().getCommit(RepositoryId.create(owner, repositoryName), sha);
     }
 
     /**
@@ -459,8 +460,7 @@ public class GitHubModule {
      */
     @Processor
     public List<CommitComment> getCommmitComments(String owner, String repositoryName, String sha) throws IOException {
-        return getServiceFactory().getCommitService().
-                getComments(RepositoryId.create(owner, repositoryName), sha);
+        return getServiceFactory().getCommitService().getComments(RepositoryId.create(owner, repositoryName), sha);
     }
 
     /**
@@ -476,8 +476,7 @@ public class GitHubModule {
      */
     @Processor
     public CommitComment getComment(String owner, String repositoryName, long commentId) throws IOException {
-        return getServiceFactory().getCommitService().
-                getComment(RepositoryId.create(owner, repositoryName), commentId);
+        return getServiceFactory().getCommitService().getComment(RepositoryId.create(owner, repositoryName), commentId);
     }
 
     /**
@@ -594,10 +593,11 @@ public class GitHubModule {
      */
     @Processor
     public Key createDeployKey(String owner, String repositoryName, String title, String key) throws IOException {
-        Key k = new Key();
-        k.setTitle(title);
-        k.setKey(key);
-        return getServiceFactory().getDeployKeyService().createKey(RepositoryId.create(owner, repositoryName), k);
+        Key newKey = new Key();
+        newKey.setTitle(title);
+        newKey.setKey(key);
+
+        return getServiceFactory().getDeployKeyService().createKey(RepositoryId.create(owner, repositoryName), newKey);
     }
 
     /**
@@ -614,10 +614,11 @@ public class GitHubModule {
      */
     @Processor
     public Key editDeployKey(String owner, String repositoryName, String title, String key) throws IOException {
-        Key k = new Key();
-        k.setTitle(title);
-        k.setKey(key);
-        return getServiceFactory().getDeployKeyService().editKey(RepositoryId.create(owner, repositoryName), k);
+        Key newKey = new Key();
+        newKey.setTitle(title);
+        newKey.setKey(key);
+
+        return getServiceFactory().getDeployKeyService().editKey(RepositoryId.create(owner, repositoryName), newKey);
     }
 
 
@@ -688,6 +689,7 @@ public class GitHubModule {
         download.setSize(size);
         download.setDescription(description);
         download.setContentType(contentType);
+
         return getServiceFactory().getDownloadService().createResource(RepositoryId.create(owner, repositoryName), download);
     }
 
@@ -735,8 +737,7 @@ public class GitHubModule {
 	 *             when the connection to the client failed
 	 */
 	@Processor
-	public Gist createGist(Boolean isPublic, @Optional String description,
-			Map<String, String> files) throws IOException {
+	public Gist createGist(Boolean isPublic, @Optional String description, Map<String, String> files) throws IOException {
 		Gist gist = new Gist();
 		gist.setDescription(description);
 		gist.setPublic(true);
@@ -1113,24 +1114,31 @@ public class GitHubModule {
     public User updateCurrentUser(@Optional String userName, @Optional String email, @Optional String blog, @Optional String company,
                                   @Optional String location, @Optional Boolean hireable) throws IOException {
         User currentUser = getCurrentUser();
+
         if (userName != null) {
             currentUser.setName(userName);
         }
+
         if (email != null) {
             currentUser.setEmail(email);
         }
+
         if (blog != null) {
             currentUser.setBlog(blog);
         }
+
         if (company != null) {
             currentUser.setCompany(company);
         }
+
         if (location != null) {
             currentUser.setLocation(location);
         }
+
         if (hireable != null) {
             currentUser.setHireable(hireable);
         }
+
         return getServiceFactory().getUserService().editUser(currentUser);
     }
 
@@ -1294,6 +1302,7 @@ public class GitHubModule {
         Key newKey = new Key();
         newKey.setTitle(title);
         newKey.setKey(key);
+
         return getServiceFactory().getUserService().createKey(newKey);
     }
 
@@ -1312,12 +1321,15 @@ public class GitHubModule {
     @Processor
     public Key editKey(int keyId, @Optional String title, @Optional String key) throws IOException {
         Key keyToEdit = getKey(keyId);
+
         if (title != null) {
             keyToEdit.setTitle(title);
         }
+
         if (key != null) {
             keyToEdit.setKey(key);
         }
+
         return getServiceFactory().getUserService().editKey(keyToEdit);
     }
 
@@ -1379,11 +1391,11 @@ public class GitHubModule {
      * @api.doc <a href="http://developer.github.com/v3/orgs/teams/">Create team</a>
      */
     @Processor
-    public Team createTeam(String organization, String teamName, @Optional @Default("PULL") TeamPermission teamPermission,
-                           @Optional List<String> repoNames) throws IOException {
+    public Team createTeam(String organization, String teamName, @Optional @Default("PULL") TeamPermission teamPermission, @Optional List<String> repoNames) throws IOException {
         Team team = new Team();
         team.setName(teamName);
         team.setPermission(teamPermission.toString());
+
         if (repoNames != null) {
             return getServiceFactory().getTeamService().createTeam(organization, team, repoNames);
         } else {
@@ -1406,12 +1418,15 @@ public class GitHubModule {
     @Processor
     public Team editTeam(int id, @Optional String teamName, @Optional TeamPermission teamPermission) throws IOException {
         Team team = getTeam(id);
+
         if (teamName != null) {
             team.setName(teamName);
         }
+
         if (teamPermission != null) {
             team.setPermission(teamPermission.toString());
         }
+
         return getServiceFactory().getTeamService().editTeam(team);
     }
 
@@ -1609,6 +1624,7 @@ public class GitHubModule {
         repository.setHasIssues(hasIssues);
         repository.setHasWiki(hasWiki);
         repository.setHasDownloads(hasDownloads);
+
         return getServiceFactory().getRepositoryService().createRepository(repository);
     }
 
@@ -1639,6 +1655,7 @@ public class GitHubModule {
         repository.setHasIssues(hasIssues);
         repository.setHasWiki(hasWiki);
         repository.setHasDownloads(hasDownloads);
+
         return getServiceFactory().getRepositoryService().createRepository(organization, repository);
     }
 
@@ -1678,21 +1695,27 @@ public class GitHubModule {
     public Repository editRepository(String owner, String repositoryName, @Optional String description, @Optional Boolean isPrivate,
                                      @Optional Boolean hasIssues, @Optional Boolean hasWiki, @Optional Boolean hasDownloads) throws IOException {
         Repository repositoryToEdit = getRepository(owner, repositoryName);
+
         if (description != null) {
             repositoryToEdit.setDescription(description);
         }
+
         if (isPrivate != null) {
             repositoryToEdit.setPrivate(isPrivate);
         }
+
         if (hasIssues != null) {
             repositoryToEdit.setHasIssues(hasIssues);
         }
+
         if (hasWiki != null) {
             repositoryToEdit.setHasWiki(hasWiki);
         }
+
         if (hasDownloads != null) {
             repositoryToEdit.setHasDownloads(hasDownloads);
         }
+
         return getServiceFactory().getRepositoryService().editRepository(repositoryToEdit);
     }
 
@@ -1856,13 +1879,11 @@ public class GitHubModule {
      * @throws TransformerException when the file's contents couldn't be transformeds
      */
     @Processor
-    public String getFileContent(final String owner, final String repositoryName,
-                                 final String path, @Optional @Default("master") String branch)
-            throws IOException, TransformerException {
-        final Blob contents = getServiceFactory().getRepositoryService().
-                getContents(RepositoryId.create(owner, repositoryName), path, branch);
+    public String getFileContent(final String owner, final String repositoryName, final String path, @Optional @Default("master") String branch) throws IOException, TransformerException {
+        final Blob contents = getServiceFactory().getRepositoryService().getContents(RepositoryId.create(owner, repositoryName), path, branch);
         final String encondedContent = contents.getContent();
         final byte[] content = (byte[]) new Base64Decoder().doTransform(encondedContent, contents.getEncoding() != null ? contents.getEncoding() : "utf-8");
+
         return new String(content);
     }
     
@@ -1878,8 +1899,7 @@ public class GitHubModule {
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public PullRequest getPullRequest(String owner, String repositoryName, int id)
-            throws IOException {
+    public PullRequest getPullRequest(String owner, String repositoryName, int id) throws IOException {
         return getServiceFactory().getPullRequestService().getPullRequest(RepositoryId.create(owner, repositoryName), id);
     }
 
@@ -1896,8 +1916,7 @@ public class GitHubModule {
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<PullRequest> getPullRequests(String owner, String repositoryName, String state)
-            throws IOException {
+    public List<PullRequest> getPullRequests(String owner, String repositoryName, String state) throws IOException {
         return getServiceFactory().getPullRequestService().getPullRequests(RepositoryId.create(owner, repositoryName), state);
     }
 
@@ -1916,10 +1935,14 @@ public class GitHubModule {
      */
     @Processor
     public PageIterator<PullRequest> pagePullRequests(String owner, String repositoryName, String state, @Optional Integer start, @Optional Integer size) throws IOException {
-        if (start==null)
+        if (start == null) {
             start = PagedRequest.PAGE_FIRST;
-        if (size==null)
+        }
+
+        if (size == null) {
             size = PagedRequest.PAGE_SIZE;
+        }
+
         return getServiceFactory().getPullRequestService().pagePullRequests(RepositoryId.create(owner, repositoryName), state, start, size);
     }
 
@@ -1939,15 +1962,13 @@ public class GitHubModule {
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public PullRequest createPullRequest(String owner, String repositoryName,
-                                         @Optional String body, String title, String head, String base)
-            throws IOException {
-
+    public PullRequest createPullRequest(String owner, String repositoryName, @Optional String body, String title, String head, String base) throws IOException {
         PullRequest pullRequest = new PullRequest();
         pullRequest.setBody(body);
         pullRequest.setTitle(title);
         pullRequest.setHead(new PullRequestMarker().setRef(head));
         pullRequest.setBase(new PullRequestMarker().setRef(base));
+
         return getServiceFactory().getPullRequestService().createPullRequest(RepositoryId.create(owner, repositoryName), pullRequest);
     }
 
@@ -1965,9 +1986,7 @@ public class GitHubModule {
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public PullRequest createPullRequestFromIssue(String owner, String repositoryName,
-                                         int issueId, String head, String base)
-            throws IOException {
+    public PullRequest createPullRequestFromIssue(String owner, String repositoryName, int issueId, String head, String base) throws IOException {
         return getServiceFactory().getPullRequestService().createPullRequest(RepositoryId.create(owner, repositoryName), issueId, head, base);
 
     }
@@ -1987,19 +2006,20 @@ public class GitHubModule {
      * @throws IOException if pull request was not found by id or if connection to the client failed
      */
     @Processor
-    public PullRequest editPullRequest(String owner, String repositoryName,
-                                       int id, @Optional String title, @Optional String body, @Optional String state)
-            throws IOException {
-
+    public PullRequest editPullRequest(String owner, String repositoryName, int id, @Optional String title, @Optional String body, @Optional String state) throws IOException {
         PullRequest pullRequest = getPullRequest(owner, repositoryName, id);
-        if (title != null)
+
+        if (title != null) {
             pullRequest.setTitle(title);
+        }
 
-        if (body != null)
+        if (body != null) {
             pullRequest.setBody(body);
+        }
 
-        if (state != null)
+        if (state != null) {
             pullRequest.setState(state);
+        }
 
         return getServiceFactory().getPullRequestService().editPullRequest(RepositoryId.create(owner, repositoryName), pullRequest);
     }
@@ -2016,9 +2036,7 @@ public class GitHubModule {
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public List<RepositoryCommit> getPullRequestCommits(String owner, String repositoryName, int id)
-            throws IOException {
-
+    public List<RepositoryCommit> getPullRequestCommits(String owner, String repositoryName, int id) throws IOException {
         return getServiceFactory().getPullRequestService().getCommits(RepositoryId.create(owner, repositoryName), id);
     }
 
@@ -2034,9 +2052,7 @@ public class GitHubModule {
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public List<CommitFile> getPullRequestFiles(String owner, String repositoryName, int id)
-            throws IOException {
-
+    public List<CommitFile> getPullRequestFiles(String owner, String repositoryName, int id) throws IOException {
         return getServiceFactory().getPullRequestService().getFiles(RepositoryId.create(owner, repositoryName), id);
     }
 
@@ -2053,9 +2069,7 @@ public class GitHubModule {
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public boolean isPullRequestMerged(String owner, String repositoryName, int id)
-            throws IOException {
-
+    public boolean isPullRequestMerged(String owner, String repositoryName, int id) throws IOException {
         return getServiceFactory().getPullRequestService().isMerged(RepositoryId.create(owner, repositoryName), id);
     }
 
@@ -2072,9 +2086,7 @@ public class GitHubModule {
      * @throws IOException   when the connection to the client failed
      */
     @Processor
-    public MergeStatus mergePullRequest(String owner, String repositoryName, int id, String commitMessage)
-            throws IOException {
-
+    public MergeStatus mergePullRequest(String owner, String repositoryName, int id, String commitMessage) throws IOException {
         return getServiceFactory().getPullRequestService().merge(RepositoryId.create(owner, repositoryName), id, commitMessage);
     }
 
@@ -2096,13 +2108,13 @@ public class GitHubModule {
      */
     @Processor
     public CommitComment createPullRequestComment(String owner, String repositoryName, int pullRequestId,
-                                       String body, String path, int position, int line ) throws IOException {
-
+                                                  String body, String path, int position, int line ) throws IOException {
         CommitComment commitComment = new CommitComment();
         commitComment.setBody(body);
         commitComment.setPath(path);
         commitComment.setPosition(position);
         commitComment.setLine(line);
+
         return getServiceFactory().getPullRequestService().createComment(RepositoryId.create(owner, repositoryName), pullRequestId, commitComment);
     }
 
@@ -2120,10 +2132,7 @@ public class GitHubModule {
      * @throws IOException   when the connection to the client failed
      */
     @Processor
-    public CommitComment replyToPullRequestComment(String owner, String repositoryName, int pullRequestId,
-                                        int commentId, String body)
-            throws IOException {
-
+    public CommitComment replyToPullRequestComment(String owner, String repositoryName, int pullRequestId, int commentId, String body) throws IOException {
         return getServiceFactory().getPullRequestService().replyToComment(RepositoryId.create(owner, repositoryName), pullRequestId, commentId, body);
     }    
 
@@ -2141,10 +2150,10 @@ public class GitHubModule {
      */
     @Processor
     public CommitComment editPullRequestComment(String owner, String repositoryName, long commentId, String body) throws IOException {
-
         IRepositoryIdProvider repository = RepositoryId.create(owner, repositoryName);
         CommitComment comment = getServiceFactory().getPullRequestService().getComment(repository, commentId);
         comment.setBody(body);
+
         return getServiceFactory().getPullRequestService().editComment(repository, comment);
     }
 
@@ -2160,7 +2169,6 @@ public class GitHubModule {
      */
     @Processor
     public void deletePullRequestComment(String owner, String repositoryName, long commentId) throws IOException {
-
         getServiceFactory().getPullRequestService().deleteComment(RepositoryId.create(owner, repositoryName), commentId);
     }
 
@@ -2176,9 +2184,7 @@ public class GitHubModule {
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public CommitComment getPullRequestComment(String owner, String repositoryName, long commentId)
-            throws IOException {
-
+    public CommitComment getPullRequestComment(String owner, String repositoryName, long commentId) throws IOException {
         return getServiceFactory().getPullRequestService().getComment(RepositoryId.create(owner, repositoryName), commentId);
     }
 
@@ -2194,9 +2200,7 @@ public class GitHubModule {
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public List<CommitComment> getPullRequestComments(String owner, String repositoryName, int id)
-            throws IOException {
-
+    public List<CommitComment> getPullRequestComments(String owner, String repositoryName, int id) throws IOException {
         return getServiceFactory().getPullRequestService().getComments(RepositoryId.create(owner, repositoryName), id);
     }
 
@@ -2216,12 +2220,14 @@ public class GitHubModule {
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public PageIterator<CommitComment> pagePullRequestComments(String owner, String repositoryName, int id,  @Optional Integer start, @Optional Integer size)
-            throws IOException {
-        if (start==null)
+    public PageIterator<CommitComment> pagePullRequestComments(String owner, String repositoryName, int id,  @Optional Integer start, @Optional Integer size) throws IOException {
+        if (start == null) {
             start = PagedRequest.PAGE_FIRST;
-        if (size==null)
+        }
+
+        if (size == null) {
             size = PagedRequest.PAGE_SIZE;
+        }
 
         return getServiceFactory().getPullRequestService().pageComments(RepositoryId.create(owner, repositoryName), id, start, size);
     }
@@ -2247,8 +2253,7 @@ public class GitHubModule {
      * @param scope  the repository to connect
      */
     @Connect
-    public void connect(@ConnectionKey String connectionUser, @Password String connectionPassword, @Optional @Default("repo") String scope) 
-    		throws ConnectionException {
+    public void connect(@ConnectionKey String connectionUser, @Password String connectionPassword, @Optional @Default("repo") String scope) throws ConnectionException {
     	try {
 			setServiceFactory(new ServiceFactory(connectionUser, connectionPassword, scope));
 		} catch (IOException e) {
@@ -2266,7 +2271,7 @@ public class GitHubModule {
      */
     @ValidateConnection
     public boolean validateConnection(){
-    	return this.serviceFactory!=null;
+    	return this.serviceFactory != null;
     }
     
     /**
@@ -2277,5 +2282,4 @@ public class GitHubModule {
     public String toString(){
     	return serviceFactory.getUser();
     }
-
 }

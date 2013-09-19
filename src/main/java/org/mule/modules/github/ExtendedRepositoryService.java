@@ -5,7 +5,6 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.md file.
  */
-
 package org.mule.modules.github;
 
 import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_REPOS;
