@@ -17,24 +17,24 @@ import org.eclipse.egit.github.core.service.*;
 
 public class ServiceFactory {
     private static final String BASE_URL = "api.github.com";
-	private IssueService defaultIssueService;
-	private WatcherService defaultWatcherService;
-	private CollaboratorService defaultCollaboratorService;
-	private CommitService defaultCommitService;
-	private DeployKeyService defaultDeployKeyService;
-	private DownloadService defaultDownloadService;
-	private GistService defaultGistService;
-	private LabelService defaultLabelService;
-	private MilestoneService defaultMilestoneService;
-	private UserService defaultUserService;
-	private TeamService defaultTeamService;
-	private ExtendedRepositoryService defaultRepositoryService;
-	private OAuthService defaultOAuthService;
-	private DataService defaultDataService;
+    private IssueService defaultIssueService;
+    private WatcherService defaultWatcherService;
+    private CollaboratorService defaultCollaboratorService;
+    private CommitService defaultCommitService;
+    private DeployKeyService defaultDeployKeyService;
+    private DownloadService defaultDownloadService;
+    private GistService defaultGistService;
+    private LabelService defaultLabelService;
+    private MilestoneService defaultMilestoneService;
+    private UserService defaultUserService;
+    private TeamService defaultTeamService;
+    private ExtendedRepositoryService defaultRepositoryService;
+    private OAuthService defaultOAuthService;
+    private DataService defaultDataService;
     private PullRequestService defaultPullRequestService;
-	private final String password;
-	private final String user;
-	private String token;
+    private final String password;
+    private final String user;
+    private String token;
 	
 	public ServiceFactory(String user, String password) {
 		this.user = user;

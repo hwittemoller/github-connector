@@ -2262,7 +2262,7 @@ public class GitHubModule {
     }
     
     @Disconnect
-    public void disconnect(){
+    public void disconnect() {
     	setServiceFactory(null);   	
     }
     
@@ -2270,7 +2270,7 @@ public class GitHubModule {
      * Return serviceFactory was set or not
      */
     @ValidateConnection
-    public boolean validateConnection(){
+    public boolean validateConnection() {
     	return this.serviceFactory != null;
     }
     
@@ -2279,7 +2279,7 @@ public class GitHubModule {
      */
     @Override
     @ConnectionIdentifier
-    public String toString(){
+    public String toString() {
     	return serviceFactory.getUser();
     }
 }
