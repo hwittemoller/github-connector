@@ -34,6 +34,7 @@ public class ServiceFactory {
 	private OAuthService defaultOAuthService;
 	private DataService defaultDataService;
     private PullRequestService defaultPullRequestService;
+    private ExtendedContentsService defaultContentsService;
 	private final String password;
 	private final String user;
 	private String token;
@@ -212,8 +213,15 @@ public class ServiceFactory {
         return defaultPullRequestService;
     }
 
+    public ExtendedContentsService getContentsService() {
+        if (defaultContentsService == null) {
+            GitHubClient client = getGitHubClient();
+            setDefaultContentsService(new ExtendedContentsService(client));
+        }
+        return defaultContentsService;
+    }
 
-	private GitHubClient getGitHubClient() {
+    private GitHubClient getGitHubClient() {
 		GitHubClient client = new GitHubClient(BASE_URL);
 		client.setOAuth2Token(token);
 		return client;
@@ -298,4 +306,8 @@ public class ServiceFactory {
 			DownloadService defaultDownloadService) {
 		this.defaultDownloadService = defaultDownloadService;
 	}
+
+    public void setDefaultContentsService(ExtendedContentsService defaultContentsService) {
+        this.defaultContentsService = defaultContentsService;
+    }
 }

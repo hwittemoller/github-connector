@@ -8,32 +8,20 @@
 
 package org.mule.modules.github;
 
-import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_REPOS;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.egit.github.core.Blob;
 import org.eclipse.egit.github.core.IRepositoryIdProvider;
 import org.eclipse.egit.github.core.client.GitHubClient;
-import org.eclipse.egit.github.core.client.GitHubRequest;
 import org.eclipse.egit.github.core.service.RepositoryService;
 
+import java.io.IOException;
+
+import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_REPOS;
+
 /**
- * Temporary extension of {@link RepositoryService}, in order to support file
- * content retrieval (http://developer.github.com/v3/repos/contents/) A Pull
- * Request was made to get official support for this
- * (https://github.com/eclipse/egit-github/pull/8), but until it gets merged, we
- * can use this class
- * 
- * @author marianosimone
+ * Temporary extension of {@link RepositoryService}, in order to support repository deletion
+ * @author vgulyakin
  * 
  */
 public class ExtendedRepositoryService extends RepositoryService {
-
-	/** */
-    private static String SEGMENT_CONTENTS = "/contents"; //$NON-NLS-1$
 
 	public ExtendedRepositoryService() {
         super();
@@ -44,30 +32,17 @@ public class ExtendedRepositoryService extends RepositoryService {
     }
 
     /**
-     * Get the contents of a given file
-     * 
-     * @param repository
-     * @param path
-     * @return
-     * @throws IOException
-     *             because of connectivity issues or if the file doesn't exist
+     * Delete a repository
+     * This method is not a part of org.eclipse.mylin.github implementation as of version 2.1.5
+     * and was added solely for functional connector testing (cleanup data after tests).
+     *
+     * @param repository the repository to delete
+     * @throws IOException in case of connectivity issues or if repository does not exist
      */
-    public Blob getContents(IRepositoryIdProvider repository, String path, String branch) throws IOException {
+    public void deleteRepository(IRepositoryIdProvider repository) throws IOException {
         String id = getId(repository);
         StringBuilder uri = new StringBuilder(SEGMENT_REPOS);
         uri.append('/').append(id);
-        uri.append(SEGMENT_CONTENTS);
-        uri.append("/").append(path);
-        GitHubRequest request = createRequest();
-        request.setUri(uri);
-        request.setType(Blob.class);
-
-        if (branch != null) {
-            Map<String, String> param = new HashMap<String, String>();
-            param.put("ref", branch);
-            request.setParams(param);
-        }
-
-        return (Blob) client.get(request).getBody();
+        client.delete(uri.toString());
     }
 }

@@ -2,7 +2,7 @@
 <!--
 
     Mule Development Kit
-    Copyright 2010-2011 (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+    Copyright 2010-2013 (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -21,77 +21,77 @@
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:github="http://www.mulesoft.org/schema/mule/github"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
+      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
         http://www.mulesoft.org/schema/mule/github http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd">
 
-    <github:config />
+    <github:config connectionUser="mule-tester" connectionPassword="mule2013" scope="user,repo,public_repo,gist" />
 
     <flow name="getIssues">
-        <github:get-issues repository="mule-devkit">
+        <github:get-issues repository="github-connector">
             <github:filter-data>
-                <github:filter-datum key="state">closed</github:filter-datum>
+                <github:filter-datum key="#[map-payload:key]">open</github:filter-datum>
             </github:filter-data>
         </github:get-issues>
     </flow>
 
     <flow name="getIssuesCretedAfter">
-        <github:get-issues-creted-after repository="mule-devkit" minutes="10"/>
+        <github:get-issues-creted-after repository="github-connector" minutes="#[map-payload:minutes]"/>
     </flow>
 
     <flow name="getIssuesSinceNumber">
-        <github:get-issues-since-number  connectionUser="mulesoft" connectionPassword="##" repository="mule-devkit" fromIssueNumber="25"/>
+        <github:get-issues-since-number  connectionUser="##" connectionPassword="##" repository="github-connector" fromIssueNumber="#[map-payload:fromIssueNumber]"/>
     </flow>
 
     <flow name="createIssue">
-        <github:create-issue repository="mule-devkit" title="issue title" body="issue body" assignee="federecio"/>
+        <github:create-issue repository="github-connector" title="#[map-payload:title]" body="#[map-payload:body]" assignee="#[map-payload:assignee]"/>
     </flow>
 
     <flow name="closeIssue">
-        <github:close-issue repository="mule-devkit" issueId="1"/>
+        <github:close-issue repository="github-connector" issueId="#[map-payload:issueId]"/>
     </flow>
 
     <flow name="getIssue">
-        <github:get-issue repository="mule-devkit" issueId="1"/>
+        <github:get-issue repository="github-connector" issueId="#[map-payload:issueId]"/>
     </flow>
 
     <flow name="getComments">
-        <github:get-comments repository="mule-devkit" issueId="1"/>
+        <github:get-comments repository="github-connector" issueId="#[map-payload:issueId]"/>
     </flow>
 
     <flow name="createComment">
-        <github:create-comment repository="mule-devkit" issueId="1" comment="bla bla"/>
+        <github:create-comment repository="github-connector" issueId="#[map-payload:issueId]" comment="#[map-payload:comment]"/>
     </flow>
 
     <flow name="editComment">
-        <github:edit-comment repository="mule-devkit" commentId="123" body="bla bla"/>
+        <github:edit-comment repository="github-connector" commentId="#[map-payload:commentId]" body="#[map-payload:commentBody]"/>
     </flow>
 
     <flow name="deleteComment">
-        <github:delete-comment repository="mule-devkit" commentId="123"/>
+        <github:delete-comment repository="github-connector" commentId="#[map-payload:commentId]"/>
     </flow>
 
     <flow name="getIssueEvent">
-        <github:get-issue-event repository="mule-devkit" eventId="333"/>
+        <github:get-issue-event repository="github-connector" eventId="333"/>
     </flow>
 
     <flow name="getWatchers">
-        <github:get-watchers owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:get-watchers owner="orionixNuclear" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getWatched">
-        <github:get-watched user="federecio"/>
+        <github:get-watched user="##"/>
     </flow>
 
     <flow name="isWatching">
-        <github:is-watching owner="KentBeck" repositoryName="junit"/>
+        <github:is-watching owner="##" repositoryName="github-connector"/>
     </flow>
 
     <flow name="watch">
-        <github:watch owner="KentBeck" repositoryName="junit"/>
+        <github:watch owner="##" repositoryName="github-connector"/>
     </flow>
 
     <flow name="unwatch">
-        <github:unwatch owner="KentBeck" repositoryName="junit"/>
+        <github:unwatch owner="##" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getCollaborators">
@@ -99,94 +99,94 @@
     </flow>
 
     <flow name="isCollaborator">
-        <github:is-collaborator owner="mulesoft" repositoryName="mule-devkit" user="federecio"/>
+        <github:is-collaborator owner="mulesoft" repositoryName="github-connector" user="federecio"/>
     </flow>
 
     <flow name="addCollaborator">
-        <github:add-collaborator owner="mulesoft" repositoryName="mule-devkit" user="federecio"/>
+        <github:add-collaborator owner="mulesoft" repositoryName="github-connector" user="federecio"/>
     </flow>
 
     <flow name="removeCollaborator">
-        <github:remove-collaborator owner="mulesoft" repositoryName="mule-devkit" user="federecio"/>
+        <github:remove-collaborator owner="mulesoft" repositoryName="github-connector" user="federecio"/>
     </flow>
 
     <flow name="getCommits">
-        <github:get-commits owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:get-commits owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getCommitsBySha">
-        <github:get-commits-by-sha owner="mulesoft" repositoryName="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b"/>
+        <github:get-commits-by-sha owner="mulesoft" repositoryName="github-connector" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b"/>
     </flow>
 
     <flow name="getCommit">
-        <github:get-commits-by-sha owner="mulesoft" repositoryName="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b"/>
+        <github:get-commits-by-sha owner="mulesoft" repositoryName="github-connector" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b"/>
     </flow>
 
     <flow name="getCommmitComments">
-        <github:get-commmit-comments owner="mulesoft" repositoryName="mule-devkit"
+        <github:get-commmit-comments owner="mulesoft" repositoryName="github-connector"
                                      sha="8f7e98b8191285483e07f50b64a69c9bba341c5b"/>
     </flow>
 
     <flow name="getComment">
-        <github:get-comment owner="mulesoft" repositoryName="mule-devkit" commentId="3332"/>
+        <github:get-comment owner="mulesoft" repositoryName="github-connector" commentId="3332"/>
     </flow>
 
     <flow name="addComment">
-        <github:add-comment owner="mulesoft" repositoryName="mule-devkit" body="commit comment body" commitId="443" line="150"
+        <github:add-comment owner="mulesoft" repositoryName="github-connector" body="commit comment body" commitId="443" line="150"
                             path="config.properties" position="4"/>
     </flow>
 
     <flow name="editCommitComment">
-        <github:edit-commit-comment owner="mulesoft" repositoryName="mule-devkit" body="commit comment body" commitId="443"
+        <github:edit-commit-comment owner="mulesoft" repositoryName="github-connector" body="commit comment body" commitId="443"
                                     line="150" path="config.properties" position="4"/>
     </flow>
 
     <flow name="deleteCommitComment">
-        <github:delete-commit-comment owner="mulesoft" repositoryName="mule-devkit" commentId="123"/>
+        <github:delete-commit-comment owner="mulesoft" repositoryName="github-connector" commentId="123"/>
     </flow>
 
     <flow name="getDeployKeys">
-        <github:get-deploy-keys owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:get-deploy-keys owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getDeployKey">
-        <github:get-deploy-key owner="mulesoft" repositoryName="mule-devkit" id="33"/>
+        <github:get-deploy-key owner="mulesoft" repositoryName="github-connector" id="33"/>
     </flow>
 
     <flow name="createDeployKey">
-        <github:create-deploy-key owner="mulesoft" repositoryName="mule-devkit" title="key title" key="1111"/>
+        <github:create-deploy-key owner="mulesoft" repositoryName="github-connector" title="key title" key="1111"/>
     </flow>
 
     <flow name="editDeployKey">
-        <github:edit-deploy-key owner="mulesoft" repositoryName="mule-devkit" title="key title" key="1111"/>
+        <github:edit-deploy-key owner="mulesoft" repositoryName="github-connector" title="key title" key="1111"/>
     </flow>
 
     <flow name="deleteDeployKey">
-        <github:delete-deploy-key owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+        <github:delete-deploy-key owner="mulesoft" repositoryName="github-connector" id="1"/>
     </flow>
 
     <flow name="getDownload">
-        <github:get-download owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+        <github:get-download owner="mulesoft" repositoryName="github-connector" id="1"/>
     </flow>
 
     <flow name="deleteDownload">
-        <github:delete-download owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+        <github:delete-download owner="mulesoft" repositoryName="github-connector" id="1"/>
     </flow>
 
     <flow name="createResource">
-        <github:create-resource owner="mulesoft" repositoryName="mule-devkit" resourceName="resource name" size="1000"/>
+        <github:create-resource owner="mulesoft" repositoryName="github-connector" resourceName="resource name" size="1000"/>
     </flow>
 
 	<flow name="createGist">
         <github:create-gist isPublic="true" description="description for gist">
 	     	<github:files>
-	     		<github:file key="HelloWorld.java" value-ref="#[payload]" />
+	     		<github:file key="file.txt" value-ref="#[payload]" />
 	     	</github:files>
       	</github:create-gist>
     </flow>
 	
     <flow name="getGist">
-        <github:get-gist id="3334"/>
+        <github:get-gist id="#[map-payload:id]"/>
     </flow>
 
     <flow name="getStarredGist">
@@ -194,19 +194,19 @@
     </flow>
 
     <flow name="getGists">
-        <github:get-gists/>
+        <github:get-gists user="mule-tester"/>
     </flow>
 
     <flow name="createGistComment">
-        <github:create-gist-comment gistId="1430386" comment="comment on gist"/>
+        <github:create-gist-comment gistId="#[map-payload:id]" comment="comment on gist"/>
     </flow>
 
     <flow name="getGistComments">
-        <github:get-gist-comments gistId="1430386"/>
+        <github:get-gist-comments gistId="#[map-payload:id]"/>
     </flow>
 
     <flow name="deleteGist">
-        <github:delete-gist gistId="1430386"/>
+        <github:delete-gist gistId="#[map-payload:id]"/>
     </flow>
 
     <flow name="getGistComment">
@@ -222,15 +222,15 @@
     </flow>
 
     <flow name="starGist">
-        <github:star-gist gistId="1430386"/>
+        <github:star-gist gistId="#[map-payload:id]"/>
     </flow>
 
     <flow name="unstarGist">
-        <github:unstar-gist gistId="1430386"/>
+        <github:unstar-gist gistId="#[map-payload:id]"/>
     </flow>
 
     <flow name="isStarred">
-        <github:is-starred gistId="1430386"/>
+        <github:is-starred gistId="#[map-payload:id]"/>
     </flow>
 
     <flow name="forkGist">
@@ -238,40 +238,40 @@
     </flow>
 
     <flow name="getLabels">
-        <github:get-labels repository="mule-devkit"/>
+        <github:get-labels repository="github-connector"/>
     </flow>
 
     <flow name="getLabel">
-        <github:get-label repository="mule-devkit" label="some-label"/>
+        <github:get-label repository="github-connector" label="some-label"/>
     </flow>
 
     <flow name="deleteLabel">
-        <github:delete-label repository="mule-devkit" label="some-label"/>
+        <github:delete-label repository="github-connector" label="some-label"/>
     </flow>
 
     <flow name="createLabel">
-        <github:create-label repository="mule-devkit" labelName="some-label" color="f29513"/>
+        <github:create-label repository="github-connector" labelName="some-label" color="f29513"/>
     </flow>
 
     <flow name="getMilestones">
-        <github:get-milestones repository="mule-devkit" state="open"/>
+        <github:get-milestones repository="github-connector" state="open"/>
     </flow>
 
     <flow name="getMilestone">
-        <github:get-milestone repository="mule-devkit" number="1"/>
+        <github:get-milestone repository="github-connector" number="1"/>
     </flow>
 
     <flow name="deleteMilestone">
-        <github:delete-milestone repository="mule-devkit" number="1"/>
+        <github:delete-milestone repository="github-connector" number="1"/>
     </flow>
 
     <flow name="createMilestone">
-        <github:create-milestone repository="mule-devkit" title="1.0" description="Milestone 1.0 description"
+        <github:create-milestone repository="github-connector" title="1.0" description="Milestone 1.0 description"
                                  state="open"/>
     </flow>
 
     <flow name="getUserByLoginName">
-        <github:get-user-by-login-name loginName="federecio"/>
+        <github:get-user-by-login-name loginName="orionixNuclear"/>
     </flow>
 
     <flow name="getCurrentUser">
@@ -280,6 +280,10 @@
 
     <flow name="updateCurrentUser">
         <github:update-current-user company="MuleSoft" location="Buenos Aires" blog="blogs.mulesoft.org"/>
+    </flow>
+
+    <flow name="cleanupCurrentUser">
+        <github:update-current-user company="-" location="-" blog="-"/>
     </flow>
 
     <flow name="getFollowers">
@@ -309,8 +313,8 @@
     <flow name="addEmails">
         <github:add-emails>
             <github:emails>
-                <github:email>email1</github:email>
-                <github:email>email2</github:email>
+                <github:email>email1@mulesoft.com</github:email>
+                <github:email>email2@mulesoft.com</github:email>
             </github:emails>
         </github:add-emails>
     </flow>
@@ -318,8 +322,8 @@
     <flow name="removeEmails">
         <github:remove-emails>
             <github:emails>
-                <github:email>email1</github:email>
-                <github:email>email2</github:email>
+                <github:email>email1@mulesoft.com</github:email>
+                <github:email>email2@mulesoft.com</github:email>
             </github:emails>
         </github:remove-emails>
     </flow>
@@ -333,11 +337,11 @@
     </flow>
 
     <flow name="createKey">
-        <github:create-key title="title" key="key"/>
+        <github:create-key title="title" key="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw== rsa-key-20130923"/>
     </flow>
 
     <flow name="editKey">
-        <github:edit-key keyId="1" title="new title" key="new key"/>
+        <github:edit-key keyId="1" title="new title" />
     </flow>
 
     <flow name="deleteKey">
@@ -345,51 +349,51 @@
     </flow>
 
     <flow name="getTeam">
-        <github:get-team id="1"/>
+        <github:get-team id="#[map-payload:teamId]"/>
     </flow>
 
     <flow name="getTeamsForOrg">
-        <github:get-teams-for-org organization="some org"/>
+        <github:get-teams-for-org organization="mule-github-api-test"/>
     </flow>
 
     <flow name="createTeam">
-        <github:create-team organization="some org" teamName="some team name" config-ref=""/>
+        <github:create-team organization="mule-github-api-test" teamName="github-connector-team" config-ref=""/>
     </flow>
 
     <flow name="editTeam">
-        <github:edit-team id="1" teamName="new name" teamPermission="ADMIN"/>
+        <github:edit-team id="#[map-payload:teamId]" teamName="new-team-name"/>
     </flow>
 
     <flow name="deleteTeam">
-        <github:delete-team id="1"/>
+        <github:delete-team id="#[map-payload:teamId]"/>
     </flow>
 
     <flow name="getTeamMembers">
-        <github:get-team-members id="1"/>
+        <github:get-team-members id="#[map-payload:teamId]"/>
     </flow>
 
     <flow name="isTeamMember">
-        <github:is-team-member id="1" user="federecio"/>
+        <github:is-team-member id="#[map-payload:teamId]" user="federecio"/>
     </flow>
 
     <flow name="addTeamMember">
-        <github:add-team-member id="1" user="federecio"/>
+        <github:add-team-member id="#[map-payload:teamId]" user="federecio"/>
     </flow>
 
     <flow name="removeTeamMember">
-        <github:remove-team-member id="1" user="federecio"/>
+        <github:remove-team-member id="#[map-payload:teamId]" user="federecio"/>
     </flow>
 
     <flow name="getTeamRepositories">
-        <github:get-team-repositories id="1"/>
+        <github:get-team-repositories id="#[map-payload:teamId]"/>
     </flow>
 
     <flow name="addTeamRepository">
-        <github:add-team-repository id="1" owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:add-team-repository id="#[map-payload:teamId]" owner="mule-github-api-test" repositoryName="github-connector"/>
     </flow>
 
     <flow name="removeTeamRepository">
-        <github:remove-team-repository id="1" owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:remove-team-repository id="#[map-payload:teamId]" owner="mule-github-api-test" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getRepositories">
@@ -401,7 +405,7 @@
     </flow>
 
     <flow name="getOrgRepositories">
-        <github:get-org-repositories organization="some org"/>
+        <github:get-org-repositories organization="mulesoft"/>
     </flow>
 
     <flow name="createRepository">
@@ -414,43 +418,51 @@
     </flow>
 
     <flow name="getRepository">
-        <github:get-repository owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:get-repository owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="editRepository">
-        <github:edit-repository owner="mulesoft" repositoryName="mule-devkit" hasWiki="false"/>
+        <github:edit-repository owner="mulesoft" repositoryName="github-connector" hasWiki="false"/>
     </flow>
 
     <flow name="getForks">
-        <github:get-forks owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:get-forks owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="forkRepository">
-        <github:fork-repository owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:fork-repository owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="forkRepositoryForOrg">
-        <github:fork-repository-for-org organization="some org" owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:fork-repository-for-org organization="mule-github-api-test" owner="mulesoft" repositoryName="github-connector"/>
+    </flow>
+
+    <flow name="getReadme">
+        <github:get-contents owner="mule-tester" repositoryName="github-connector" path="/README.md" branch="test-branch"/>
+    </flow>
+
+    <flow name="updateReadme">
+        <github:put-contents owner="mule-tester" repositoryName="github-connector" path="/README.md" commitMessage="test commit" content="updated file content" sha="#[map-payload:sha]" branch="test-branch"/>
     </flow>
 
     <flow name="getLanguages">
-        <github:get-languages owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:get-languages owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getBranches">
-        <github:get-branches owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:get-branches owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getTags">
-        <github:get-tags owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:get-tags owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getContributors">
-        <github:get-contributors owner="mulesoft" repositoryName="mule-devkit"/>
+        <github:get-contributors owner="mulesoft" repositoryName="github-connector"/>
     </flow>
     
     <flow name="listDownloadsForRepository">
-        <github:list-downloads-for-repository owner="mulesoft" repositoryName="mule-devkit" />
+        <github:list-downloads-for-repository owner="mulesoft" repositoryName="github-connector" />
     </flow>
     
     <flow name="uploadResource">
@@ -460,77 +472,77 @@
     </flow>
     
     <flow name="getTreeRecursively">
-		<github:get-tree-recursively owner="mulesoft" repositoryName="mule-devkit" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
+		<github:get-tree-recursively owner="mulesoft" repositoryName="github-connector" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
     </flow>
 
     <flow name="getPullRequest">
-        <github:get-pull-request owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+        <github:get-pull-request owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]"/>
     </flow>
 
     <flow name="getPullRequests">
-        <github:get-pull-requests owner="mulesoft" repositoryName="mule-devkit" state="open"/>
+        <github:get-pull-requests owner="mule-tester" repositoryName="github-connector" state="open"/>
     </flow>
 
     <flow name="pagePullRequests">
-        <github:page-pull-requests owner="mulesoft" repositoryName="mule-devkit" state="open"/>
+        <github:page-pull-requests owner="mule-tester" repositoryName="github-connector" state="open"/>
     </flow>
 
     <flow name="createPullRequest">
-        <github:create-pull-request owner="mulesoft" repositoryName="mule-devkit" body="body" title="title" head="head" base="base"/>
+        <github:create-pull-request owner="mule-tester" repositoryName="github-connector" body="pull request body" title="pull request title" head="#[map-payload:head]" base="#[map-payload:base]"/>
     </flow>
 
     <flow name="createPullRequestFromIssue">
-        <github:create-pull-request-from-issue owner="mulesoft" repositoryName="mule-devkit" issueId="1" head="head" base="base"/>
+        <github:create-pull-request-from-issue owner="mule-tester" repositoryName="github-connector" issueId="1" head="#[map-payload:head]" base="#[map-payload:base]"/>
     </flow>
 
     <flow name="editPullRequest">
-        <github:edit-pull-request owner="mulesoft" repositoryName="mule-devkit" id="1" state="closed"/>
+        <github:edit-pull-request owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" title="updated test pull request title"/>
     </flow>
 
     <flow name="getPullRequestCommits">
-        <github:get-pull-request-commits owner="mulesoft" repositoryName="mule-devkit" id="1" />
+        <github:get-pull-request-commits owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" />
     </flow>
 
     <flow name="getPullRequestFiles">
-        <github:get-pull-request-files owner="mulesoft" repositoryName="mule-devkit" id="1" />
+        <github:get-pull-request-files owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" />
     </flow>
 
     <flow name="isPullRequestMerged">
-        <github:is-pull-request-merged owner="mulesoft" repositoryName="mule-devkit" id="1" />
+        <github:is-pull-request-merged owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" />
     </flow>
 
     <flow name="mergePullRequest">
-        <github:merge-pull-request owner="mulesoft" repositoryName="mule-devkit" id="1" commitMessage="message" />
+        <github:merge-pull-request owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" commitMessage="message" />
     </flow>
 
     <flow name="createPullRequestComment">
-        <github:create-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" pullRequestId="1"
-                body="body" path="file.txt" position="5" line="1" />
+        <github:create-pull-request-comment owner="mule-tester" repositoryName="github-connector" pullRequestId="#[map-payload:pullRequestId]" commitId="#[map-payload:commitId]"
+                body="test comment body" path="README.md" position="10" line="1" />
     </flow>
 
     <flow name="replyToPullRequestComment">
-        <github:reply-to-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" pullRequestId="1"
-                                           commentId="1" body="reply" />
+        <github:reply-to-pull-request-comment owner="mule-tester" repositoryName="github-connector" pullRequestId="#[map-payload:pullRequestId]"
+                                           commentId="#[map-payload:commentId]" body="test reply" />
     </flow>
 
     <flow name="editPullRequestComment">
-        <github:edit-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" commentId="1" body="update" />
+        <github:edit-pull-request-comment owner="mule-tester" repositoryName="github-connector" commentId="#[map-payload:commentId]" body="updated test comment body" />
     </flow>
 
     <flow name="deletePullRequestComment">
-        <github:delete-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" commentId="1"/>
+        <github:delete-pull-request-comment owner="mule-tester" repositoryName="github-connector" commentId="#[map-payload:commentId]"/>
     </flow>
 
     <flow name="getPullRequestComment">
-        <github:get-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" commentId="1"/>
+        <github:get-pull-request-comment owner="mule-tester" repositoryName="github-connector" commentId="#[map-payload:commentId]"/>
     </flow>
 
     <flow name="getPullRequestComments">
-        <github:get-pull-request-comments owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+        <github:get-pull-request-comments owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]"/>
     </flow>
 
     <flow name="pagePullRequestComments">
-        <github:page-pull-request-comments owner="mulesoft" repositoryName="mule-devkit" id="1"/>
+        <github:page-pull-request-comments owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]"/>
     </flow>
 
 

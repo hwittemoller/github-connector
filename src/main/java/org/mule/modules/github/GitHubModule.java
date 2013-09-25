@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.client.PageIterator;
 import org.eclipse.egit.github.core.client.PagedRequest;
@@ -1859,11 +1860,72 @@ public class GitHubModule {
     public String getFileContent(final String owner, final String repositoryName,
                                  final String path, @Optional @Default("master") String branch)
             throws IOException, TransformerException {
-        final Blob contents = getServiceFactory().getRepositoryService().
-                getContents(RepositoryId.create(owner, repositoryName), path, branch);
-        final String encondedContent = contents.getContent();
-        final byte[] content = (byte[]) new Base64Decoder().doTransform(encondedContent, contents.getEncoding() != null ? contents.getEncoding() : "utf-8");
+        List<RepositoryContents> contents = getServiceFactory().getContentsService()
+                .getContents(RepositoryId.create(owner, repositoryName), path, branch);
+
+        if (CollectionUtils.isEmpty(contents) || contents.size()>1)
+            throw new IllegalStateException("Retrieved RepositoryContent is not a file");
+
+        RepositoryContents fileContent = contents.get(0);
+        final String encondedContent = fileContent.getContent();
+        final byte[] content = (byte[]) new Base64Decoder().doTransform(encondedContent, fileContent.getEncoding() != null ? fileContent.getEncoding() : "utf-8");
         return new String(content);
+    }
+
+    /**
+     * Get repository contents for given path and branch
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getContents}
+     *
+     * @param owner            the owner of the repository
+     * @param repositoryName   the name of the repository
+     * @param path             file or directory path
+     * @param branch           branch name, defaults fo master
+     * @return                 repository contents for given path
+     * @throws IOException     in case of connectivity issue
+     */
+    @Processor
+    public List<RepositoryContents> getContents(final String owner, final String repositoryName, final String path, @Optional @Default("master") String branch)
+            throws IOException
+    {
+        return getServiceFactory().getContentsService().getContents(RepositoryId.create(owner, repositoryName), path, branch);
+    }
+
+    /**
+     * Commit contents to the repository
+     * </p>
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:putContents}
+     *
+     * @param owner            the owner of the repository
+     * @param repositoryName   the name of the repository
+     * @param path             file or directory path
+     * @param commitMessage    commit message
+     * @param content          content
+     * @param sha              blob sha of contents that will be replaced
+     * @param branch           branch name, defaults fo master
+     * @throws IOException     in case of connectivity issue
+     */
+    @Processor
+    public void putContents(String owner, String repositoryName, String path, String commitMessage, String content, String sha, String branch)
+    throws IOException
+    {
+        RepositoryContents newContent = new RepositoryContents();
+        newContent.setPath(path);
+        newContent.setContent(content);
+        newContent.setSha(sha);
+        getServiceFactory().getContentsService().putContents(RepositoryId.create(owner, repositoryName), newContent, commitMessage, branch);
+    }
+
+    /**
+     * Delete a repository
+     * Added solely for functional testing of the connector. Not exposed as processor.
+     * @param owner the owner of the repository
+     * @param repositoryName the name of the repository
+     * @throws IOException in case of connectivity issues or if repository does not exists
+     */
+    public void deleteRepository(String owner, String repositoryName)
+        throws IOException {
+        getServiceFactory().getRepositoryService().deleteRepository(RepositoryId.create(owner, repositoryName));
     }
     
     /**
@@ -1873,7 +1935,7 @@ public class GitHubModule {
      *
      * @param owner the owner of the repository
      * @param repositoryName the name of the repository
-     * @param id the id od pull request
+     * @param id the id of pull request
      * @return pull request
      * @throws java.io.IOException when the connection to the client failed
      */
@@ -1933,8 +1995,8 @@ public class GitHubModule {
      * @param repositoryName the name of the repository
      * @param body the body of pull request
      * @param title the title of pull request
-     * @param head reference to head
-     * @param base reference to base
+     * @param head branch name
+     * @param base base name
      * @return created pull request
      * @throws IOException when the connection to the client failed
      */
@@ -1946,8 +2008,8 @@ public class GitHubModule {
         PullRequest pullRequest = new PullRequest();
         pullRequest.setBody(body);
         pullRequest.setTitle(title);
-        pullRequest.setHead(new PullRequestMarker().setRef(head));
-        pullRequest.setBase(new PullRequestMarker().setRef(base));
+        pullRequest.setHead(new PullRequestMarker().setLabel(head));
+        pullRequest.setBase(new PullRequestMarker().setLabel(base));
         return getServiceFactory().getPullRequestService().createPullRequest(RepositoryId.create(owner, repositoryName), pullRequest);
     }
 
@@ -2087,6 +2149,7 @@ public class GitHubModule {
      * @param owner          the owner of the repository
      * @param repositoryName the name of the repository
      * @param pullRequestId  the id of pull request
+     * @param commitId       the id of commit
      * @param body           the body of comment
      * @param path           Relative path of the file to comment on.
      * @param position       Line index in the diff to comment on.
@@ -2095,11 +2158,12 @@ public class GitHubModule {
      * @throws IOException   when the connection to the client failed
      */
     @Processor
-    public CommitComment createPullRequestComment(String owner, String repositoryName, int pullRequestId,
+    public CommitComment createPullRequestComment(String owner, String repositoryName, int pullRequestId, String commitId,
                                        String body, String path, int position, int line ) throws IOException {
 
         CommitComment commitComment = new CommitComment();
         commitComment.setBody(body);
+        commitComment.setCommitId(commitId);
         commitComment.setPath(path);
         commitComment.setPosition(position);
         commitComment.setLine(line);
@@ -2226,11 +2290,30 @@ public class GitHubModule {
         return getServiceFactory().getPullRequestService().pageComments(RepositoryId.create(owner, repositoryName), id, start, size);
     }
 
+    //TODO: javadoc, test
+    public List<Reference> getReferences(String owner, String repositoryName)
+        throws IOException {
+        return getServiceFactory().getDataService().getReferences(RepositoryId.create(owner, repositoryName));
+    }
+
+    //TODO: javadoc, test
+    public Reference createReference(String owner, String repositoryName, String sha, String referenceName)
+            throws IOException {
+
+        Reference reference = new Reference();
+        reference.setObject(new TypedResource());
+        reference.getObject().setSha(sha);
+        reference.setRef(referenceName);
+        return getServiceFactory().getDataService().createReference(RepositoryId.create(owner, repositoryName), reference);
+    }
+
+
+
     private String getUser(String user) {
         return user != null ? user : serviceFactory.getUser();
     }
 
-    private ServiceFactory getServiceFactory() throws IOException {
+    public ServiceFactory getServiceFactory() throws IOException {
         return serviceFactory;
     }
 
@@ -2277,5 +2360,7 @@ public class GitHubModule {
     public String toString(){
     	return serviceFactory.getUser();
     }
+
+
 
 }

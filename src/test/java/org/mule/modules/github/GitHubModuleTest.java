@@ -69,6 +69,8 @@ public class GitHubModuleTest {
     @Mock
     private PullRequestService pullRequestService;
     @Mock
+    private ExtendedContentsService contentsService;
+    @Mock
     private Issue issue1;
     @Mock
     private Issue issue2;
@@ -105,6 +107,7 @@ public class GitHubModuleTest {
         serviceFactory.setDefaultRepositoryService(repositoryService);
         serviceFactory.setDefaultDownloadService(downloadService);
         serviceFactory.setDefaultPullRequestService(pullRequestService);
+        serviceFactory.setDefaultContentsService(contentsService);
 
         when(oAuthService.getAuthorizations()).thenReturn(createAuths());
         serviceFactory.setDefaultOAuthService(oAuthService);
@@ -417,6 +420,12 @@ public class GitHubModuleTest {
     }
 
     @Test
+    public void deleteRepository() throws Exception {
+        gitHubModule.deleteRepository("owner", "name");
+        verify(repositoryService).deleteRepository(new RepositoryId("owner", "name"));
+    }
+
+    @Test
     public void getForks() throws Exception {
         List<Repository> repositories = Arrays.asList(repository);
         when(repositoryService.getForks(eq(new RepositoryId("owner", "name")))).thenReturn(repositories);
@@ -477,12 +486,31 @@ public class GitHubModuleTest {
 
     @Test
     public void getFileContent() throws TransformerException, IOException {
+        RepositoryContents content = new RepositoryContents();
         final String fileContent = "This is some file";
-        final Blob content = new Blob();
         content.setContent(new Base64Encoder().doTransform(fileContent,"utf-8").toString());
         content.setEncoding("utf-8");
-        when(repositoryService.getContents(eq(new RepositoryId(USER, REPOSITORY)), eq("some/path"), eq("master"))).thenReturn(content);
+        List<RepositoryContents> contentsList = Arrays.asList(content);
+        when(contentsService.getContents(eq(new RepositoryId(USER, REPOSITORY)), eq("some/path"), eq("master"))).thenReturn(contentsList);
         assertEquals(fileContent, gitHubModule.getFileContent(USER, REPOSITORY, "some/path", "master"));
+    }
+
+    @Test
+    public void getContents() throws IOException {
+        RepositoryContents content = new RepositoryContents();
+        List<RepositoryContents> contentsList = Arrays.asList(content);
+        when(contentsService.getContents(eq(new RepositoryId(USER, REPOSITORY)), eq("some/path"), eq("master"))).thenReturn(contentsList);
+        assertEquals(contentsList, gitHubModule.getContents(USER, REPOSITORY, "some/path", "master"));
+    }
+
+    @Test
+    public void putContents() throws IOException {
+        gitHubModule.putContents(USER, REPOSITORY, "some/path", "commit message", "updated content", "abcdef", "feature-1");
+        RepositoryContents newContent = new RepositoryContents();
+        newContent.setPath("some/path");
+        newContent.setContent("updated content");
+        newContent.setSha("abcdef");
+        verify(contentsService).putContents(eq(new RepositoryId(USER, REPOSITORY)), refEq(newContent) ,eq("commit message"),eq("feature-1"));
     }
 
     @Test
@@ -542,11 +570,12 @@ public class GitHubModuleTest {
         commitComment.setPath("file.txt");
         commitComment.setPosition(5);
         commitComment.setLine(1);
+        commitComment.setCommitId("abcdef");
         commitComment.setBody("Great stuff");
-        when(pullRequestService.createComment(eq(new RepositoryId(USER, REPOSITORY)),eq(47),  refEq(commitComment, "user"))).thenReturn(commitComment);
-        assertEquals(commitComment, gitHubModule.createPullRequestComment(USER, REPOSITORY, 47, "Great stuff", "file.txt", 5, 1));
+        when(pullRequestService.createComment(eq(new RepositoryId(USER, REPOSITORY)),eq(47), refEq(commitComment, "user"))).thenReturn(commitComment);
+        assertEquals(commitComment, gitHubModule.createPullRequestComment(USER, REPOSITORY, 47, "abcdef", "Great stuff", "file.txt", 5, 1));
     }    
-    
+
     @Test
     public void getPullRequestComments() throws IOException{
     	CommitComment commitComment = new CommitComment();
