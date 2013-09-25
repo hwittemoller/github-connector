@@ -5,11 +5,9 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.md file.
  */
-
 package org.mule.modules.github;
 
 public enum TeamPermission {
-
     /**
      * Team members can pull, but not push or administer this repositories
      */
