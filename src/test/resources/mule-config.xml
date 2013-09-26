@@ -226,19 +226,19 @@
     </flow>
 
     <flow name="getLabels">
-        <github:get-labels repository="github-connector"/>
+        <github:get-labels user="mule-tester" repository="github-connector"/>
     </flow>
 
     <flow name="getLabel">
-        <github:get-label repository="github-connector" label="some-label"/>
+        <github:get-label user="mule-tester" repository="github-connector" label="some-label"/>
     </flow>
 
     <flow name="deleteLabel">
-        <github:delete-label repository="github-connector" label="some-label"/>
+        <github:delete-label user="mule-tester" repository="github-connector" label="some-label"/>
     </flow>
 
     <flow name="createLabel">
-        <github:create-label repository="github-connector" labelName="some-label" color="f29513"/>
+        <github:create-label user="mule-tester" repository="github-connector" labelName="some-label" color="f29513"/>
     </flow>
 
     <flow name="getMilestones">

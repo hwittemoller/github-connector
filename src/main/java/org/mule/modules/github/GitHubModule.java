@@ -953,7 +953,7 @@ public class GitHubModule {
      *
      * @param user       the owner of the repository, leave empty to use {@link this#user}
      * @param repository the name of the repository
-     * @param label      the label id
+     * @param label      the label name
      * @return the label associated to the given id
      * @throws java.io.IOException when the connection to the client failed
      */
@@ -969,7 +969,7 @@ public class GitHubModule {
      *
      * @param user       the owner of the repository, leave empty to use {@link this#user}
      * @param repository the name of the repository
-     * @param label      the label id
+     * @param label      the label name
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
