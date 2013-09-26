@@ -492,10 +492,11 @@ public class GitHubModule {
      * @param line     line number in the file to comment on
      * @param path     relative path of the file to comment on
      * @param position line index in the diff to comment on
+     * @return created {@link CommitComment}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void addComment(String owner, String repositoryName, String body, String commitId, int line, String path, int position) throws IOException {
+    public CommitComment addComment(String owner, String repositoryName, String body, String commitId, int line, String path, int position) throws IOException {
         CommitComment comment = new CommitComment();
         comment.setCommitId(commitId);
         comment.setLine(line);
@@ -503,7 +504,7 @@ public class GitHubModule {
         comment.setPosition(position);
         comment.setBody(body);
 
-        getServiceFactory().getCommitService().addComment(RepositoryId.create(owner, repositoryName), commitId, comment);
+        return getServiceFactory().getCommitService().addComment(RepositoryId.create(owner, repositoryName), commitId, comment);
     }
 
     /**
@@ -514,22 +515,23 @@ public class GitHubModule {
      * @param owner    the name of the user that owns the repository
      * @param repositoryName     the name of the repository
      * @param body     Body of the commit comment
-     * @param commitId Sha of the commit to comment on
+     * @param commentId the id of commit comment
      * @param line     line number in the file to comment on
      * @param path     relative path of the file to comment on
      * @param position line index in the diff to comment on
+     * @return updated {@link CommitComment}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void editCommitComment(String owner, String repositoryName, String body, String commitId, int line, String path, int position) throws IOException {
+    public CommitComment editCommitComment(String owner, String repositoryName, String body, long commentId, int line, String path, int position) throws IOException {
         CommitComment comment = new CommitComment();
-        comment.setCommitId(commitId);
+        comment.setId(commentId);
         comment.setLine(line);
         comment.setPath(path);
         comment.setPosition(position);
         comment.setBody(body);
 
-        getServiceFactory().getCommitService().editComment(RepositoryId.create(owner, repositoryName), comment);
+        return getServiceFactory().getCommitService().editComment(RepositoryId.create(owner, repositoryName), comment);
     }
 
     /**

@@ -111,38 +111,38 @@
     </flow>
 
     <flow name="getCommits">
-        <github:get-commits owner="mulesoft" repositoryName="github-connector"/>
+        <github:get-commits owner="mule-tester" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getCommitsBySha">
-        <github:get-commits-by-sha owner="mulesoft" repositoryName="github-connector" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b"/>
+        <github:get-commits-by-sha owner="mule-tester" repositoryName="github-connector" path="/README.md"/>
     </flow>
 
     <flow name="getCommit">
-        <github:get-commits-by-sha owner="mulesoft" repositoryName="github-connector" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b"/>
+        <github:get-commit owner="mule-tester" repositoryName="github-connector" sha="#[map-payload:sha]"/>
     </flow>
 
     <flow name="getCommmitComments">
-        <github:get-commmit-comments owner="mulesoft" repositoryName="github-connector"
-                                     sha="8f7e98b8191285483e07f50b64a69c9bba341c5b"/>
+        <github:get-commmit-comments owner="mule-tester" repositoryName="github-connector"
+                                     sha="#[map-payload:sha]"/>
     </flow>
 
     <flow name="getComment">
-        <github:get-comment owner="mulesoft" repositoryName="github-connector" commentId="3332"/>
+        <github:get-comment owner="mule-tester" repositoryName="github-connector" commentId="#[map-payload:commentId]"/>
     </flow>
 
     <flow name="addComment">
-        <github:add-comment owner="mulesoft" repositoryName="github-connector" body="commit comment body" commitId="443" line="150"
-                            path="config.properties" position="4"/>
+        <github:add-comment owner="mule-tester" repositoryName="github-connector" body="commit comment body" commitId="#[map-payload:sha]" line="10"
+                            path="/README.md" position="1"/>
     </flow>
 
     <flow name="editCommitComment">
-        <github:edit-commit-comment owner="mulesoft" repositoryName="github-connector" body="commit comment body" commitId="443"
-                                    line="150" path="config.properties" position="4"/>
+        <github:edit-commit-comment owner="mule-tester" repositoryName="github-connector" body="updated comment body" commentId="#[map-payload:commentId]"
+                                    line="10" path="/README.md" position="1"/>
     </flow>
 
     <flow name="deleteCommitComment">
-        <github:delete-commit-comment owner="mulesoft" repositoryName="github-connector" commentId="123"/>
+        <github:delete-commit-comment owner="mule-tester" repositoryName="github-connector" commentId="#[map-payload:commentId]"/>
     </flow>
 
     <flow name="getDeployKeys">

@@ -107,7 +107,8 @@
 <!-- END_INCLUDE(github:addComment) -->
 
 <!-- BEGIN_INCLUDE(github:editCommitComment) -->
-     <github:edit-commit-comment owner="mulesoft" repositoryName="mule-devkit" body="commit comment body" commitId="443" line="150" path="config.properties" position="4" />
+        <github:edit-commit-comment owner="mule-tester" repositoryName="github-connector" body="updated comment body" commentId="12345"
+                                    line="10" path="/README.md" position="1"/>
 <!-- END_INCLUDE(github:editCommitComment) -->
 
 <!-- BEGIN_INCLUDE(github:deleteCommitComment) -->
