@@ -242,19 +242,19 @@
     </flow>
 
     <flow name="getMilestones">
-        <github:get-milestones repository="github-connector" state="open"/>
+        <github:get-milestones user="mule-tester" repository="github-connector" state="open"/>
     </flow>
 
     <flow name="getMilestone">
-        <github:get-milestone repository="github-connector" number="1"/>
+        <github:get-milestone user="mule-tester" repository="github-connector" number="#[map-payload:number]"/>
     </flow>
 
     <flow name="deleteMilestone">
-        <github:delete-milestone repository="github-connector" number="1"/>
+        <github:delete-milestone user="mule-tester" repository="github-connector" number="#[map-payload:number]"/>
     </flow>
 
     <flow name="createMilestone">
-        <github:create-milestone repository="github-connector" title="1.0" description="Milestone 1.0 description"
+        <github:create-milestone user="mule-tester" repository="github-connector" title="1.0" description="Milestone 1.0 description"
                                  state="open"/>
     </flow>
 
