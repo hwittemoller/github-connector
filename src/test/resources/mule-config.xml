@@ -95,19 +95,19 @@
     </flow>
 
     <flow name="getCollaborators">
-        <github:get-collaborators owner="KentBeck" repositoryName="junit"/>
+        <github:get-collaborators owner="mule-tester" repositoryName="github-connector"/>
     </flow>
 
     <flow name="isCollaborator">
-        <github:is-collaborator owner="mulesoft" repositoryName="github-connector" user="federecio"/>
+        <github:is-collaborator owner="mule-tester" repositoryName="github-connector" user="vgulyakin"/>
     </flow>
 
     <flow name="addCollaborator">
-        <github:add-collaborator owner="mulesoft" repositoryName="github-connector" user="federecio"/>
+        <github:add-collaborator owner="mule-tester" repositoryName="github-connector" user="vgulyakin"/>
     </flow>
 
     <flow name="removeCollaborator">
-        <github:remove-collaborator owner="mulesoft" repositoryName="github-connector" user="federecio"/>
+        <github:remove-collaborator owner="mule-tester" repositoryName="github-connector" user="vgulyakin"/>
     </flow>
 
     <flow name="getCommits">

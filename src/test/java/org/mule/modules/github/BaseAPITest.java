@@ -22,8 +22,16 @@ import static org.junit.Assert.assertNotNull;
 
 public class BaseAPITest extends FunctionalTestCase {
 
+    //The username of currently authenticated user
     protected String USER = "mule-tester";
+
+    //the password of currently authenticated user
     protected String PASS = "mule2013";
+
+    //The repository name. In most tests it will be forked from Mule and then deleted. Please make sure it does not exist before test.
+    protected String REPO = "github-connector";
+
+    //github authentication scope
     protected String SCOPE = "user,repo,public_repo,delete_repo,gist";
     protected GitHubModule github = new GitHubModule();
     protected GitHubModule mockedGithub = new GitHubModule();
