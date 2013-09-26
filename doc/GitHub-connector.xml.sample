@@ -128,7 +128,7 @@
 <!-- END_INCLUDE(github:createDeployKey) -->
 
 <!-- BEGIN_INCLUDE(github:editDeployKey) -->
-     <github:edit-deploy-key owner="mulesoft" repositoryName="mule-devkit" title="key title" key="1111" />
+     <github:edit-deploy-key owner="mulesoft" repositoryName="mule-devkit" id="123" title="key title" key="1111" />
 <!-- END_INCLUDE(github:editDeployKey) -->
 
 <!-- BEGIN_INCLUDE(github:deleteDeployKey) -->

@@ -146,23 +146,23 @@
     </flow>
 
     <flow name="getDeployKeys">
-        <github:get-deploy-keys owner="mulesoft" repositoryName="github-connector"/>
+        <github:get-deploy-keys owner="mule-tester" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getDeployKey">
-        <github:get-deploy-key owner="mulesoft" repositoryName="github-connector" id="33"/>
+        <github:get-deploy-key owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]"/>
     </flow>
 
     <flow name="createDeployKey">
-        <github:create-deploy-key owner="mulesoft" repositoryName="github-connector" title="key title" key="1111"/>
+        <github:create-deploy-key owner="mule-tester" repositoryName="github-connector" title="key title" key="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw== rsa-key-20130923"/>
     </flow>
 
     <flow name="editDeployKey">
-        <github:edit-deploy-key owner="mulesoft" repositoryName="github-connector" title="key title" key="1111"/>
+        <github:edit-deploy-key owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" title="updated title" />
     </flow>
 
     <flow name="deleteDeployKey">
-        <github:delete-deploy-key owner="mulesoft" repositoryName="github-connector" id="1"/>
+        <github:delete-deploy-key owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]"/>
     </flow>
 
     <flow name="getDownload">

@@ -610,18 +610,25 @@ public class GitHubModule {
      *
      * @param owner the name of the user that owns the repository
      * @param repositoryName  the name of the repository
+     * @param id the ID of the key
      * @param title the title of the key
      * @param key   ssh key
      * @return the modified {@link Key}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Key editDeployKey(String owner, String repositoryName, String title, String key) throws IOException {
-        Key newKey = new Key();
-        newKey.setTitle(title);
-        newKey.setKey(key);
+    public Key editDeployKey(String owner, String repositoryName, int id, @Optional String title, @Optional String key) throws IOException {
+        Key keyToEdit = getDeployKey(owner, repositoryName, id);
 
-        return getServiceFactory().getDeployKeyService().editKey(RepositoryId.create(owner, repositoryName), newKey);
+        if (title != null) {
+            keyToEdit.setTitle(title);
+        }
+
+        if (key != null) {
+            keyToEdit.setKey(key);
+        }
+
+        return getServiceFactory().getDeployKeyService().editKey(RepositoryId.create(owner, repositoryName), keyToEdit);
     }
 
 
