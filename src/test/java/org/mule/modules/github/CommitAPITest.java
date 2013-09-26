@@ -31,8 +31,6 @@ public class CommitAPITest extends BaseAPITest {
         List<RepositoryCommit> commits = runMuleFlow("getCommits", List.class);
         assertTrue(commits.size() > 0);
 
-        String filePath = "/README.md";
-
         commits = runMuleFlow("getCommitsBySha", List.class);
         assertTrue(commits.size() > 0);
         RepositoryCommit aCommit = commits.get(0);

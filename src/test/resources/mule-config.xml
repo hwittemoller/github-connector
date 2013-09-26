@@ -165,18 +165,6 @@
         <github:delete-deploy-key owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]"/>
     </flow>
 
-    <flow name="getDownload">
-        <github:get-download owner="mulesoft" repositoryName="github-connector" id="1"/>
-    </flow>
-
-    <flow name="deleteDownload">
-        <github:delete-download owner="mulesoft" repositoryName="github-connector" id="1"/>
-    </flow>
-
-    <flow name="createResource">
-        <github:create-resource owner="mulesoft" repositoryName="github-connector" resourceName="resource name" size="1000"/>
-    </flow>
-
 	<flow name="createGist">
         <github:create-gist isPublic="true" description="description for gist">
 	     	<github:files>
@@ -464,7 +452,19 @@
     <flow name="listDownloadsForRepository">
         <github:list-downloads-for-repository owner="mulesoft" repositoryName="github-connector" />
     </flow>
-    
+
+    <flow name="getDownload">
+        <github:get-download owner="mulesoft" repositoryName="github-connector" id="1"/>
+    </flow>
+
+    <flow name="deleteDownload">
+        <github:delete-download owner="mulesoft" repositoryName="github-connector" id="1"/>
+    </flow>
+
+    <flow name="createResource">
+        <github:create-resource owner="mulesoft" repositoryName="github-connector" resourceName="resource name" size="1000"/>
+    </flow>
+
     <flow name="uploadResource">
     	<github:upload-resource content-ref="foo bar">
      		<github:download-resource ref="downloadResourceObj" />
