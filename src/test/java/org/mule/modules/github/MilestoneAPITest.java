@@ -41,6 +41,6 @@ public class MilestoneAPITest extends BaseAPITest {
 
         runMuleFlow("deleteMilestone", null, milestoneNumberParameter);
 
-        github.deleteRepository(USER, REPO); //cleanup
+        deleteTestRepository();
     }
 }

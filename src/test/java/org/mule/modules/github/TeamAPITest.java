@@ -19,69 +19,66 @@ import static junit.framework.Assert.*;
  * LICENSE.md file.
  */
 
-@SuppressWarnings("unchecked")
 public class TeamAPITest extends BaseAPITest {
-    @Test
-    public void testTeamAPI()
-            throws Exception {
-        //values used in mule-config.xml
-        String REPO = "github-connector";      //The repository name. Will be forked from Mule and then deleted. Please make sure it does not exist before test.
-        String ORG = "mule-github-api-test";   //The organization name. Organization must exist and authenticated user must be it's admin
-        String TEAM = "github-connector-team"; //The team name. Team will be created during test and then deleted. Please make sure it does not exist before test.
 
+    @Test
+    public void testTeamAPI() throws Exception {
 
         Team team = runMuleFlow("createTeam", Team.class);
         assertNotNull(team);
+        assertEquals("github-connector-testing-team", team.getName());
+        int teamId = team.getId();
 
         List<Team> teams = runMuleFlow("getTeamsForOrg", List.class);
         assertNotNull(teams);
         assertTrue(teams.size() > 0);
-
-        int teamId = 0;
-        for (Team t : teams) {
-            if (TEAM.equals(t.getName()))
-                teamId = t.getId();
+        boolean found = false;
+        for (Team t: teams){
+            if (t.getId()==teamId){
+                found = true;
+                break;
+            }
         }
-        assertTrue(teamId > 0);
+        assertTrue(found);
 
-        Map<String, Integer> params = Collections.singletonMap("teamId", teamId);
-        team = runMuleFlow("getTeam", Team.class, params);
+        Map<String, Integer> teamIdParameter = Collections.singletonMap("teamId", teamId);
+        team = runMuleFlow("getTeam", Team.class, teamIdParameter);
         assertNotNull(team);
-        assertEquals(TEAM, team.getName());
+        assertEquals("github-connector-testing-team", team.getName());
 
-        team = runMuleFlow("editTeam", Team.class, params);
+        team = runMuleFlow("editTeam", Team.class, teamIdParameter);
         assertNotNull(team);
         assertEquals("new-team-name", team.getName());
 
-        runMuleFlow("addTeamMember", null, params);
+        runMuleFlow("addTeamMember", null, teamIdParameter);
 
-        List<User> members = runMuleFlow("getTeamMembers", List.class, params);
+        List<User> members = runMuleFlow("getTeamMembers", List.class, teamIdParameter);
         assertNotNull(members);
         assertTrue(members.size() == 1);
 
-        boolean isTeamMember = runMuleFlow("isTeamMember", Boolean.class, params);
+        boolean isTeamMember = runMuleFlow("isTeamMember", Boolean.class, teamIdParameter);
         assertTrue(isTeamMember);
 
-        runMuleFlow("removeTeamMember", null, params);
-        members = runMuleFlow("getTeamMembers", List.class, params);
+        runMuleFlow("removeTeamMember", null, teamIdParameter);
+        members = runMuleFlow("getTeamMembers", List.class, teamIdParameter);
         assertTrue(members.size() == 0);
 
         Repository repo = runMuleFlow("forkRepositoryForOrg", Repository.class);
         assertNotNull(repo);
 
-        runMuleFlow("addTeamRepository", null, params);
+        runMuleFlow("addTeamRepository", null, teamIdParameter);
 
-        List<Repository> repositories = runMuleFlow("getTeamRepositories", List.class, params);
+        List<Repository> repositories = runMuleFlow("getTeamRepositories", List.class, teamIdParameter);
         assertNotNull(repositories);
         assertTrue(repositories.size() == 1);
 
-        runMuleFlow("removeTeamRepository", null, params);
-        repositories = runMuleFlow("getTeamRepositories", List.class, params);
+        runMuleFlow("removeTeamRepository", null, teamIdParameter);
+        repositories = runMuleFlow("getTeamRepositories", List.class, teamIdParameter);
         assertTrue(repositories.size() == 0);
 
-        runMuleFlow("deleteTeam", null, params);
+        runMuleFlow("deleteTeam", null, teamIdParameter);
 
-        github.deleteRepository(ORG, REPO); //cleanup
+        github.deleteRepository("mule-testers-coalition", REPO); //cleanup
 
     }
 }

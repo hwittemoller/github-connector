@@ -27,23 +27,23 @@
     <github:config connectionUser="mule-tester" connectionPassword="mule2013" scope="user,repo,public_repo,gist" />
 
     <flow name="getIssues">
-        <github:get-issues repository="github-connector">
+        <github:get-issues user="mule-tester" repository="github-connector">
             <github:filter-data>
-                <github:filter-datum key="#[map-payload:key]">open</github:filter-datum>
+                <github:filter-datum key="open">open</github:filter-datum>
             </github:filter-data>
         </github:get-issues>
     </flow>
 
     <flow name="getIssuesCretedAfter">
-        <github:get-issues-creted-after repository="github-connector" minutes="#[map-payload:minutes]"/>
+        <github:get-issues-creted-after repository="github-connector" minutes="1"/>
     </flow>
 
     <flow name="getIssuesSinceNumber">
-        <github:get-issues-since-number  connectionUser="##" connectionPassword="##" repository="github-connector" fromIssueNumber="#[map-payload:fromIssueNumber]"/>
+        <github:get-issues-since-number user="mule-tester" repository="github-connector" fromIssueNumber="0"/>
     </flow>
 
     <flow name="createIssue">
-        <github:create-issue repository="github-connector" title="#[map-payload:title]" body="#[map-payload:body]" assignee="#[map-payload:assignee]"/>
+        <github:create-issue user="mule-tester" repository="github-connector" title="Issue Title" body="Issue Body" assignee="mule-tester"/>
     </flow>
 
     <flow name="closeIssue">
@@ -59,11 +59,11 @@
     </flow>
 
     <flow name="createComment">
-        <github:create-comment repository="github-connector" issueId="#[map-payload:issueId]" comment="#[map-payload:comment]"/>
+        <github:create-comment repository="github-connector" issueId="#[map-payload:issueId]" comment="Test comment"/>
     </flow>
 
     <flow name="editComment">
-        <github:edit-comment repository="github-connector" commentId="#[map-payload:commentId]" body="#[map-payload:commentBody]"/>
+        <github:edit-comment repository="github-connector" commentId="#[map-payload:commentId]" body="Updated comment body"/>
     </flow>
 
     <flow name="deleteComment">
@@ -75,23 +75,23 @@
     </flow>
 
     <flow name="getWatchers">
-        <github:get-watchers owner="orionixNuclear" repositoryName="github-connector"/>
+        <github:get-watchers owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getWatched">
-        <github:get-watched user="##"/>
+        <github:get-watched user="mule-tester"/>
     </flow>
 
     <flow name="isWatching">
-        <github:is-watching owner="##" repositoryName="github-connector"/>
+        <github:is-watching owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="watch">
-        <github:watch owner="##" repositoryName="github-connector"/>
+        <github:watch owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="unwatch">
-        <github:unwatch owner="##" repositoryName="github-connector"/>
+        <github:unwatch owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getCollaborators">
@@ -259,7 +259,7 @@
     </flow>
 
     <flow name="getUserByLoginName">
-        <github:get-user-by-login-name loginName="orionixNuclear"/>
+        <github:get-user-by-login-name loginName="mule-tester"/>
     </flow>
 
     <flow name="getCurrentUser">
@@ -268,10 +268,6 @@
 
     <flow name="updateCurrentUser">
         <github:update-current-user company="MuleSoft" location="Buenos Aires" blog="blogs.mulesoft.org"/>
-    </flow>
-
-    <flow name="cleanupCurrentUser">
-        <github:update-current-user company="-" location="-" blog="-"/>
     </flow>
 
     <flow name="getFollowers">
@@ -283,15 +279,15 @@
     </flow>
 
     <flow name="isFollowing">
-        <github:is-following user="federecio"/>
+        <github:is-following user="vgulyakin"/>
     </flow>
 
     <flow name="follow">
-        <github:follow user="federecio"/>
+        <github:follow user="vgulyakin"/>
     </flow>
 
     <flow name="unfollow">
-        <github:unfollow user="federecio"/>
+        <github:unfollow user="vgulyakin"/>
     </flow>
 
     <flow name="getEmails">
@@ -321,7 +317,7 @@
     </flow>
 
     <flow name="getKey">
-        <github:get-key id="1"/>
+        <github:get-key id="#[map-payload:keyId]"/>
     </flow>
 
     <flow name="createKey">
@@ -329,11 +325,11 @@
     </flow>
 
     <flow name="editKey">
-        <github:edit-key keyId="1" title="new title" />
+        <github:edit-key keyId="#[map-payload:keyId]" title="New title" />
     </flow>
 
     <flow name="deleteKey">
-        <github:delete-key id="1"/>
+        <github:delete-key id="#[map-payload:keyId]"/>
     </flow>
 
     <flow name="getTeam">
@@ -341,11 +337,11 @@
     </flow>
 
     <flow name="getTeamsForOrg">
-        <github:get-teams-for-org organization="mule-github-api-test"/>
+        <github:get-teams-for-org organization="mule-testers-coalition"/>
     </flow>
 
     <flow name="createTeam">
-        <github:create-team organization="mule-github-api-test" teamName="github-connector-team" config-ref=""/>
+        <github:create-team organization="mule-testers-coalition" teamName="github-connector-testing-team" config-ref=""/>
     </flow>
 
     <flow name="editTeam">
@@ -361,15 +357,15 @@
     </flow>
 
     <flow name="isTeamMember">
-        <github:is-team-member id="#[map-payload:teamId]" user="federecio"/>
+        <github:is-team-member id="#[map-payload:teamId]" user="vgulyakin"/>
     </flow>
 
     <flow name="addTeamMember">
-        <github:add-team-member id="#[map-payload:teamId]" user="federecio"/>
+        <github:add-team-member id="#[map-payload:teamId]" user="vgulyakin"/>
     </flow>
 
     <flow name="removeTeamMember">
-        <github:remove-team-member id="#[map-payload:teamId]" user="federecio"/>
+        <github:remove-team-member id="#[map-payload:teamId]" user="vgulyakin"/>
     </flow>
 
     <flow name="getTeamRepositories">
@@ -377,11 +373,11 @@
     </flow>
 
     <flow name="addTeamRepository">
-        <github:add-team-repository id="#[map-payload:teamId]" owner="mule-github-api-test" repositoryName="github-connector"/>
+        <github:add-team-repository id="#[map-payload:teamId]" owner="mule-testers-coalition" repositoryName="github-connector"/>
     </flow>
 
     <flow name="removeTeamRepository">
-        <github:remove-team-repository id="#[map-payload:teamId]" owner="mule-github-api-test" repositoryName="github-connector"/>
+        <github:remove-team-repository id="#[map-payload:teamId]" owner="mule-testers-coalition" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getRepositories">
@@ -389,7 +385,7 @@
     </flow>
 
     <flow name="getRepositoriesForUser">
-        <github:get-repositories-for-user user="federecio"/>
+        <github:get-repositories-for-user user="mule-tester"/>
     </flow>
 
     <flow name="getOrgRepositories">
@@ -397,11 +393,11 @@
     </flow>
 
     <flow name="createRepository">
-        <github:create-repository repositoryName="cool-repo" description="this is a cool repo" hasIssues="true"/>
+        <github:create-repository  repositoryName="cool-repo" description="this is a cool repo" hasIssues="true"/>
     </flow>
 
     <flow name="createRepositoryForOrg">
-        <github:create-repository-for-org organization="some org" repositoryName="cool-repo" description="this is a cool repo"
+        <github:create-repository-for-org organization="mule-testers-coalition" repositoryName="cool-repo-for-org" description="this is a cool repo"
                                           hasIssues="true"/>
     </flow>
 
@@ -422,7 +418,7 @@
     </flow>
 
     <flow name="forkRepositoryForOrg">
-        <github:fork-repository-for-org organization="mule-github-api-test" owner="mulesoft" repositoryName="github-connector"/>
+        <github:fork-repository-for-org organization="mule-testers-coalition" owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="getReadme">

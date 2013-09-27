@@ -48,10 +48,10 @@ public class GistAPITest extends BaseAPITest {
         List<Comment> comments = runMuleFlow("getGistComments", List.class, gistIdParameter);
         assertTrue(comments.size() > 0);
 
-/*
-        TODO: following 4 methods are broken in mylyn edit.github.core 2.1.5. Post a bug?
-        long commentId = comment.getId();
+        //following 4 methods are broken in mylyn edit.github.core 2.1.5.
+        //the test should fail
 
+        long commentId = comment.getId();
         comment = github.editGistComment(commentId, "updated test comment");
         assertNotNull(comment);
 
@@ -61,8 +61,6 @@ public class GistAPITest extends BaseAPITest {
         github.deleteGistComment(commentId);
 
         Gist forked = github.forkGist(gistId);
-        System.err.println(forked.getUrl());
-*/
 
         runMuleFlow("deleteGist", null, gistIdParameter);
     }

@@ -14,11 +14,6 @@ import org.mule.modules.github.BaseAPITest;
 
 public class GitHubModuleNamespaceTest extends BaseAPITest {
 
-    @Override
-    protected String getConfigResources() {
-        return "mule-config.xml";
-    }
-
     @Test
     public void checkSchemaIsValid() {
         // by loading the mule-config.xml will validate the schema is deployable in Mule

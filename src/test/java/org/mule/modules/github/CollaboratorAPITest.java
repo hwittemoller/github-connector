@@ -19,10 +19,9 @@ import static org.junit.Assert.assertTrue;
 public class CollaboratorAPITest extends BaseAPITest {
 
     @Test
-    public void testCollaboratorAPI()
-            throws Exception {
+    public void testCollaboratorAPI() throws Exception {
 
-        Repository repository = runMuleFlow("forkRepository", Repository.class);
+        Repository repository = forkTestRepository();
         assertNotNull(repository);
 
         runMuleFlow("addCollaborator", null);
@@ -36,6 +35,6 @@ public class CollaboratorAPITest extends BaseAPITest {
 
         runMuleFlow("removeCollaborator", null);
 
-        github.deleteRepository(USER, REPO); //cleanup
+        deleteTestRepository();
     }
 }

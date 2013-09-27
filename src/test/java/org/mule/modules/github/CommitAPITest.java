@@ -25,7 +25,7 @@ public class CommitAPITest extends BaseAPITest {
 
     @Test
     public void testCommitAPI() throws Exception {
-        Repository repository = runMuleFlow("forkRepository", Repository.class);
+        Repository repository = forkTestRepository();
         assertNotNull(repository);
 
         List<RepositoryCommit> commits = runMuleFlow("getCommits", List.class);
@@ -70,7 +70,7 @@ public class CommitAPITest extends BaseAPITest {
 
         runMuleFlow("deleteCommitComment", null, commentIdParameter);
 
-        github.deleteRepository(USER, REPO); //cleanup
+        deleteTestRepository();
 
     }
 

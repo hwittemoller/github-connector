@@ -12,18 +12,16 @@ import org.eclipse.egit.github.core.Key;
 import org.eclipse.egit.github.core.User;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class UserAPITest extends BaseAPITest
-{	
-    @Test
-    public void testUserAPI()
-            throws Exception
-    {
-        github.setServiceFactory(new ServiceFactory(USER, PASS, SCOPE));
+public class UserAPITest extends BaseAPITest {
 
+    @Test
+    public void testUserAPI() throws Exception {
         //basic
         User user = runMuleFlow("getCurrentUser", User.class);
         assertNotNull(user);
@@ -31,18 +29,14 @@ public class UserAPITest extends BaseAPITest
 
         user = runMuleFlow("getUserByLoginName", User.class);
         assertNotNull(user);
-        assertEquals("orionixNuclear", user.getLogin());
+        assertEquals("mule-tester", user.getLogin());
 
-        user = runMuleFlow("updateCurrentUser", User.class); //set company="MuleSoft" location="Buenos Aires" blog="blogs.mulesoft.org"
+        user = runMuleFlow("updateCurrentUser", User.class);
         assertEquals("blogs.mulesoft.org", user.getBlog());
         assertEquals("Buenos Aires", user.getLocation());
-
-        user = runMuleFlow("cleanupCurrentUser", User.class); //set company="-" location="-" blog="-"
-        assertEquals("-", user.getBlog());
-        assertEquals("-", user.getLocation());
+        assertEquals("MuleSoft", user.getCompany());
 
         //followers, follow
-
         List<User> followers = runMuleFlow("getFollowers", List.class);
         assertNotNull(followers);
 
@@ -53,11 +47,11 @@ public class UserAPITest extends BaseAPITest
         assertFalse(isFollow);
 
         runMuleFlow("follow", null);
-        isFollow = github.isFollowing("federecio");
+        isFollow = github.isFollowing("vgulyakin");
         assertTrue(isFollow);
 
         runMuleFlow("unfollow", null);
-        isFollow = github.isFollowing("federecio");
+        isFollow = github.isFollowing("vgulyakin");
         assertFalse(isFollow);
 
         //emails
@@ -66,12 +60,11 @@ public class UserAPITest extends BaseAPITest
 
         runMuleFlow("addEmails", null);
         emails = github.getEmails();
-        assertTrue( emails.contains("email1@mulesoft.com") );
+        assertTrue(emails.contains("email1@mulesoft.com"));
 
         runMuleFlow("removeEmails", null);
         emails = github.getEmails();
         assertFalse(emails.contains("email1@mulesoft.com"));
-
 
         //key operations
         Key key = runMuleFlow("createKey", Key.class);
@@ -80,23 +73,29 @@ public class UserAPITest extends BaseAPITest
 
         List<Key> keys = runMuleFlow("getKeys", List.class);
         boolean found = false;
-        for (Key k: keys)
-            if (k.getId()==keyId)
+        for (Key k : keys)
+            if (k.getId() == keyId)
                 found = true;
 
         assertTrue(found);
 
-        key = github.editKey(keyId, "New title", null);
+        Map<String, Integer> keyIdParameter = Collections.singletonMap("keyId", keyId);
+        key = runMuleFlow("editKey", Key.class, keyIdParameter);
         assertEquals("New title", key.getTitle());
 
-        github.deleteKey(keyId);
+        key = runMuleFlow("getKey", Key.class, keyIdParameter);
+        assertEquals("New title", key.getTitle());
 
-        keys = github.getKeys();
+        runMuleFlow("deleteKey", null, keyIdParameter);
+
+        keys = runMuleFlow("getKeys", List.class);
         found = false;
-        for (Key k: keys)
-            if (k.getId()==keyId)
+        for (Key k : keys) {
+            if (k.getId() == keyId) {
                 found = true;
-
+                break;
+            }
+        }
         assertFalse(found);
     }
 }

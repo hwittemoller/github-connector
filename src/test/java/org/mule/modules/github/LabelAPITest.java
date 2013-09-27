@@ -36,6 +36,6 @@ public class LabelAPITest extends BaseAPITest {
 
         runMuleFlow("deleteLabel", null);
 
-        github.deleteRepository(USER, REPO); //cleanup
+        deleteTestRepository();
     }
 }

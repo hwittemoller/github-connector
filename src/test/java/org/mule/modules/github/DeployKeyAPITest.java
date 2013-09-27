@@ -22,7 +22,7 @@ public class DeployKeyAPITest extends BaseAPITest {
 
     @Test
     public void testDeployKeyAPI() throws Exception {
-        Repository repository = runMuleFlow("forkRepository", Repository.class);
+        Repository repository = forkTestRepository();
         assertNotNull(repository);
 
         Key key = runMuleFlow("createDeployKey", Key.class);
@@ -51,7 +51,7 @@ public class DeployKeyAPITest extends BaseAPITest {
 
         runMuleFlow("deleteDeployKey", null, keyIdParameter);
 
-        github.deleteRepository(USER, REPO); //cleanup
+        deleteTestRepository();
 
     }
 }

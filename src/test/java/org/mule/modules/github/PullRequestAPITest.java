@@ -20,21 +20,13 @@ import static org.junit.Assert.*;
  */
 public class PullRequestAPITest extends BaseAPITest {
 
-    //values used in mule-config.xml
-    String MULE = "mulesoft";
-    String REPO = "github-connector";   //The repository name. Will be forked from Mule and then deleted. Please make sure it does not exist before test.
-    String USER = "mule-tester";        //The username of currently authenticated user
-
     @Test
     public void testPullRequestAPI()
             throws Exception
     {
 
-
-        Repository repository = runMuleFlow("forkRepository", Repository.class);
+        Repository repository = forkTestRepository();
         assertNotNull(repository);
-
-        Thread.sleep(10000L);  //otherwise next row throws 'repository is empty' error
 
         //create branch
         List<Reference> refs = github.getReferences(USER, REPO);
