@@ -198,15 +198,15 @@
     </flow>
 
     <flow name="getGistComment">
-        <github:get-gist-comment commentId="4455"/>
+        <github:get-gist-comment gistId="#[map-payload:id]" commentId="#[map-payload:commentId]"/>
     </flow>
 
     <flow name="deleteGistComment">
-        <github:delete-gist-comment commentId="4455"/>
+        <github:delete-gist-comment gistId="#[map-payload:id]" commentId="#[map-payload:commentId]"/>
     </flow>
 
     <flow name="editGistComment">
-        <github:edit-gist-comment commentId="4455" body="bla bla"/>
+        <github:edit-gist-comment gistId="#[map-payload:id]" commentId="#[map-payload:commentId]" body="updated gist comment"/>
     </flow>
 
     <flow name="starGist">
@@ -222,7 +222,7 @@
     </flow>
 
     <flow name="forkGist">
-        <github:fork-gist gistId="1430386"/>
+        <github:fork-gist gistId="1"/>
     </flow>
 
     <flow name="getLabels">

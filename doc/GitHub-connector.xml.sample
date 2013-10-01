@@ -180,15 +180,15 @@
 <!-- END_INCLUDE(github:deleteGist) -->
 
 <!-- BEGIN_INCLUDE(github:getGistComment) -->
-      <github:get-gist-comment commentId="4455" />
+        <github:get-gist-comment gistId="1430386" commentId="132421"/>
 <!-- END_INCLUDE(github:getGistComment) -->
 
 <!-- BEGIN_INCLUDE(github:deleteGistComment) -->
-     <github:delete-gist-comment commentId="4455" />
+     <github:delete-gist-comment gistId="1430386" commentId="132421" />
 <!-- END_INCLUDE(github:deleteGistComment) -->
 
 <!-- BEGIN_INCLUDE(github:editGistComment) -->
-     <github:edit-gist-comment commentId="4455" body="bla bla" />
+     <github:edit-gist-comment gistId="1430386" commentId="132421" body="bla bla" />
 <!-- END_INCLUDE(github:editGistComment) -->
 
 <!-- BEGIN_INCLUDE(github:starGist) -->

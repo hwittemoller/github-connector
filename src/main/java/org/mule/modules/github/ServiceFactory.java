@@ -38,7 +38,7 @@ public class ServiceFactory
     private CommitService defaultCommitService;
     private DeployKeyService defaultDeployKeyService;
     private DownloadService defaultDownloadService;
-    private GistService defaultGistService;
+    private ExtendedGistService defaultGistService;
     private LabelService defaultLabelService;
     private MilestoneService defaultMilestoneService;
     private UserService defaultUserService;
@@ -200,12 +200,12 @@ public class ServiceFactory
         return defaultDownloadService;
     }
 
-    public GistService getGistService()
+    public ExtendedGistService getGistService()
     {
         if (defaultGistService == null)
         {
             GitHubClient client = getGitHubClient();
-            setGistService(new GistService(client));
+            setGistService(new ExtendedGistService(client));
         }
 
         return defaultGistService;
@@ -335,7 +335,7 @@ public class ServiceFactory
         this.defaultDownloadService = defaultDownloadService;
     }
 
-    public void setGistService(GistService defaultGistService)
+    public void setGistService(ExtendedGistService defaultGistService)
     {
         this.defaultGistService = defaultGistService;
     }

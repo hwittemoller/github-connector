@@ -914,14 +914,15 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getGistComment}
      *
+     * @param gistId the id of the Gist
      * @param commentId id of the comment to be retrieved
      * @return a comment corresponding to the given id
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Comment getGistComment(long commentId) throws IOException
+    public Comment getGistComment(String gistId, long commentId) throws IOException
     {
-        return getServiceFactory().getGistService().getComment(commentId);
+        return getServiceFactory().getGistService().getComment(gistId, commentId);
     }
 
     /**
@@ -929,13 +930,14 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:deleteGistComment}
      *
+     * @param gistId the id of the Gist
      * @param commentId id of the comment
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void deleteGistComment(long commentId) throws IOException
+    public void deleteGistComment(String gistId, long commentId) throws IOException
     {
-        getServiceFactory().getGistService().deleteComment(commentId);
+        getServiceFactory().getGistService().deleteComment(gistId, commentId);
     }
 
     /**
@@ -943,19 +945,20 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editGistComment}
      *
+     * @param gistId the id of the Gist
      * @param commentId id of the comment
      * @param body      new body of the comment
      * @return returns the updated {@link Comment}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Comment editGistComment(long commentId, String body) throws IOException
+    public Comment editGistComment(String gistId, long commentId, String body) throws IOException
     {
         Comment comment = new Comment();
         comment.setId(commentId);
         comment.setBody(body);
 
-        return getServiceFactory().getGistService().editComment(comment);
+        return getServiceFactory().getGistService().editComment(gistId, comment);
     }
 
     /**

@@ -1,6 +1,7 @@
 package org.mule.modules.github;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,6 @@ public class GistAPITest extends BaseAPITest
     public void testGistAPI() throws Exception
     {
         Gist gist = runMuleFlow("createGist", Gist.class, "file content");
-        System.out.println(gist.getUrl());
         assertNotNull(gist);
         assertEquals("description for gist", gist.getDescription());
 
@@ -54,19 +54,26 @@ public class GistAPITest extends BaseAPITest
         assertTrue(comments.size() > 0);
 
         //following 4 methods are broken in mylyn edit.github.core 2.1.5.
-        //the test should fail
+        //and re-implemented in ExtendedGistService
 
         long commentId = comment.getId();
-        comment = github.editGistComment(commentId, "updated test comment");
+        Map<String, Object> params = new HashMap<String, Object>(2,1);
+        params.put("id", gistId);
+        params.put("commentId", commentId);
+
+        comment =  runMuleFlow("editGistComment", Comment.class, params);
         assertNotNull(comment);
+        assertEquals("updated gist comment", comment.getBody());
 
-        comment = github.getGistComment(commentId);
-        assertEquals("updated test comment", comment.getBody());
+        comment = runMuleFlow("getGistComment", Comment.class, params);
+        assertNotNull(comment);
+        assertEquals("updated gist comment", comment.getBody());
 
-        github.deleteGistComment(commentId);
+        runMuleFlow("deleteGistComment", null, params);
 
-        Gist forked = github.forkGist(gistId);
+        Gist forked = runMuleFlow("forkGist", Gist.class);
         //broken till here
+        github.deleteGist(forked.getId());
 
         runMuleFlow("deleteGist", null, gistIdParameter);
     }
