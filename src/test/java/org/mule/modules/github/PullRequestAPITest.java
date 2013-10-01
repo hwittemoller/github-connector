@@ -1,15 +1,25 @@
 package org.mule.modules.github;
 
-import org.eclipse.egit.github.core.*;
-import org.eclipse.egit.github.core.client.PageIterator;
-import org.junit.Test;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import org.eclipse.egit.github.core.CommitComment;
+import org.eclipse.egit.github.core.CommitFile;
+import org.eclipse.egit.github.core.MergeStatus;
+import org.eclipse.egit.github.core.PullRequest;
+import org.eclipse.egit.github.core.Reference;
+import org.eclipse.egit.github.core.Repository;
+import org.eclipse.egit.github.core.RepositoryCommit;
+import org.eclipse.egit.github.core.RepositoryContents;
+import org.eclipse.egit.github.core.client.PageIterator;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
@@ -18,11 +28,13 @@ import static org.junit.Assert.*;
  * license, a copy of which has been included with this distribution in the
  * LICENSE.md file.
  */
-public class PullRequestAPITest extends BaseAPITest {
+
+@SuppressWarnings("unchecked")
+public class PullRequestAPITest extends BaseAPITest
+{
 
     @Test
-    public void testPullRequestAPI()
-            throws Exception
+    public void testPullRequestAPI() throws Exception
     {
 
         Repository repository = forkTestRepository();
@@ -32,10 +44,12 @@ public class PullRequestAPITest extends BaseAPITest {
         List<Reference> refs = github.getReferences(USER, REPO);
         assertNotNull(refs);
         Reference master = null;
-        for (Reference ref: refs)
+        for (Reference ref : refs)
         {
             if ("refs/heads/master".equals(ref.getRef()))
+            {
                 master = ref;
+            }
         }
         assertNotNull(master);
 
@@ -44,11 +58,11 @@ public class PullRequestAPITest extends BaseAPITest {
         //commit file to the branch
         List<RepositoryContents> retrievedContents = runMuleFlow("getReadme", List.class);
         assertNotNull(retrievedContents);
-        assertTrue(retrievedContents.size()==1);
+        assertTrue(retrievedContents.size() == 1);
 
         RepositoryContents file = retrievedContents.get(0);
 
-        runMuleFlow("updateReadme",null, Collections.singletonMap("sha",file.getSha()));
+        runMuleFlow("updateReadme", null, Collections.singletonMap("sha", file.getSha()));
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("head", branch.getRef());
@@ -64,7 +78,7 @@ public class PullRequestAPITest extends BaseAPITest {
         assertNotNull(pullRequests);
         assertTrue(pullRequests.size() > 0);
 
-        Map<String, Integer> pullRequestIdParameter = Collections.singletonMap("id",pullRequestNumber);
+        Map<String, Integer> pullRequestIdParameter = Collections.singletonMap("id", pullRequestNumber);
         pullRequest = runMuleFlow("getPullRequest", PullRequest.class, pullRequestIdParameter);
         assertNotNull(pullRequest);
 
@@ -77,12 +91,12 @@ public class PullRequestAPITest extends BaseAPITest {
 
         List<RepositoryCommit> commits = runMuleFlow("getPullRequestCommits", List.class, pullRequestIdParameter);
         assertNotNull(commits);
-        assertTrue(commits.size()>0);
+        assertTrue(commits.size() > 0);
         RepositoryCommit aCommit = commits.get(0);
 
         List<CommitFile> files = runMuleFlow("getPullRequestFiles", List.class, pullRequestIdParameter);
         assertNotNull(files);
-        assertTrue(files.size()>0);
+        assertTrue(files.size() > 0);
 
         boolean isMerged = runMuleFlow("isPullRequestMerged", Boolean.class, pullRequestIdParameter);
         assertFalse(isMerged);
@@ -90,22 +104,22 @@ public class PullRequestAPITest extends BaseAPITest {
         params = new HashMap<String, Object>();
         params.put("pullRequestId", pullRequestNumber);
         params.put("commitId", aCommit.getSha());
-        CommitComment comment = runMuleFlow("createPullRequestComment", CommitComment.class, params );
+        CommitComment comment = runMuleFlow("createPullRequestComment", CommitComment.class, params);
         assertNotNull(comment);
         assertEquals("test comment body", comment.getBody());
         assertEquals(10, comment.getPosition());
         assertEquals("README.md", comment.getPath());
 
         long commentId = comment.getId();
-        Map<String, Long> commentIdParameter = Collections.singletonMap("commentId",commentId);
+        Map<String, Long> commentIdParameter = Collections.singletonMap("commentId", commentId);
 
-        comment = runMuleFlow("editPullRequestComment", CommitComment.class, commentIdParameter );
+        comment = runMuleFlow("editPullRequestComment", CommitComment.class, commentIdParameter);
         assertNotNull(comment);
         assertEquals("updated test comment body", comment.getBody());
 
         params = new HashMap<String, Object>();
         params.put("pullRequestId", pullRequestNumber);
-        params.put("commentId", (int)commentId);
+        params.put("commentId", (int) commentId);
         CommitComment reply = runMuleFlow("replyToPullRequestComment", CommitComment.class, params);
         assertNotNull(reply);
         assertEquals("test reply", reply.getBody());
@@ -116,23 +130,25 @@ public class PullRequestAPITest extends BaseAPITest {
 
         List<CommitComment> comments = runMuleFlow("getPullRequestComments", List.class, pullRequestIdParameter);
         boolean found = false;
-        for (CommitComment c: comments )
+        for (CommitComment c : comments)
         {
-            if (c.getId()==commentId)
+            if (c.getId() == commentId)
+            {
                 found = true;
+            }
         }
         assertTrue(found);
 
         PageIterator<CommitComment> pagedComments = runMuleFlow("pagePullRequestComments", PageIterator.class, pullRequestIdParameter);
-        assertTrue( pagedComments.hasNext() );
+        assertTrue(pagedComments.hasNext());
 
         runMuleFlow("deletePullRequestComment", null, commentIdParameter);
 
         MergeStatus mergeStatus = runMuleFlow("mergePullRequest", MergeStatus.class, pullRequestIdParameter);
-        assertTrue (mergeStatus.isMerged());
+        assertTrue(mergeStatus.isMerged());
 
         github.deleteRepository(USER, REPO); //cleanup
 
-   }
+    }
 
 }

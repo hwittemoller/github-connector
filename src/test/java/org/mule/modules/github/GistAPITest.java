@@ -1,14 +1,16 @@
 package org.mule.modules.github;
 
-import org.eclipse.egit.github.core.Comment;
-import org.eclipse.egit.github.core.Gist;
-import org.junit.Test;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import org.eclipse.egit.github.core.Comment;
+import org.eclipse.egit.github.core.Gist;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
@@ -17,11 +19,14 @@ import static org.junit.Assert.*;
  * license, a copy of which has been included with this distribution in the
  * LICENSE.md file.
  */
-public class GistAPITest extends BaseAPITest {
+
+@SuppressWarnings("unchecked")
+public class GistAPITest extends BaseAPITest
+{
 
     @Test
-    public void testGistAPI()
-            throws Exception {
+    public void testGistAPI() throws Exception
+    {
         Gist gist = runMuleFlow("createGist", Gist.class, "file content");
         System.out.println(gist.getUrl());
         assertNotNull(gist);
@@ -61,6 +66,7 @@ public class GistAPITest extends BaseAPITest {
         github.deleteGistComment(commentId);
 
         Gist forked = github.forkGist(gistId);
+        //broken till here
 
         runMuleFlow("deleteGist", null, gistIdParameter);
     }

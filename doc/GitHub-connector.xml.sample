@@ -517,3 +517,10 @@
         <github:page-pull-request-comments owner="mulesoft" repositoryName="mule-devkit" id="1"/>
 <!-- END_INCLUDE(github:pagePullRequestComments) -->
 
+<!-- BEGIN_INCLUDE(github:getReferences) -->
+        <github:get-references owner="mulesoft" repositoryName="mule-devkit"/>
+<!-- END_INCLUDE(github:getReferences) -->
+
+<!-- BEGIN_INCLUDE(github:createReference) -->
+        <github:create-reference owner="mulesoft" repositoryName="mule-devkit" sha="abcdef" referenceName="new-feature"/>
+<!-- END_INCLUDE(github:createReference) -->

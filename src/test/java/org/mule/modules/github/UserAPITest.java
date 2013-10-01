@@ -8,20 +8,26 @@ package org.mule.modules.github;
  * LICENSE.md file.
  */
 
-import org.eclipse.egit.github.core.Key;
-import org.eclipse.egit.github.core.User;
-import org.junit.Test;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import org.eclipse.egit.github.core.Key;
+import org.eclipse.egit.github.core.User;
+import org.junit.Test;
 
-public class UserAPITest extends BaseAPITest {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+@SuppressWarnings("unchecked")
+public class UserAPITest extends BaseAPITest
+{
 
     @Test
-    public void testUserAPI() throws Exception {
+    public void testUserAPI() throws Exception
+    {
         //basic
         User user = runMuleFlow("getCurrentUser", User.class);
         assertNotNull(user);
@@ -75,7 +81,9 @@ public class UserAPITest extends BaseAPITest {
         boolean found = false;
         for (Key k : keys)
             if (k.getId() == keyId)
+            {
                 found = true;
+            }
 
         assertTrue(found);
 
@@ -90,8 +98,10 @@ public class UserAPITest extends BaseAPITest {
 
         keys = runMuleFlow("getKeys", List.class);
         found = false;
-        for (Key k : keys) {
-            if (k.getId() == keyId) {
+        for (Key k : keys)
+        {
+            if (k.getId() == keyId)
+            {
                 found = true;
                 break;
             }

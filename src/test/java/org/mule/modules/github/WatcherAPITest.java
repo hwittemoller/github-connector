@@ -1,12 +1,13 @@
 package org.mule.modules.github;
 
+import java.util.List;
+
 import org.eclipse.egit.github.core.service.WatcherService;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.util.List;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
@@ -20,10 +21,13 @@ import static org.junit.Assert.*;
  * http://developer.github.com/changes/2012-9-5-watcher-api/
  */
 
-public class WatcherAPITest extends BaseAPITest {
+@SuppressWarnings("unchecked")
+public class WatcherAPITest extends BaseAPITest
+{
 
     @Test
-    public void testWatcherAPI() throws Exception {
+    public void testWatcherAPI() throws Exception
+    {
 
         List<WatcherService> watchers = runMuleFlow("getWatchers", List.class);
         assertNotNull(watchers);

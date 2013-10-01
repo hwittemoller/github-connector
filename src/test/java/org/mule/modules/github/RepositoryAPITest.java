@@ -1,15 +1,17 @@
 package org.mule.modules.github;
 
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.egit.github.core.Contributor;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.RepositoryBranch;
 import org.eclipse.egit.github.core.RepositoryTag;
 import org.junit.Test;
 
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
@@ -19,10 +21,12 @@ import static org.junit.Assert.*;
  * LICENSE.md file.
  */
 
-public class RepositoryAPITest extends BaseAPITest {
+@SuppressWarnings("unchecked")
+public class RepositoryAPITest extends BaseAPITest
+{
     @Test
-    public void testRepositoryAPI()
-            throws Exception {
+    public void testRepositoryAPI() throws Exception
+    {
         Repository repository = forkTestRepository();
         assertNotNull(repository);
 

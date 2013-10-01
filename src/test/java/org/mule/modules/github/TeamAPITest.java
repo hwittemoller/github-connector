@@ -1,15 +1,17 @@
 package org.mule.modules.github;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.Team;
 import org.eclipse.egit.github.core.User;
 import org.junit.Test;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
@@ -19,10 +21,13 @@ import static junit.framework.Assert.*;
  * LICENSE.md file.
  */
 
-public class TeamAPITest extends BaseAPITest {
+@SuppressWarnings("unchecked")
+public class TeamAPITest extends BaseAPITest
+{
 
     @Test
-    public void testTeamAPI() throws Exception {
+    public void testTeamAPI() throws Exception
+    {
 
         Team team = runMuleFlow("createTeam", Team.class);
         assertNotNull(team);
@@ -33,8 +38,10 @@ public class TeamAPITest extends BaseAPITest {
         assertNotNull(teams);
         assertTrue(teams.size() > 0);
         boolean found = false;
-        for (Team t: teams){
-            if (t.getId()==teamId){
+        for (Team t : teams)
+        {
+            if (t.getId() == teamId)
+            {
                 found = true;
                 break;
             }

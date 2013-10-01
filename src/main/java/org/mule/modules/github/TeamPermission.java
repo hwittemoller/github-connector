@@ -7,7 +7,11 @@
  */
 package org.mule.modules.github;
 
-public enum TeamPermission {
+/**
+ * TEam members permissions
+ */
+public enum TeamPermission
+{
     /**
      * Team members can pull, but not push or administer this repositories
      */
@@ -22,7 +26,8 @@ public enum TeamPermission {
     ADMIN;
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return name().toLowerCase();
     }
 }

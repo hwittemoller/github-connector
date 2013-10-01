@@ -1,14 +1,16 @@
 package org.mule.modules.github;
 
-import org.eclipse.egit.github.core.Key;
-import org.eclipse.egit.github.core.Repository;
-import org.junit.Test;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import org.eclipse.egit.github.core.Key;
+import org.eclipse.egit.github.core.Repository;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
@@ -18,10 +20,13 @@ import static org.junit.Assert.*;
  * LICENSE.md file.
  */
 
-public class DeployKeyAPITest extends BaseAPITest {
+@SuppressWarnings("unchecked")
+public class DeployKeyAPITest extends BaseAPITest
+{
 
     @Test
-    public void testDeployKeyAPI() throws Exception {
+    public void testDeployKeyAPI() throws Exception
+    {
         Repository repository = forkTestRepository();
         assertNotNull(repository);
 
@@ -37,8 +42,10 @@ public class DeployKeyAPITest extends BaseAPITest {
         assertTrue(keys.size() > 0);
 
         boolean found = false;
-        for (Key k : keys) {
-            if (k.getId() == keyId) {
+        for (Key k : keys)
+        {
+            if (k.getId() == keyId)
+            {
                 found = true;
                 break;
             }

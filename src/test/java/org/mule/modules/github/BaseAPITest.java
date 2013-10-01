@@ -1,11 +1,11 @@
 package org.mule.modules.github;
 
+import java.io.IOException;
+
 import org.eclipse.egit.github.core.Repository;
 import org.mule.api.MuleEvent;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.tck.junit4.FunctionalTestCase;
-
-import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -17,7 +17,8 @@ import static org.junit.Assert.assertNotNull;
  * LICENSE.md file.
  */
 
-public class BaseAPITest extends FunctionalTestCase {
+public class BaseAPITest extends FunctionalTestCase
+{
 
     //The username of currently authenticated user
     protected String USER = "mule-tester";
@@ -37,24 +38,30 @@ public class BaseAPITest extends FunctionalTestCase {
     protected GitHubModule github = new GitHubModule();
 
     @Override
-    protected String getConfigResources() {
+    protected String getConfigResources()
+    {
         return "mule-config.xml";
     }
 
     @Override
-    protected void doSetUp() throws Exception {
+    protected void doSetUp() throws Exception
+    {
         github.setServiceFactory(new ServiceFactory(USER, PASS, SCOPE));
     }
 
-    protected Repository forkTestRepository() throws Exception {
+    protected Repository forkTestRepository() throws Exception
+    {
         Repository repository = null;
-        try {
+        try
+        {
             //delete test repo if it was not cleaned up after previous test
             repository = github.getRepository(USER, REPO);
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             //nothing. IOException happens when repository not found
         }
-        if (repository!=null){
+        if (repository != null)
+        {
             deleteTestRepository();
             Thread.sleep(5000L); //repository takes some time to get ready
         }
@@ -64,17 +71,18 @@ public class BaseAPITest extends FunctionalTestCase {
         return repo;
     }
 
-    protected void deleteTestRepository() throws IOException {
+    protected void deleteTestRepository() throws IOException
+    {
         github.deleteRepository(USER, REPO);
     }
 
-    protected <T> T runMuleFlow(String flowName, Class<T> type)
-            throws Exception {
+    protected <T> T runMuleFlow(String flowName, Class<T> type) throws Exception
+    {
         return runMuleFlow(flowName, type, null);
     }
 
-    protected <T> T runMuleFlow(String flowName, Class<T> type, Object data)
-            throws Exception {
+    protected <T> T runMuleFlow(String flowName, Class<T> type, Object data) throws Exception
+    {
         MuleEvent response = lookupFlow(flowName).process(getTestEvent(data));
         assertNotNull(response);
 
@@ -84,7 +92,8 @@ public class BaseAPITest extends FunctionalTestCase {
     }
 
 
-    protected MessageProcessor lookupFlow(final String flowName) {
+    protected MessageProcessor lookupFlow(final String flowName)
+    {
         return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(flowName);
     }
 

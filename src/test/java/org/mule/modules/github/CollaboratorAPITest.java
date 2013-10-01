@@ -1,10 +1,10 @@
 package org.mule.modules.github;
 
+import java.util.List;
+
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.User;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -16,10 +16,13 @@ import static org.junit.Assert.assertTrue;
  * license, a copy of which has been included with this distribution in the
  * LICENSE.md file.
  */
-public class CollaboratorAPITest extends BaseAPITest {
+@SuppressWarnings("unchecked")
+public class CollaboratorAPITest extends BaseAPITest
+{
 
     @Test
-    public void testCollaboratorAPI() throws Exception {
+    public void testCollaboratorAPI() throws Exception
+    {
 
         Repository repository = forkTestRepository();
         assertNotNull(repository);

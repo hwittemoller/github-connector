@@ -22,13 +22,21 @@ import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_REPOS
  * LICENSE.md file.
  */
 
-public class ExtendedContentsService extends ContentsService {
-
-    public ExtendedContentsService() {
+public class ExtendedContentsService extends ContentsService
+{
+    /**
+     * Default constructor
+     */
+    public ExtendedContentsService()
+    {
         super();
     }
 
-    public ExtendedContentsService(final GitHubClient client) {
+    /**
+     * @param client an instance of GitHubClient
+     */
+    public ExtendedContentsService(final GitHubClient client)
+    {
         super(client);
     }
 
@@ -37,22 +45,26 @@ public class ExtendedContentsService extends ContentsService {
      * Github contents API ( http://developer.github.com/v3/repos/contents/ ) was released on May 2013 and
      * MyLyn core 2.1.5 does not implement it yet. Should be added in next Mylyn release.
      * The method is not exposed as a processor and used only for functional testing.
-     * @param repository repository
-     * @param contents contents to commit
+     *
+     * @param repository    repository
+     * @param contents      contents to commit
      * @param commitMessage commit message
-     * @param ref branch name
-     * @throws IOException
+     * @param ref           branch name
+     * @throws IOException in case of connectivity issues
      */
-    public void putContents(IRepositoryIdProvider repository, RepositoryContents contents, String commitMessage, String ref)
-            throws IOException {
+    public void putContents(IRepositoryIdProvider repository, RepositoryContents contents, String commitMessage, String ref) throws IOException
+    {
         String id = getId(repository);
 
         StringBuilder uri = new StringBuilder(SEGMENT_REPOS);
         uri.append('/').append(id);
         uri.append(SEGMENT_CONTENTS);
-        if (StringUtils.isNotBlank(contents.getPath())) {
+        if (StringUtils.isNotBlank(contents.getPath()))
+        {
             if (!contents.getPath().startsWith("/"))
+            {
                 uri.append('/');
+            }
             uri.append(contents.getPath());
         }
 
@@ -61,7 +73,9 @@ public class ExtendedContentsService extends ContentsService {
         params.put("content", EncodingUtils.toBase64(contents.getContent()));
         params.put("sha", contents.getSha());
         if (ref != null)
+        {
             params.put("branch", ref);
+        }
 
 
         client.put(uri.toString(), params, null); //TODO: ignoring result for now because returning type is not defined in mylyn

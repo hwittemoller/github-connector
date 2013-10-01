@@ -1,12 +1,14 @@
 package org.mule.modules.github;
 
+import java.util.List;
+
 import org.eclipse.egit.github.core.Label;
 import org.eclipse.egit.github.core.Repository;
 import org.junit.Test;
 
-import java.util.List;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
@@ -16,10 +18,13 @@ import static org.junit.Assert.*;
  * LICENSE.md file.
  */
 
-public class LabelAPITest extends BaseAPITest {
+@SuppressWarnings("unchecked")
+public class LabelAPITest extends BaseAPITest
+{
 
     @Test
-    public void testLabelAPI() throws Exception {
+    public void testLabelAPI() throws Exception
+    {
         Repository repository = github.createRepository(REPO, "description", false, true, true, true);
         assertNotNull(repository);
 

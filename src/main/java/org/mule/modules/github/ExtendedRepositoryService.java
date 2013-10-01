@@ -7,26 +7,34 @@
  */
 package org.mule.modules.github;
 
+import java.io.IOException;
+
 import org.eclipse.egit.github.core.IRepositoryIdProvider;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.RepositoryService;
-
-import java.io.IOException;
-
 import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_REPOS;
 
 /**
  * Temporary extension of {@link RepositoryService}, in order to support repository deletion
+ *
  * @author vgulyakin
- * 
  */
-public class ExtendedRepositoryService extends RepositoryService {
+public class ExtendedRepositoryService extends RepositoryService
+{
 
-	public ExtendedRepositoryService() {
+    /**
+     * Default constructor
+     */
+    public ExtendedRepositoryService()
+    {
         super();
     }
 
-    public ExtendedRepositoryService(final GitHubClient client) {
+    /**
+     * @param client an instance of GitHubClient
+     */
+    public ExtendedRepositoryService(final GitHubClient client)
+    {
         super(client);
     }
 
@@ -38,7 +46,8 @@ public class ExtendedRepositoryService extends RepositoryService {
      * @param repository the repository to delete
      * @throws IOException in case of connectivity issues or if repository does not exist
      */
-    public void deleteRepository(IRepositoryIdProvider repository) throws IOException {
+    public void deleteRepository(IRepositoryIdProvider repository) throws IOException
+    {
         String id = getId(repository);
         StringBuilder uri = new StringBuilder(SEGMENT_REPOS);
         uri.append('/').append(id);

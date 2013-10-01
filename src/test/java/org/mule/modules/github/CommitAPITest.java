@@ -1,13 +1,13 @@
 package org.mule.modules.github;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.egit.github.core.CommitComment;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.RepositoryCommit;
 import org.junit.Test;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -21,10 +21,13 @@ import static org.junit.Assert.assertTrue;
  * LICENSE.md file.
  */
 
-public class CommitAPITest extends BaseAPITest {
+@SuppressWarnings("unchecked")
+public class CommitAPITest extends BaseAPITest
+{
 
     @Test
-    public void testCommitAPI() throws Exception {
+    public void testCommitAPI() throws Exception
+    {
         Repository repository = forkTestRepository();
         assertNotNull(repository);
 
@@ -59,8 +62,10 @@ public class CommitAPITest extends BaseAPITest {
         assertTrue(comments.size() > 0);
 
         boolean found = false;
-        for (CommitComment com : comments) {
-            if (com.getId() == commentId) {
+        for (CommitComment com : comments)
+        {
+            if (com.getId() == commentId)
+            {
                 found = true;
                 break;
             }

@@ -1,14 +1,16 @@
 package org.mule.modules.github;
 
-import org.eclipse.egit.github.core.Milestone;
-import org.eclipse.egit.github.core.Repository;
-import org.junit.Test;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import org.eclipse.egit.github.core.Milestone;
+import org.eclipse.egit.github.core.Repository;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
@@ -18,10 +20,13 @@ import static org.junit.Assert.*;
  * LICENSE.md file.
  */
 
-public class MilestoneAPITest extends BaseAPITest {
+@SuppressWarnings("unchecked")
+public class MilestoneAPITest extends BaseAPITest
+{
 
     @Test
-    public void testMilestoneAPI() throws Exception {
+    public void testMilestoneAPI() throws Exception
+    {
         Repository repository = github.createRepository(REPO, "description", false, true, true, true);
         assertNotNull(repository);
 

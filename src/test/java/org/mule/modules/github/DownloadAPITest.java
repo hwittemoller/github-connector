@@ -1,15 +1,17 @@
 package org.mule.modules.github;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.List;
+
 import org.eclipse.egit.github.core.Download;
 import org.eclipse.egit.github.core.DownloadResource;
 import org.eclipse.egit.github.core.Repository;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.List;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
@@ -19,11 +21,13 @@ import static org.junit.Assert.*;
  * LICENSE.md file.
  */
 
-
-public class DownloadAPITest extends BaseAPITest {
+@SuppressWarnings("unchecked")
+public class DownloadAPITest extends BaseAPITest
+{
 
     @Test
-    public void testDownloadAPI() throws Exception {
+    public void testDownloadAPI() throws Exception
+    {
 
 /*
         Downloads API does not work anymore on GitHub. GitHub suggests using releases API instead (see below)
@@ -44,7 +48,6 @@ public class DownloadAPITest extends BaseAPITest {
         }
 
 */
-
 
 
         Repository repository = forkTestRepository();
