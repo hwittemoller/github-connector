@@ -15,7 +15,7 @@
 [Step 11: Create editComment flow](#step-11-create-editcomment-flow)   
 [Step 12: Test editComment flow](#step-12-test-editcomment-flow)   
 [Step 13: Create getPullRequest flow](#step-13-create-getpullrequest-flow)  
-[Step 14: Test getPullRequest flow](#step-13-test-getpullrequest-flow) 	
+[Step 14: Test getPullRequest flow](#step-14-test-getpullrequest-flow) 	
 [Other Resources](#other-resources)     
 
 ### Purpose
