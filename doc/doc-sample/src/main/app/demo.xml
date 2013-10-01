@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:github="http://www.mulesoft.org/schema/mule/github" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/github http://www.mulesoft.org/schema/mule/github/1.0/mule-github.xsd">
+    <github:config name="GitHub" connectionUser="username" connectionPassword="pass2000" scope="user,repo,public_repo,gist" doc:name="GitHub">
+        <github:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
+    </github:config>
+    <flow name="createRepository" doc:name="createRepository">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" path="createrepo" doc:name="HTTP"/>
+        <github:create-repository config-ref="GitHub" repositoryName="New repository" doc:name="GitHub. Create repository"/>
+    </flow>
+    <flow name="createIssue" doc:name="createIssue">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" path="createissue" doc:name="HTTP"/>
+        <github:create-issue config-ref="GitHub" body="Lorem ipsum dolor" repository="New-repository" title="First issue" doc:name="GitHub. Create issue"/>
+    </flow>
+    <flow name="createComment" doc:name="createComment">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" path="createcomment" doc:name="HTTP"/>
+        <github:create-comment config-ref="GitHub" comment="First comment" issueId="1" repository="New-repository" doc:name="GitHub. Create comment"/>
+    </flow>
+    <flow name="editComment" doc:name="editComment">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" path="editcomment" doc:name="HTTP"/>
+        <github:edit-comment config-ref="GitHub" repository="New-repository" commentId="25231286" body="Brand new info" doc:name="GitHub. Edit comment"/>
+    </flow>
+</mule>
