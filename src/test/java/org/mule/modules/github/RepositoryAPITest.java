@@ -27,7 +27,7 @@ public class RepositoryAPITest extends BaseAPITest
     @Test
     public void testRepositoryAPI() throws Exception
     {
-        Repository repository = forkTestRepository();
+        Repository repository = createTestRepository(true);
         assertNotNull(repository);
 
         List<Repository> repositories = runMuleFlow("getRepositories", List.class);

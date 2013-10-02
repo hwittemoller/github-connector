@@ -28,7 +28,7 @@ public class CommitAPITest extends BaseAPITest
     @Test
     public void testCommitAPI() throws Exception
     {
-        Repository repository = forkTestRepository();
+        Repository repository = createTestRepository(true);
         assertNotNull(repository);
 
         List<RepositoryCommit> commits = runMuleFlow("getCommits", List.class);

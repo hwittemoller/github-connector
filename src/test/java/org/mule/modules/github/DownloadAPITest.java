@@ -46,7 +46,7 @@ public class DownloadAPITest extends BaseAPITest
     @Test
     public void testDownloadAPI() throws Exception
     {
-        Repository repository = forkTestRepository();
+        Repository repository = createTestRepository(true);
         assertNotNull(repository);
 
         String string = "abcdef";

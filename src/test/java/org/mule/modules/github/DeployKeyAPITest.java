@@ -27,7 +27,7 @@ public class DeployKeyAPITest extends BaseAPITest
     @Test
     public void testDeployKeyAPI() throws Exception
     {
-        Repository repository = forkTestRepository();
+        Repository repository = createTestRepository(true);
         assertNotNull(repository);
 
         Key key = runMuleFlow("createDeployKey", Key.class);

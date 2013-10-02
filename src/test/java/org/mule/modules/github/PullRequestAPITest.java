@@ -37,7 +37,7 @@ public class PullRequestAPITest extends BaseAPITest
     public void testPullRequestAPI() throws Exception
     {
 
-        Repository repository = forkTestRepository();
+        Repository repository = createTestRepository(true);
         assertNotNull(repository);
 
         //create branch

@@ -29,7 +29,7 @@ public class IssueAPITest extends BaseAPITest
     @Test
     public void testIssueAPI() throws Exception
     {
-        Repository repository = github.createRepository(REPO, "Test Repo", false, true, true, true);
+        Repository repository = createTestRepository(false);
         assertNotNull(repository);
 
         Issue issue = runMuleFlow("createIssue", Issue.class);

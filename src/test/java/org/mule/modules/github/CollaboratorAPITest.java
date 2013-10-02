@@ -24,7 +24,7 @@ public class CollaboratorAPITest extends BaseAPITest
     public void testCollaboratorAPI() throws Exception
     {
 
-        Repository repository = forkTestRepository();
+        Repository repository = createTestRepository(true);
         assertNotNull(repository);
 
         runMuleFlow("addCollaborator", null);

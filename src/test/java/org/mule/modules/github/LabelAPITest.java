@@ -25,7 +25,7 @@ public class LabelAPITest extends BaseAPITest
     @Test
     public void testLabelAPI() throws Exception
     {
-        Repository repository = github.createRepository(REPO, "description", false, true, true, true);
+        Repository repository = createTestRepository(false);
         assertNotNull(repository);
 
         Label label = runMuleFlow("createLabel", Label.class);

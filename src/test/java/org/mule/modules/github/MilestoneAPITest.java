@@ -27,7 +27,7 @@ public class MilestoneAPITest extends BaseAPITest
     @Test
     public void testMilestoneAPI() throws Exception
     {
-        Repository repository = github.createRepository(REPO, "description", false, true, true, true);
+        Repository repository = createTestRepository(false);
         assertNotNull(repository);
 
         Milestone milestone = runMuleFlow("createMilestone", Milestone.class);

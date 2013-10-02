@@ -49,7 +49,7 @@ public class BaseAPITest extends FunctionalTestCase
         github.setServiceFactory(new ServiceFactory(USER, PASS, SCOPE));
     }
 
-    protected Repository forkTestRepository() throws Exception
+    protected Repository createTestRepository(boolean fork) throws Exception
     {
         Repository repository = null;
         try
@@ -66,8 +66,16 @@ public class BaseAPITest extends FunctionalTestCase
             Thread.sleep(5000L); //repository takes some time to get ready
         }
 
-        Repository repo = github.forkRepository(MULE, REPO);
-        Thread.sleep(10000L); //repository takes some time to get ready
+        Repository repo;
+        if (fork)
+        {
+            repo = github.forkRepository(MULE, REPO);
+            Thread.sleep(10000L); //repository takes some time to get ready
+        }
+        else
+        {
+            repo = github.createRepository(REPO, "Repository for functional tests", false, true, true, true);
+        }
         return repo;
     }
 
