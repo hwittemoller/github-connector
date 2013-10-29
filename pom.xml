@@ -10,13 +10,14 @@
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
         <artifactId>mule-devkit-parent</artifactId>
-        <version>3.4.0</version>
+        <version>3.5.0-bighorn</version>
     </parent>
 
     <properties>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
         <category>Community</category>
         <licensePath>LICENSE.md</licensePath>
+        <connector.test.version>2.0.3</connector.test.version>
     </properties>
 
     <dependencies>
