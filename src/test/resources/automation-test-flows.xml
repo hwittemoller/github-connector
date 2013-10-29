@@ -149,15 +149,15 @@
     </flow>
 
     <flow name="createGist">
-        <github:create-gist isPublic="true" description="description for gist">
+        <github:create-gist isPublic="true" description="#[payload.description]">
             <github:files>
-                <github:file key="file.txt" value-ref="#[payload]" />
+                <github:file key="#[payload.filename]" value-ref="#[payload.content]" />
             </github:files>
         </github:create-gist>
     </flow>
 
     <flow name="getGist">
-        <github:get-gist id="#[map-payload:id]"/>
+        <github:get-gist id="#[payload.gistId]"/>
     </flow>
 
     <flow name="getStarredGist">
@@ -165,43 +165,43 @@
     </flow>
 
     <flow name="getGists">
-        <github:get-gists user="mule-tester"/>
+        <github:get-gists user="#[payload.user]"/>
     </flow>
 
     <flow name="createGistComment">
-        <github:create-gist-comment gistId="#[map-payload:id]" comment="comment on gist"/>
+        <github:create-gist-comment gistId="#[payload.gistId]" comment="#[payload.body]"/>
     </flow>
 
     <flow name="getGistComments">
-        <github:get-gist-comments gistId="#[map-payload:id]"/>
+        <github:get-gist-comments gistId="#[payload.gistId]"/>
     </flow>
 
     <flow name="deleteGist">
-        <github:delete-gist gistId="#[map-payload:id]"/>
+        <github:delete-gist gistId="#[payload.gistId]"/>
     </flow>
 
     <flow name="getGistComment">
-        <github:get-gist-comment gistId="#[map-payload:id]" commentId="#[map-payload:commentId]"/>
+        <github:get-gist-comment gistId="#[payload.gistId]" commentId="#[payload.commentId]"/>
     </flow>
 
     <flow name="deleteGistComment">
-        <github:delete-gist-comment gistId="#[map-payload:id]" commentId="#[map-payload:commentId]"/>
+        <github:delete-gist-comment gistId="#[payload.gistId]" commentId="#[payload.commentId]"/>
     </flow>
 
     <flow name="editGistComment">
-        <github:edit-gist-comment gistId="#[map-payload:id]" commentId="#[map-payload:commentId]" body="updated gist comment"/>
+        <github:edit-gist-comment gistId="#[payload.gistId]" commentId="#[payload.commentId]" body="#[payload.updatedBody]"/>
     </flow>
 
     <flow name="starGist">
-        <github:star-gist gistId="#[map-payload:id]"/>
+        <github:star-gist gistId="#[payload.gistId]"/>
     </flow>
 
     <flow name="unstarGist">
-        <github:unstar-gist gistId="#[map-payload:id]"/>
+        <github:unstar-gist gistId="#[payload.gistId]"/>
     </flow>
 
     <flow name="isStarred">
-        <github:is-starred gistId="#[map-payload:id]"/>
+        <github:is-starred gistId="#[payload.gistId]"/>
     </flow>
 
     <flow name="forkGist">

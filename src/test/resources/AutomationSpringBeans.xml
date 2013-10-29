@@ -55,4 +55,14 @@
         <entry key="user" value="${github.userName}" />
     </util:map>
 
+    <util:map id="gist" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="user" value="${github.userName}" />
+        <entry key="description" value="gist description" />
+        <entry key="filename" value="file.txt" />
+        <entry key="content" value="gist content" />
+        <entry key="body" value="comment body" />
+        <entry key="updatedBody" value="updated comment body" />
+    </util:map>
+
+
 </beans>
