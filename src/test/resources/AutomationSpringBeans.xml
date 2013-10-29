@@ -120,5 +120,18 @@
         <entry key="reply" value="Test Reply" />
     </util:map>
 
+    <util:map id="repository" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="user" value="${github.userName}" />
+        <entry key="owner" value="${github.owner}" />
+        <entry key="repository" value="${github.repository}" />
+    </util:map>
+
+    <util:map id="createRepository" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="user" value="${github.userName}" />
+        <entry key="owner" value="${github.owner}" />
+        <entry key="repository" value="${github.repository}" />
+        <entry key="description" value="this is a cool repo" />
+        <entry key="organization" value="mule-testers-coalition" />
+    </util:map>
 
 </beans>

@@ -368,19 +368,19 @@
     </flow>
 
     <flow name="getRepositoriesForUser">
-        <github:get-repositories-for-user user="mule-tester"/>
+        <github:get-repositories-for-user user="#[payload.user]"/>
     </flow>
 
     <flow name="getOrgRepositories">
-        <github:get-org-repositories organization="mulesoft"/>
+        <github:get-org-repositories organization="#[payload.owner]"/>
     </flow>
 
     <flow name="createRepository">
-        <github:create-repository  repositoryName="cool-repo" description="this is a cool repo" hasIssues="true"/>
+        <github:create-repository  repositoryName="#[payload.repository]" description="#[payload.description]" hasIssues="true"/>
     </flow>
 
     <flow name="createRepositoryForOrg">
-        <github:create-repository-for-org organization="mule-testers-coalition" repositoryName="cool-repo-for-org" description="this is a cool repo"
+        <github:create-repository-for-org organization="#[payload.organization]" repositoryName="#[payload.repository]" description="#[payload.description]"
                                           hasIssues="true"/>
     </flow>
 
@@ -393,7 +393,7 @@
     </flow>
 
     <flow name="getForks">
-        <github:get-forks owner="mulesoft" repositoryName="github-connector"/>
+        <github:get-forks owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
     </flow>
 
     <flow name="forkRepository">
@@ -401,7 +401,7 @@
     </flow>
 
     <flow name="forkRepositoryForOrg">
-        <github:fork-repository-for-org organization="mule-testers-coalition" owner="mulesoft" repositoryName="github-connector"/>
+        <github:fork-repository-for-org organization="#[payload.organization]" owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
     </flow>
 
     <flow name="getReadme">
@@ -413,19 +413,19 @@
     </flow>
 
     <flow name="getLanguages">
-        <github:get-languages owner="mulesoft" repositoryName="github-connector"/>
+        <github:get-languages owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
     </flow>
 
     <flow name="getBranches">
-        <github:get-branches owner="mulesoft" repositoryName="github-connector"/>
+        <github:get-branches owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
     </flow>
 
     <flow name="getTags">
-        <github:get-tags owner="mulesoft" repositoryName="github-connector"/>
+        <github:get-tags owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
     </flow>
 
     <flow name="getContributors">
-        <github:get-contributors owner="mulesoft" repositoryName="github-connector"/>
+        <github:get-contributors owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
     </flow>
 
     <flow name="listDownloadsForRepository">
