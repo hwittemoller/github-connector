@@ -13,7 +13,9 @@ package org.mule.modules.github.automation.testcases.collaborator;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mule.modules.github.automation.testcases.GutHubTestParent;
+import org.mule.modules.github.automation.testcases.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import static org.junit.Assert.assertFalse;
@@ -30,6 +32,7 @@ public class RemoveCollaboratorTestCases extends GutHubTestParent
     }
 
     @Test
+    @Category({RegressionTests.class})
     public void removeCollaborator()
     {
 

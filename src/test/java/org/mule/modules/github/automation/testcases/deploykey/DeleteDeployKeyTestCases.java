@@ -9,11 +9,9 @@
  * LICENSE.md file.
  */
 
-package org.mule.modules.github.automation.testcases.collaborator;
+package org.mule.modules.github.automation.testcases.deploykey;
 
-import java.util.List;
-
-import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.Key;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,37 +20,28 @@ import org.mule.modules.github.automation.testcases.GutHubTestParent;
 import org.mule.modules.github.automation.testcases.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class GetCollaboratorsTestCases extends GutHubTestParent
+public class DeleteDeployKeyTestCases extends GutHubTestParent
 {
     @Before
     public void setUp() throws Exception
     {
         createTestRepository(false);
-        initializeTestRunMessage("collaborators");
-        runFlowAndGetPayload("addCollaborator");
-    }
-
-    @After
-    public void tearDown() throws Exception
-    {
-        runFlowAndGetPayload("removeCollaborator");
+        initializeTestRunMessage("deploykey");
+        Key key = runFlowAndGetPayload("createDeployKey");
+        upsertOnTestRunMessage("id", key.getId());
     }
 
     @Test
     @Category({RegressionTests.class})
-    public void getCollaborators()
+    public void deleteDeployKey()
     {
 
         try
         {
-            List<User> collaborators = runFlowAndGetPayload("getCollaborators");
-            assertNotNull(collaborators);
-            assertTrue(collaborators.size() > 0);
-
+            runFlowAndGetPayload("deleteDeployKey");
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

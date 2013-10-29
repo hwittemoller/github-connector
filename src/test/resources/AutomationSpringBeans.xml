@@ -32,4 +32,12 @@
         <entry key="repositoryName" value="${github.repository}" />
     </util:map>
 
+    <util:map id="deploykey" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="owner" value="${github.userName}" />
+        <entry key="repositoryName" value="${github.repository}" />
+        <entry key="title" value="test title" />
+        <entry key="key" value="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw==" />
+    </util:map>
+
+
 </beans>
