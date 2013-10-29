@@ -26,4 +26,10 @@
         <entry key="repositoryName" value="${github.repository}" />
     </util:map>
 
+    <util:map id="collaborators" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="owner" value="${github.userName}" />
+        <entry key="user" value="vgulyakin" />
+        <entry key="repositoryName" value="${github.repository}" />
+    </util:map>
+
 </beans>

@@ -78,19 +78,19 @@
     </flow>
 
     <flow name="getCollaborators">
-        <github:get-collaborators owner="mule-tester" repositoryName="github-connector"/>
+        <github:get-collaborators owner="#[payload.owner]" repositoryName="#[payload.repositoryName]" />
     </flow>
 
     <flow name="isCollaborator">
-        <github:is-collaborator owner="mule-tester" repositoryName="github-connector" user="vgulyakin"/>
+        <github:is-collaborator owner="#[payload.owner]" repositoryName="#[payload.repositoryName]"  user="#[payload.user]"/>
     </flow>
 
     <flow name="addCollaborator">
-        <github:add-collaborator owner="mule-tester" repositoryName="github-connector" user="vgulyakin"/>
+        <github:add-collaborator owner="#[payload.owner]" repositoryName="#[payload.repositoryName]" user="#[payload.user]"/>
     </flow>
 
     <flow name="removeCollaborator">
-        <github:remove-collaborator owner="mule-tester" repositoryName="github-connector" user="vgulyakin"/>
+        <github:remove-collaborator owner="#[payload.owner]" repositoryName="#[payload.repositoryName]"  user="#[payload.user]"/>
     </flow>
 
     <flow name="getCommits">
