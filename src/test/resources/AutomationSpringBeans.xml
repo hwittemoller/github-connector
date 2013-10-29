@@ -45,4 +45,14 @@
         <entry key="body" value="commit comment body" />
     </util:map>
 
+    <util:map id="downloads" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="owner" value="${github.owner}" />
+        <entry key="user" value="${github.userName}" />
+        <entry key="repositoryName" value="${github.repository}" />
+    </util:map>
+
+    <util:map id="user" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="user" value="${github.userName}" />
+    </util:map>
+
 </beans>
