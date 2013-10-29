@@ -27,8 +27,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 
-
-@SuppressWarnings("unchecked")
 public class GetLabelTestCases extends GutHubTestParent
 {
     private Label label = null;
@@ -54,7 +52,7 @@ public class GetLabelTestCases extends GutHubTestParent
 
     @Category({RegressionTests.class})
     @Test
-    public void testGetLabel()
+    public void getLabel()
     {
         try
         {
@@ -70,7 +68,7 @@ public class GetLabelTestCases extends GutHubTestParent
 
     @Category({RegressionTests.class})
     @Test
-    public void testGetLabels()
+    public void getLabels()
     {
         try
         {

@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
  * LICENSE.md file.
  */
 
+@Deprecated
 public class BaseAPITest extends FunctionalTestCase
 {
 

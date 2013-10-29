@@ -58,23 +58,23 @@
     </flow>
 
     <flow name="getWatchers">
-        <github:get-watchers owner="mulesoft" repositoryName="github-connector"/>
+        <github:get-watchers owner="#[payload.owner]" repositoryName="#[payload.repositoryName]"/>
     </flow>
 
     <flow name="getWatched">
-        <github:get-watched user="mule-tester"/>
+        <github:get-watched user="#[payload.user]"/>
     </flow>
 
     <flow name="isWatching">
-        <github:is-watching owner="mulesoft" repositoryName="github-connector"/>
+        <github:is-watching owner="#[payload.owner]" repositoryName="#[payload.repositoryName]"/>
     </flow>
 
     <flow name="watch">
-        <github:watch owner="mulesoft" repositoryName="github-connector"/>
+        <github:watch owner="#[payload.owner]" repositoryName="#[payload.repositoryName]"/>
     </flow>
 
     <flow name="unwatch">
-        <github:unwatch owner="mulesoft" repositoryName="github-connector"/>
+        <github:unwatch owner="#[payload.owner]" repositoryName="#[payload.repositoryName]"/>
     </flow>
 
     <flow name="getCollaborators">
