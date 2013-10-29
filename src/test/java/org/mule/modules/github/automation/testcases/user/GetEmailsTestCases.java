@@ -9,7 +9,7 @@
  * LICENSE.md file.
  */
 
-package org.mule.modules.github.automation.testcases.email;
+package org.mule.modules.github.automation.testcases.user;
 
 import java.util.List;
 
@@ -50,8 +50,7 @@ public class GetEmailsTestCases extends GutHubTestParent
         try
         {
         	List<String> emails = runFlowAndGetPayload("getEmails");
-            assertNotNull(emails);
-            assertTrue(emails.contains(getTestRunMessageValue("email")));            
+            assertTrue(emails.contains(getTestRunMessageValue("email1")));
 
         } catch (Exception e)
         {

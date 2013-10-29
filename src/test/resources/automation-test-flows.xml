@@ -242,7 +242,7 @@
     </flow>
 
     <flow name="getUserByLoginName">
-        <github:get-user-by-login-name loginName="mule-tester"/>
+        <github:get-user-by-login-name loginName="#[payload.user]"/>
     </flow>
 
     <flow name="getCurrentUser">
@@ -250,7 +250,7 @@
     </flow>
 
     <flow name="updateCurrentUser">
-        <github:update-current-user company="MuleSoft" location="Buenos Aires" blog="blogs.mulesoft.org"/>
+        <github:update-current-user company="#[payload.company]" location="#[payload.location]" blog="#[payload.blog]"/>
     </flow>
 
     <flow name="getFollowers">
@@ -262,15 +262,15 @@
     </flow>
 
     <flow name="isFollowing">
-        <github:is-following user="vgulyakin"/>
+        <github:is-following user="#[payload.user]"/>
     </flow>
 
     <flow name="follow">
-        <github:follow user="vgulyakin"/>
+        <github:follow user="#[payload.user]"/>
     </flow>
 
     <flow name="unfollow">
-        <github:unfollow user="vgulyakin"/>
+        <github:unfollow user="#[payload.user]"/>
     </flow>
 
     <flow name="getEmails">
@@ -280,8 +280,8 @@
     <flow name="addEmails">
         <github:add-emails>
             <github:emails>
-                <github:email>email1@mulesoft.com</github:email>
-                <github:email>email2@mulesoft.com</github:email>
+                <github:email>#[payload.email1]</github:email>
+                <github:email>#[payload.email2]</github:email>
             </github:emails>
         </github:add-emails>
     </flow>
@@ -289,8 +289,8 @@
     <flow name="removeEmails">
         <github:remove-emails>
             <github:emails>
-                <github:email>email1@mulesoft.com</github:email>
-                <github:email>email2@mulesoft.com</github:email>
+                <github:email>#[payload.email1]</github:email>
+                <github:email>#[payload.email2]</github:email>
             </github:emails>
         </github:remove-emails>
     </flow>
@@ -300,19 +300,19 @@
     </flow>
 
     <flow name="getKey">
-        <github:get-key id="#[map-payload:keyId]"/>
+        <github:get-key id="#[payload.keyId]"/>
     </flow>
 
     <flow name="createKey">
-        <github:create-key title="title" key="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw== rsa-key-20130923"/>
+        <github:create-key title="#[payload.title]" key="#[payload.key]"/>
     </flow>
 
     <flow name="editKey">
-        <github:edit-key keyId="#[map-payload:keyId]" title="New title" />
+        <github:edit-key keyId="#[payload.keyId]" title="#[payload.newTitle]" />
     </flow>
 
     <flow name="deleteKey">
-        <github:delete-key id="#[map-payload:keyId]"/>
+        <github:delete-key id="#[payload.keyId]"/>
     </flow>
 
     <flow name="getTeam">

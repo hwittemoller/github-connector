@@ -11,7 +11,8 @@
 
 package org.mule.modules.github.automation.testcases.user;
 
-import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.Key;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -21,32 +22,39 @@ import org.mule.modules.tests.ConnectorTestUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-
-public class UpdateCurrentUserTestCases extends GutHubTestParent
+public class CreateKeyTestCases extends GutHubTestParent
 {
     @Before
     public void setUp() throws Exception
-    {
-        initializeTestRunMessage("updateCurrentUser");
+    {        
+        initializeTestRunMessage("key");
     }
 
-    @Category({RegressionTests.class})
-    @Test
-    public void updateCurrentUser()
+    @After
+    public void tearDown() throws Exception
     {
+        runFlowAndGetPayload("deleteKey");
+    }
+
+    @Test
+    @Category({RegressionTests.class})
+    public void createKey()
+    {
+
         try
         {
-            User user = runFlowAndGetPayload("updateCurrentUser");
-            assertEquals(getTestRunMessageValue("blog"), user.getBlog());
-            assertEquals(getTestRunMessageValue("location"), user.getLocation());
-            assertEquals(getTestRunMessageValue("company"), user.getCompany());
+            Key key = runFlowAndGetPayload("createKey");
+            assertNotNull(key);
+            assertEquals(getTestRunMessageValue("title"), key.getTitle());
+            assertEquals(getTestRunMessageValue("key"), key.getKey());
+            upsertOnTestRunMessage("keyId", key.getId());
 
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
 }

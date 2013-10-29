@@ -9,9 +9,8 @@
  * LICENSE.md file.
  */
 
-package org.mule.modules.github.automation.testcases.key;
+package org.mule.modules.github.automation.testcases.user;
 
-import org.eclipse.egit.github.core.Key;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,41 +19,55 @@ import org.mule.modules.github.automation.testcases.GutHubTestParent;
 import org.mule.modules.github.automation.testcases.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class CreateKeyTestCases extends GutHubTestParent
+public class FollowTestCases extends GutHubTestParent
 {
+
     @Before
     public void setUp() throws Exception
-    {        
-        initializeTestRunMessage("key");
+    {
+        initializeTestRunMessage("follow");
     }
 
     @After
     public void tearDown() throws Exception
     {
-        runFlowAndGetPayload("deleteKey");
+        runFlowAndGetPayload("unfollow");
     }
 
+	@Category({RegressionTests.class})
     @Test
-    @Category({RegressionTests.class})
-    public void createKey()
+    public void follow()
     {
-
         try
         {
-            Key key = runFlowAndGetPayload("createKey");
-            assertNotNull(key);
-            assertEquals(getTestRunMessageValue("title"), key.getTitle());
-            assertEquals(getTestRunMessageValue("key"), key.getKey());
-            upsertOnTestRunMessage("id", key.getId());
+            runFlowAndGetPayload("follow");
+            Boolean isFollow = runFlowAndGetPayload("isFollowing");
+            assertTrue(isFollow);
 
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
+
+    @Category({RegressionTests.class})
+    @Test
+    public void unfollow()
+    {
+        try
+        {
+            runFlowAndGetPayload("unfollow");
+            Boolean isFollow = runFlowAndGetPayload("isFollowing");
+            assertFalse(isFollow);
+
+        } catch (Exception e)
+        {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+
 }

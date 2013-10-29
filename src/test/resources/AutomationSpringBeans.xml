@@ -62,16 +62,18 @@
     </util:map>
     
     <util:map id="follow" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="follow" value="vgulyakin" />
+        <entry key="user" value="vgulyakin" />
     </util:map>
 
     <util:map id="email" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="email" value="email1@mulesoft.com" />
+        <entry key="email1" value="email1@mulesoft.com" />
+        <entry key="email2" value="email2@mulesoft.com" />
     </util:map>
 
     <util:map id="key" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-    	<entry key="title" value="title" />
-    	<entry key="key" value="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw== rsa-key-20130923" />
+    	<entry key="title" value="key title" />
+    	<entry key="newTitle" value="updated key title" />
+    	<entry key="key" value="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw==" />
     </util:map>
 
     <util:map id="gist" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
