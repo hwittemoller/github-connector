@@ -64,5 +64,12 @@
         <entry key="updatedBody" value="updated comment body" />
     </util:map>
 
+    <util:map id="milestone" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="user" value="${github.userName}" />
+        <entry key="repository" value="${github.repository}" />
+        <entry key="state" value="open" />
+        <entry key="title" value="1.0" />
+        <entry key="description" value="Milestone 1.0 description" />
+    </util:map>
 
 </beans>

@@ -225,20 +225,20 @@
     </flow>
 
     <flow name="getMilestones">
-        <github:get-milestones user="mule-tester" repository="github-connector" state="open"/>
+        <github:get-milestones user="#[payload.user]" repository="#[payload.repository]" state="#[payload.state]"/>
     </flow>
 
     <flow name="getMilestone">
-        <github:get-milestone user="mule-tester" repository="github-connector" number="#[map-payload:number]"/>
+        <github:get-milestone user="#[payload.user]" repository="#[payload.repository]" number="#[payload.number]"/>
     </flow>
 
     <flow name="deleteMilestone">
-        <github:delete-milestone user="mule-tester" repository="github-connector" number="#[map-payload:number]"/>
+        <github:delete-milestone user="#[payload.user]" repository="#[payload.repository]" number="#[payload.number]"/>
     </flow>
 
     <flow name="createMilestone">
-        <github:create-milestone user="mule-tester" repository="github-connector" title="1.0" description="Milestone 1.0 description"
-                                 state="open"/>
+        <github:create-milestone user="#[payload.user]" repository="#[payload.repository]" title="#[payload.title]" description="#[payload.description]"
+                                 state="#[payload.state]"/>
     </flow>
 
     <flow name="getUserByLoginName">

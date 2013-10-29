@@ -9,9 +9,9 @@
  * LICENSE.md file.
  */
 
-package org.mule.modules.github.automation.testcases.label;
+package org.mule.modules.github.automation.testcases.milestone;
 
-import org.eclipse.egit.github.core.Label;
+import org.eclipse.egit.github.core.Milestone;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,32 +24,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-public class CreateLabelTestCases extends GutHubTestParent
+public class DeleteMilestoneTestCases extends GutHubTestParent
 {
     @Before
     public void setUp() throws Exception
     {
         createTestRepository(false);
-        initializeTestRunMessage("createLabel");
-    }
-
-    @After
-    public void tearDown() throws Exception
-    {
-        runFlowAndGetPayload("deleteLabel");
+        initializeTestRunMessage("milestone");
+        Milestone milestone = runFlowAndGetPayload("createMilestone");
+        upsertOnTestRunMessage("number", milestone.getNumber());
     }
 
     @Category({RegressionTests.class})
     @Test
-    public void createLabel()
+    public void deleteMilestone()
     {
         try
         {
-            Label label = runFlowAndGetPayload("createLabel");
-
-            assertNotNull(label);
-            assertEquals(getTestRunMessageValue("labelName"), label.getName());
-            assertEquals(getTestRunMessageValue("color"), label.getColor());
+            runFlowAndGetPayload("deleteMilestone");
 
         } catch (Exception e)
         {

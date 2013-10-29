@@ -9,9 +9,10 @@
  * LICENSE.md file.
  */
 
-package org.mule.modules.github.automation.testcases.label;
+package org.mule.modules.github.automation.testcases.milestone;
 
 import org.eclipse.egit.github.core.Label;
+import org.eclipse.egit.github.core.Milestone;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,32 +25,36 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-public class CreateLabelTestCases extends GutHubTestParent
+public class CreateMilestoneTestCases extends GutHubTestParent
 {
     @Before
     public void setUp() throws Exception
     {
         createTestRepository(false);
-        initializeTestRunMessage("createLabel");
+        initializeTestRunMessage("milestone");
+
     }
 
     @After
     public void tearDown() throws Exception
     {
-        runFlowAndGetPayload("deleteLabel");
+        runFlowAndGetPayload("deleteMilestone");
     }
 
     @Category({RegressionTests.class})
     @Test
-    public void createLabel()
+    public void createMilestone()
     {
         try
         {
-            Label label = runFlowAndGetPayload("createLabel");
+            Milestone milestone = runFlowAndGetPayload("createMilestone");
 
-            assertNotNull(label);
-            assertEquals(getTestRunMessageValue("labelName"), label.getName());
-            assertEquals(getTestRunMessageValue("color"), label.getColor());
+            assertNotNull(milestone);
+            assertEquals(getTestRunMessageValue("title"), milestone.getTitle());
+            assertEquals(getTestRunMessageValue("description"), milestone.getDescription());
+            assertEquals(getTestRunMessageValue("state"), milestone.getState());
+
+            upsertOnTestRunMessage("number", milestone.getNumber());
 
         } catch (Exception e)
         {
