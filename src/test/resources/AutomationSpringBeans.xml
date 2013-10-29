@@ -72,4 +72,15 @@
         <entry key="description" value="Milestone 1.0 description" />
     </util:map>
 
+    <util:map id="issue" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="user" value="${github.userName}" />
+        <entry key="owner" value="${github.userName}" />
+        <entry key="repository" value="${github.repository}" />
+        <entry key="title" value="issue title" />
+        <entry key="body" value="issue body" />
+        <entry key="state" value="open" />
+        <entry key="comment" value="issue comment" />
+        <entry key="updatedComment" value="updated issue comment" />
+    </util:map>
+
 </beans>

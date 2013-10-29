@@ -10,51 +10,51 @@
     <github:config connectionUser="${github.userName}" connectionPassword="${github.secret}" scope="${github.scope}" />
 
     <flow name="getIssues">
-        <github:get-issues user="mule-tester" repository="github-connector">
+        <github:get-issues user="#[payload.owner]" repository="#[payload.repository]">
             <github:filter-data>
-                <github:filter-datum key="open">open</github:filter-datum>
+                <github:filter-datum key="open">#[payload.state]</github:filter-datum>
             </github:filter-data>
         </github:get-issues>
     </flow>
 
     <flow name="getIssuesCretedAfter">
-        <github:get-issues-creted-after repository="github-connector" minutes="1"/>
+        <github:get-issues-creted-after repository="#[payload.repository]" minutes="1"/>
     </flow>
 
     <flow name="getIssuesSinceNumber">
-        <github:get-issues-since-number user="mule-tester" repository="github-connector" fromIssueNumber="0"/>
+        <github:get-issues-since-number user="#[payload.owner]" repository="#[payload.repository]" fromIssueNumber="0"/>
     </flow>
 
     <flow name="createIssue">
-        <github:create-issue user="mule-tester" repository="github-connector" title="Issue Title" body="Issue Body" assignee="mule-tester"/>
+        <github:create-issue user="#[payload.owner]" repository="#[payload.repository]" title="#[payload.title]" body="#[payload.body]" assignee="#[payload.user]"/>
     </flow>
 
     <flow name="closeIssue">
-        <github:close-issue repository="github-connector" issueId="#[map-payload:issueId]"/>
+        <github:close-issue repository="#[payload.repository]" issueId="#[payload.issueId]"/>
     </flow>
 
     <flow name="getIssue">
-        <github:get-issue repository="github-connector" issueId="#[map-payload:issueId]"/>
+        <github:get-issue repository="#[payload.repository]" issueId="#[payload.issueId]"/>
     </flow>
 
     <flow name="getComments">
-        <github:get-comments repository="github-connector" issueId="#[map-payload:issueId]"/>
+        <github:get-comments repository="#[payload.repository]" issueId="#[payload.issueId]"/>
     </flow>
 
     <flow name="createComment">
-        <github:create-comment repository="github-connector" issueId="#[map-payload:issueId]" comment="Test comment"/>
+        <github:create-comment repository="#[payload.repository]" issueId="#[payload.issueId]" comment="#[payload.comment]"/>
     </flow>
 
     <flow name="editComment">
-        <github:edit-comment repository="github-connector" commentId="#[map-payload:commentId]" body="Updated comment body"/>
+        <github:edit-comment repository="#[payload.repository]" commentId="#[payload.commentId]" body="#[payload.updatedComment]"/>
     </flow>
 
     <flow name="deleteComment">
-        <github:delete-comment repository="github-connector" commentId="#[map-payload:commentId]"/>
+        <github:delete-comment repository="#[payload.repository]" commentId="#[payload.commentId]"/>
     </flow>
 
     <flow name="getIssueEvent">
-        <github:get-issue-event repository="github-connector" eventId="333"/>
+        <github:get-issue-event repository="#[payload.repository]" eventId="333"/>
     </flow>
 
     <flow name="getWatchers">
