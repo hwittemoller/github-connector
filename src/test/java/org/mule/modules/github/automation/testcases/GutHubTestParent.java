@@ -51,13 +51,13 @@ public class GutHubTestParent extends ConnectorTestCase
         if (repo != null)
         {
             deleteTestRepository();
-            Thread.sleep(5000L); //repository takes some time to get ready
+            Thread.sleep(10000L); //repository takes some time to get ready
         }
 
         if (fork)
         {
             repository = github.forkRepository(MULE, repoName);
-            Thread.sleep(10000L); //repository takes some time to get ready
+            Thread.sleep(15000L); //repository takes some time to get ready
         }
         else
         {
