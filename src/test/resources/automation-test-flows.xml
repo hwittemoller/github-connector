@@ -429,19 +429,19 @@
     </flow>
 
     <flow name="listDownloadsForRepository">
-        <github:list-downloads-for-repository owner="mulesoft" repositoryName="github-connector" />
+        <github:list-downloads-for-repository owner="#[payload.owner]" repositoryName="#[payload.repositoryName]" />
     </flow>
 
     <flow name="getDownload">
-        <github:get-download owner="mulesoft" repositoryName="github-connector" id="1"/>
+        <github:get-download owner="#[payload.owner]" repositoryName="#[payload.repositoryName]" id="1"/>
     </flow>
 
     <flow name="deleteDownload">
-        <github:delete-download owner="mulesoft" repositoryName="github-connector" id="1"/>
+        <github:delete-download owner="#[payload.owner]" repositoryName="#[payload.repositoryName]" id="1"/>
     </flow>
 
     <flow name="createResource">
-        <github:create-resource owner="mulesoft" repositoryName="github-connector" resourceName="resource name" size="1000"/>
+        <github:create-resource owner="#[payload.user]" repositoryName="#[payload.repositoryName]" resourceName="resource name" size="1000"/>
     </flow>
 
     <flow name="uploadResource">
