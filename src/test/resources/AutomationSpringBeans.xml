@@ -102,4 +102,23 @@
         <entry key="updatedComment" value="updated issue comment" />
     </util:map>
 
+    <util:map id="reference" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="owner" value="${github.userName}" />
+        <entry key="repository" value="${github.repository}" />
+        <entry key="referenceName" value="refs/heads/test-branch" />
+        <entry key="branch" value="test-branch" />
+    </util:map>
+
+    <util:map id="pullRequest" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="owner" value="${github.userName}" />
+        <entry key="repository" value="${github.repository}" />
+        <entry key="title" value="Pull Request Title" />
+        <entry key="updatedTitle" value="Updated Pull Request Title" />
+        <entry key="body" value="Pull Request Body" />
+        <entry key="comment" value="A Pull Request Comment" />
+        <entry key="updatedComment" value="An Updated Pull Request Comment" />
+        <entry key="reply" value="Test Reply" />
+    </util:map>
+
+
 </beans>

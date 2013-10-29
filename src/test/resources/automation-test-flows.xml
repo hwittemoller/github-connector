@@ -405,11 +405,11 @@
     </flow>
 
     <flow name="getReadme">
-        <github:get-contents owner="mule-tester" repositoryName="github-connector" path="/README.md" branch="test-branch"/>
+        <github:get-contents owner="#[payload.owner]" repositoryName="#[payload.repository]" path="/README.md" branch="#[payload.branch]"/>
     </flow>
 
     <flow name="updateReadme">
-        <github:put-contents owner="mule-tester" repositoryName="github-connector" path="/README.md" commitMessage="test commit" content="updated file content" sha="#[map-payload:sha]" branch="test-branch"/>
+        <github:put-contents owner="#[payload.owner]" repositoryName="#[payload.repository]" path="/README.md" commitMessage="test commit" content="updated file content" sha="#[payload.fileSha]" branch="#[payload.branch]"/>
     </flow>
 
     <flow name="getLanguages">
@@ -454,20 +454,28 @@
         <github:get-tree-recursively owner="mulesoft" repositoryName="github-connector" sha="8f7e98b8191285483e07f50b64a69c9bba341c5b" />
     </flow>
 
+    <flow name="getReferences">
+        <github:get-references owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
+    </flow>
+
+    <flow name="createReference">
+        <github:create-reference owner="#[payload.owner]" repositoryName="#[payload.repository]" sha="#[payload.sha]" referenceName="#[payload.referenceName]"/>
+    </flow>
+
     <flow name="getPullRequest">
-        <github:get-pull-request owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]"/>
+        <github:get-pull-request owner="#[payload.owner]" repositoryName="#[payload.repository]" id="#[payload.pullRequestNumber]"/>
     </flow>
 
     <flow name="getPullRequests">
-        <github:get-pull-requests owner="mule-tester" repositoryName="github-connector" state="open"/>
+        <github:get-pull-requests owner="#[payload.owner]" repositoryName="#[payload.repository]" state="open"/>
     </flow>
 
     <flow name="pagePullRequests">
-        <github:page-pull-requests owner="mule-tester" repositoryName="github-connector" state="open"/>
+        <github:page-pull-requests owner="#[payload.owner]" repositoryName="#[payload.repository]" state="open"/>
     </flow>
 
     <flow name="createPullRequest">
-        <github:create-pull-request owner="mule-tester" repositoryName="github-connector" body="pull request body" title="pull request title" head="#[map-payload:head]" base="#[map-payload:base]"/>
+        <github:create-pull-request owner="#[payload.owner]" repositoryName="#[payload.repository]" body="#[payload.body]" title="#[payload.title]" head="#[payload.head]" base="#[payload.base]"/>
     </flow>
 
     <flow name="createPullRequestFromIssue">
@@ -475,53 +483,53 @@
     </flow>
 
     <flow name="editPullRequest">
-        <github:edit-pull-request owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" title="updated test pull request title"/>
+        <github:edit-pull-request owner="#[payload.owner]" repositoryName="#[payload.repository]" id="#[payload.pullRequestNumber]" title="#[payload.updatedTitle]"/>
     </flow>
 
     <flow name="getPullRequestCommits">
-        <github:get-pull-request-commits owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" />
+        <github:get-pull-request-commits owner="#[payload.owner]" repositoryName="#[payload.repository]" id="#[payload.pullRequestNumber]" />
     </flow>
 
     <flow name="getPullRequestFiles">
-        <github:get-pull-request-files owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" />
+        <github:get-pull-request-files owner="#[payload.owner]" repositoryName="#[payload.repository]" id="#[payload.pullRequestNumber]" />
     </flow>
 
     <flow name="isPullRequestMerged">
-        <github:is-pull-request-merged owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" />
+        <github:is-pull-request-merged owner="#[payload.owner]" repositoryName="#[payload.repository]" id="#[payload.pullRequestNumber]" />
     </flow>
 
     <flow name="mergePullRequest">
-        <github:merge-pull-request owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]" commitMessage="message" />
+        <github:merge-pull-request owner="#[payload.owner]" repositoryName="#[payload.repository]" id="#[payload.pullRequestNumber]" commitMessage="message" />
     </flow>
 
     <flow name="createPullRequestComment">
-        <github:create-pull-request-comment owner="mule-tester" repositoryName="github-connector" pullRequestId="#[map-payload:pullRequestId]" commitId="#[map-payload:commitId]"
-                                            body="test comment body" path="README.md" position="10" line="1" />
+        <github:create-pull-request-comment owner="#[payload.owner]" repositoryName="#[payload.repository]" pullRequestId="#[payload.pullRequestNumber]" commitId="#[payload.commitId]"
+                                            body="#[payload.comment]" path="README.md" position="10" line="1" />
     </flow>
 
     <flow name="replyToPullRequestComment">
-        <github:reply-to-pull-request-comment owner="mule-tester" repositoryName="github-connector" pullRequestId="#[map-payload:pullRequestId]"
-                                              commentId="#[map-payload:commentId]" body="test reply" />
+        <github:reply-to-pull-request-comment owner="#[payload.owner]" repositoryName="#[payload.repository]" pullRequestId="#[payload.pullRequestNumber]"
+                                              commentId="#[payload.commentId]" body="#[payload.reply]" />
     </flow>
 
     <flow name="editPullRequestComment">
-        <github:edit-pull-request-comment owner="mule-tester" repositoryName="github-connector" commentId="#[map-payload:commentId]" body="updated test comment body" />
+        <github:edit-pull-request-comment owner="#[payload.owner]" repositoryName="#[payload.repository]" commentId="#[payload.commentId]" body="#[payload.updatedComment]" />
     </flow>
 
     <flow name="deletePullRequestComment">
-        <github:delete-pull-request-comment owner="mule-tester" repositoryName="github-connector" commentId="#[map-payload:commentId]"/>
+        <github:delete-pull-request-comment owner="#[payload.owner]" repositoryName="#[payload.repository]" commentId="#[payload.commentId]"/>
     </flow>
 
     <flow name="getPullRequestComment">
-        <github:get-pull-request-comment owner="mule-tester" repositoryName="github-connector" commentId="#[map-payload:commentId]"/>
+        <github:get-pull-request-comment owner="#[payload.owner]" repositoryName="#[payload.repository]" commentId="#[payload.commentId]"/>
     </flow>
 
     <flow name="getPullRequestComments">
-        <github:get-pull-request-comments owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]"/>
+        <github:get-pull-request-comments owner="#[payload.owner]" repositoryName="#[payload.repository]" id="#[payload.pullRequestNumber]"/>
     </flow>
 
     <flow name="pagePullRequestComments">
-        <github:page-pull-request-comments owner="mule-tester" repositoryName="github-connector" id="#[map-payload:id]"/>
+        <github:page-pull-request-comments owner="mule-tester" repositoryName="github-connector" id="#[payload.pullRequestNumber]"/>
     </flow>
 
 
