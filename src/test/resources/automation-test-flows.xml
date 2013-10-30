@@ -315,53 +315,53 @@
         <github:delete-key id="#[payload.keyId]"/>
     </flow>
 
-    <flow name="getTeam">
-        <github:get-team id="#[map-payload:teamId]"/>
-    </flow>
+   <flow name="getTeam">
+		<github:get-team id="#[map-payload:teamId]"/>
+   </flow>
 
-    <flow name="getTeamsForOrg">
-        <github:get-teams-for-org organization="mule-testers-coalition"/>
-    </flow>
+	<flow name="getTeamsForOrg">
+		<github:get-teams-for-org organization="#[payload.organization]"/>
+	</flow>
 
-    <flow name="createTeam">
-        <github:create-team organization="mule-testers-coalition" teamName="github-connector-testing-team" config-ref=""/>
-    </flow>
+	<flow name="createTeam">
+		<github:create-team organization="#[payload.organization]" teamName="#[payload.teamName]" config-ref=""/>
+	</flow>
 
-    <flow name="editTeam">
-        <github:edit-team id="#[map-payload:teamId]" teamName="new-team-name"/>
-    </flow>
+	<flow name="editTeam">
+		<github:edit-team id="#[map-payload:teamId]" teamName="#[payload.newTeamName]"/>
+	</flow>
 
-    <flow name="deleteTeam">
-        <github:delete-team id="#[map-payload:teamId]"/>
-    </flow>
+	<flow name="deleteTeam">
+		<github:delete-team id="#[map-payload:teamId]"/>
+	</flow>
 
-    <flow name="getTeamMembers">
-        <github:get-team-members id="#[map-payload:teamId]"/>
-    </flow>
+	<flow name="getTeamMembers">
+		<github:get-team-members id="#[map-payload:teamId]"/>
+	</flow>
 
-    <flow name="isTeamMember">
-        <github:is-team-member id="#[map-payload:teamId]" user="vgulyakin"/>
-    </flow>
+	<flow name="isTeamMember">
+		<github:is-team-member id="#[map-payload:teamId]" user="#[payload.teamMember]"/>
+	</flow>
 
-    <flow name="addTeamMember">
-        <github:add-team-member id="#[map-payload:teamId]" user="vgulyakin"/>
-    </flow>
+	<flow name="addTeamMember">
+		<github:add-team-member id="#[map-payload:teamId]" user="#[payload.teamMember]"/>
+	</flow>
 
-    <flow name="removeTeamMember">
-        <github:remove-team-member id="#[map-payload:teamId]" user="vgulyakin"/>
-    </flow>
+	<flow name="removeTeamMember">
+		<github:remove-team-member id="#[map-payload:teamId]" user="#[payload.teamMember]"/>
+	</flow>
 
-    <flow name="getTeamRepositories">
-        <github:get-team-repositories id="#[map-payload:teamId]"/>
-    </flow>
+	<flow name="getTeamRepositories">
+		<github:get-team-repositories id="#[map-payload:teamId]"/>
+	</flow>
 
-    <flow name="addTeamRepository">
-        <github:add-team-repository id="#[map-payload:teamId]" owner="mule-testers-coalition" repositoryName="github-connector"/>
-    </flow>
+	<flow name="addTeamRepository">
+		<github:add-team-repository id="#[map-payload:teamId]" owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
+	</flow>
 
-    <flow name="removeTeamRepository">
-        <github:remove-team-repository id="#[map-payload:teamId]" owner="mule-testers-coalition" repositoryName="github-connector"/>
-    </flow>
+	<flow name="removeTeamRepository">
+		<github:remove-team-repository id="#[map-payload:teamId]" owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
+	</flow>
 
     <flow name="getRepositories">
         <github:get-repositories/>
