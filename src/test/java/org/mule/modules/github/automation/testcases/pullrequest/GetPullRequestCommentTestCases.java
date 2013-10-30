@@ -17,6 +17,7 @@ import org.eclipse.egit.github.core.CommitComment;
 import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.RepositoryCommit;
 import org.eclipse.egit.github.core.client.PageIterator;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -42,6 +43,12 @@ public class GetPullRequestCommentTestCases extends BasePullRequestTestCases
         CommitComment comment = runFlowAndGetPayload("createPullRequestComment");
         upsertOnTestRunMessage("commentId", comment.getId());
 
+    }
+
+    @After
+    public void tearDown() throws Exception
+    {
+        cleanUpRepo();
     }
 
     @Category({RegressionTests.class})

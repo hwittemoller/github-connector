@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.github.automation.testcases.GutHubTestParent;
+import org.mule.modules.github.automation.testcases.RegressionTests;
 import org.mule.modules.github.automation.testcases.SmokeTests;
 
 public class CreateDownloadTestCases extends GutHubTestParent
@@ -46,7 +47,7 @@ public class CreateDownloadTestCases extends GutHubTestParent
      * }
      */
     @Test
-    @Category({SmokeTests.class})
+    @Category({RegressionTests.class})
     public void createDownload() throws Exception
     {
         DownloadResource resource = runFlowAndGetPayload("createResource");

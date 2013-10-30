@@ -52,7 +52,7 @@ public class ListDownloadsTestCases extends GutHubTestParent
      *  }
      */
     @Test
-    @Category({SmokeTests.class})
+    @Category({RegressionTests.class})
     public void listDownloads()
     {
         try
