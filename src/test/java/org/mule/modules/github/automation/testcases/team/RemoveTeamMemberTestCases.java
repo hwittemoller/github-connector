@@ -50,7 +50,7 @@ public class RemoveTeamMemberTestCases extends GutHubTestParent
 
 	@Category({RegressionTests.class})
     @Test
-    public void RemoveTeamMember()
+    public void removeTeamMember()
     {
         try
         {          

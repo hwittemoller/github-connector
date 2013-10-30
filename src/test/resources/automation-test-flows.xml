@@ -102,12 +102,12 @@
     </flow>
 
     <flow name="getCommit">
-        <github:get-commit owner="#[payload.owner]" repositoryName="#[payload.repositoryName]" sha="#[map-payload:sha]"/>
+        <github:get-commit owner="#[payload.owner]" repositoryName="#[payload.repositoryName]" sha="#[payload.sha]"/>
     </flow>
 
     <flow name="getCommmitComments">
         <github:get-commmit-comments owner="#[payload.owner]" repositoryName="#[payload.repositoryName]"
-                                     sha="#[map-payload:sha]"/>
+                                     sha="#[payload.sha]"/>
     </flow>
 
     <flow name="getComment">
@@ -316,7 +316,7 @@
     </flow>
 
    <flow name="getTeam">
-		<github:get-team id="#[map-payload:teamId]"/>
+		<github:get-team id="#[payload.teamId]"/>
    </flow>
 
 	<flow name="getTeamsForOrg">
@@ -328,11 +328,11 @@
 	</flow>
 
 	<flow name="editTeam">
-		<github:edit-team id="#[map-payload:teamId]" teamName="#[payload.newTeamName]"/>
+		<github:edit-team id="#[payload.teamId]" teamName="#[payload.newTeamName]"/>
 	</flow>
 
 	<flow name="deleteTeam">
-		<github:delete-team id="#[map-payload:teamId]"/>
+		<github:delete-team id="#[payload.teamId]"/>
 	</flow>
 
 	<flow name="getTeamMembers">
@@ -340,27 +340,27 @@
 	</flow>
 
 	<flow name="isTeamMember">
-		<github:is-team-member id="#[map-payload:teamId]" user="#[payload.teamMember]"/>
+		<github:is-team-member id="#[payload.teamId]" user="#[payload.teamMember]"/>
 	</flow>
 
 	<flow name="addTeamMember">
-		<github:add-team-member id="#[map-payload:teamId]" user="#[payload.teamMember]"/>
+		<github:add-team-member id="#[payload.teamId]" user="#[payload.teamMember]"/>
 	</flow>
 
 	<flow name="removeTeamMember">
-		<github:remove-team-member id="#[map-payload:teamId]" user="#[payload.teamMember]"/>
+		<github:remove-team-member id="#[payload.teamId]" user="#[payload.teamMember]"/>
 	</flow>
 
 	<flow name="getTeamRepositories">
-		<github:get-team-repositories id="#[map-payload:teamId]"/>
+		<github:get-team-repositories id="#[payload.teamId]"/>
 	</flow>
 
 	<flow name="addTeamRepository">
-		<github:add-team-repository id="#[map-payload:teamId]" owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
+		<github:add-team-repository id="#[payload.teamId]" owner="#[payload.organization]" repositoryName="#[payload.repository]"/>
 	</flow>
 
 	<flow name="removeTeamRepository">
-		<github:remove-team-repository id="#[map-payload:teamId]" owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
+		<github:remove-team-repository id="#[payload.teamId]" owner="#[payload.organization]" repositoryName="#[payload.repository]"/>
 	</flow>
 
     <flow name="getRepositories">

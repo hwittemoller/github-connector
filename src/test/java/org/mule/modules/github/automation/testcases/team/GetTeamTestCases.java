@@ -67,6 +67,16 @@ public class GetTeamTestCases extends GutHubTestParent
         {
         	List<Team> teams = runFlowAndGetPayload("getTeamsForOrg");
             assertTrue(teams.size() > 0);
+            boolean found = false;
+            for (Team t : teams)
+            {
+                if (getTestRunMessageValue("teamId").equals(t.getId()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
 
         } catch (Exception e)
         {

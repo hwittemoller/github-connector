@@ -43,7 +43,7 @@ public class EditTeamTestCases extends GutHubTestParent
     
 	@Category({RegressionTests.class})
     @Test
-    public void EditTeam()
+    public void editTeam()
     {
         try
         {          

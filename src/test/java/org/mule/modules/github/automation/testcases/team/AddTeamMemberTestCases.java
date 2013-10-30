@@ -11,9 +11,7 @@
 
 package org.mule.modules.github.automation.testcases.team;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.egit.github.core.Team;
 import org.eclipse.egit.github.core.User;
@@ -25,9 +23,8 @@ import org.mule.modules.github.automation.testcases.GutHubTestParent;
 import org.mule.modules.github.automation.testcases.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class AddTeamMemberTestCases extends GutHubTestParent

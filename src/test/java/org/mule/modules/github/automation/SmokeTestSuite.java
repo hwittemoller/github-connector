@@ -52,6 +52,15 @@ import org.mule.modules.github.automation.testcases.pullrequest.GetPullRequestCo
 import org.mule.modules.github.automation.testcases.pullrequest.GetPullRequestTestCases;
 import org.mule.modules.github.automation.testcases.repository.CreateRepositoryTestCases;
 import org.mule.modules.github.automation.testcases.repository.RepositoryTestCases;
+import org.mule.modules.github.automation.testcases.team.AddTeamMemberTestCases;
+import org.mule.modules.github.automation.testcases.team.AddTeamRepositoryTestCases;
+import org.mule.modules.github.automation.testcases.team.CreateTeamTestCases;
+import org.mule.modules.github.automation.testcases.team.DeleteTeamTestCases;
+import org.mule.modules.github.automation.testcases.team.EditTeamTestCases;
+import org.mule.modules.github.automation.testcases.team.GetTeamMembersTestCases;
+import org.mule.modules.github.automation.testcases.team.GetTeamRepositoriesTestCases;
+import org.mule.modules.github.automation.testcases.team.GetTeamTestCases;
+import org.mule.modules.github.automation.testcases.team.RemoveTeamMemberTestCases;
 import org.mule.modules.github.automation.testcases.user.AddEmailsTestCases;
 import org.mule.modules.github.automation.testcases.user.CreateKeyTestCases;
 import org.mule.modules.github.automation.testcases.user.DeleteKeyTestCases;
@@ -88,7 +97,9 @@ import org.mule.modules.github.automation.testcases.watcher.WatchTestCases;
         GetUserByLoginNameTestCases.class, IsFollowingTestCases.class, UpdateCurrentUserTestCases.class, FollowTestCases.class,
         CreateKeyTestCases.class, GetKeyTestCases.class, DeleteKeyTestCases.class,
         GetEmailsTestCases.class, AddEmailsTestCases.class, RemoveEmailsTestCases.class,
-        GetWatchedTestCases.class, GetWatchersTestCases.class, IsWatchingTestCases.class, WatchTestCases.class, UnwatchTestCases.class
+        GetWatchedTestCases.class, GetWatchersTestCases.class, IsWatchingTestCases.class, WatchTestCases.class, UnwatchTestCases.class,
+        AddTeamMemberTestCases.class, AddTeamRepositoryTestCases.class, CreateTeamTestCases.class, DeleteTeamTestCases.class,
+        EditTeamTestCases.class,GetTeamMembersTestCases.class, GetTeamRepositoriesTestCases.class,GetTeamTestCases.class, RemoveTeamMemberTestCases.class
 
 })
 public class SmokeTestSuite

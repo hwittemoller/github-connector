@@ -107,16 +107,4 @@ public class CreateRepositoryTestCases extends GutHubTestParent
         }
     }
 
-
-    private void deleteRepository(String owner, String name) throws IOException
-    {
-        GitHubModule github = new GitHubModule();
-        Properties props = getBeanFromContext("testProps");
-        String user = props.getProperty("github.userName");
-        String pass = props.getProperty("github.secret");
-        String scope = props.getProperty("github.scope");
-        github.setServiceFactory(new ServiceFactory(user, pass, scope));
-        github.deleteRepository(owner, name);
-    }
-
 }

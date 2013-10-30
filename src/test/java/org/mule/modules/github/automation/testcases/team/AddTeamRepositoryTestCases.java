@@ -37,12 +37,16 @@ public class AddTeamRepositoryTestCases extends GutHubTestParent
         initializeTestRunMessage("team");
         Team team = runFlowAndGetPayload("createTeam");
         upsertOnTestRunMessage("teamId", team.getId());
+        runFlowAndGetPayload("forkRepositoryForOrg", "createRepository");
+        Thread.sleep(10000L);
+
     }
     
     @After
     public void tearDown() throws Exception
     {
         runFlowAndGetPayload("deleteTeam");
+        deleteRepository((String)getTestRunMessageValue("organization"), (String)getTestRunMessageValue("repository"));
     }
 
 	@Category({RegressionTests.class})
@@ -51,22 +55,8 @@ public class AddTeamRepositoryTestCases extends GutHubTestParent
     {
         try
         {  
-        	Team team = runFlowAndGetPayload("getTeam");
-        	
-        	System.out.println("\n\n\n\n\n\n\n!!!");
-            System.out.println("Team: " + team.getName());
-            System.out.println("\n\n\n\n\n\n\n!!!");
-        	
-            //Repository repo = runFlowAndGetPayload("forkRepositoryForOrg");
-            
         	runFlowAndGetPayload("addTeamRepository");
-        	Thread.sleep(5000L);
-            //assertNotNull(repo);
-            
-            //System.out.println("\n\n\n\n\n\n\n!!!");
-            //for(int i=0; i<repo.size(); i++) System.out.println("Size: " + repo.get(i));
-            //System.out.println("\n\n\n\n\n\n\n!!!");
-            
+
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));
