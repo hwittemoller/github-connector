@@ -50,6 +50,7 @@ public class CreateRepositoryTestCases extends GutHubTestParent
     {
         if (repoOwner!=null){
             deleteRepository(repoOwner, (String)getTestRunMessageValue("repository"));
+            Thread.sleep(10000L);
             repoOwner=null;
         }
     }
