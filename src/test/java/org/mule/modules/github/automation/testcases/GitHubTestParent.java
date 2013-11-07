@@ -21,7 +21,7 @@ import org.mule.modules.github.GitHubModule;
 import org.mule.modules.github.ServiceFactory;
 import org.mule.modules.tests.ConnectorTestCase;
 
-public class GutHubTestParent extends ConnectorTestCase
+public class GitHubTestParent extends ConnectorTestCase
 {
 
     //test repository will be forked from mulesoft for some tests
@@ -70,7 +70,7 @@ public class GutHubTestParent extends ConnectorTestCase
     {
         if (repository != null)
         {
-            new GutHubTestParent().deleteTestRepository();
+            new GitHubTestParent().deleteTestRepository();
         }
     }
 

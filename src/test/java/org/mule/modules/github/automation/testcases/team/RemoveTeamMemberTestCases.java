@@ -11,9 +11,7 @@
 
 package org.mule.modules.github.automation.testcases.team;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.egit.github.core.Team;
 import org.eclipse.egit.github.core.User;
@@ -21,7 +19,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.modules.github.automation.testcases.GutHubTestParent;
+import org.mule.modules.github.automation.testcases.GitHubTestParent;
 import org.mule.modules.github.automation.testcases.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
@@ -30,7 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-public class RemoveTeamMemberTestCases extends GutHubTestParent
+public class RemoveTeamMemberTestCases extends GitHubTestParent
 {
 	
     @Before

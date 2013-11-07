@@ -11,14 +11,12 @@
 
 package org.mule.modules.github.automation.testcases.gist;
 
-import java.util.List;
-
 import org.eclipse.egit.github.core.Gist;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.modules.github.automation.testcases.GutHubTestParent;
+import org.mule.modules.github.automation.testcases.GitHubTestParent;
 import org.mule.modules.github.automation.testcases.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
@@ -28,7 +26,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class StarGistTestCases extends GutHubTestParent
+public class StarGistTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception

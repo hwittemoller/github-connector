@@ -14,12 +14,10 @@ package org.mule.modules.github.automation.testcases.commit;
 import java.util.List;
 
 import org.eclipse.egit.github.core.RepositoryCommit;
-import org.eclipse.egit.github.core.User;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.modules.github.automation.testcases.GutHubTestParent;
+import org.mule.modules.github.automation.testcases.GitHubTestParent;
 import org.mule.modules.github.automation.testcases.RegressionTests;
 import org.mule.modules.github.automation.testcases.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
@@ -28,7 +26,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class GetCommitsTestCases extends GutHubTestParent
+public class GetCommitsTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception

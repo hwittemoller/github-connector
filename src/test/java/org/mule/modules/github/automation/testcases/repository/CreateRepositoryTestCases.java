@@ -11,22 +11,12 @@
 
 package org.mule.modules.github.automation.testcases.repository;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import org.eclipse.egit.github.core.Contributor;
 import org.eclipse.egit.github.core.Repository;
-import org.eclipse.egit.github.core.RepositoryBranch;
-import org.eclipse.egit.github.core.RepositoryTag;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.modules.github.GitHubModule;
-import org.mule.modules.github.ServiceFactory;
-import org.mule.modules.github.automation.testcases.GutHubTestParent;
+import org.mule.modules.github.automation.testcases.GitHubTestParent;
 import org.mule.modules.github.automation.testcases.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
@@ -35,7 +25,7 @@ import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class CreateRepositoryTestCases extends GutHubTestParent
+public class CreateRepositoryTestCases extends GitHubTestParent
 {
     private String repoOwner = null;
 

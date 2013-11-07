@@ -19,7 +19,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.modules.github.automation.testcases.GutHubTestParent;
+import org.mule.modules.github.automation.testcases.GitHubTestParent;
 import org.mule.modules.github.automation.testcases.RegressionTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
@@ -27,7 +27,7 @@ import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class AddCommentTestCases extends GutHubTestParent
+public class AddCommentTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception

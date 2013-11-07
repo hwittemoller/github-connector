@@ -13,21 +13,15 @@ package org.mule.modules.github.automation.testcases.pullrequest;
 
 import java.util.List;
 
-import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.Reference;
 import org.eclipse.egit.github.core.RepositoryContents;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.mule.modules.github.automation.testcases.GutHubTestParent;
-import org.mule.modules.github.automation.testcases.RegressionTests;
-import org.mule.modules.tests.ConnectorTestUtils;
+import org.mule.modules.github.automation.testcases.GitHubTestParent;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-public class BasePullRequestTestCases extends GutHubTestParent
+public class BasePullRequestTestCases extends GitHubTestParent
 {
 
     public void prepareBranch() throws Exception
