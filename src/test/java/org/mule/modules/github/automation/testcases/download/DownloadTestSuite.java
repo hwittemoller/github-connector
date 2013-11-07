@@ -13,10 +13,6 @@ package org.mule.modules.github.automation.testcases.download;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.mule.modules.github.automation.testcases.deploykey.CreateDeployKeyTestCases;
-import org.mule.modules.github.automation.testcases.deploykey.DeleteDeployKeyTestCases;
-import org.mule.modules.github.automation.testcases.deploykey.EditDeployKeyTestCases;
-import org.mule.modules.github.automation.testcases.deploykey.GetDeployKeyTestCases;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({CreateDownloadTestCases.class, GetDownloadTestCases.class, ListDownloadsTestCases.class})

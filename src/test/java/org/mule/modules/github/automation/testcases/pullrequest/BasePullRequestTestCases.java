@@ -17,9 +17,7 @@ import org.eclipse.egit.github.core.Reference;
 import org.eclipse.egit.github.core.RepositoryContents;
 import org.mule.modules.github.automation.testcases.GitHubTestParent;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 public class BasePullRequestTestCases extends GitHubTestParent
 {

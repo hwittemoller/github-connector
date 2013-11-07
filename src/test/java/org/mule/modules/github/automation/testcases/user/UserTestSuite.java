@@ -13,9 +13,6 @@ package org.mule.modules.github.automation.testcases.user;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.mule.modules.github.automation.testcases.label.CreateLabelTestCases;
-import org.mule.modules.github.automation.testcases.label.DeleteLabelTestCases;
-import org.mule.modules.github.automation.testcases.label.GetLabelTestCases;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({GetCurrentUserTestCases.class, GetFollowersTestCases.class, GetFollowingTestCases.class,

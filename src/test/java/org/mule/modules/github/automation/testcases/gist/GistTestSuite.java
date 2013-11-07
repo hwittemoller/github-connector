@@ -13,9 +13,6 @@ package org.mule.modules.github.automation.testcases.gist;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.mule.modules.github.automation.testcases.download.CreateDownloadTestCases;
-import org.mule.modules.github.automation.testcases.download.GetDownloadTestCases;
-import org.mule.modules.github.automation.testcases.download.ListDownloadsTestCases;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({CreateCommentTestCases.class,CreateGistTestCases.class,DeleteGistTestCases.class,ForkGistTestCases.class,

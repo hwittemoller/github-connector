@@ -13,10 +13,6 @@ package org.mule.modules.github.automation.testcases.repository;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.mule.modules.github.automation.testcases.pullrequest.CreatePullRequestCommentTestCases;
-import org.mule.modules.github.automation.testcases.pullrequest.CreatePullRequestTestCases;
-import org.mule.modules.github.automation.testcases.pullrequest.GetPullRequestCommentTestCases;
-import org.mule.modules.github.automation.testcases.pullrequest.GetPullRequestTestCases;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({RepositoryTestCases.class, CreateRepositoryTestCases.class})

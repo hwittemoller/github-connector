@@ -13,9 +13,6 @@ package org.mule.modules.github.automation.testcases.team;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.mule.modules.github.automation.testcases.label.CreateLabelTestCases;
-import org.mule.modules.github.automation.testcases.label.DeleteLabelTestCases;
-import org.mule.modules.github.automation.testcases.label.GetLabelTestCases;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({AddTeamMemberTestCases.class, AddTeamRepositoryTestCases.class, CreateTeamTestCases.class, DeleteTeamTestCases.class,

@@ -13,9 +13,6 @@ package org.mule.modules.github.automation.testcases.pullrequest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.mule.modules.github.automation.testcases.milestone.CreateMilestoneTestCases;
-import org.mule.modules.github.automation.testcases.milestone.DeleteMilestoneTestCases;
-import org.mule.modules.github.automation.testcases.milestone.GetMilestoneTestCases;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({CreatePullRequestCommentTestCases.class,CreatePullRequestTestCases.class,

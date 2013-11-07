@@ -13,13 +13,9 @@ package org.mule.modules.github.automation.testcases.deploykey;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.mule.modules.github.automation.testcases.collaborator.AddCollaboratorTestCases;
-import org.mule.modules.github.automation.testcases.collaborator.GetCollaboratorsTestCases;
-import org.mule.modules.github.automation.testcases.collaborator.IsCollaboratorTestCases;
-import org.mule.modules.github.automation.testcases.collaborator.RemoveCollaboratorTestCases;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({CreateDeployKeyTestCases.class,DeleteDeployKeyTestCases.class,EditDeployKeyTestCases.class,GetDeployKeyTestCases.class})
+@Suite.SuiteClasses({CreateDeployKeyTestCases.class, DeleteDeployKeyTestCases.class, EditDeployKeyTestCases.class, GetDeployKeyTestCases.class})
 public class DeployKeyTestSuite
 {
 }
