@@ -17,6 +17,8 @@ import java.util.Properties;
 
 import org.eclipse.egit.github.core.Repository;
 import org.junit.AfterClass;
+import org.junit.Rule;
+import org.junit.rules.Timeout;
 import org.mule.modules.github.GitHubModule;
 import org.mule.modules.github.ServiceFactory;
 import org.mule.modules.tests.ConnectorTestCase;
@@ -24,10 +26,15 @@ import org.mule.modules.tests.ConnectorTestCase;
 public class GitHubTestParent extends ConnectorTestCase
 {
 
+    // Sets global timeout
+     @Rule
+    public Timeout globalTimeout = new Timeout(120000);
+
     //test repository will be forked from mulesoft for some tests
     protected String MULE = "mulesoft";
 
     protected static Repository repository = null;
+
 
     protected void createTestRepository(boolean fork) throws Exception
     {
