@@ -13,6 +13,16 @@
         <property name="location" value="${GITHUB_CREDENTIALS}"/>
     </bean>
 
+    <util:map id="createTestRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="repository" value="${github.repository}" />
+        <entry key="description" value="Repository for functional tests" />
+    </util:map>
+
+    <util:map id="forkTestRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="owner" value="${github.owner}" />
+        <entry key="repository" value="${github.repository}" />
+    </util:map>
+
     <util:map id="createLabelTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="user" value="${github.userName}" />
         <entry key="repository" value="${github.repository}" />

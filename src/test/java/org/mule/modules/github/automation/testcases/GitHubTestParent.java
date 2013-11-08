@@ -25,16 +25,10 @@ import org.mule.modules.tests.ConnectorTestCase;
 
 public class GitHubTestParent extends ConnectorTestCase
 {
-
-    // Sets global timeout
-     @Rule
+    @Rule
     public Timeout globalTimeout = new Timeout(120000);
 
-    //test repository will be forked from mulesoft for some tests
-    protected String MULE = "mulesoft";
-
     protected static Repository repository = null;
-
 
     protected void createTestRepository(boolean fork) throws Exception
     {
@@ -63,12 +57,12 @@ public class GitHubTestParent extends ConnectorTestCase
 
         if (fork)
         {
-            repository = github.forkRepository(MULE, repoName);
+            repository = runFlowAndGetPayload("forkTestRepository", "forkTestRepositoryTestData");
             Thread.sleep(15000L); //repository takes some time to get ready
         }
         else
         {
-            repository = github.createRepository(repoName, "Repository for functional tests", false, true, true, true);
+            repository = runFlowAndGetPayload("createTestRepository", "createTestRepositoryTestData");
         }
     }
 

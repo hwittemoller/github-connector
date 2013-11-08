@@ -9,6 +9,14 @@
     <context:property-placeholder location="${GITHUB_CREDENTIALS}"/>
     <github:config connectionUser="${github.userName}" connectionPassword="${github.secret}" scope="${github.scope}" />
 
+    <flow name="createTestRepository">
+        <github:create-repository  repositoryName="#[payload.repository]" description="#[payload.description]" />
+    </flow>
+
+    <flow name="forkTestRepository">
+        <github:fork-repository owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
+    </flow>
+
     <flow name="getIssues">
         <github:get-issues user="#[payload.owner]" repository="#[payload.repository]">
             <github:filter-data>
@@ -384,20 +392,8 @@
                                           hasIssues="true"/>
     </flow>
 
-    <flow name="getRepository">
-        <github:get-repository owner="mulesoft" repositoryName="github-connector"/>
-    </flow>
-
-    <flow name="editRepository">
-        <github:edit-repository owner="mulesoft" repositoryName="github-connector" hasWiki="false"/>
-    </flow>
-
     <flow name="getForks">
         <github:get-forks owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
-    </flow>
-
-    <flow name="forkRepository">
-        <github:fork-repository owner="mulesoft" repositoryName="github-connector"/>
     </flow>
 
     <flow name="forkRepositoryForOrg">

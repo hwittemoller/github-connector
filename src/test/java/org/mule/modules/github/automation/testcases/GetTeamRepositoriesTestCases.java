@@ -33,7 +33,7 @@ public class GetTeamRepositoriesTestCases extends GitHubTestParent
         initializeTestRunMessage("teamTestData");
         Team team = runFlowAndGetPayload("createTeam");
         upsertOnTestRunMessage("teamId", team.getId());
-        runFlowAndGetPayload("forkRepositoryForOrg", "createRepository");
+        runFlowAndGetPayload("forkRepositoryForOrg", "createRepositoryTestData");
         Thread.sleep(10000L);
         runFlowAndGetPayload("addTeamRepository");
 
