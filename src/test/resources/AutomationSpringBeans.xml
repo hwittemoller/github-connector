@@ -13,7 +13,7 @@
         <property name="location" value="${GITHUB_CREDENTIALS}"/>
     </bean>
 
-    <util:map id="createLabel" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+    <util:map id="createLabelTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="user" value="${github.userName}" />
         <entry key="repository" value="${github.repository}" />
         <entry key="labelName" value="some-label" />
@@ -28,7 +28,7 @@
 
     <util:map id="collaborators" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="owner" value="${github.userName}" />
-        <entry key="user" value="vgulyakin" />
+        <entry key="user" value="${github.collaborator}" />
         <entry key="repositoryName" value="${github.repository}" />
     </util:map>
 
@@ -62,7 +62,7 @@
     </util:map>
     
     <util:map id="follow" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="vgulyakin" />
+        <entry key="user" value="${github.collaborator}" />
     </util:map>
 
     <util:map id="email" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
@@ -133,12 +133,12 @@
         <entry key="owner" value="${github.owner}" />
         <entry key="repository" value="${github.repository}" />
         <entry key="description" value="this is a cool repo" />
-        <entry key="organization" value="mule-testers-coalition" />
+        <entry key="organization" value="${github.organization}" />
     </util:map>
 
 	<util:map id="team" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-		<entry key="organization" value="mule-testers-coalition"/>
-		<entry key="teamName" value="github-connector-testing-team"/>
+		<entry key="organization" value="${github.organization}"/>
+		<entry key="teamName" value="${github.team}}"/>
 		<entry key="newTeamName" value="new-team-name"/>
 		<entry key="teamMember" value="${github.userName}"/>
 		<entry key="owner" value="${github.owner}"/>

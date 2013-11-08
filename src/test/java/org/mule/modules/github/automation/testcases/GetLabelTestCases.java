@@ -37,7 +37,7 @@ public class GetLabelTestCases extends GitHubTestParent
             createTestRepository(false);
         }
 
-        initializeTestRunMessage("createLabel");
+        initializeTestRunMessage("createLabelTestData");
         label = runFlowAndGetPayload("createLabel");
     }
 
