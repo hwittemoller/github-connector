@@ -13,6 +13,23 @@
         <version>3.5.0-bighorn</version>
     </parent>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mule.tools.devkit</groupId>
+                <artifactId>mule-devkit-maven-plugin</artifactId>
+                <version>3.5.0-bighorn</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.eclipse.mylyn.github</groupId>
+                        <artifactId>org.eclipse.egit.github.core</artifactId>
+                        <version>2.1.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
     <properties>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
         <category>Community</category>
