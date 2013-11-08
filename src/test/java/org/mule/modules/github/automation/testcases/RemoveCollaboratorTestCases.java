@@ -25,7 +25,7 @@ public class RemoveCollaboratorTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository(false);
-        initializeTestRunMessage("collaborators");
+        initializeTestRunMessage("collaboratorsTestData");
         runFlowAndGetPayload("addCollaborator");
     }
 

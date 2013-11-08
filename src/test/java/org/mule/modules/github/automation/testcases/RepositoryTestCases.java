@@ -34,7 +34,7 @@ public class RepositoryTestCases extends GitHubTestParent
         if (repository==null)
             createTestRepository(false);
 
-        initializeTestRunMessage("repository");
+        initializeTestRunMessage("repositoryTestData");
     }
 
     @Category({RegressionTests.class, RepositoryTests.class})

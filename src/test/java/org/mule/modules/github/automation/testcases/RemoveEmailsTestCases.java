@@ -24,7 +24,7 @@ public class RemoveEmailsTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("email");
+        initializeTestRunMessage("emailTestData");
         runFlowAndGetPayload("addEmails");
     }
     

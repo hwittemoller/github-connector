@@ -27,7 +27,7 @@ public class ListDownloadsTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("downloads");
+        initializeTestRunMessage("downloadsTestData");
     }
 
     /**

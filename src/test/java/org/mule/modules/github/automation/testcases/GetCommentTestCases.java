@@ -33,7 +33,7 @@ public class GetCommentTestCases extends GitHubTestParent
         if (repository==null)
             createTestRepository(true);
 
-        initializeTestRunMessage("commits");
+        initializeTestRunMessage("commitsTestData");
         List<RepositoryCommit> commits = runFlowAndGetPayload("getCommitsBySha");
         upsertOnTestRunMessage("sha", commits.get(0).getSha());
         CommitComment comment = runFlowAndGetPayload("addComment");

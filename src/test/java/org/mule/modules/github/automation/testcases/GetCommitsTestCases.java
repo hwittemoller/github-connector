@@ -30,7 +30,7 @@ public class GetCommitsTestCases extends GitHubTestParent
         if (repository==null)
             createTestRepository(true);
 
-        initializeTestRunMessage("commits");
+        initializeTestRunMessage("commitsTestData");
     }
 
     @Test

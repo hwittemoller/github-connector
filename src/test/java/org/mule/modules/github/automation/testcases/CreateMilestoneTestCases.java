@@ -28,7 +28,7 @@ public class CreateMilestoneTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository(false);
-        initializeTestRunMessage("milestone");
+        initializeTestRunMessage("milestoneTestData");
 
     }
 

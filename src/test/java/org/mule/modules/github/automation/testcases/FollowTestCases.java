@@ -27,7 +27,7 @@ public class FollowTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("follow");
+        initializeTestRunMessage("followTestData");
     }
 
     @After

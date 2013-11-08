@@ -30,7 +30,7 @@ public class GetIssueTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository(false);
-        initializeTestRunMessage("issue");
+        initializeTestRunMessage("issueTestData");
         Issue issue = runFlowAndGetPayload("createIssue");
         upsertOnTestRunMessage("issueId", issue.getNumber());
     }

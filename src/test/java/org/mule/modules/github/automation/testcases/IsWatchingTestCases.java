@@ -28,7 +28,7 @@ public class IsWatchingTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("watchers");
+        initializeTestRunMessage("watchersTestData");
         runFlowAndGetPayload("watch");
     }
 

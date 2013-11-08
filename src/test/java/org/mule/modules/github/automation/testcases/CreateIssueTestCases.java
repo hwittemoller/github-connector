@@ -27,7 +27,7 @@ public class CreateIssueTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository(false);
-        initializeTestRunMessage("issue");
+        initializeTestRunMessage("issueTestData");
     }
 
     @Category({RegressionTests.class, IssueTests.class})

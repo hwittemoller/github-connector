@@ -28,7 +28,7 @@ public class CreateTeamTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("team");
+        initializeTestRunMessage("teamTestData");
     }
     
     @After

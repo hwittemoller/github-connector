@@ -25,7 +25,7 @@ public class BasePullRequestTestCases extends GitHubTestParent
     {
         //fork test repository
         createTestRepository(true);
-        initializeTestRunMessage("reference");
+        initializeTestRunMessage("referenceTestData");
 
         //find master
         List<Reference> refs = runFlowAndGetPayload("getReferences");
@@ -52,7 +52,7 @@ public class BasePullRequestTestCases extends GitHubTestParent
         //update Readme in branch
         runFlowAndGetPayload("updateReadme");
 
-        initializeTestRunMessage("pullRequest");
+        initializeTestRunMessage("pullRequestTestData");
         upsertOnTestRunMessage("head", branch.getRef());
         upsertOnTestRunMessage("base", master.getRef());
     }

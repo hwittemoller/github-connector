@@ -27,7 +27,7 @@ public class GetCurrentUserTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("user");
+        initializeTestRunMessage("userTestData");
     }
 
     @Category({RegressionTests.class, UserTests.class})

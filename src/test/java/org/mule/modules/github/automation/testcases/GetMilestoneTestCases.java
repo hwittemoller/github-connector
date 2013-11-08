@@ -31,7 +31,7 @@ public class GetMilestoneTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository(false);
-        initializeTestRunMessage("milestone");
+        initializeTestRunMessage("milestoneTestData");
         Milestone milestone = runFlowAndGetPayload("createMilestone");
         upsertOnTestRunMessage("number", milestone.getNumber());
     }

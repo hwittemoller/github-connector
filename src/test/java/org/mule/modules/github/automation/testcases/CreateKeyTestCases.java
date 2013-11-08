@@ -27,7 +27,7 @@ public class CreateKeyTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {        
-        initializeTestRunMessage("key");
+        initializeTestRunMessage("keyTestData");
     }
 
     @After

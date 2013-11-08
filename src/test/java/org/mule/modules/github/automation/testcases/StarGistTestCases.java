@@ -27,7 +27,7 @@ public class StarGistTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("gist");
+        initializeTestRunMessage("gistTestData");
         Gist gist = runFlowAndGetPayload("createGist");
         upsertOnTestRunMessage("gistId", gist.getId());
     }

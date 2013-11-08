@@ -24,7 +24,7 @@ public class DeleteKeyTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {        
-        initializeTestRunMessage("key");
+        initializeTestRunMessage("keyTestData");
         Key key = runFlowAndGetPayload("createKey");
         upsertOnTestRunMessage("keyId", key.getId());
     }

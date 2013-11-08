@@ -28,7 +28,7 @@ public class CreateGistTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("gist");
+        initializeTestRunMessage("gistTestData");
     }
 
     @After

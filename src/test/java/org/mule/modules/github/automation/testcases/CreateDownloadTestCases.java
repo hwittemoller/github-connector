@@ -22,7 +22,7 @@ public class CreateDownloadTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository(false);
-        initializeTestRunMessage("downloads");
+        initializeTestRunMessage("downloadsTestData");
     }
 
     /**

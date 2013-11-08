@@ -28,7 +28,7 @@ public class CreateRepositoryTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("createRepository");
+        initializeTestRunMessage("createRepositoryTestData");
     }
 
     @After
@@ -51,7 +51,7 @@ public class CreateRepositoryTestCases extends GitHubTestParent
             Thread.sleep(5000L);
             assertEquals(getTestRunMessageValue("repository"), repository.getName());
             assertEquals(getTestRunMessageValue("description"), repository.getDescription());
-            repoOwner = getTestRunMessageValue("user");
+            repoOwner = getTestRunMessageValue("userTestData");
 
         } catch (Exception e)
         {

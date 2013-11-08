@@ -30,7 +30,7 @@ public class GetTeamRepositoriesTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("team");
+        initializeTestRunMessage("teamTestData");
         Team team = runFlowAndGetPayload("createTeam");
         upsertOnTestRunMessage("teamId", team.getId());
         runFlowAndGetPayload("forkRepositoryForOrg", "createRepository");
