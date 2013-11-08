@@ -1,3 +1,13 @@
+/**
+ * Mule GitHub Cloud Connector
+ *
+ * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ * <p/>
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.md file.
+ */
+
 package org.mule.modules.github;
 
 import org.apache.commons.lang.StringUtils;
@@ -13,14 +23,6 @@ import java.util.Map;
 
 import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_CONTENTS;
 import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_REPOS;
-
-/**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
- * <p/>
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
- */
 
 public class ExtendedContentsService extends ContentsService
 {

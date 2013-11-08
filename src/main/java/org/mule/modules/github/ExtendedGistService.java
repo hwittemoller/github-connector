@@ -1,3 +1,13 @@
+/**
+ * Mule GitHub Cloud Connector
+ *
+ * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ * <p/>
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.md file.
+ */
+
 package org.mule.modules.github;
 
 import java.io.IOException;
@@ -13,13 +23,7 @@ import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_FORKS
 import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_GISTS;
 
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
- * <p/>
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
- *
- * 4 methods in org.eclipse.egit.github.core.service.GistService 2.1.5 are broken and re-implemented here
+ * 4 methods in org.eclipse.egit.github.core.service.GistService 2.1.5 are broken and are re-implemented here
  */
 
 public class ExtendedGistService  extends GistService
