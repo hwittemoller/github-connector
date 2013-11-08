@@ -529,7 +529,7 @@
     </flow>
 
     <flow name="pagePullRequestComments">
-        <github:page-pull-request-comments owner="mule-tester" repositoryName="github-connector" id="#[payload.pullRequestNumber]"/>
+        <github:page-pull-request-comments owner="#[payload.owner]" repositoryName="#[payload.repository]" id="#[payload.pullRequestNumber]"/>
     </flow>
 
 
