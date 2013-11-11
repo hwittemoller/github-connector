@@ -27,7 +27,7 @@ public class GetUserByLoginNameTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("userTestData");
+        initializeTestRunMessage("getUserByLoginTestData");
     }
 
     @Category({RegressionTests.class, UserTests.class})

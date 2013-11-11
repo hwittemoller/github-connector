@@ -27,7 +27,7 @@ public class UnwatchTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("watchersTestData");
+        initializeTestRunMessage("unWatchTestData");
     }
 
     @Category({RegressionTests.class, WatcherTests.class})

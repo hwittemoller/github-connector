@@ -19,7 +19,7 @@ import org.mule.modules.github.automation.testcases.AddCommentTestCases;
 import org.mule.modules.github.automation.testcases.AddEmailsTestCases;
 import org.mule.modules.github.automation.testcases.AddTeamMemberTestCases;
 import org.mule.modules.github.automation.testcases.AddTeamRepositoryTestCases;
-import org.mule.modules.github.automation.testcases.CreateCommentTestCases;
+import org.mule.modules.github.automation.testcases.CreateGistCommentTestCases;
 import org.mule.modules.github.automation.testcases.CreateDeployKeyTestCases;
 import org.mule.modules.github.automation.testcases.CreateDownloadTestCases;
 import org.mule.modules.github.automation.testcases.CreateGistTestCases;
@@ -61,6 +61,7 @@ import org.mule.modules.github.automation.testcases.GetLabelTestCases;
 import org.mule.modules.github.automation.testcases.GetMilestoneTestCases;
 import org.mule.modules.github.automation.testcases.GetPullRequestCommentTestCases;
 import org.mule.modules.github.automation.testcases.GetPullRequestTestCases;
+import org.mule.modules.github.automation.testcases.GetRepositiesTestCases;
 import org.mule.modules.github.automation.testcases.GetTeamMembersTestCases;
 import org.mule.modules.github.automation.testcases.GetTeamRepositoriesTestCases;
 import org.mule.modules.github.automation.testcases.GetTeamTestCases;
@@ -74,7 +75,6 @@ import org.mule.modules.github.automation.testcases.ListDownloadsTestCases;
 import org.mule.modules.github.automation.testcases.RemoveCollaboratorTestCases;
 import org.mule.modules.github.automation.testcases.RemoveEmailsTestCases;
 import org.mule.modules.github.automation.testcases.RemoveTeamMemberTestCases;
-import org.mule.modules.github.automation.testcases.RepositoryTestCases;
 import org.mule.modules.github.automation.testcases.SmokeTests;
 import org.mule.modules.github.automation.testcases.StarGistTestCases;
 import org.mule.modules.github.automation.testcases.UnwatchTestCases;
@@ -87,13 +87,13 @@ import org.mule.modules.github.automation.testcases.WatchTestCases;
         AddCommentTestCases.class, DeleteCommentTestCases.class, EditCommentTestCases.class, GetCommentTestCases.class,
         GetCommitsTestCases.class, GetCommitTestCases.class, CreateDeployKeyTestCases.class,DeleteDeployKeyTestCases.class,
         EditDeployKeyTestCases.class,GetDeployKeyTestCases.class, CreateDownloadTestCases.class, GetDownloadTestCases.class, ListDownloadsTestCases.class,
-        CreateCommentTestCases.class,CreateGistTestCases.class,DeleteGistTestCases.class,ForkGistTestCases.class,
+        CreateGistCommentTestCases.class,CreateGistTestCases.class,DeleteGistTestCases.class,ForkGistTestCases.class,
         GetGistCommentTestCases.class,GetGistTestCases.class,StarGistTestCases.class,
-        CreateCommentTestCases.class, CreateIssueTestCases.class, GetGistCommentTestCases.class, GetIssueTestCases.class,
+        CreateGistCommentTestCases.class, CreateIssueTestCases.class, GetGistCommentTestCases.class, GetIssueTestCases.class,
         CreateLabelTestCases.class, DeleteLabelTestCases.class,GetLabelTestCases.class,
         CreateMilestoneTestCases.class,DeleteMilestoneTestCases.class,GetMilestoneTestCases.class,
         CreatePullRequestCommentTestCases.class,CreatePullRequestTestCases.class,
-        GetPullRequestCommentTestCases.class,GetPullRequestTestCases.class,RepositoryTestCases.class, CreateRepositoryTestCases.class,
+        GetPullRequestCommentTestCases.class,GetPullRequestTestCases.class,GetRepositiesTestCases.class, CreateRepositoryTestCases.class,
         GetCurrentUserTestCases.class, GetFollowersTestCases.class, GetFollowingTestCases.class,
         GetUserByLoginNameTestCases.class, IsFollowingTestCases.class, UpdateCurrentUserTestCases.class, FollowTestCases.class,
         CreateKeyTestCases.class, GetKeyTestCases.class, DeleteKeyTestCases.class,

@@ -28,7 +28,7 @@ public class WatchTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("watchersTestData");
+        initializeTestRunMessage("watchTestData");
     }
 
     @After

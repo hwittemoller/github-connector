@@ -15,6 +15,10 @@ import org.eclipse.egit.github.core.DownloadResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.tests.ConnectorTestUtils;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class CreateDownloadTestCases extends GitHubTestParent
 {
@@ -22,7 +26,7 @@ public class CreateDownloadTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("downloadsTestData");
+        initializeTestRunMessage("createDownloadTestData");
     }
 
     /**
@@ -47,8 +51,17 @@ public class CreateDownloadTestCases extends GitHubTestParent
     @Category({RegressionTests.class, DownloadTests.class})
     public void createDownload() throws Exception
     {
-        DownloadResource resource = runFlowAndGetPayload("createResource");
-//        runFlowAndGetPayload("uploadResource");
+        try
+        {
+            DownloadResource resource = runFlowAndGetPayload("createResource");
+            assertNotNull(resource);
+  //        runFlowAndGetPayload("uploadResource");
+
+        } catch (Exception e)
+        {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+
     }
 
 

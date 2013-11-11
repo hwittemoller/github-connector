@@ -28,7 +28,7 @@ public class EditTeamTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("teamTestData");
+        initializeTestRunMessage("editTeamTestData");
         Team team = runFlowAndGetPayload("createTeam");
         upsertOnTestRunMessage("teamId", team.getId());
     }
@@ -47,7 +47,7 @@ public class EditTeamTestCases extends GitHubTestParent
         {          
         	Team team = runFlowAndGetPayload("editTeam");
         	assertNotNull(team);
-            assertEquals(getTestRunMessageValue("newTeamName"), team.getName());
+            assertEquals(getTestRunMessageValue("updatedTeamName"), team.getName());
             
         } catch (Exception e)
         {

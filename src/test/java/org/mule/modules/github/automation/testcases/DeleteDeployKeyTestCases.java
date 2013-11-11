@@ -25,7 +25,7 @@ public class DeleteDeployKeyTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("deployKeyTestData");
+        initializeTestRunMessage("deleteDeployKeyTestData");
         Key key = runFlowAndGetPayload("createDeployKey");
         upsertOnTestRunMessage("id", key.getId());
     }

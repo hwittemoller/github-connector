@@ -17,23 +17,26 @@ import org.junit.runners.Suite;
 import org.mule.modules.github.automation.testcases.AddEmailsTestCases;
 import org.mule.modules.github.automation.testcases.CreateKeyTestCases;
 import org.mule.modules.github.automation.testcases.DeleteKeyTestCases;
+import org.mule.modules.github.automation.testcases.EditKeyTestCases;
 import org.mule.modules.github.automation.testcases.FollowTestCases;
 import org.mule.modules.github.automation.testcases.GetCurrentUserTestCases;
 import org.mule.modules.github.automation.testcases.GetEmailsTestCases;
 import org.mule.modules.github.automation.testcases.GetFollowersTestCases;
 import org.mule.modules.github.automation.testcases.GetFollowingTestCases;
 import org.mule.modules.github.automation.testcases.GetKeyTestCases;
+import org.mule.modules.github.automation.testcases.GetKeysTestCases;
 import org.mule.modules.github.automation.testcases.GetUserByLoginNameTestCases;
 import org.mule.modules.github.automation.testcases.IsFollowingTestCases;
 import org.mule.modules.github.automation.testcases.RemoveEmailsTestCases;
+import org.mule.modules.github.automation.testcases.UnFollowTestCases;
 import org.mule.modules.github.automation.testcases.UpdateCurrentUserTestCases;
 import org.mule.modules.github.automation.testcases.UserTests;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(UserTests.class)
 @Suite.SuiteClasses({GetCurrentUserTestCases.class, GetFollowersTestCases.class, GetFollowingTestCases.class,
-        GetUserByLoginNameTestCases.class, IsFollowingTestCases.class, UpdateCurrentUserTestCases.class, FollowTestCases.class,
-        CreateKeyTestCases.class, GetKeyTestCases.class, DeleteKeyTestCases.class,
+        GetUserByLoginNameTestCases.class, IsFollowingTestCases.class, UpdateCurrentUserTestCases.class, FollowTestCases.class, UnFollowTestCases.class,
+        CreateKeyTestCases.class, GetKeyTestCases.class, GetKeysTestCases.class, EditKeyTestCases.class, DeleteKeyTestCases.class,
         GetEmailsTestCases.class, AddEmailsTestCases.class, RemoveEmailsTestCases.class
 })
 public class UserTestSuite

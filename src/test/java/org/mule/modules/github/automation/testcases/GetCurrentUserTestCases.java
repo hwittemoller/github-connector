@@ -24,12 +24,6 @@ import static org.junit.Assert.fail;
 
 public class GetCurrentUserTestCases extends GitHubTestParent
 {
-    @Before
-    public void setUp() throws Exception
-    {
-        initializeTestRunMessage("userTestData");
-    }
-
     @Category({RegressionTests.class, UserTests.class})
     @Test
     public void getCurrentUser()
@@ -38,7 +32,6 @@ public class GetCurrentUserTestCases extends GitHubTestParent
         {
             User user = runFlowAndGetPayload("getCurrentUser");
             assertNotNull(user);
-            assertEquals(getTestRunMessageValue("user"), user.getLogin());
 
         } catch (Exception e)
         {

@@ -24,7 +24,7 @@ public class DeleteGistTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("gistTestData");
+        initializeTestRunMessage("deleteGistTestData");
         Gist gist = runFlowAndGetPayload("createGist");
         upsertOnTestRunMessage("gistId", gist.getId());
     }

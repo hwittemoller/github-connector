@@ -27,7 +27,7 @@ public class ListDownloadsTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("downloadsTestData");
+        initializeTestRunMessage("listDownloadsTestData");
     }
 
     /**
@@ -55,7 +55,6 @@ public class ListDownloadsTestCases extends GitHubTestParent
         try
         {
             List<Download> downloads = runFlowAndGetPayload("listDownloadsForRepository");
-            assertTrue(downloads.size() > 0);
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

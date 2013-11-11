@@ -30,7 +30,7 @@ public class RemoveTeamMemberTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("teamTestData");
+        initializeTestRunMessage("removeTeamMemberTestData");
         Team team = runFlowAndGetPayload("createTeam");
         upsertOnTestRunMessage("teamId", team.getId());        
         runFlowAndGetPayload("addTeamMember");

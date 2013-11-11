@@ -30,7 +30,7 @@ public class GetGistTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("gistTestData");
+        initializeTestRunMessage("getGistTestData");
         Gist gist = runFlowAndGetPayload("createGist");
         upsertOnTestRunMessage("gistId", gist.getId());
     }
@@ -57,21 +57,5 @@ public class GetGistTestCases extends GitHubTestParent
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
-    @Category({RegressionTests.class, GistTests.class})
-    @Test
-    public void getGists()
-    {
-        try
-        {
-            List<Gist> gists = runFlowAndGetPayload("getGists");
-            assertTrue(gists.size() > 0);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
 
 }

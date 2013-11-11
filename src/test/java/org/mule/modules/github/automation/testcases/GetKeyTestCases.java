@@ -29,9 +29,9 @@ public class GetKeyTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {        
-        initializeTestRunMessage("keyTestData");
+        initializeTestRunMessage("getKeyTestData");
         Key key = runFlowAndGetPayload("createKey");
-        upsertOnTestRunMessage("keyId", key.getId());
+        upsertOnTestRunMessage("id", key.getId());
     }
 
     @After
@@ -49,43 +49,6 @@ public class GetKeyTestCases extends GitHubTestParent
             Key key = runFlowAndGetPayload("getKey");
             assertEquals(getTestRunMessageValue("title"), key.getTitle());
             assertEquals(getTestRunMessageValue("key"), key.getKey());
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Test
-    @Category({RegressionTests.class, UserTests.class})
-    public void getKeys()
-    {
-        try
-        {
-            List<Key> keys = runFlowAndGetPayload("getKeys");
-            boolean found = false;
-            for (Key k : keys)
-                if (getTestRunMessageValue("keyId").equals(k.getId()))
-                {
-                    found = true;
-                }
-
-            assertTrue(found);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Test
-    @Category({RegressionTests.class, UserTests.class})
-    public void editKey()
-    {
-        try
-        {
-            Key key = runFlowAndGetPayload("editKey");
-            assertEquals(getTestRunMessageValue("newTitle"), key.getTitle());
 
         } catch (Exception e)
         {

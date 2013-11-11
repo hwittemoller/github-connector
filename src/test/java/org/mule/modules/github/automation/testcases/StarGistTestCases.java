@@ -27,7 +27,7 @@ public class StarGistTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("gistTestData");
+        initializeTestRunMessage("starGistTestData");
         Gist gist = runFlowAndGetPayload("createGist");
         upsertOnTestRunMessage("gistId", gist.getId());
     }
@@ -53,22 +53,5 @@ public class StarGistTestCases extends GitHubTestParent
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
-    @Category({RegressionTests.class, GistTests.class})
-    @Test
-    public void unstarGist()
-    {
-        try
-        {
-            runFlowAndGetPayload("unstarGist");
-            Boolean starred = runFlowAndGetPayload("isStarred");
-            assertFalse(starred);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
 
 }

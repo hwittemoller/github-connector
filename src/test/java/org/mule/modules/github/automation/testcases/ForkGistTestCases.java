@@ -26,7 +26,7 @@ public class ForkGistTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("gistTestData");
+        initializeTestRunMessage("forkGistTestData");
     }
 
     @After

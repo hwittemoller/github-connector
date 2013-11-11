@@ -31,7 +31,7 @@ public class GetDeployKeyTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("deployKeyTestData");
+        initializeTestRunMessage("getDeployKeyTestData");
         Key key = runFlowAndGetPayload("createDeployKey");
         upsertOnTestRunMessage("id", key.getId());
     }
@@ -53,33 +53,6 @@ public class GetDeployKeyTestCases extends GitHubTestParent
             assertNotNull(key);
             assertEquals(getTestRunMessageValue("title"), key.getTitle());
             assertEquals(getTestRunMessageValue("key"), key.getKey());
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Test
-    @Category({RegressionTests.class})
-    public void getDeployKeys()
-    {
-
-        try
-        {
-            List<Key> keys = runFlowAndGetPayload("getDeployKeys");
-            assertTrue(keys.size() > 0);
-
-            boolean found = false;
-            for (Key k : keys)
-            {
-                if (getTestRunMessageValue("id").equals(k.getId()))
-                {
-                    found = true;
-                    break;
-                }
-            }
-            assertTrue(found);
 
         } catch (Exception e)
         {

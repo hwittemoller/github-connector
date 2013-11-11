@@ -25,7 +25,7 @@ public class DeleteMilestoneTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("milestoneTestData");
+        initializeTestRunMessage("deleteMilestoneTestData");
         Milestone milestone = runFlowAndGetPayload("createMilestone");
         upsertOnTestRunMessage("number", milestone.getNumber());
     }

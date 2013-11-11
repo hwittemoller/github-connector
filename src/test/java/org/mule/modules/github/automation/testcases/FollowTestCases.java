@@ -36,7 +36,7 @@ public class FollowTestCases extends GitHubTestParent
         runFlowAndGetPayload("unfollow");
     }
 
-	@Category({RegressionTests.class})
+	@Category({RegressionTests.class, UserTests.class})
     @Test
     public void follow()
     {
@@ -52,20 +52,5 @@ public class FollowTestCases extends GitHubTestParent
         }
     }
 
-    @Category({RegressionTests.class, UserTests.class})
-    @Test
-    public void unfollow()
-    {
-        try
-        {
-            runFlowAndGetPayload("unfollow");
-            Boolean isFollow = runFlowAndGetPayload("isFollowing");
-            assertFalse(isFollow);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
 
 }

@@ -28,7 +28,7 @@ public class CreateTeamTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("teamTestData");
+        initializeTestRunMessage("createTeamTestData");
     }
     
     @After
@@ -39,7 +39,7 @@ public class CreateTeamTestCases extends GitHubTestParent
 
 	@Category({RegressionTests.class, TeamTests.class})
     @Test
-    public void CreateTeam()
+    public void createTeam()
     {
         try
         {          

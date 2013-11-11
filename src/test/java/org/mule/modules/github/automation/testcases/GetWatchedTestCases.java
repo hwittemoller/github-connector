@@ -30,7 +30,7 @@ public class GetWatchedTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("watchersTestData");
+        initializeTestRunMessage("getWatchedTestData");
     }
 
 

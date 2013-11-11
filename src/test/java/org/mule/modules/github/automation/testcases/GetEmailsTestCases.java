@@ -28,7 +28,7 @@ public class GetEmailsTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("emailTestData");
+        initializeTestRunMessage("getEmailsTestData");
         runFlowAndGetPayload("addEmails");
     }
     

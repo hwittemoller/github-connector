@@ -14,19 +14,25 @@ package org.mule.modules.github.automation;
 import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.mule.modules.github.automation.testcases.CreateCommentTestCases;
+import org.mule.modules.github.automation.testcases.CreateGistCommentTestCases;
 import org.mule.modules.github.automation.testcases.CreateGistTestCases;
+import org.mule.modules.github.automation.testcases.DeleteGistCommentTestCases;
 import org.mule.modules.github.automation.testcases.DeleteGistTestCases;
+import org.mule.modules.github.automation.testcases.EditGistCommentTestCases;
 import org.mule.modules.github.automation.testcases.ForkGistTestCases;
 import org.mule.modules.github.automation.testcases.GetGistCommentTestCases;
+import org.mule.modules.github.automation.testcases.GetGistCommentsTestCases;
 import org.mule.modules.github.automation.testcases.GetGistTestCases;
+import org.mule.modules.github.automation.testcases.GetGistsTestCases;
 import org.mule.modules.github.automation.testcases.GistTests;
 import org.mule.modules.github.automation.testcases.StarGistTestCases;
+import org.mule.modules.github.automation.testcases.UnStarGistTestCases;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(GistTests.class)
-@Suite.SuiteClasses({CreateCommentTestCases.class,CreateGistTestCases.class,DeleteGistTestCases.class,ForkGistTestCases.class,
-        GetGistCommentTestCases.class,GetGistTestCases.class,StarGistTestCases.class})
+@Suite.SuiteClasses({CreateGistCommentTestCases.class, CreateGistTestCases.class, DeleteGistCommentTestCases.class, DeleteGistTestCases.class,
+        EditGistCommentTestCases.class, ForkGistTestCases.class, GetGistCommentsTestCases.class, GetGistCommentTestCases.class,
+        GetGistsTestCases.class, GetGistTestCases.class, StarGistTestCases.class, UnStarGistTestCases.class})
 public class GistTestSuite
 {
 }

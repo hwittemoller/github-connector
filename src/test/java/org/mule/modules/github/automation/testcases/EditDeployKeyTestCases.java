@@ -27,7 +27,7 @@ public class EditDeployKeyTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("deployKeyTestData");
+        initializeTestRunMessage("editDeployKeyTestData");
         Key key = runFlowAndGetPayload("createDeployKey");
         upsertOnTestRunMessage("id", key.getId());
     }

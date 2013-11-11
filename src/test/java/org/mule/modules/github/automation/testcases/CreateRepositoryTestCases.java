@@ -23,8 +23,6 @@ import static org.junit.Assert.fail;
 
 public class CreateRepositoryTestCases extends GitHubTestParent
 {
-    private String repoOwner = null;
-
     @Before
     public void setUp() throws Exception
     {
@@ -34,11 +32,8 @@ public class CreateRepositoryTestCases extends GitHubTestParent
     @After
     public void tearDown() throws Exception
     {
-        if (repoOwner!=null){
-            deleteRepository(repoOwner, (String)getTestRunMessageValue("repository"));
-            Thread.sleep(10000L);
-            repoOwner=null;
-        }
+        deleteRepository((String)getTestRunMessageValue("user"), (String)getTestRunMessageValue("repository"));
+        Thread.sleep(10000L);
     }
 
     @Category({RegressionTests.class, RepositoryTests.class})
@@ -51,42 +46,6 @@ public class CreateRepositoryTestCases extends GitHubTestParent
             Thread.sleep(5000L);
             assertEquals(getTestRunMessageValue("repository"), repository.getName());
             assertEquals(getTestRunMessageValue("description"), repository.getDescription());
-            repoOwner = getTestRunMessageValue("userTestData");
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Category({RegressionTests.class, RepositoryTests.class})
-    @Test
-    public void createRepositoryForOrg()
-    {
-        try
-        {
-            Repository repository = runFlowAndGetPayload("createRepositoryForOrg");
-            Thread.sleep(5000L);
-            assertEquals(getTestRunMessageValue("repository"), repository.getName());
-            assertEquals(getTestRunMessageValue("description"), repository.getDescription());
-            repoOwner = getTestRunMessageValue("organization");
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Category({RegressionTests.class, RepositoryTests.class})
-    @Test
-    public void forkRepositoryForOrg()
-    {
-        try
-        {
-            Repository repository = runFlowAndGetPayload("forkRepositoryForOrg");
-            Thread.sleep(10000L);
-            assertEquals(getTestRunMessageValue("repository"), repository.getName());
-            repoOwner = getTestRunMessageValue("organization");
 
         } catch (Exception e)
         {

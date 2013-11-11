@@ -31,7 +31,7 @@ public class GetWatchersTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("watchersTestData");
+        initializeTestRunMessage("getWatchersTestData");
     }
 
     @Category({RegressionTests.class, WatcherTests.class})

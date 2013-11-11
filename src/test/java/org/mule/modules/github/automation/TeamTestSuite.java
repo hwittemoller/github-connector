@@ -22,13 +22,17 @@ import org.mule.modules.github.automation.testcases.EditTeamTestCases;
 import org.mule.modules.github.automation.testcases.GetTeamMembersTestCases;
 import org.mule.modules.github.automation.testcases.GetTeamRepositoriesTestCases;
 import org.mule.modules.github.automation.testcases.GetTeamTestCases;
+import org.mule.modules.github.automation.testcases.GetTeamsForOrgTestCases;
+import org.mule.modules.github.automation.testcases.IsTeamMemberTestCases;
 import org.mule.modules.github.automation.testcases.RemoveTeamMemberTestCases;
+import org.mule.modules.github.automation.testcases.RemoveTeamRepositoryTestCases;
 import org.mule.modules.github.automation.testcases.TeamTests;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(TeamTests.class)
 @Suite.SuiteClasses({AddTeamMemberTestCases.class, AddTeamRepositoryTestCases.class, CreateTeamTestCases.class, DeleteTeamTestCases.class,
-        EditTeamTestCases.class,GetTeamMembersTestCases.class, GetTeamRepositoriesTestCases.class,GetTeamTestCases.class, RemoveTeamMemberTestCases.class})
+        EditTeamTestCases.class, GetTeamMembersTestCases.class, GetTeamRepositoriesTestCases.class, GetTeamsForOrgTestCases.class,
+        GetTeamTestCases.class, IsTeamMemberTestCases.class, RemoveTeamMemberTestCases.class, RemoveTeamRepositoryTestCases.class})
 public class TeamTestSuite
 {
 }

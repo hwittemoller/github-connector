@@ -27,7 +27,7 @@ public class CreateKeyTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {        
-        initializeTestRunMessage("keyTestData");
+        initializeTestRunMessage("createKeyTestData");
     }
 
     @After
@@ -47,7 +47,7 @@ public class CreateKeyTestCases extends GitHubTestParent
             assertNotNull(key);
             assertEquals(getTestRunMessageValue("title"), key.getTitle());
             assertEquals(getTestRunMessageValue("key"), key.getKey());
-            upsertOnTestRunMessage("keyId", key.getId());
+            upsertOnTestRunMessage("id", key.getId());
 
         } catch (Exception e)
         {

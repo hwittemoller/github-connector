@@ -31,7 +31,7 @@ public class AddTeamMemberTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("teamTestData");
+        initializeTestRunMessage("addTeamMemberTestData");
         Team team = runFlowAndGetPayload("createTeam");
         upsertOnTestRunMessage("teamId", team.getId());
     }
@@ -53,10 +53,7 @@ public class AddTeamMemberTestCases extends GitHubTestParent
         	List<User> members = runFlowAndGetPayload("getTeamMembers");
             assertNotNull(members);
             assertTrue(members.size() == 1);
-            
-            Boolean isMember = runFlowAndGetPayload("isTeamMember");
-            assertTrue(isMember);        	 
-            
+
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

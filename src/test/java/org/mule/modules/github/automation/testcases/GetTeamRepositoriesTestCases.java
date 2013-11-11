@@ -30,10 +30,10 @@ public class GetTeamRepositoriesTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("teamTestData");
+        initializeTestRunMessage("getTeamRepositoriesTestData");
         Team team = runFlowAndGetPayload("createTeam");
         upsertOnTestRunMessage("teamId", team.getId());
-        runFlowAndGetPayload("forkRepositoryForOrg", "createRepositoryTestData");
+        runFlowAndGetPayload("createRepositoryForOrg", "createRepositoryForOrgTestData");
         Thread.sleep(10000L);
         runFlowAndGetPayload("addTeamRepository");
 
@@ -44,6 +44,7 @@ public class GetTeamRepositoriesTestCases extends GitHubTestParent
     {
         runFlowAndGetPayload("deleteTeam");
         deleteRepository((String)getTestRunMessageValue("organization"), (String)getTestRunMessageValue("repository"));
+        Thread.sleep(10000L);
     }
 
 	@Category({RegressionTests.class, TeamTests.class})
@@ -54,22 +55,6 @@ public class GetTeamRepositoriesTestCases extends GitHubTestParent
         {
             List<Repository> repositories = runFlowAndGetPayload("getTeamRepositories");
             assertTrue(repositories.size() == 1);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Category({RegressionTests.class, TeamTests.class})
-    @Test
-    public void removeTeamRepository()
-    {
-        try
-        {
-            runFlowAndGetPayload("removeTeamRepository");
-            List<Repository> repositories = runFlowAndGetPayload("getTeamRepositories");
-            assertTrue(repositories.size() == 0);
 
         } catch (Exception e)
         {

@@ -26,7 +26,7 @@ public class IsCollaboratorTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("collaboratorsTestData");
+        initializeTestRunMessage("isCollaboratorTestData");
         runFlowAndGetPayload("addCollaborator");
     }
 

@@ -26,10 +26,10 @@ public class AddTeamRepositoryTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("teamTestData");
+        initializeTestRunMessage("addTeamRepositoryTestData");
         Team team = runFlowAndGetPayload("createTeam");
         upsertOnTestRunMessage("teamId", team.getId());
-        runFlowAndGetPayload("forkRepositoryForOrg", "createRepositoryTestData");
+        runFlowAndGetPayload("createRepositoryForOrg", "createRepositoryForOrgTestData");
         Thread.sleep(10000L);
 
     }
@@ -39,6 +39,7 @@ public class AddTeamRepositoryTestCases extends GitHubTestParent
     {
         runFlowAndGetPayload("deleteTeam");
         deleteRepository((String)getTestRunMessageValue("organization"), (String)getTestRunMessageValue("repository"));
+        Thread.sleep(10000L);
     }
 
 	@Category({RegressionTests.class, TeamTests.class})

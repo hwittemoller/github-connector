@@ -19,10 +19,11 @@ import org.mule.modules.github.automation.testcases.DeleteDeployKeyTestCases;
 import org.mule.modules.github.automation.testcases.DeployKeyTests;
 import org.mule.modules.github.automation.testcases.EditDeployKeyTestCases;
 import org.mule.modules.github.automation.testcases.GetDeployKeyTestCases;
+import org.mule.modules.github.automation.testcases.GetDeployKeysTestCases;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(DeployKeyTests.class)
-@Suite.SuiteClasses({CreateDeployKeyTestCases.class, DeleteDeployKeyTestCases.class, EditDeployKeyTestCases.class, GetDeployKeyTestCases.class})
+@Suite.SuiteClasses({CreateDeployKeyTestCases.class, DeleteDeployKeyTestCases.class, EditDeployKeyTestCases.class, GetDeployKeyTestCases.class, GetDeployKeysTestCases.class})
 public class DeployKeyTestSuite
 {
 }

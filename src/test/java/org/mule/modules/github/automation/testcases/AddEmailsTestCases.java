@@ -28,7 +28,7 @@ public class AddEmailsTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("emailTestData");
+        initializeTestRunMessage("addEmailsTestData");
     }
     
     @After

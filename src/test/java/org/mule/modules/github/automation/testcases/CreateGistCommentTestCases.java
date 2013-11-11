@@ -23,12 +23,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-public class CreateCommentTestCases extends GitHubTestParent
+public class CreateGistCommentTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("gistTestData");
+        initializeTestRunMessage("createGistCommentTestData");
         Gist gist = runFlowAndGetPayload("createGist");
         upsertOnTestRunMessage("gistId", gist.getId());
     }
@@ -41,7 +41,7 @@ public class CreateCommentTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, GistTests.class})
     @Test
-    public void createComment()
+    public void createGistComment()
     {
         try
         {

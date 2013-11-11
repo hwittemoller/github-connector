@@ -17,11 +17,12 @@ import org.junit.runners.Suite;
 import org.mule.modules.github.automation.testcases.CreateMilestoneTestCases;
 import org.mule.modules.github.automation.testcases.DeleteMilestoneTestCases;
 import org.mule.modules.github.automation.testcases.GetMilestoneTestCases;
+import org.mule.modules.github.automation.testcases.GetMilestonesTestCases;
 import org.mule.modules.github.automation.testcases.MilestoneTests;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(MilestoneTests.class)
-@Suite.SuiteClasses({CreateMilestoneTestCases.class,DeleteMilestoneTestCases.class,GetMilestoneTestCases.class})
+@Suite.SuiteClasses({CreateMilestoneTestCases.class, DeleteMilestoneTestCases.class, GetMilestoneTestCases.class, GetMilestonesTestCases.class})
 public class MilestoneTestSuite
 {
 }

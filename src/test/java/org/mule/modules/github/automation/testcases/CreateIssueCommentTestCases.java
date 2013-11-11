@@ -28,7 +28,7 @@ public class CreateIssueCommentTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("issueTestData");
+        initializeTestRunMessage("createIssueCommentTestData");
         Issue issue = runFlowAndGetPayload("createIssue");
         upsertOnTestRunMessage("issueId", issue.getNumber());
     }

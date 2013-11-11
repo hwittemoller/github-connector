@@ -30,7 +30,7 @@ public class GetCollaboratorsTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("collaboratorsTestData");
+        initializeTestRunMessage("getCollaboratorsTestData");
         runFlowAndGetPayload("addCollaborator");
     }
 

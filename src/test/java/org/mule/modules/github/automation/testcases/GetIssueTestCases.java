@@ -30,7 +30,7 @@ public class GetIssueTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("issueTestData");
+        initializeTestRunMessage("getIssueTestData");
         Issue issue = runFlowAndGetPayload("createIssue");
         upsertOnTestRunMessage("issueId", issue.getNumber());
     }
@@ -52,94 +52,4 @@ public class GetIssueTestCases extends GitHubTestParent
         }
     }
 
-    @Category({RegressionTests.class, IssueTests.class})
-    @Test
-    public void getIssues()
-    {
-        try
-        {
-            List<Issue> issues = runFlowAndGetPayload("getIssues");
-            assertTrue(issues.size()>0);
-            boolean found = false;
-            for (Issue i : issues)
-            {
-                if (getTestRunMessageValue("issueId").equals(i.getNumber()))
-                {
-                    found = true;
-                    break;
-                }
-            }
-            assertTrue(found);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-
-    @Category({RegressionTests.class, IssueTests.class})
-    @Test
-    public void getIssuesCretedAfter()
-    {
-        try
-        {
-            List<Issue> issues = runFlowAndGetPayload("getIssuesCretedAfter");
-            assertTrue(issues.size()>0);
-            boolean found = false;
-            for (Issue i : issues)
-            {
-                if (getTestRunMessageValue("issueId").equals(i.getNumber()))
-                {
-                    found = true;
-                    break;
-                }
-            }
-            assertTrue(found);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Category({RegressionTests.class, IssueTests.class})
-    @Test
-    public void getIssuesSinceNumber()
-    {
-        try
-        {
-            List<Issue> issues = runFlowAndGetPayload("getIssuesSinceNumber");
-            assertTrue(issues.size()>0);
-            boolean found = false;
-            for (Issue i : issues)
-            {
-                if (getTestRunMessageValue("issueId").equals(i.getNumber()))
-                {
-                    found = true;
-                    break;
-                }
-            }
-            assertTrue(found);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Category({RegressionTests.class, IssueTests.class})
-    @Test
-    public void closeIssue()
-    {
-        try
-        {
-            Issue issue = runFlowAndGetPayload("closeIssue");
-            assertEquals("closed", issue.getState());
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
 }

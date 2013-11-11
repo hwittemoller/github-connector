@@ -30,7 +30,7 @@ public class GetTeamTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("teamTestData");
+        initializeTestRunMessage("getTeamTestData");
         Team team = runFlowAndGetPayload("createTeam");
         upsertOnTestRunMessage("teamId", team.getId());
     }
@@ -56,31 +56,4 @@ public class GetTeamTestCases extends GitHubTestParent
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
-    @Category({RegressionTests.class, TeamTests.class})
-    @Test
-    public void getTeams()
-    {
-        try
-        {
-        	List<Team> teams = runFlowAndGetPayload("getTeamsForOrg");
-            assertTrue(teams.size() > 0);
-            boolean found = false;
-            for (Team t : teams)
-            {
-                if (getTestRunMessageValue("teamId").equals(t.getId()))
-                {
-                    found = true;
-                    break;
-                }
-            }
-            assertTrue(found);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-
 }

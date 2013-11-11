@@ -213,7 +213,7 @@
     </flow>
 
     <flow name="forkGist">
-        <github:fork-gist gistId="1"/>
+        <github:fork-gist gistId="#[payload.gistId]"/>
     </flow>
 
     <flow name="getLabels">
@@ -308,7 +308,7 @@
     </flow>
 
     <flow name="getKey">
-        <github:get-key id="#[payload.keyId]"/>
+        <github:get-key id="#[payload.id]"/>
     </flow>
 
     <flow name="createKey">
@@ -316,11 +316,11 @@
     </flow>
 
     <flow name="editKey">
-        <github:edit-key keyId="#[payload.keyId]" title="#[payload.newTitle]" />
+        <github:edit-key keyId="#[payload.id]" title="#[payload.updatedTitle]" />
     </flow>
 
     <flow name="deleteKey">
-        <github:delete-key id="#[payload.keyId]"/>
+        <github:delete-key id="#[payload.id]"/>
     </flow>
 
    <flow name="getTeam">
@@ -336,7 +336,7 @@
 	</flow>
 
 	<flow name="editTeam">
-		<github:edit-team id="#[payload.teamId]" teamName="#[payload.newTeamName]"/>
+		<github:edit-team id="#[payload.teamId]" teamName="#[payload.updatedTeamName]"/>
 	</flow>
 
 	<flow name="deleteTeam">

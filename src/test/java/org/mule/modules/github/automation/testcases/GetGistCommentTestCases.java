@@ -31,7 +31,7 @@ public class GetGistCommentTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("gistTestData");
+        initializeTestRunMessage("getGistCommentTestData");
         Gist gist = runFlowAndGetPayload("createGist");
         upsertOnTestRunMessage("gistId", gist.getId());
         Comment comment = runFlowAndGetPayload("createGistComment");
@@ -46,7 +46,7 @@ public class GetGistCommentTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, GistTests.class})
     @Test
-    public void getComment()
+    public void getGistComment()
     {
         try
         {
@@ -59,50 +59,5 @@ public class GetGistCommentTestCases extends GitHubTestParent
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
-    @Category({RegressionTests.class, GistTests.class})
-    @Test
-    public void getComments()
-    {
-        try
-        {
-            List<Comment> comments = runFlowAndGetPayload("getGistComments");
-            assertTrue(comments.size() > 0);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Category({RegressionTests.class, GistTests.class})
-    @Test
-    public void editComment()
-    {
-        try
-        {
-            Comment comment = runFlowAndGetPayload("editGistComment");
-            assertEquals(getTestRunMessageValue("updatedBody"), comment.getBody());
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Category({RegressionTests.class, GistTests.class})
-    @Test
-    public void deleteComment()
-    {
-        try
-        {
-            runFlowAndGetPayload("deleteGistComment");
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
 
 }

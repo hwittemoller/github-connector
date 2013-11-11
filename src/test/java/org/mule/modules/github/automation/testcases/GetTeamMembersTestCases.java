@@ -31,7 +31,7 @@ public class GetTeamMembersTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("teamTestData");
+        initializeTestRunMessage("getTeamMembersTestData");
         Team team = runFlowAndGetPayload("createTeam");
         upsertOnTestRunMessage("teamId", team.getId());
         runFlowAndGetPayload("addTeamMember");
@@ -59,20 +59,4 @@ public class GetTeamMembersTestCases extends GitHubTestParent
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
-    @Category({RegressionTests.class, TeamTests.class})
-    @Test
-    public void isTeamMember()
-    {
-        try
-        {
-            Boolean isMember = runFlowAndGetPayload("isTeamMember");
-            assertTrue(isMember);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
 }

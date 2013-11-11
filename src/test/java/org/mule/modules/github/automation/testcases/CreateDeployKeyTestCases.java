@@ -28,7 +28,7 @@ public class CreateDeployKeyTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("deployKeyTestData");
+        initializeTestRunMessage("createDeployKeyTestData");
     }
 
     @After

@@ -31,7 +31,7 @@ public class GetMilestoneTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("milestoneTestData");
+        initializeTestRunMessage("getMilestoneTestData");
         Milestone milestone = runFlowAndGetPayload("createMilestone");
         upsertOnTestRunMessage("number", milestone.getNumber());
     }
@@ -60,21 +60,5 @@ public class GetMilestoneTestCases extends GitHubTestParent
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
-    @Category({RegressionTests.class, MilestoneTests.class})
-    @Test
-    public void getMilestones()
-    {
-        try
-        {
-            List<Milestone> milestones = runFlowAndGetPayload("getMilestones");
-            assertTrue(milestones.size()>0);
-
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
 
 }
