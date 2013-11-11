@@ -11,8 +11,6 @@
 
 package org.mule.modules.github.automation.testcases;
 
-import java.util.List;
-
 import org.eclipse.egit.github.core.Comment;
 import org.eclipse.egit.github.core.Gist;
 import org.junit.After;
@@ -23,7 +21,6 @@ import org.mule.modules.tests.ConnectorTestUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class GetGistCommentTestCases extends GitHubTestParent

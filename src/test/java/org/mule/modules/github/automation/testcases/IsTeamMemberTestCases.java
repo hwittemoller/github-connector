@@ -11,17 +11,13 @@
 
 package org.mule.modules.github.automation.testcases;
 
-import java.util.List;
-
 import org.eclipse.egit.github.core.Team;
-import org.eclipse.egit.github.core.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 

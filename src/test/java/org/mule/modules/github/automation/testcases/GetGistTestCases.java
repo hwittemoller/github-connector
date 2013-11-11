@@ -11,8 +11,6 @@
 
 package org.mule.modules.github.automation.testcases;
 
-import java.util.List;
-
 import org.eclipse.egit.github.core.Gist;
 import org.junit.After;
 import org.junit.Before;

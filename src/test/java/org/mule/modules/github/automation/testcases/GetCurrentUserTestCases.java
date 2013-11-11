@@ -12,12 +12,10 @@
 package org.mule.modules.github.automation.testcases;
 
 import org.eclipse.egit.github.core.User;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 

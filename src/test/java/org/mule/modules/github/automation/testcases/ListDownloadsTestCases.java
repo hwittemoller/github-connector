@@ -19,7 +19,6 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class ListDownloadsTestCases extends GitHubTestParent

@@ -12,12 +12,8 @@
 package org.mule.modules.github.automation.testcases;
 
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.egit.github.core.Contributor;
-import org.eclipse.egit.github.core.Repository;
-import org.eclipse.egit.github.core.RepositoryBranch;
-import org.eclipse.egit.github.core.RepositoryTag;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
