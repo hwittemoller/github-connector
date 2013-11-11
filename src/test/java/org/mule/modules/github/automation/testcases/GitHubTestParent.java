@@ -57,7 +57,7 @@ public class GitHubTestParent extends ConnectorTestCase
         }
         if (repo != null)
         {
-            deleteTestRepository();
+            deleteRepository(repo.getOwner().getLogin(), repo.getName());
             Thread.sleep(10000L); //repository takes some time to get ready
         }
 
