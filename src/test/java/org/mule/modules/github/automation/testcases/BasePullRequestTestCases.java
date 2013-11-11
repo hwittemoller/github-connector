@@ -51,6 +51,7 @@ public class BasePullRequestTestCases extends GitHubTestParent
 
         //update Readme in branch
         runFlowAndGetPayload("updateReadme");
+        Thread.sleep(5000);
 
         initializeTestRunMessage("pullRequestTestData");
         upsertOnTestRunMessage("head", branch.getRef());
