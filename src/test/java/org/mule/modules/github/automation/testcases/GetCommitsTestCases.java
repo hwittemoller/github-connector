@@ -28,7 +28,7 @@ public class GetCommitsTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         if (repository==null)
-            createTestRepository(true);
+            forkTestRepository();
 
         initializeTestRunMessage("commitsTestData");
     }

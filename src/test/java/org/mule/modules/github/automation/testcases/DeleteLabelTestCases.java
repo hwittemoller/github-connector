@@ -24,7 +24,7 @@ public class DeleteLabelTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        createTestRepository(false);
+        createTestRepository();
         initializeTestRunMessage("createLabelTestData");
         runFlowAndGetPayload("createLabel");
     }

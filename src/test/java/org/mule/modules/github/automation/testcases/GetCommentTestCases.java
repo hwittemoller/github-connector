@@ -31,7 +31,7 @@ public class GetCommentTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         if (repository==null)
-            createTestRepository(true);
+            forkTestRepository();
 
         initializeTestRunMessage("commitsTestData");
         List<RepositoryCommit> commits = runFlowAndGetPayload("getCommitsBySha");

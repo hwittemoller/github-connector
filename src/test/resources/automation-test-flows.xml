@@ -6,7 +6,7 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
         http://www.mulesoft.org/schema/mule/github http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd">
 
-    <context:property-placeholder location="${GITHUB_CREDENTIALS}"/>
+    <context:property-placeholder location="automation-credentials.properties"/>
     <github:config connectionUser="${github.userName}" connectionPassword="${github.secret}" scope="${github.scope}" />
 
     <flow name="createTestRepository">

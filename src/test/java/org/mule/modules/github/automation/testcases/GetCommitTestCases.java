@@ -27,7 +27,7 @@ public class GetCommitTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        createTestRepository(true);
+        forkTestRepository();
         initializeTestRunMessage("commitsTestData");
         List<RepositoryCommit> commits = runFlowAndGetPayload("getCommitsBySha");
         upsertOnTestRunMessage("sha", commits.get(0).getSha());

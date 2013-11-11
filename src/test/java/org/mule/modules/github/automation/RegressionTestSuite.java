@@ -58,6 +58,7 @@ import org.mule.modules.github.automation.testcases.GetGistTestCases;
 import org.mule.modules.github.automation.testcases.GetIssueTestCases;
 import org.mule.modules.github.automation.testcases.GetKeyTestCases;
 import org.mule.modules.github.automation.testcases.GetLabelTestCases;
+import org.mule.modules.github.automation.testcases.GetLabelsTestCases;
 import org.mule.modules.github.automation.testcases.GetMilestoneTestCases;
 import org.mule.modules.github.automation.testcases.GetPullRequestCommentTestCases;
 import org.mule.modules.github.automation.testcases.GetPullRequestTestCases;
@@ -90,7 +91,7 @@ import org.mule.modules.github.automation.testcases.WatchTestCases;
         CreateCommentTestCases.class,CreateGistTestCases.class,DeleteGistTestCases.class,ForkGistTestCases.class,
         GetGistCommentTestCases.class,GetGistTestCases.class,StarGistTestCases.class,
         CreateCommentTestCases.class, CreateIssueTestCases.class, GetGistCommentTestCases.class, GetIssueTestCases.class,
-        CreateLabelTestCases.class, DeleteLabelTestCases.class,GetLabelTestCases.class,
+        CreateLabelTestCases.class, DeleteLabelTestCases.class, GetLabelTestCases.class, GetLabelsTestCases.class,
         CreateMilestoneTestCases.class,DeleteMilestoneTestCases.class,GetMilestoneTestCases.class,
         CreatePullRequestCommentTestCases.class,CreatePullRequestTestCases.class,
         GetPullRequestCommentTestCases.class,GetPullRequestTestCases.class,RepositoryTestCases.class, CreateRepositoryTestCases.class,

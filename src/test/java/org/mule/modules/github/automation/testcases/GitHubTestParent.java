@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.eclipse.egit.github.core.Repository;
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.rules.Timeout;
 import org.mule.modules.github.GitHubModule;
@@ -28,9 +28,19 @@ public class GitHubTestParent extends ConnectorTestCase
     @Rule
     public Timeout globalTimeout = new Timeout(120000);
 
-    protected static Repository repository = null;
+    protected Repository repository = null;
 
-    protected void createTestRepository(boolean fork) throws Exception
+    protected void createTestRepository() throws Exception
+    {
+        repository = runFlowAndGetPayload("createTestRepository", "createTestRepositoryTestData");
+    }
+
+    protected void forkTestRepository() throws Exception
+    {
+        createTestRepository(true);
+    }
+
+    private void createTestRepository(boolean fork) throws Exception
     {
         GitHubModule github = new GitHubModule();
         Properties props = getBeanFromContext("testProps");
@@ -66,12 +76,12 @@ public class GitHubTestParent extends ConnectorTestCase
         }
     }
 
-    @AfterClass
-    public static void cleanUpRepo() throws Exception
+    @After
+    public void cleanUpRepo() throws Exception
     {
         if (repository != null)
         {
-            new GitHubTestParent().deleteTestRepository();
+            deleteTestRepository();
         }
     }
 
@@ -81,10 +91,9 @@ public class GitHubTestParent extends ConnectorTestCase
         Properties props = getBeanFromContext("testProps");
         String user = props.getProperty("github.userName");
         String pass = props.getProperty("github.secret");
-        String repo = props.getProperty("github.repository");
         String scope = props.getProperty("github.scope");
         github.setServiceFactory(new ServiceFactory(user, pass, scope));
-        github.deleteRepository(user, repo);
+        github.deleteRepository(user, repository.getName());
         repository = null;
     }
 

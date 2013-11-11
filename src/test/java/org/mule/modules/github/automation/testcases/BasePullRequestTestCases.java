@@ -24,7 +24,7 @@ public class BasePullRequestTestCases extends GitHubTestParent
     public void prepareBranch() throws Exception
     {
         //fork test repository
-        createTestRepository(true);
+        forkTestRepository();
         initializeTestRunMessage("referenceTestData");
 
         //find master

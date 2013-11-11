@@ -27,25 +27,18 @@ import static org.junit.Assert.fail;
 
 public class GetLabelTestCases extends GitHubTestParent
 {
-    private Label label = null;
-
     @Before
     public void setUp() throws Exception
     {
-        if (repository == null)
-        {
-            createTestRepository(false);
-        }
-
-        initializeTestRunMessage("createLabelTestData");
-        label = runFlowAndGetPayload("createLabel");
+        createTestRepository();
+        initializeTestRunMessage("getLabelTestData");
+        runFlowAndGetPayload("createLabel");
     }
 
     @After
     public void tearDown() throws Exception
     {
         runFlowAndGetPayload("deleteLabel");
-        label = null;
     }
 
     @Category({RegressionTests.class, LabelTests.class})
@@ -55,24 +48,9 @@ public class GetLabelTestCases extends GitHubTestParent
         try
         {
             Label lbl = runFlowAndGetPayload("getLabel");
-            assertEquals(label.getName(), lbl.getName());
-            assertEquals(label.getColor(), lbl.getColor());
+            assertEquals(getTestRunMessageValue("labelName"), lbl.getName());
+            assertEquals(getTestRunMessageValue("color"), lbl.getColor());
 
-        } catch (Exception e)
-        {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
-
-    @Category({RegressionTests.class, LabelTests.class})
-    @Test
-    public void getLabels()
-    {
-        try
-        {
-            List<Label> labels = runFlowAndGetPayload("getLabels");
-            assertTrue(labels.size()>0);
-            assertEquals(labels.get(0).getName(), label.getName());
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

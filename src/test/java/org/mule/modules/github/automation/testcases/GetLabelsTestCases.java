@@ -11,44 +11,42 @@
 
 package org.mule.modules.github.automation.testcases;
 
+import java.util.List;
+
+import org.eclipse.egit.github.core.Label;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class AddCollaboratorTestCases extends GitHubTestParent
+
+public class GetLabelsTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("collaboratorsTestData");
+        initializeTestRunMessage("getLabelsTestData");
+
     }
 
-    @After
-    public void tearDown() throws Exception
-    {
-        runFlowAndGetPayload("removeCollaborator");
-    }
-
+    @Category({RegressionTests.class, LabelTests.class})
     @Test
-    @Category({RegressionTests.class, CollaboratorTests.class})
-    public void addCollaborator()
+    public void getLabels()
     {
-
         try
         {
-            runFlowAndGetPayload("addCollaborator");
-            Boolean isCollaborator = runFlowAndGetPayload("isCollaborator");
-            assertTrue(isCollaborator);
-
+            List<Label> labels = runFlowAndGetPayload("getLabels");
+            assertTrue(labels.size()>0);
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
+
 }

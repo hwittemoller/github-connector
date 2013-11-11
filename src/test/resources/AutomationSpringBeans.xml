@@ -6,15 +6,17 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="testProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="${GITHUB_CREDENTIALS}"/>
+        <property name="location" value="automation-credentials.properties"/>
     </bean>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="${GITHUB_CREDENTIALS}"/>
+        <property name="location" value="automation-credentials.properties"/>
     </bean>
 
+    <bean id="githubRepository" class="org.mule.modules.tests.ConnectorTestUtils" factory-method="generateRandomShortString" />
+
     <util:map id="createTestRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="repository" value="${github.repository}" />
+        <entry key="repository" value-ref="githubRepository" />
         <entry key="description" value="Repository for functional tests" />
     </util:map>
 
@@ -25,7 +27,26 @@
 
     <util:map id="createLabelTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="user" value="${github.userName}" />
-        <entry key="repository" value="${github.repository}" />
+        <entry key="repository" value-ref="githubRepository" />
+        <entry key="labelName" value="some-label" />
+        <entry key="color" value="f29513" />
+    </util:map>
+
+    <util:map id="getLabelTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="user" value="${github.userName}" />
+        <entry key="repository" value-ref="githubRepository" />
+        <entry key="labelName" value="some-label" />
+        <entry key="color" value="f29513" />
+    </util:map>
+
+    <util:map id="getLabelsTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="user" value="${github.userName}" />
+        <entry key="repository" value-ref="githubRepository" />
+    </util:map>
+
+    <util:map id="deleteLabelTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="user" value="${github.userName}" />
+        <entry key="repository" value-ref="githubRepository" />
         <entry key="labelName" value="some-label" />
         <entry key="color" value="f29513" />
     </util:map>

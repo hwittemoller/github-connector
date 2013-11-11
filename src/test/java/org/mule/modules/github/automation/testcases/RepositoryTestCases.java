@@ -32,7 +32,7 @@ public class RepositoryTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         if (repository==null)
-            createTestRepository(false);
+            createTestRepository();
 
         initializeTestRunMessage("repositoryTestData");
     }
