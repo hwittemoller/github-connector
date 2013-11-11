@@ -153,7 +153,7 @@
     </flow>
 
     <flow name="deleteDeployKey">
-        <github:delete-deploy-key owner="mule-tester" repositoryName="#[payload.repositoryName]" id="#[payload.id]"/>
+        <github:delete-deploy-key owner="#[payload.owner]" repositoryName="#[payload.repositoryName]" id="#[payload.id]"/>
     </flow>
 
     <flow name="createGist">
