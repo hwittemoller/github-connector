@@ -6,11 +6,11 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="testProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="automation-credentials.properties"/>
+        <property name="location" value="${GITHUB_CREDENTIALS}"/>
     </bean>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="automation-credentials.properties"/>
+        <property name="location" value="${GITHUB_CREDENTIALS}"/>
     </bean>
 
     <bean id="githubRepository" class="org.mule.modules.tests.ConnectorTestUtils" factory-method="generateRandomShortString" />
