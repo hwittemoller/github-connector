@@ -33,14 +33,10 @@ public class GitHubTestParent extends ConnectorTestCase
     protected void createTestRepository() throws Exception
     {
         repository = runFlowAndGetPayload("createTestRepository", "createTestRepositoryTestData");
+        Thread.sleep(5000L); //repository takes some time to get ready
     }
 
     protected void forkTestRepository() throws Exception
-    {
-        createTestRepository(true);
-    }
-
-    private void createTestRepository(boolean fork) throws Exception
     {
         GitHubModule github = new GitHubModule();
         Properties props = getBeanFromContext("testProps");
@@ -65,15 +61,8 @@ public class GitHubTestParent extends ConnectorTestCase
             Thread.sleep(10000L); //repository takes some time to get ready
         }
 
-        if (fork)
-        {
-            repository = runFlowAndGetPayload("forkTestRepository", "forkTestRepositoryTestData");
-            Thread.sleep(15000L); //repository takes some time to get ready
-        }
-        else
-        {
-            repository = runFlowAndGetPayload("createTestRepository", "createTestRepositoryTestData");
-        }
+        repository = runFlowAndGetPayload("forkTestRepository", "forkTestRepositoryTestData");
+        Thread.sleep(15000L); //repository takes some time to get ready
     }
 
     @After
