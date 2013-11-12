@@ -30,7 +30,7 @@ public class GetTeamsForOrgTestCases extends GitHubTestParent
     {
         initializeTestRunMessage("getTeamsForOrgTestData");
         Team team = runFlowAndGetPayload("createTeam");
-        upsertOnTestRunMessage("teamId", team.getId());
+        upsertOnTestRunMessage("id", team.getId());
     }
 
     @After
@@ -50,7 +50,7 @@ public class GetTeamsForOrgTestCases extends GitHubTestParent
             boolean found = false;
             for (Team t : teams)
             {
-                if (getTestRunMessageValue("teamId").equals(t.getId()))
+                if (getTestRunMessageValue("id").equals(t.getId()))
                 {
                     found = true;
                     break;

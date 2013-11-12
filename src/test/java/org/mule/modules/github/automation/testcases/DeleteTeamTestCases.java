@@ -26,7 +26,7 @@ public class DeleteTeamTestCases extends GitHubTestParent
     {
         initializeTestRunMessage("deleteTeamTestData");
         Team team = runFlowAndGetPayload("createTeam");
-        upsertOnTestRunMessage("teamId", team.getId());
+        upsertOnTestRunMessage("id", team.getId());
     }
 
     @Category({RegressionTests.class, TeamTests.class})

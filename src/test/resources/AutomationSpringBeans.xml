@@ -6,23 +6,23 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="testProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="${GITHUB_CREDENTIALS}"/>
+        <property name="location" value="automation-credentials.properties"/>
     </bean>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="${GITHUB_CREDENTIALS}"/>
+        <property name="location" value="automation-credentials.properties"/>
     </bean>
 
     <bean id="githubRepository" class="org.mule.modules.tests.ConnectorTestUtils" factory-method="generateRandomShortString" />
 
     <util:map id="createTestRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="repository" value-ref="githubRepository" />
+        <entry key="repositoryName" value-ref="githubRepository" />
         <entry key="description" value="Repository for functional tests" />
     </util:map>
 
     <util:map id="forkTestRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="owner" value="${github.owner}" />
-        <entry key="repository" value="${github.repository}" />
+        <entry key="repositoryName" value="${github.repository}" />
     </util:map>
 
     <util:map id="createLabelTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
@@ -487,13 +487,13 @@
     <util:map id="addTeamMemberTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="teamMember" value="${github.userName}"/>
+        <entry key="user" value="${github.userName}"/>
     </util:map>
 
     <util:map id="addTeamRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="repository" value-ref="githubRepository"/>
+        <entry key="repositoryName" value-ref="githubRepository"/>
     </util:map>
 
     <util:map id="createTeamTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
@@ -515,13 +515,13 @@
     <util:map id="getTeamMembersTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="teamMember" value="${github.userName}"/>
+        <entry key="user" value="${github.userName}"/>
     </util:map>
 
     <util:map id="getTeamRepositoriesTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="repository" value-ref="githubRepository"/>
+        <entry key="repositoryName" value-ref="githubRepository"/>
     </util:map>
 
     <util:map id="getTeamsForOrgTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
@@ -537,19 +537,19 @@
     <util:map id="isTeamMemberTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="teamMember" value="${github.userName}"/>
+        <entry key="user" value="${github.userName}"/>
     </util:map>
 
     <util:map id="removeTeamMemberTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="teamMember" value="${github.userName}"/>
+        <entry key="user" value="${github.userName}"/>
     </util:map>
 
     <util:map id="removeTeamRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="repository" value-ref="githubRepository"/>
+        <entry key="repositoryName" value-ref="githubRepository"/>
     </util:map>
 
 </beans>

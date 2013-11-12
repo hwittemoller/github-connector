@@ -6,15 +6,15 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
         http://www.mulesoft.org/schema/mule/github http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd">
 
-    <context:property-placeholder location="${GITHUB_CREDENTIALS}"/>
+    <context:property-placeholder location="automation-credentials.properties"/>
     <github:config connectionUser="${github.userName}" connectionPassword="${github.secret}" scope="${github.scope}" />
 
     <flow name="createTestRepository">
-        <github:create-repository  repositoryName="#[payload.repository]" description="#[payload.description]" />
+        <github:create-repository  repositoryName="#[payload.repositoryName]" description="#[payload.description]" />
     </flow>
 
     <flow name="forkTestRepository">
-        <github:fork-repository owner="#[payload.owner]" repositoryName="#[payload.repository]"/>
+        <github:fork-repository owner="#[payload.owner]" repositoryName="#[payload.repositoryName]"/>
     </flow>
 
     <flow name="getIssues">
@@ -324,7 +324,7 @@
     </flow>
 
    <flow name="getTeam">
-		<github:get-team id="#[payload.teamId]"/>
+		<github:get-team id="#[payload.id]"/>
    </flow>
 
 	<flow name="getTeamsForOrg">
@@ -336,39 +336,39 @@
 	</flow>
 
 	<flow name="editTeam">
-		<github:edit-team id="#[payload.teamId]" teamName="#[payload.updatedTeamName]"/>
+		<github:edit-team id="#[payload.id]" teamName="#[payload.updatedTeamName]"/>
 	</flow>
 
 	<flow name="deleteTeam">
-		<github:delete-team id="#[payload.teamId]"/>
+		<github:delete-team id="#[payload.id]"/>
 	</flow>
 
 	<flow name="getTeamMembers">
-		<github:get-team-members id="#[map-payload:teamId]"/>
+		<github:get-team-members id="#[payload.id]"/>
 	</flow>
 
 	<flow name="isTeamMember">
-		<github:is-team-member id="#[payload.teamId]" user="#[payload.teamMember]"/>
+		<github:is-team-member id="#[payload.id]" user="#[payload.user]"/>
 	</flow>
 
 	<flow name="addTeamMember">
-		<github:add-team-member id="#[payload.teamId]" user="#[payload.teamMember]"/>
+		<github:add-team-member id="#[payload.id]" user="#[payload.user]"/>
 	</flow>
 
 	<flow name="removeTeamMember">
-		<github:remove-team-member id="#[payload.teamId]" user="#[payload.teamMember]"/>
+		<github:remove-team-member id="#[payload.id]" user="#[payload.user]"/>
 	</flow>
 
 	<flow name="getTeamRepositories">
-		<github:get-team-repositories id="#[payload.teamId]"/>
+		<github:get-team-repositories id="#[payload.id]"/>
 	</flow>
 
 	<flow name="addTeamRepository">
-		<github:add-team-repository id="#[payload.teamId]" owner="#[payload.organization]" repositoryName="#[payload.repository]"/>
+		<github:add-team-repository id="#[payload.id]" owner="#[payload.organization]" repositoryName="#[payload.repositoryName]"/>
 	</flow>
 
 	<flow name="removeTeamRepository">
-		<github:remove-team-repository id="#[payload.teamId]" owner="#[payload.organization]" repositoryName="#[payload.repository]"/>
+		<github:remove-team-repository id="#[payload.id]" owner="#[payload.organization]" repositoryName="#[payload.repositoryName]"/>
 	</flow>
 
     <flow name="getRepositories">

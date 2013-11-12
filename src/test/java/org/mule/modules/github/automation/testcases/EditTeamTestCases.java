@@ -30,7 +30,7 @@ public class EditTeamTestCases extends GitHubTestParent
     {
         initializeTestRunMessage("editTeamTestData");
         Team team = runFlowAndGetPayload("createTeam");
-        upsertOnTestRunMessage("teamId", team.getId());
+        upsertOnTestRunMessage("id", team.getId());
     }
 
     @After

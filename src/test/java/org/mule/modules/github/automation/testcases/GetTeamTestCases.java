@@ -29,7 +29,7 @@ public class GetTeamTestCases extends GitHubTestParent
     {
         initializeTestRunMessage("getTeamTestData");
         Team team = runFlowAndGetPayload("createTeam");
-        upsertOnTestRunMessage("teamId", team.getId());
+        upsertOnTestRunMessage("id", team.getId());
     }
 
     @After
