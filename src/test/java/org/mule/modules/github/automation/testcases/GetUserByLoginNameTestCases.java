@@ -38,7 +38,7 @@ public class GetUserByLoginNameTestCases extends GitHubTestParent
         {
             User user = runFlowAndGetPayload("getUserByLoginName");
             assertNotNull(user);
-            assertEquals(getTestRunMessageValue("user"), user.getLogin());
+            assertEquals(getTestRunMessageValue("loginName"), user.getLogin());
 
         } catch (Exception e)
         {

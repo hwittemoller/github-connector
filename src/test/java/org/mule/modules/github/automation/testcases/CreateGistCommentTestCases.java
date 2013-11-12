@@ -47,7 +47,7 @@ public class CreateGistCommentTestCases extends GitHubTestParent
         {
             Comment comment = runFlowAndGetPayload("createGistComment");
             assertNotNull(comment);
-            assertEquals(getTestRunMessageValue("body"), comment.getBody());
+            assertEquals(getTestRunMessageValue("comment"), comment.getBody());
 
         } catch (Exception e)
         {

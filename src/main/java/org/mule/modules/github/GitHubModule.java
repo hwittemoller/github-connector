@@ -2341,7 +2341,7 @@ public class GitHubModule
      *
      * @param owner          the owner of the repository
      * @param repositoryName the name of the repository
-     * @param pullRequestId  the id of pull request
+     * @param id             the id of pull request
      * @param commitId       the id of commit
      * @param body           the body of comment
      * @param path           Relative path of the file to comment on.
@@ -2351,7 +2351,7 @@ public class GitHubModule
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public CommitComment createPullRequestComment(String owner, String repositoryName, int pullRequestId, String commitId, String body, String path, int position, int line) throws IOException
+    public CommitComment createPullRequestComment(String owner, String repositoryName, int id, String commitId, String body, String path, int position, int line) throws IOException
     {
 
         CommitComment commitComment = new CommitComment();
@@ -2361,7 +2361,7 @@ public class GitHubModule
         commitComment.setPosition(position);
         commitComment.setLine(line);
 
-        return getServiceFactory().getPullRequestService().createComment(RepositoryId.create(owner, repositoryName), pullRequestId, commitComment);
+        return getServiceFactory().getPullRequestService().createComment(RepositoryId.create(owner, repositoryName), id, commitComment);
     }
 
     /**
@@ -2371,16 +2371,16 @@ public class GitHubModule
      *
      * @param owner          the owner of the repository
      * @param repositoryName the name of the repository
-     * @param pullRequestId  the id of pull request
+     * @param id             the id of pull request
      * @param commentId      the id of the comment
      * @param body           the body of response
      * @return created comment
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public CommitComment replyToPullRequestComment(String owner, String repositoryName, int pullRequestId, int commentId, String body) throws IOException
+    public CommitComment replyToPullRequestComment(String owner, String repositoryName, int id, int commentId, String body) throws IOException
     {
-        return getServiceFactory().getPullRequestService().replyToComment(RepositoryId.create(owner, repositoryName), pullRequestId, commentId, body);
+        return getServiceFactory().getPullRequestService().replyToComment(RepositoryId.create(owner, repositoryName), id, commentId, body);
     }
 
     /**

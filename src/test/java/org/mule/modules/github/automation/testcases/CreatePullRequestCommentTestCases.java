@@ -32,7 +32,7 @@ public class CreatePullRequestCommentTestCases extends BasePullRequestTestCases
     {
         prepareBranch();
         PullRequest pullRequest = runFlowAndGetPayload("createPullRequest");
-        upsertOnTestRunMessage("pullRequestNumber", pullRequest.getNumber());
+        upsertOnTestRunMessage("id", pullRequest.getNumber());
         List<RepositoryCommit> commits = runFlowAndGetPayload("getPullRequestCommits");
         RepositoryCommit aCommit = commits.get(0);
         upsertOnTestRunMessage("commitId", aCommit.getSha());

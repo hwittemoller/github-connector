@@ -38,7 +38,7 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
     {
         prepareBranch();
         PullRequest pullRequest = runFlowAndGetPayload("createPullRequest");
-        upsertOnTestRunMessage("pullRequestNumber", pullRequest.getNumber());
+        upsertOnTestRunMessage("id", pullRequest.getNumber());
     }
 
     @After

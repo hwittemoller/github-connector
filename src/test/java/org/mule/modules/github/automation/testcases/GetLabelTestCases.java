@@ -45,7 +45,7 @@ public class GetLabelTestCases extends GitHubTestParent
         try
         {
             Label lbl = runFlowAndGetPayload("getLabel");
-            assertEquals(getTestRunMessageValue("labelName"), lbl.getName());
+            assertEquals(getTestRunMessageValue("label"), lbl.getName());
             assertEquals(getTestRunMessageValue("color"), lbl.getColor());
 
         } catch (Exception e)

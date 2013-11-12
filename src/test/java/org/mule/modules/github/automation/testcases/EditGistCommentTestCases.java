@@ -47,7 +47,7 @@ public class EditGistCommentTestCases extends GitHubTestParent
         try
         {
             Comment comment = runFlowAndGetPayload("editGistComment");
-            assertEquals(getTestRunMessageValue("updatedBody"), comment.getBody());
+            assertEquals(getTestRunMessageValue("body"), comment.getBody());
 
         } catch (Exception e)
         {

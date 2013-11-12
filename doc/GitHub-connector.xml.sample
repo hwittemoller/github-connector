@@ -488,12 +488,12 @@
 <!-- END_INCLUDE(github:mergePullRequest) -->
 
 <!-- BEGIN_INCLUDE(github:createPullRequestComment) -->
-        <github:create-pull-request-comment owner="mulesoft" repositoryName="github-connector" pullRequestId="1" commitId="asdf"
+        <github:create-pull-request-comment owner="mulesoft" repositoryName="github-connector" id="1" commitId="asdf"
                 body="body" path="file.txt" position="5" line="1" />
 <!-- END_INCLUDE(github:createPullRequestComment) -->
 
 <!-- BEGIN_INCLUDE(github:replyToPullRequestComment) -->
-        <github:reply-to-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" pullRequestId="1"
+        <github:reply-to-pull-request-comment owner="mulesoft" repositoryName="mule-devkit" id="1"
                                            commentId="1" body="reply" />
 <!-- END_INCLUDE(github:replyToPullRequestComment) -->
 
