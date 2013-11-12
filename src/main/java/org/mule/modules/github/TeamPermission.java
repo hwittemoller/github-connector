@@ -11,7 +11,7 @@
 package org.mule.modules.github;
 
 /**
- * TEam members permissions
+ * Team members permissions
  */
 public enum TeamPermission
 {
