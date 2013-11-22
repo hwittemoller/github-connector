@@ -73,6 +73,16 @@ public class GetPullRequestCommentTestCases extends BasePullRequestTestCases
         {
             List<CommitComment> comments = runFlowAndGetPayload("getPullRequestComments");
             assertTrue(comments.size() > 0);
+            boolean found = false;
+            for (CommitComment comment: comments)
+            {
+                if (getTestRunMessageValue("commentId").equals(comment.getId()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

@@ -50,6 +50,17 @@ public class GetGistCommentsTestCases extends GitHubTestParent
         {
             List<Comment> comments = runFlowAndGetPayload("getGistComments");
             assertTrue(comments.size() > 0);
+            boolean found = false;
+            for (Comment comment: comments)
+            {
+                if (getTestRunMessageValue("commentId").equals(comment.getId()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
+
 
         } catch (Exception e)
         {

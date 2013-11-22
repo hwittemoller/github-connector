@@ -11,12 +11,15 @@
 
 package org.mule.modules.github.automation.testcases;
 
+import java.util.List;
+
 import org.eclipse.egit.github.core.Gist;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 public class DeleteGistTestCases extends GitHubTestParent
@@ -36,6 +39,18 @@ public class DeleteGistTestCases extends GitHubTestParent
         try
         {
             runFlowAndGetPayload("deleteGist");
+
+            List<Gist> gists = runFlowAndGetPayload("getGists");
+            boolean found = false;
+            for (Gist gist: gists)
+            {
+                if (getTestRunMessageValue("gistId").equals(gist.getId()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertFalse(found);
 
         } catch (Exception e)
         {

@@ -39,6 +39,16 @@ public class GetRepositiesForUserTestCases extends GitHubTestParent
         {
             List<Repository> repositories = runFlowAndGetPayload("getRepositoriesForUser");
             assertTrue(repositories.size() > 0);
+            boolean found = false;
+            for (Repository repo: repositories)
+            {
+                if (repository.getName().equals(repo.getName()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
 
         } catch (Exception e)
         {

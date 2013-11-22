@@ -27,10 +27,8 @@ public class GetCommitsTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        if (repository==null)
-            forkTestRepository();
-
-        initializeTestRunMessage("commitsTestData");
+        forkTestRepository();
+        initializeTestRunMessage("getCommitsTestData");
     }
 
     @Test
@@ -49,7 +47,7 @@ public class GetCommitsTestCases extends GitHubTestParent
     }
 
     @Test
-    @Category({SmokeTests.class, RegressionTests.class, CommitTests.class})
+    @Category({RegressionTests.class, CommitTests.class})
     public void testGetCommitsBySha()
     {
 

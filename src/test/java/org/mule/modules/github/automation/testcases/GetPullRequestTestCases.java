@@ -71,7 +71,8 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
         try
         {
             List<PullRequest> pullRequests = runFlowAndGetPayload("getPullRequests");
-            assertTrue(pullRequests.size()>0);
+            assertTrue(pullRequests.size()==1);
+            assertTrue("open".equalsIgnoreCase(pullRequests.get(0).getState()));
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));
@@ -113,7 +114,8 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
         try
         {
             List<RepositoryCommit> commits = runFlowAndGetPayload("getPullRequestCommits");
-            assertTrue(commits.size() > 0);
+            assertTrue(commits.size() == 1);
+            assertTrue(getTestRunMessageValue("owner").equals(commits.get(0).getCommit().getAuthor().getName()) );
 
         } catch (Exception e)
         {
@@ -128,7 +130,8 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
         try
         {
             List<CommitFile> files = runFlowAndGetPayload("getPullRequestFiles");
-            assertTrue(files.size() > 0);
+            assertTrue(files.size() == 1);
+            assertTrue("README.md".equalsIgnoreCase(files.get(0).getFilename()) );
 
         } catch (Exception e)
         {

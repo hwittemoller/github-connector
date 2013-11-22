@@ -11,12 +11,15 @@
 
 package org.mule.modules.github.automation.testcases;
 
+import java.util.List;
+
 import org.eclipse.egit.github.core.Milestone;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 public class DeleteMilestoneTestCases extends GitHubTestParent
@@ -37,6 +40,18 @@ public class DeleteMilestoneTestCases extends GitHubTestParent
         try
         {
             runFlowAndGetPayload("deleteMilestone");
+
+            List<Milestone> milestones = runFlowAndGetPayload("getMilestones");
+            boolean found = false;
+            for (Milestone milestone: milestones)
+            {
+                if (getTestRunMessageValue("number").equals(milestone.getNumber()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertFalse(found);
 
         } catch (Exception e)
         {

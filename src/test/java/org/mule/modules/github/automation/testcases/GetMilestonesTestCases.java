@@ -48,6 +48,16 @@ public class GetMilestonesTestCases extends GitHubTestParent
         {
             List<Milestone> milestones = runFlowAndGetPayload("getMilestones");
             assertTrue(milestones.size()>0);
+            boolean found = false;
+            for (Milestone milestone: milestones)
+            {
+                if (getTestRunMessageValue("number").equals(milestone.getNumber()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
 
         } catch (Exception e)
         {

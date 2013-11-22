@@ -11,12 +11,15 @@
 
 package org.mule.modules.github.automation.testcases;
 
+import java.util.List;
+
 import org.eclipse.egit.github.core.Team;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 public class DeleteTeamTestCases extends GitHubTestParent
@@ -36,6 +39,19 @@ public class DeleteTeamTestCases extends GitHubTestParent
         try
         {
             runFlowAndGetPayload("deleteTeam");
+
+            List<Team> teams = runFlowAndGetPayload("getTeamsForOrg");
+            boolean found = false;
+            for (Team t : teams)
+            {
+                if (getTestRunMessageValue("id").equals(t.getId()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertFalse(found);
+
 
         } catch (Exception e)
         {

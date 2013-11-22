@@ -51,7 +51,6 @@ public class GetTeamMembersTestCases extends GitHubTestParent
         {          
 
         	List<User> members = runFlowAndGetPayload("getTeamMembers");
-            assertNotNull(members);
             assertTrue(members.size() == 1);
 
         } catch (Exception e)

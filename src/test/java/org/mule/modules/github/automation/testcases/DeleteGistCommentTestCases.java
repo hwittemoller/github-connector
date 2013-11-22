@@ -11,6 +11,8 @@
 
 package org.mule.modules.github.automation.testcases;
 
+import java.util.List;
+
 import org.eclipse.egit.github.core.Comment;
 import org.eclipse.egit.github.core.Gist;
 import org.junit.After;
@@ -19,6 +21,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 public class DeleteGistCommentTestCases extends GitHubTestParent
@@ -46,6 +49,18 @@ public class DeleteGistCommentTestCases extends GitHubTestParent
         try
         {
             runFlowAndGetPayload("deleteGistComment");
+
+            List<Comment> comments = runFlowAndGetPayload("getGistComments");
+            boolean found = false;
+            for (Comment comment: comments)
+            {
+                if (getTestRunMessageValue("commentId").equals(comment.getId()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertFalse(found);
 
         } catch (Exception e)
         {

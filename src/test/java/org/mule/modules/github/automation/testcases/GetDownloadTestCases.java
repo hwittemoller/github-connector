@@ -13,6 +13,7 @@ package org.mule.modules.github.automation.testcases;
 
 import org.eclipse.egit.github.core.Download;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
@@ -47,6 +48,7 @@ public class GetDownloadTestCases extends GitHubTestParent
      *  }
      */
     @Test
+    @Ignore
     @Category({RegressionTests.class, DownloadTests.class})
     public void testGetDownload()
     {

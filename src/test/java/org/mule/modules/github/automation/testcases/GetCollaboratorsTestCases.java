@@ -48,8 +48,17 @@ public class GetCollaboratorsTestCases extends GitHubTestParent
         try
         {
             List<User> collaborators = runFlowAndGetPayload("getCollaborators");
-            assertNotNull(collaborators);
             assertTrue(collaborators.size() > 0);
+            boolean found = false;
+            for (User collaborator: collaborators)
+            {
+                if (getTestRunMessageValue("user").equals(collaborator.getLogin()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
 
         } catch (Exception e)
         {

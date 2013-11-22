@@ -11,11 +11,15 @@
 
 package org.mule.modules.github.automation.testcases;
 
+import java.util.List;
+
+import org.eclipse.egit.github.core.Label;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 public class DeleteLabelTestCases extends GitHubTestParent
@@ -36,6 +40,18 @@ public class DeleteLabelTestCases extends GitHubTestParent
         try
         {
             runFlowAndGetPayload("deleteLabel");
+
+            List<Label> labels = runFlowAndGetPayload("getLabels");
+            boolean found = false;
+            for (Label label: labels)
+            {
+                if ( getTestRunMessageValue("label").equals(label.getName()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertFalse(found);
 
         } catch (Exception e)
         {

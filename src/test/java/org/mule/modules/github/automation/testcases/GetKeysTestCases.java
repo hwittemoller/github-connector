@@ -51,6 +51,7 @@ public class GetKeysTestCases extends GitHubTestParent
                 if (getTestRunMessageValue("id").equals(k.getId()))
                 {
                     found = true;
+                    break;
                 }
 
             assertTrue(found);

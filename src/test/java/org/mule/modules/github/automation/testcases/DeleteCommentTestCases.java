@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 public class DeleteCommentTestCases extends GitHubTestParent
@@ -44,6 +45,16 @@ public class DeleteCommentTestCases extends GitHubTestParent
         try
         {
             runFlowAndGetPayload("deleteCommitComment");
+            List<CommitComment> comments = runFlowAndGetPayload("getCommmitComments");
+            boolean found = false;
+            for (CommitComment comment: comments)
+            {
+                if (getTestRunMessageValue("commentId").equals(comment.getId()))
+                {
+                    found = true;
+                }
+            }
+            assertFalse(found);
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

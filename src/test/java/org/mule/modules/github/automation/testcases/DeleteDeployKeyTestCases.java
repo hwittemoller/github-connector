@@ -11,12 +11,16 @@
 
 package org.mule.modules.github.automation.testcases;
 
+import java.util.List;
+
 import org.eclipse.egit.github.core.Key;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class DeleteDeployKeyTestCases extends GitHubTestParent
@@ -38,6 +42,18 @@ public class DeleteDeployKeyTestCases extends GitHubTestParent
         try
         {
             runFlowAndGetPayload("deleteDeployKey");
+
+            List<Key> keys = runFlowAndGetPayload("getDeployKeys");
+            boolean found = false;
+            for (Key k : keys)
+            {
+                if (getTestRunMessageValue("id").equals(k.getId()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertFalse(found);
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

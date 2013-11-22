@@ -41,6 +41,16 @@ public class GetLabelsTestCases extends GitHubTestParent
         {
             List<Label> labels = runFlowAndGetPayload("getLabels");
             assertTrue(labels.size() > 0);
+            boolean found = false;
+            for (Label label: labels)
+            {
+                if ("bug".equalsIgnoreCase(label.getName()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

@@ -47,6 +47,16 @@ public class GetGistsTestCases extends GitHubTestParent
         {
             List<Gist> gists = runFlowAndGetPayload("getGists");
             assertTrue(gists.size() > 0);
+            boolean found = false;
+            for (Gist gist: gists)
+            {
+                if (getTestRunMessageValue("gistId").equals(gist.getId()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
 
         } catch (Exception e)
         {

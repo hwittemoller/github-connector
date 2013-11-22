@@ -53,6 +53,7 @@ public class AddTeamMemberTestCases extends GitHubTestParent
         	List<User> members = runFlowAndGetPayload("getTeamMembers");
             assertNotNull(members);
             assertTrue(members.size() == 1);
+            assertTrue(getTestRunMessageValue("user").equals(members.get(0).getLogin()));
 
         } catch (Exception e)
         {

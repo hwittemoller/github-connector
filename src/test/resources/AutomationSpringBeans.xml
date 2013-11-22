@@ -26,130 +26,136 @@
     </util:map>
 
     <util:map id="createLabelTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="label" value="some-label" />
         <entry key="color" value="f29513" />
     </util:map>
 
     <util:map id="getLabelTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="label" value="some-label" />
         <entry key="color" value="f29513" />
     </util:map>
 
     <util:map id="getLabelsTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
     </util:map>
 
     <util:map id="deleteLabelTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="label" value="some-label" />
         <entry key="color" value="f29513" />
     </util:map>
 
     <util:map id="getWatchedTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="owner" value="${github.owner}" />
         <entry key="repositoryName" value="${github.repository}" />
     </util:map>
 
     <util:map id="getWatchersTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="owner" value="${github.owner}" />
         <entry key="repositoryName" value="${github.repository}" />
     </util:map>
 
     <util:map id="isWatchingTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="owner" value="${github.owner}" />
         <entry key="repositoryName" value="${github.repository}" />
     </util:map>
 
     <util:map id="watchTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="owner" value="${github.owner}" />
         <entry key="repositoryName" value="${github.repository}" />
     </util:map>
 
     <util:map id="unWatchTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="owner" value="${github.owner}" />
         <entry key="repositoryName" value="${github.repository}" />
     </util:map>
 
     <util:map id="addCollaboratorTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="user" value="${github.collaborator}" />
         <entry key="repositoryName" value-ref="githubRepository" />
     </util:map>
 
     <util:map id="getCollaboratorsTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="user" value="${github.collaborator}" />
         <entry key="repositoryName" value-ref="githubRepository" />
     </util:map>
 
 
     <util:map id="isCollaboratorTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="user" value="${github.collaborator}" />
         <entry key="repositoryName" value-ref="githubRepository" />
     </util:map>
 
     <util:map id="removeCollaboratorTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="user" value="${github.collaborator}" />
         <entry key="repositoryName" value-ref="githubRepository" />
     </util:map>
 
     <util:map id="createDeployKeyTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repositoryName" value-ref="githubRepository" />
         <entry key="title" value="test title" />
         <entry key="key" value="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw==" />
     </util:map>
 
     <util:map id="deleteDeployKeyTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repositoryName" value-ref="githubRepository" />
         <entry key="title" value="test title" />
         <entry key="key" value="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw==" />
     </util:map>
 
     <util:map id="editDeployKeyTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repositoryName" value-ref="githubRepository" />
         <entry key="title" value="test title" />
         <entry key="key" value="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw==" />
     </util:map>
 
     <util:map id="getDeployKeysTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repositoryName" value-ref="githubRepository" />
         <entry key="title" value="test title" />
         <entry key="key" value="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw==" />
     </util:map>
 
     <util:map id="getDeployKeyTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repositoryName" value-ref="githubRepository" />
         <entry key="title" value="test title" />
         <entry key="key" value="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBjxppb4IbD7j6yZnP/x8E5QREDIsyOHRoMmMoW+f34gExpRpYj03d4y0zshDRHcq875zfPrCswJH/ANQRatUO8nyHypjltiHKMqPGI0wwuYOmJReM1ioDzD+q27N2nrrfEcshxkCp9v7iPmw1p2PvKgvcEmHmCqKYMh299us0Hgw==" />
     </util:map>
 
-    <util:map id="commitsTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+    <util:map id="getCommitTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="owner" value="${github.user}" />
+        <entry key="repositoryName" value="${github.repository}" />
+        <entry key="body" value="commit comment body" />
+    </util:map>
+
+    <util:map id="getCommitsTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="owner" value="${github.user}" />
         <entry key="repositoryName" value="${github.repository}" />
         <entry key="body" value="commit comment body" />
     </util:map>
 
     <util:map id="createDownloadTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="owner" value="${github.owner}" />
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repositoryName" value-ref="githubRepository" />
     </util:map>
 
@@ -164,11 +170,11 @@
     </util:map>
 
     <util:map id="userTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
     </util:map>
 
     <util:map id="getUserByLoginTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="loginName" value="${github.userName}" />
+        <entry key="loginName" value="${github.user}" />
     </util:map>
     
     <util:map id="updateCurrentUserTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
@@ -251,6 +257,7 @@
     </util:map>
 
     <util:map id="deleteGistTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
+        <entry key="user" value="${github.user}" />
         <entry key="description" value="gist description" />
         <entry key="filename" value="file.txt" />
         <entry key="content" value="gist content" />
@@ -283,7 +290,7 @@
     </util:map>
 
     <util:map id="getGistsTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="description" value="gist description" />
         <entry key="filename" value="file.txt" />
         <entry key="content" value="gist content" />
@@ -308,7 +315,7 @@
     </util:map>
 
     <util:map id="createMilestoneTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="state" value="open" />
         <entry key="title" value="1.0" />
@@ -316,7 +323,7 @@
     </util:map>
 
     <util:map id="deleteMilestoneTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="state" value="open" />
         <entry key="title" value="1.0" />
@@ -324,7 +331,7 @@
     </util:map>
 
     <util:map id="getMilestonesTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="state" value="open" />
         <entry key="title" value="1.0" />
@@ -332,7 +339,7 @@
     </util:map>
 
     <util:map id="getMilestoneTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="state" value="open" />
         <entry key="title" value="1.0" />
@@ -340,18 +347,18 @@
     </util:map>
 
     <util:map id="closeIssueTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
-        <entry key="assignee" value="${github.userName}" />
-        <entry key="owner" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
+        <entry key="assignee" value="${github.user}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="title" value="issue title" />
         <entry key="body" value="issue body" />
     </util:map>
 
     <util:map id="createIssueCommentTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
-        <entry key="assignee" value="${github.userName}" />
-        <entry key="owner" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
+        <entry key="assignee" value="${github.user}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="title" value="issue title" />
         <entry key="body" value="issue body" />
@@ -359,18 +366,18 @@
     </util:map>
 
     <util:map id="createIssueTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
-        <entry key="assignee" value="${github.userName}" />
-        <entry key="owner" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
+        <entry key="assignee" value="${github.user}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="title" value="issue title" />
         <entry key="body" value="issue body" />
     </util:map>
 
     <util:map id="deleteIssueCommentTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
-        <entry key="assignee" value="${github.userName}" />
-        <entry key="owner" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
+        <entry key="assignee" value="${github.user}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="title" value="issue title" />
         <entry key="body" value="issue body" />
@@ -378,9 +385,9 @@
     </util:map>
 
     <util:map id="editIssueCommentTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
-        <entry key="assignee" value="${github.userName}" />
-        <entry key="owner" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
+        <entry key="assignee" value="${github.user}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="title" value="issue title" />
         <entry key="body" value="issue body" />
@@ -389,9 +396,9 @@
     </util:map>
 
     <util:map id="getIssueCommentsTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
-        <entry key="assignee" value="${github.userName}" />
-        <entry key="owner" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
+        <entry key="assignee" value="${github.user}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="title" value="issue title" />
         <entry key="body" value="issue body" />
@@ -399,9 +406,9 @@
     </util:map>
 
     <util:map id="getIssuesTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
-        <entry key="assignee" value="${github.userName}" />
-        <entry key="owner" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
+        <entry key="assignee" value="${github.user}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="title" value="issue title" />
         <entry key="body" value="issue body" />
@@ -409,23 +416,23 @@
     </util:map>
 
     <util:map id="getIssueTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
-        <entry key="assignee" value="${github.userName}" />
-        <entry key="owner" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
+        <entry key="assignee" value="${github.user}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="title" value="issue title" />
         <entry key="body" value="issue body" />
     </util:map>
 
     <util:map id="referenceTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repositoryName" value="${github.repository}" />
         <entry key="referenceName" value="refs/heads/test-branch" />
         <entry key="branch" value="test-branch" />
     </util:map>
 
     <util:map id="pullRequestTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="owner" value="${github.userName}" />
+        <entry key="owner" value="${github.user}" />
         <entry key="repositoryName" value="${github.repository}" />
         <entry key="title" value="Pull Request Title" />
         <entry key="updatedTitle" value="Updated Pull Request Title" />
@@ -460,12 +467,12 @@
     </util:map>
 
     <util:map id="getRepositoriesForUserTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
     </util:map>
 
     <util:map id="getRepositoriesTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
     </util:map>
 
@@ -475,7 +482,7 @@
     </util:map>
 
     <util:map id="createRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
-        <entry key="user" value="${github.userName}" />
+        <entry key="user" value="${github.user}" />
         <entry key="repository" value-ref="githubRepository" />
         <entry key="description" value="this is a cool repo" />
     </util:map>
@@ -495,7 +502,7 @@
     <util:map id="addTeamMemberTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="user" value="${github.userName}"/>
+        <entry key="user" value="${github.user}"/>
     </util:map>
 
     <util:map id="addTeamRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
@@ -523,7 +530,7 @@
     <util:map id="getTeamMembersTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="user" value="${github.userName}"/>
+        <entry key="user" value="${github.user}"/>
     </util:map>
 
     <util:map id="getTeamRepositoriesTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
@@ -545,13 +552,13 @@
     <util:map id="isTeamMemberTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="user" value="${github.userName}"/>
+        <entry key="user" value="${github.user}"/>
     </util:map>
 
     <util:map id="removeTeamMemberTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
         <entry key="teamName" value="${github.team}}"/>
-        <entry key="user" value="${github.userName}"/>
+        <entry key="user" value="${github.user}"/>
     </util:map>
 
     <util:map id="removeTeamRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
