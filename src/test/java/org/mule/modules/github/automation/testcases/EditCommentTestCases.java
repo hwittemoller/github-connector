@@ -30,7 +30,7 @@ public class EditCommentTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         forkTestRepository();
-        initializeTestRunMessage("commitsTestData");
+        initializeTestRunMessage("getCommitTestData");
         List<RepositoryCommit> commits = runFlowAndGetPayload("getCommitsBySha");
         upsertOnTestRunMessage("sha", commits.get(0).getSha());
         CommitComment comment = runFlowAndGetPayload("addComment");

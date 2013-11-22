@@ -29,7 +29,7 @@ public class DeleteCommentTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         forkTestRepository();
-        initializeTestRunMessage("commitsTestData");
+        initializeTestRunMessage("getCommitsTestData");
         List<RepositoryCommit> commits = runFlowAndGetPayload("getCommitsBySha");
         upsertOnTestRunMessage("sha", commits.get(0).getSha());
         CommitComment comment = runFlowAndGetPayload("addComment");
