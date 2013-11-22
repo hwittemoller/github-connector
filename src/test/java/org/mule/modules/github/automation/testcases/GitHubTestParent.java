@@ -40,7 +40,7 @@ public class GitHubTestParent extends ConnectorTestCase
     {
         GitHubModule github = new GitHubModule();
         Properties props = getBeanFromContext("testProps");
-        String user = props.getProperty("github.userName");
+        String user = props.getProperty("github.user");
         String pass = props.getProperty("github.secret");
         String repoName = props.getProperty("github.repository");
         String scope = props.getProperty("github.scope");
@@ -78,7 +78,7 @@ public class GitHubTestParent extends ConnectorTestCase
     {
         GitHubModule github = new GitHubModule();
         Properties props = getBeanFromContext("testProps");
-        String user = props.getProperty("github.userName");
+        String user = props.getProperty("github.user");
         String pass = props.getProperty("github.secret");
         String scope = props.getProperty("github.scope");
         github.setServiceFactory(new ServiceFactory(user, pass, scope));
@@ -90,7 +90,7 @@ public class GitHubTestParent extends ConnectorTestCase
     {
         GitHubModule github = new GitHubModule();
         Properties props = getBeanFromContext("testProps");
-        String user = props.getProperty("github.userName");
+        String user = props.getProperty("github.user");
         String pass = props.getProperty("github.secret");
         String scope = props.getProperty("github.scope");
         github.setServiceFactory(new ServiceFactory(user, pass, scope));

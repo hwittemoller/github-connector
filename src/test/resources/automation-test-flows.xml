@@ -7,7 +7,7 @@
         http://www.mulesoft.org/schema/mule/github http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd">
 
     <context:property-placeholder location="${GITHUB_CREDENTIALS}"/>
-    <github:config connectionUser="${github.userName}" connectionPassword="${github.secret}" scope="${github.scope}" />
+    <github:config connectionUser="${github.user}" connectionPassword="${github.secret}" scope="${github.scope}" />
 
     <flow name="createTestRepository">
         <github:create-repository  repositoryName="#[payload.repositoryName]" description="#[payload.description]" />
