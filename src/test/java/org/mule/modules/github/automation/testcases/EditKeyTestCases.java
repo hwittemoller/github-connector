@@ -39,7 +39,7 @@ public class EditKeyTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, UserTests.class})
-    public void editKey()
+    public void testEditKey()
     {
         try
         {

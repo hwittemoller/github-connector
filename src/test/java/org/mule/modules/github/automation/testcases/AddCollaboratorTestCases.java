@@ -37,7 +37,7 @@ public class AddCollaboratorTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, CollaboratorTests.class})
-    public void addCollaborator()
+    public void testAddCollaborator()
     {
 
         try

@@ -24,7 +24,7 @@ public class GetCurrentUserTestCases extends GitHubTestParent
 {
     @Category({RegressionTests.class, UserTests.class})
     @Test
-    public void getCurrentUser()
+    public void testGetCurrentUser()
     {
         try
         {

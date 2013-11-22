@@ -41,7 +41,7 @@ public class GetDeployKeyTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, DeployKeyTests.class})
-    public void getDeployKey()
+    public void testGetDeployKey()
     {
 
         try

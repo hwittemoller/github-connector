@@ -32,7 +32,7 @@ public class DeleteDeployKeyTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, DeployKeyTests.class})
-    public void deleteDeployKey()
+    public void testDeleteDeployKey()
     {
 
         try

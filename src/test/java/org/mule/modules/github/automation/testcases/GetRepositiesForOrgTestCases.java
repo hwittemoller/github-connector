@@ -32,7 +32,7 @@ public class GetRepositiesForOrgTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, RepositoryTests.class})
     @Test
-    public void getOrgRepositories()
+    public void testGetRepositiesForOrg()
     {
         try
         {

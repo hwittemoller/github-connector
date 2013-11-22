@@ -39,7 +39,7 @@ public class UnStarGistTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, GistTests.class})
     @Test
-    public void unstarGist()
+    public void testUnStarGist()
     {
         try
         {

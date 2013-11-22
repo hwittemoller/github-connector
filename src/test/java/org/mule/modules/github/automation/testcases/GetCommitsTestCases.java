@@ -35,7 +35,7 @@ public class GetCommitsTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, CommitTests.class})
-    public void getCommits()
+    public void testGetCommits()
     {
 
         try
@@ -50,7 +50,7 @@ public class GetCommitsTestCases extends GitHubTestParent
 
     @Test
     @Category({SmokeTests.class, RegressionTests.class, CommitTests.class})
-    public void getCommitsBySha()
+    public void testGetCommitsBySha()
     {
 
         try

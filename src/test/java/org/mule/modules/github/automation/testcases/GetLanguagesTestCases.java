@@ -31,7 +31,7 @@ public class GetLanguagesTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, RepositoryTests.class})
     @Test
-    public void getLanguages()
+    public void testGetLanguages()
     {
         try
         {

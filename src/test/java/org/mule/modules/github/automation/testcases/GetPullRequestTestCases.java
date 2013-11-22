@@ -50,7 +50,7 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void getPullRequest()
+    public void testGetPullRequest()
     {
         try
         {
@@ -66,7 +66,7 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void getPullRequests()
+    public void testGetPullRequests()
     {
         try
         {
@@ -80,7 +80,7 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void pagePullRequests()
+    public void testPagePullRequests()
     {
         try
         {
@@ -94,7 +94,7 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void editPullRequest()
+    public void testEditPullRequest()
     {
         try
         {
@@ -108,7 +108,7 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void getPullRequestCommits()
+    public void testGetPullRequestCommits()
     {
         try
         {
@@ -123,7 +123,7 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void getPullRequestFiles()
+    public void testGetPullRequestFiles()
     {
         try
         {
@@ -138,7 +138,7 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void isPullRequestMerged()
+    public void testIsPullRequestMerged()
     {
         try
         {
@@ -153,7 +153,7 @@ public class GetPullRequestTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void mergePullRequest()
+    public void testMergePullRequest()
     {
         try
         {

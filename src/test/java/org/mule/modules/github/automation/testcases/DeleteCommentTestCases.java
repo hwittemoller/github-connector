@@ -38,7 +38,7 @@ public class DeleteCommentTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, CommitTests.class})
-    public void deleteComment()
+    public void testDeleteComment()
     {
 
         try

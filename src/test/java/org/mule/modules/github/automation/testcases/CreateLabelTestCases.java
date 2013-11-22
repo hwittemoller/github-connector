@@ -39,7 +39,7 @@ public class CreateLabelTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, LabelTests.class})
     @Test
-    public void createLabel()
+    public void testCreateLabel()
     {
         try
         {

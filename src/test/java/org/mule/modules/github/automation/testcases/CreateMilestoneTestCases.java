@@ -40,7 +40,7 @@ public class CreateMilestoneTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, MilestoneTests.class})
     @Test
-    public void createMilestone()
+    public void testCreateMilestone()
     {
         try
         {

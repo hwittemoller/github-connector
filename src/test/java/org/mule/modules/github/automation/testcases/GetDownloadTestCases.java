@@ -48,7 +48,7 @@ public class GetDownloadTestCases extends GitHubTestParent
      */
     @Test
     @Category({RegressionTests.class, DownloadTests.class})
-    public void getDownload()
+    public void testGetDownload()
     {
         try
         {

@@ -36,7 +36,7 @@ public class GetWatchedTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, WatcherTests.class})
     @Test
-    public void getWatched()
+    public void testGetWatched()
     {
         try
         {

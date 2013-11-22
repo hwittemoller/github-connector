@@ -41,7 +41,7 @@ public class CreatePullRequestCommentTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void createPullRequestComment()
+    public void testCreatePullRequestComment()
     {
         try
         {

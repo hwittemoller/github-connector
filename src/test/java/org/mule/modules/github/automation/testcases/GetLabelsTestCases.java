@@ -35,7 +35,7 @@ public class GetLabelsTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, LabelTests.class})
     @Test
-    public void getLabels()
+    public void testGetLabels()
     {
         try
         {

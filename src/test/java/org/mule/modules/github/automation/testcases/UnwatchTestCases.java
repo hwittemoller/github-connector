@@ -32,7 +32,7 @@ public class UnwatchTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, WatcherTests.class})
     @Test
-    public void unwatch()
+    public void testUnwatch()
     {
         try
         {

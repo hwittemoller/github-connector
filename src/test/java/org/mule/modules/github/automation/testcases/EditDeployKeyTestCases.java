@@ -40,7 +40,7 @@ public class EditDeployKeyTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, DeployKeyTests.class})
-    public void editDeployKey()
+    public void testEditDeployKey()
     {
 
         try

@@ -49,7 +49,7 @@ public class CreateDownloadTestCases extends GitHubTestParent
      */
     @Test
     @Category({RegressionTests.class, DownloadTests.class})
-    public void createDownload() throws Exception
+    public void testCreateDownload() throws Exception
     {
         try
         {

@@ -45,7 +45,7 @@ public class GetTeamMembersTestCases extends GitHubTestParent
 
 	@Category({RegressionTests.class, TeamTests.class})
     @Test
-    public void getTeamMembers()
+    public void testGetTeamMembers()
     {
         try
         {          

@@ -38,7 +38,7 @@ public class CreateKeyTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, UserTests.class})
-    public void createKey()
+    public void testCreateKey()
     {
 
         try

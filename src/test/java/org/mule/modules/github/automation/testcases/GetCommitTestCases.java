@@ -37,7 +37,7 @@ public class GetCommitTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, CommitTests.class})
-    public void getCommit()
+    public void testGetCommit()
     {
 
         try

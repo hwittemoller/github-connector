@@ -52,7 +52,7 @@ public class GetPullRequestCommentTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void getPullRequestComment()
+    public void testGetPullRequestComment()
     {
         try
         {
@@ -67,7 +67,7 @@ public class GetPullRequestCommentTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void getPullRequestComments()
+    public void testGetPullRequestComments()
     {
         try
         {
@@ -81,7 +81,7 @@ public class GetPullRequestCommentTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void pagePullRequestComments()
+    public void testPagePullRequestComments()
     {
         try
         {
@@ -95,7 +95,7 @@ public class GetPullRequestCommentTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void editPullRequestComment()
+    public void testEditPullRequestComment()
     {
         try
         {
@@ -109,7 +109,7 @@ public class GetPullRequestCommentTestCases extends BasePullRequestTestCases
 
     @Category({RegressionTests.class, PullRequestTests.class})
     @Test
-    public void deletePullRequestComment()
+    public void testDeletePullRequestComment()
     {
         try
         {

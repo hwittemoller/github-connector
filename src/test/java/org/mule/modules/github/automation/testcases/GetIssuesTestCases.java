@@ -35,7 +35,7 @@ public class GetIssuesTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, IssueTests.class})
     @Test
-    public void getIssues()
+    public void testGetIssues()
     {
         try
         {
@@ -61,7 +61,7 @@ public class GetIssuesTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, IssueTests.class})
     @Test
-    public void getIssuesCretedAfter()
+    public void testGetIssuesCretedAfter()
     {
         try
         {
@@ -86,7 +86,7 @@ public class GetIssuesTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, IssueTests.class})
     @Test
-    public void getIssuesSinceNumber()
+    public void testGetIssuesSinceNumber()
     {
         try
         {

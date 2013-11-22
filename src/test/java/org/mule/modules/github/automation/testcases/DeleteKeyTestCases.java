@@ -31,7 +31,7 @@ public class DeleteKeyTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, UserTests.class})
-    public void deleteKey()
+    public void testDeleteKey()
     {
         try
         {

@@ -41,7 +41,7 @@ public class DeleteGistCommentTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, GistTests.class})
     @Test
-    public void deleteGistComment()
+    public void testDeleteGistComment()
     {
         try
         {

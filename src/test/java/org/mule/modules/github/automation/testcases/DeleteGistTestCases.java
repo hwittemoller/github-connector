@@ -31,7 +31,7 @@ public class DeleteGistTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, GistTests.class})
     @Test
-    public void forkGist()
+    public void testDeleteGist()
     {
         try
         {

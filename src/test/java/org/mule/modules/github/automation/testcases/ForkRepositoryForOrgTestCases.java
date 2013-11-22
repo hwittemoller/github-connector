@@ -38,7 +38,7 @@ public class ForkRepositoryForOrgTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, RepositoryTests.class})
     @Test
-    public void forkRepositoryForOrg()
+    public void testForkRepositoryForOrg()
     {
         try
         {

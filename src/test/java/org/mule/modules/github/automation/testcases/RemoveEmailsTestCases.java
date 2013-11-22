@@ -30,7 +30,7 @@ public class RemoveEmailsTestCases extends GitHubTestParent
     
     @Category({RegressionTests.class, UserTests.class})
     @Test
-    public void getEmails()
+    public void testRemoveEmails()
     {
         try
         {

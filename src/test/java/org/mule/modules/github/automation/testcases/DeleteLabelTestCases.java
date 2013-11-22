@@ -31,7 +31,7 @@ public class DeleteLabelTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, LabelTests.class})
     @Test
-    public void deleteLabel()
+    public void testDeleteLabel()
     {
         try
         {

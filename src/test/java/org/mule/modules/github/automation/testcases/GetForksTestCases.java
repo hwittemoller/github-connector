@@ -32,7 +32,7 @@ public class GetForksTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, RepositoryTests.class})
     @Test
-    public void getForks()
+    public void testGetForks()
     {
         try
         {

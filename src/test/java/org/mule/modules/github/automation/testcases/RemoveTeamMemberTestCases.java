@@ -44,7 +44,7 @@ public class RemoveTeamMemberTestCases extends GitHubTestParent
 
 	@Category({RegressionTests.class, TeamTests.class})
     @Test
-    public void removeTeamMember()
+    public void testRemoveTeamMember()
     {
         try
         {          

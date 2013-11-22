@@ -37,7 +37,7 @@ public class FollowTestCases extends GitHubTestParent
 
 	@Category({RegressionTests.class, UserTests.class})
     @Test
-    public void follow()
+    public void testFollow()
     {
         try
         {

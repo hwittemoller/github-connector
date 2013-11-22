@@ -46,7 +46,7 @@ public class EditCommentTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, CommitTests.class})
-    public void editComment()
+    public void testEditComment()
     {
 
         try

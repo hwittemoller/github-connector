@@ -38,7 +38,7 @@ public class IsFollowingTestCases extends GitHubTestParent
 
 	@Category({RegressionTests.class, UserTests.class})
     @Test
-    public void isFollowing()
+    public void testIsFollowing()
     {
         try
         {          

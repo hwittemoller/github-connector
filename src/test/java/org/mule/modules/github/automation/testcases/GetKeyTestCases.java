@@ -39,7 +39,7 @@ public class GetKeyTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, UserTests.class})
-    public void getKey()
+    public void testGetKey()
     {
         try
         {

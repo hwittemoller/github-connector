@@ -38,7 +38,7 @@ public class GetIssueCommentsTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, IssueTests.class})
     @Test
-    public void getIssueComments()
+    public void testGetIssueComments()
     {
         try
         {

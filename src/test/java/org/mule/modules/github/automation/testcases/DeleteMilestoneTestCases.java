@@ -32,7 +32,7 @@ public class DeleteMilestoneTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, MilestoneTests.class})
     @Test
-    public void deleteMilestone()
+    public void testDeleteMilestone()
     {
         try
         {

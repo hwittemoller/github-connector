@@ -31,7 +31,7 @@ public class RemoveCollaboratorTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, CollaboratorTests.class})
-    public void removeCollaborator()
+    public void testRemoveCollaborator()
     {
 
         try

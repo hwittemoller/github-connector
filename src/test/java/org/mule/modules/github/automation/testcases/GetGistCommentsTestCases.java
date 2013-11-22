@@ -44,7 +44,7 @@ public class GetGistCommentsTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, GistTests.class})
     @Test
-    public void getGistComments()
+    public void testGetGistComments()
     {
         try
         {

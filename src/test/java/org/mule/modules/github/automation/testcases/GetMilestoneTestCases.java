@@ -41,7 +41,7 @@ public class GetMilestoneTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, MilestoneTests.class})
     @Test
-    public void getMilestone()
+    public void testGetMilestone()
     {
         try
         {

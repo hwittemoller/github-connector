@@ -37,7 +37,7 @@ public class UnFollowTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, UserTests.class})
     @Test
-    public void unfollow()
+    public void testUnFollow()
     {
         try
         {

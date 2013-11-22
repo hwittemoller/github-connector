@@ -37,7 +37,7 @@ public class ForkGistTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, GistTests.class})
     @Test
-    public void forkGist()
+    public void testForkGist()
     {
         try
         {

@@ -41,7 +41,7 @@ public class GetTeamsForOrgTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, TeamTests.class})
     @Test
-    public void getTeamsForOrg()
+    public void testGetTeamsForOrg()
     {
         try
         {

@@ -38,7 +38,7 @@ public class IsCollaboratorTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, CollaboratorTests.class})
-    public void isCollaborator()
+    public void testIsCollaborator()
     {
 
         try

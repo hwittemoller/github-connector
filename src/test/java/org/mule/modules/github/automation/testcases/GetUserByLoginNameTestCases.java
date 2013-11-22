@@ -32,7 +32,7 @@ public class GetUserByLoginNameTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, UserTests.class})
     @Test
-    public void getUserByLoginName()
+    public void testGetUserByLoginName()
     {
         try
         {

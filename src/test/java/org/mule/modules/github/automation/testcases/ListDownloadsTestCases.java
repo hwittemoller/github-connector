@@ -49,7 +49,7 @@ public class ListDownloadsTestCases extends GitHubTestParent
      */
     @Test
     @Category({RegressionTests.class, DownloadTests.class})
-    public void listDownloads()
+    public void testListDownloads()
     {
         try
         {

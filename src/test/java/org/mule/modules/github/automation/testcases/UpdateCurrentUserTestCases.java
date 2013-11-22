@@ -31,7 +31,7 @@ public class UpdateCurrentUserTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, UserTests.class})
     @Test
-    public void updateCurrentUser()
+    public void testUpdateCurrentUser()
     {
         try
         {

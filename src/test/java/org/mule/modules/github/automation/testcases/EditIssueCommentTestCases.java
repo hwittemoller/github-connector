@@ -36,7 +36,7 @@ public class EditIssueCommentTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, IssueTests.class})
     @Test
-    public void editIssueComment()
+    public void testEditIssueComment()
     {
         try
         {

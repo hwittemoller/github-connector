@@ -49,7 +49,7 @@ public class GetCommentTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, CommitTests.class})
-    public void getComment()
+    public void testGetComment()
     {
 
         try
@@ -65,7 +65,7 @@ public class GetCommentTestCases extends GitHubTestParent
 
     @Test
     @Category({RegressionTests.class, CommitTests.class})
-    public void getComments()
+    public void testGetComments()
     {
 
         try

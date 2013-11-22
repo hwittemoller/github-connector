@@ -39,7 +39,7 @@ public class AddEmailsTestCases extends GitHubTestParent
     
     @Category({RegressionTests.class, UserTests.class})
     @Test
-    public void addEmails()
+    public void testAddEmails()
     {
         try
         {
