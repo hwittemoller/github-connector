@@ -28,7 +28,7 @@ public class CloseIssueTestCases extends GitHubTestParent
         createTestRepository();
         initializeTestRunMessage("closeIssueTestData");
         Issue issue = runFlowAndGetPayload("createIssue");
-        upsertOnTestRunMessage("issueId", issue.getNumber());
+        upsertOnTestRunMessage("issueNumber", issue.getNumber());
     }
 
 

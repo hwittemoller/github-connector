@@ -19,9 +19,8 @@ import org.mule.modules.github.automation.testcases.AddCommentTestCases;
 import org.mule.modules.github.automation.testcases.AddEmailsTestCases;
 import org.mule.modules.github.automation.testcases.AddTeamMemberTestCases;
 import org.mule.modules.github.automation.testcases.AddTeamRepositoryTestCases;
-import org.mule.modules.github.automation.testcases.CreateGistCommentTestCases;
 import org.mule.modules.github.automation.testcases.CreateDeployKeyTestCases;
-import org.mule.modules.github.automation.testcases.CreateDownloadTestCases;
+import org.mule.modules.github.automation.testcases.CreateGistCommentTestCases;
 import org.mule.modules.github.automation.testcases.CreateGistTestCases;
 import org.mule.modules.github.automation.testcases.CreateIssueTestCases;
 import org.mule.modules.github.automation.testcases.CreateKeyTestCases;
@@ -49,7 +48,7 @@ import org.mule.modules.github.automation.testcases.GetCommitTestCases;
 import org.mule.modules.github.automation.testcases.GetCommitsTestCases;
 import org.mule.modules.github.automation.testcases.GetCurrentUserTestCases;
 import org.mule.modules.github.automation.testcases.GetDeployKeyTestCases;
-import org.mule.modules.github.automation.testcases.GetDownloadTestCases;
+import org.mule.modules.github.automation.testcases.GetDownloadsTestCases;
 import org.mule.modules.github.automation.testcases.GetEmailsTestCases;
 import org.mule.modules.github.automation.testcases.GetFollowersTestCases;
 import org.mule.modules.github.automation.testcases.GetFollowingTestCases;
@@ -71,7 +70,6 @@ import org.mule.modules.github.automation.testcases.GetWatchersTestCases;
 import org.mule.modules.github.automation.testcases.IsCollaboratorTestCases;
 import org.mule.modules.github.automation.testcases.IsFollowingTestCases;
 import org.mule.modules.github.automation.testcases.IsWatchingTestCases;
-import org.mule.modules.github.automation.testcases.ListDownloadsTestCases;
 import org.mule.modules.github.automation.testcases.RemoveCollaboratorTestCases;
 import org.mule.modules.github.automation.testcases.RemoveEmailsTestCases;
 import org.mule.modules.github.automation.testcases.RemoveTeamMemberTestCases;
@@ -86,7 +84,7 @@ import org.mule.modules.github.automation.testcases.WatchTestCases;
 @Suite.SuiteClasses({AddCollaboratorTestCases.class, GetCollaboratorsTestCases.class, IsCollaboratorTestCases.class, RemoveCollaboratorTestCases.class,
         AddCommentTestCases.class, DeleteCommentTestCases.class, EditCommentTestCases.class, GetCommentTestCases.class,
         GetCommitsTestCases.class, GetCommitTestCases.class, CreateDeployKeyTestCases.class,DeleteDeployKeyTestCases.class,
-        EditDeployKeyTestCases.class,GetDeployKeyTestCases.class, CreateDownloadTestCases.class, GetDownloadTestCases.class, ListDownloadsTestCases.class,
+        EditDeployKeyTestCases.class, GetDeployKeyTestCases.class, GetDownloadsTestCases.class,
         CreateGistCommentTestCases.class,CreateGistTestCases.class,DeleteGistTestCases.class,ForkGistTestCases.class,
         GetGistCommentTestCases.class,GetGistTestCases.class,StarGistTestCases.class,
         CreateGistCommentTestCases.class, CreateIssueTestCases.class, GetGistCommentTestCases.class, GetIssueTestCases.class,

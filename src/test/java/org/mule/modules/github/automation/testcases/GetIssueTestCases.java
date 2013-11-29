@@ -29,7 +29,7 @@ public class GetIssueTestCases extends GitHubTestParent
         createTestRepository();
         initializeTestRunMessage("getIssueTestData");
         Issue issue = runFlowAndGetPayload("createIssue");
-        upsertOnTestRunMessage("issueId", issue.getNumber());
+        upsertOnTestRunMessage("issueNumber", issue.getNumber());
     }
 
     @Category({RegressionTests.class, IssueTests.class})

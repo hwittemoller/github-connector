@@ -32,7 +32,7 @@ public class CreateRepositoryTestCases extends GitHubTestParent
     @After
     public void tearDown() throws Exception
     {
-        deleteRepository((String)getTestRunMessageValue("user"), (String)getTestRunMessageValue("repository"));
+        deleteRepository((String)getTestRunMessageValue("owner"), (String)getTestRunMessageValue("repository"));
         Thread.sleep(10000L);
     }
 

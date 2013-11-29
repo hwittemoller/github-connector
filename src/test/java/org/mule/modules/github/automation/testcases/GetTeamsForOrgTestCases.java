@@ -45,7 +45,7 @@ public class GetTeamsForOrgTestCases extends GitHubTestParent
     {
         try
         {
-        	List<Team> teams = runFlowAndGetPayload("getTeamsForOrg");
+        	List<Team> teams = runFlowAndGetPayload("getTeams");
             assertTrue(teams.size() > 0);
             boolean found = false;
             for (Team t : teams)

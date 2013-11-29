@@ -22,15 +22,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-public class CreateIssueCommentTestCases extends GitHubTestParent
+public class CreateCommentTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("createIssueCommentTestData");
+        initializeTestRunMessage("createCommentTestData");
         Issue issue = runFlowAndGetPayload("createIssue");
-        upsertOnTestRunMessage("issueId", issue.getNumber());
+        upsertOnTestRunMessage("issueNumber", issue.getNumber());
     }
 
     @Category({RegressionTests.class, IssueTests.class})

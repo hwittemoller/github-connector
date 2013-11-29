@@ -161,7 +161,7 @@ public class GitHubModuleTest
         when(issueService.getIssues(USER, REPOSITORY, Collections.<String, String>emptyMap())).thenReturn(issues);
         when(issue1.getCreatedAt()).thenReturn(new Date(System.currentTimeMillis() - 10 * 1000 * 60));
         when(issue2.getCreatedAt()).thenReturn(new Date());
-        assertEquals(Arrays.asList(issue2), gitHubModule.getIssuesCretedAfter(USER, REPOSITORY, 1));
+        assertEquals(Arrays.asList(issue2), gitHubModule.getIssuesCreatedAfter(USER, REPOSITORY, 1));
     }
 
     @Test
@@ -331,7 +331,7 @@ public class GitHubModuleTest
     {
         List<Team> teams = Arrays.asList(team1, team2);
         when(teamService.getTeams(ORGANIZATION)).thenReturn(teams);
-        assertEquals(teams, gitHubModule.getTeamsForOrg(ORGANIZATION));
+        assertEquals(teams, gitHubModule.getTeams(ORGANIZATION));
     }
 
     @Test
@@ -558,7 +558,7 @@ public class GitHubModuleTest
         Download download = mock(Download.class);
         List<Download> downloads = Arrays.asList(download);
         when(downloadService.getDownloads(eq(new RepositoryId("owner", "name")))).thenReturn(downloads);
-        assertEquals(downloads, gitHubModule.listDownloadsForRepository("owner", "name"));
+        assertEquals(downloads, gitHubModule.getDownloads("owner", "name"));
     }
 
     @Test

@@ -29,9 +29,9 @@ public class DeleteIssueCommentTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         createTestRepository();
-        initializeTestRunMessage("deleteIssueCommentTestData");
+        initializeTestRunMessage("deleteCommentTestData");
         Issue issue = runFlowAndGetPayload("createIssue");
-        upsertOnTestRunMessage("issueId", issue.getNumber());
+        upsertOnTestRunMessage("issueNumber", issue.getNumber());
         Comment comment = runFlowAndGetPayload("createComment");
         upsertOnTestRunMessage("commentId", comment.getId());
     }

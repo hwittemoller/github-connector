@@ -19,41 +19,25 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-public class ListDownloadsTestCases extends GitHubTestParent
+public class GetDownloadsTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("listDownloadsTestData");
+        initializeTestRunMessage("getDownloadsTestData");
     }
 
-    /**
-     *  Part of downloads API does not work anymore on GitHub. GitHub suggests using releases API instead (see below)
-     *  But releases API is not yet stable and is not implemented in Mylyn 2.1.5
-     *
-     *  POST /repos/mule-tester/github-connector/downloads HTTP/1.1
-     *  {
-     *  "name": "new_file.jpg",
-     *  "size": 114034,
-     *  "description": "Latest release",
-     *  "content_type": "text/plain"
-     *  }
-     *
-     *  HTTP/1.1 406 Not Acceptable
-     *  {
-     *  "message": "Cannot create downloads.  Use releases instead.",
-     *  "documentation_url": "http://developer.github.com/v3"
-     *  }
-     */
     @Test
     @Category({RegressionTests.class, DownloadTests.class})
-    public void testListDownloads()
+    public void testGetDownloads()
     {
         try
         {
-            List<Download> downloads = runFlowAndGetPayload("listDownloadsForRepository");
+            List<Download> downloads = runFlowAndGetPayload("getDownloads");
+            assertNotNull(downloads);
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

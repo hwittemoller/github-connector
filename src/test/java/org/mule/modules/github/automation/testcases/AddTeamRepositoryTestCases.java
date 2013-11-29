@@ -38,7 +38,7 @@ public class AddTeamRepositoryTestCases extends GitHubTestParent
     public void tearDown() throws Exception
     {
         runFlowAndGetPayload("deleteTeam");
-        deleteRepository((String)getTestRunMessageValue("organization"), (String)getTestRunMessageValue("repositoryName"));
+        deleteRepository((String)getTestRunMessageValue("organization"), (String)getTestRunMessageValue("repository"));
         Thread.sleep(10000L);
     }
 

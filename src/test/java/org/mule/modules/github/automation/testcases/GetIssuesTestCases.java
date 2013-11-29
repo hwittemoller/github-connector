@@ -30,7 +30,7 @@ public class GetIssuesTestCases extends GitHubTestParent
         createTestRepository();
         initializeTestRunMessage("getIssuesTestData");
         Issue issue = runFlowAndGetPayload("createIssue");
-        upsertOnTestRunMessage("issueId", issue.getNumber());
+        upsertOnTestRunMessage("issueNumber", issue.getNumber());
     }
 
     @Category({RegressionTests.class, IssueTests.class})
@@ -44,7 +44,7 @@ public class GetIssuesTestCases extends GitHubTestParent
             boolean found = false;
             for (Issue i : issues)
             {
-                if (getTestRunMessageValue("issueId").equals(i.getNumber()))
+                if (getTestRunMessageValue("issueNumber").equals(i.getNumber()))
                 {
                     found = true;
                     break;
@@ -61,16 +61,16 @@ public class GetIssuesTestCases extends GitHubTestParent
 
     @Category({RegressionTests.class, IssueTests.class})
     @Test
-    public void testGetIssuesCretedAfter()
+    public void testGetIssuesCreatedAfter()
     {
         try
         {
-            List<Issue> issues = runFlowAndGetPayload("getIssuesCretedAfter");
+            List<Issue> issues = runFlowAndGetPayload("getIssuesCreatedAfter");
             assertTrue(issues.size()>0);
             boolean found = false;
             for (Issue i : issues)
             {
-                if (getTestRunMessageValue("issueId").equals(i.getNumber()))
+                if (getTestRunMessageValue("issueNumber").equals(i.getNumber()))
                 {
                     found = true;
                     break;
@@ -95,7 +95,7 @@ public class GetIssuesTestCases extends GitHubTestParent
             boolean found = false;
             for (Issue i : issues)
             {
-                if (getTestRunMessageValue("issueId").equals(i.getNumber()))
+                if (getTestRunMessageValue("issueNumber").equals(i.getNumber()))
                 {
                     found = true;
                     break;

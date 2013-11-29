@@ -14,14 +14,12 @@ package org.mule.modules.github.automation;
 import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.mule.modules.github.automation.testcases.CreateDownloadTestCases;
 import org.mule.modules.github.automation.testcases.DownloadTests;
-import org.mule.modules.github.automation.testcases.GetDownloadTestCases;
-import org.mule.modules.github.automation.testcases.ListDownloadsTestCases;
+import org.mule.modules.github.automation.testcases.GetDownloadsTestCases;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(DownloadTests.class)
-@Suite.SuiteClasses({CreateDownloadTestCases.class, GetDownloadTestCases.class, ListDownloadsTestCases.class})
+@Suite.SuiteClasses({GetDownloadsTestCases.class})
 public class DownloadTestSuite
 {
 }

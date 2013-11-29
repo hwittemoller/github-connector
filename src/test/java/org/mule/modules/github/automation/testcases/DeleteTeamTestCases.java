@@ -40,7 +40,7 @@ public class DeleteTeamTestCases extends GitHubTestParent
         {
             runFlowAndGetPayload("deleteTeam");
 
-            List<Team> teams = runFlowAndGetPayload("getTeamsForOrg");
+            List<Team> teams = runFlowAndGetPayload("getTeams");
             boolean found = false;
             for (Team t : teams)
             {

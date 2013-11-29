@@ -46,7 +46,7 @@ public class GetTeamTestCases extends GitHubTestParent
         {
             Team team = runFlowAndGetPayload("getTeam");
             assertNotNull(team);            
-            assertEquals(getTestRunMessageValue("teamName"), team.getName());            
+            assertEquals(getTestRunMessageValue("team"), team.getName());
 
         } catch (Exception e)
         {

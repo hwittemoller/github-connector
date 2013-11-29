@@ -11,7 +11,6 @@
 package org.mule.modules.github;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -24,7 +23,6 @@ import org.eclipse.egit.github.core.CommitComment;
 import org.eclipse.egit.github.core.CommitFile;
 import org.eclipse.egit.github.core.Contributor;
 import org.eclipse.egit.github.core.Download;
-import org.eclipse.egit.github.core.DownloadResource;
 import org.eclipse.egit.github.core.Gist;
 import org.eclipse.egit.github.core.GistFile;
 import org.eclipse.egit.github.core.IRepositoryIdProvider;
@@ -65,7 +63,7 @@ import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.codec.Base64Decoder;
 
 /**
- * Generic module
+ * Mule GitHub Cloud Connector
  *
  * @author MuleSoft, Inc.
  */
@@ -79,43 +77,43 @@ public class GitHubModule
     private ServiceFactory serviceFactory;
 
     /**
-     * Get a list of {@link Issue} objects that match the specified filter data
+     * Get list of {@link Issue} objects that match the specified filter data
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getIssues}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repository the repository name
-     * @param filterData data to filter issues, if non is specified all issues will be returned
+     * @param owner       the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository  the repository name
+     * @param filterData  data to filter issues, if non is specified all issues will be returned
      * @return list of {@link Issue}
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/issues/">List issues for a repository</a>
      */
     @Processor
-    public List<Issue> getIssues(@Optional String user, String repository, @Optional Map<String, String> filterData) throws IOException
+    public List<Issue> getIssues(@Optional String owner, String repository, @Optional Map<String, String> filterData) throws IOException
     {
         if (filterData == null)
         {
             filterData = Collections.emptyMap();
         }
 
-        return getServiceFactory().getIssueService().getIssues(getUser(user), repository, filterData);
+        return getServiceFactory().getIssueService().getIssues(getUser(owner), repository, filterData);
     }
 
     /**
-     * Custom processor
+     * Get list of {@link Issue} objects that were created during last {@code minutes}
      * <p/>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getIssuesCretedAfter}
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getIssuesCreatedAfter}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param owner      the owner of the repository, leave empty to use {@link ServiceFactory#user}
      * @param repository the repository name
      * @param minutes    minutes
      * @return a list of {@link Issue}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<Issue> getIssuesCretedAfter(@Optional String user, String repository, int minutes) throws IOException
+    public List<Issue> getIssuesCreatedAfter(@Optional String owner, String repository, int minutes) throws IOException
     {
-        List<Issue> issues = getServiceFactory().getIssueService().getIssues(getUser(user), repository, Collections.<String, String>emptyMap());
+        List<Issue> issues = getServiceFactory().getIssueService().getIssues(getUser(owner), repository, Collections.<String, String>emptyMap());
         Iterator<Issue> iterator = issues.iterator();
         Date since = new Date(System.currentTimeMillis() - minutes * 60 * 1000);
 
@@ -131,26 +129,27 @@ public class GitHubModule
     }
 
     /**
-     * Custom processor
+     * Get a list of {@link Issue} objects since given number
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getIssuesSinceNumber}
      *
-     * @param user            the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param owner           the owner of the repository, leave empty to use {@link ServiceFactory#user}
      * @param repository      the repository name
-     * @param fromIssueNumber from issue number
+     * @param issueNumber     from issue number
      * @return a list of {@link Issue}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<Issue> getIssuesSinceNumber(@Optional String user, String repository, int fromIssueNumber) throws IOException
+    public List<Issue> getIssuesSinceNumber(@Optional String owner, String repository, int issueNumber) throws IOException
     {
-        List<Issue> issues = getServiceFactory().getIssueService().getIssues(getUser(user), repository, Collections.<String, String>emptyMap());
+        List<Issue> issues = getServiceFactory().getIssueService().getIssues(getUser(owner), repository, Collections.<String, String>emptyMap());
         Iterator<Issue> iterator = issues.iterator();
 
         while (iterator.hasNext())
         {
-            if (fromIssueNumber >= iterator.next().getNumber())
+            if (issueNumber >= iterator.next().getNumber())
             {
+                iterator.remove();
                 iterator.remove();
             }
         }
@@ -163,16 +162,16 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createIssue}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param owner      the owner of the repository, leave empty to use {@link ServiceFactory#user}
      * @param repository the repository name
-     * @param title      the issues's title
-     * @param body       the issuess's body
-     * @param assignee   optionally specify a asignee for the issue
+     * @param title      the title for the issue
+     * @param body       the body for the issue
+     * @param assignee   the assignee for the issue (optional)
      * @return the newly created {@link Issue}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Issue createIssue(@Optional String user, String repository, String title, String body, @Optional String assignee) throws IOException
+    public Issue createIssue(@Optional String owner, String repository, String title, String body, @Optional String assignee) throws IOException
     {
         Issue issue = new Issue();
         issue.setTitle(title);
@@ -184,7 +183,7 @@ public class GitHubModule
             issue.setAssignee(assigneeUser);
         }
 
-        return getServiceFactory().getIssueService().createIssue(getUser(user), repository, issue);
+        return getServiceFactory().getIssueService().createIssue(getUser(owner), repository, issue);
     }
 
     /**
@@ -192,36 +191,36 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:closeIssue}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repository the repository name
-     * @param issueId    the issues's id
+     * @param owner       the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository  the repository name
+     * @param issueNumber the issueNumber of the issue
      * @return the newly created {@link Issue}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Issue closeIssue(@Optional String user, String repository, String issueId) throws IOException
+    public Issue closeIssue(@Optional String owner, String repository, String issueNumber) throws IOException
     {
-        Issue issue = getIssue(getUser(user), repository, issueId);
+        Issue issue = getIssue(getUser(owner), repository, issueNumber);
         issue.setState("closed");
 
-        return getServiceFactory().getIssueService().editIssue(getUser(user), repository, issue);
+        return getServiceFactory().getIssueService().editIssue(getUser(owner), repository, issue);
     }
 
     /**
-     * Get the issue represented by the given issueId
+     * Get the issue represented by the given issueNumber
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getIssue}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repository the repostory name
-     * @param issueId    the id of the issue
+     * @param owner          the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository    the repository name
+     * @param issueNumber   the id of the issue
      * @return a {@link Issue}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Issue getIssue(@Optional String user, String repository, String issueId) throws IOException
+    public Issue getIssue(@Optional String owner, String repository, String issueNumber) throws IOException
     {
-        return getServiceFactory().getIssueService().getIssue(getUser(user), repository, issueId);
+        return getServiceFactory().getIssueService().getIssue(getUser(owner), repository, issueNumber);
     }
 
     /**
@@ -229,34 +228,34 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getComments}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repository the repostory name
-     * @param issueId    the id of the issue
+     * @param owner         the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository    the repository name
+     * @param issueNumber   the id of the issue
      * @return a list of {@link Comment}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<Comment> getComments(@Optional String user, String repository, String issueId) throws IOException
+    public List<Comment> getComments(@Optional String owner, String repository, String issueNumber) throws IOException
     {
-        return getServiceFactory().getIssueService().getComments(getUser(user), repository, issueId);
+        return getServiceFactory().getIssueService().getComments(getUser(owner), repository, issueNumber);
     }
 
     /**
-     * Create comment on specified issue id
+     * Create comment on specified issue number
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createComment}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repository the repostory name
-     * @param issueId    the issue id
-     * @param comment    the text of the comment
+     * @param owner         the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository    the repository name
+     * @param issueNumber   the issue id
+     * @param comment       the text of the comment
      * @return the created {@link Comment}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Comment createComment(@Optional String user, String repository, String issueId, String comment) throws IOException
+    public Comment createComment(@Optional String owner, String repository, String issueNumber, String comment) throws IOException
     {
-        return getServiceFactory().getIssueService().createComment(getUser(user), repository, issueId, comment);
+        return getServiceFactory().getIssueService().createComment(getUser(owner), repository, issueNumber, comment);
     }
 
     /**
@@ -264,20 +263,20 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editComment}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repository the repostory name
+     * @param owner      the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository the repository name
      * @param commentId  the comment id
      * @param body       the new text of the comment
      * @return the created {@link Comment}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Comment editComment(@Optional String user, String repository, Long commentId, String body) throws IOException
+    public Comment editComment(@Optional String owner, String repository, long commentId, String body) throws IOException
     {
-        Comment comment = getServiceFactory().getIssueService().getComment(getUser(user), repository, commentId);
+        Comment comment = getServiceFactory().getIssueService().getComment(getUser(owner), repository, commentId);
         comment.setBody(body);
 
-        return getServiceFactory().getIssueService().editComment(getUser(user), repository, comment);
+        return getServiceFactory().getIssueService().editComment(getUser(owner), repository, comment);
     }
 
     /**
@@ -285,15 +284,15 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:deleteComment}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repository the repostory name
+     * @param owner      the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository the repository name
      * @param commentId  the id of the comment to delete
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void deleteComment(@Optional String user, String repository, String commentId) throws IOException
+    public void deleteComment(@Optional String owner, String repository, String commentId) throws IOException
     {
-        getServiceFactory().getIssueService().deleteComment(getUser(user), repository, commentId);
+        getServiceFactory().getIssueService().deleteComment(getUser(owner), repository, commentId);
     }
 
     /**
@@ -301,16 +300,16 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getIssueEvent}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repository the repostory name
+     * @param owner      the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository the repository name
      * @param eventId    the id of the event
      * @return a {@link IssueEvent}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public IssueEvent getIssueEvent(@Optional String user, String repository, long eventId) throws IOException
+    public IssueEvent getIssueEvent(@Optional String owner, String repository, long eventId) throws IOException
     {
-        return getServiceFactory().getIssueService().getIssueEvent(getUser(user), repository, eventId);
+        return getServiceFactory().getIssueService().getIssueEvent(getUser(owner), repository, eventId);
     }
 
     /**
@@ -318,15 +317,15 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getWatchers}
      *
-     * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param owner         the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository    the name of the repository
      * @return non-null but possibly empty list of {@link User}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<User> getWatchers(String owner, String repositoryName) throws IOException
+    public List<User> getWatchers(@Optional String owner, String repository) throws IOException
     {
-        return getServiceFactory().getWatcherService().getWatchers(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getWatcherService().getWatchers(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -350,14 +349,14 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:isWatching}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return true if watch, false otherwise
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public boolean isWatching(String owner, String repositoryName) throws IOException
+    public boolean isWatching(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getWatcherService().isWatching(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getWatcherService().isWatching(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -366,13 +365,13 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:watch}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void watch(String owner, String repositoryName) throws IOException
+    public void watch(String owner, String repository) throws IOException
     {
-        getServiceFactory().getWatcherService().watch(RepositoryId.create(owner, repositoryName));
+        getServiceFactory().getWatcherService().watch(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -381,13 +380,13 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:unwatch}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void unwatch(String owner, String repositoryName) throws IOException
+    public void unwatch(String owner, String repository) throws IOException
     {
-        getServiceFactory().getWatcherService().unwatch(RepositoryId.create(owner, repositoryName));
+        getServiceFactory().getWatcherService().unwatch(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -396,14 +395,14 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getCollaborators}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return non-null but possibly empty list of {@link User}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<User> getCollaborators(String owner, String repositoryName) throws IOException
+    public List<User> getCollaborators(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getCollaboratorService().getCollaborators(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getCollaboratorService().getCollaborators(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -412,15 +411,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:isCollaborator}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param user           the user to consult if it's a collaborator or not, leave empty to use {@link ServiceFactory#user}
      * @return true if the user is a collaborator, false otherwise
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public boolean isCollaborator(String owner, String repositoryName, @Optional String user) throws IOException
+    public boolean isCollaborator(String owner, String repository, @Optional String user) throws IOException
     {
-        return getServiceFactory().getCollaboratorService().isCollaborator(RepositoryId.create(owner, repositoryName), getUser(user));
+        return getServiceFactory().getCollaboratorService().isCollaborator(RepositoryId.create(owner, repository), getUser(user));
     }
 
     /**
@@ -429,14 +428,14 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:addCollaborator}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository the name of the repository
      * @param user           the user that's going to be added as a collaborator to the given repository, leave empty to use {@link ServiceFactory#user}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void addCollaborator(String owner, String repositoryName, @Optional String user) throws IOException
+    public void addCollaborator(String owner, String repository, @Optional String user) throws IOException
     {
-        getServiceFactory().getCollaboratorService().addCollaborator(RepositoryId.create(owner, repositoryName), getUser(user));
+        getServiceFactory().getCollaboratorService().addCollaborator(RepositoryId.create(owner, repository), getUser(user));
     }
 
     /**
@@ -445,14 +444,14 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:removeCollaborator}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param user           the user that's going to be removed as a collaborator from the given repository, leave empty to use {@link ServiceFactory#user}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void removeCollaborator(String owner, String repositoryName, @Optional String user) throws IOException
+    public void removeCollaborator(String owner, String repository, @Optional String user) throws IOException
     {
-        getServiceFactory().getCollaboratorService().removeCollaborator(RepositoryId.create(owner, repositoryName), getUser(user));
+        getServiceFactory().getCollaboratorService().removeCollaborator(RepositoryId.create(owner, repository), getUser(user));
     }
 
     /**
@@ -461,14 +460,14 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getCommits}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return non-null but possibly empty list of {@link RepositoryCommit}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<RepositoryCommit> getCommits(String owner, String repositoryName) throws IOException
+    public List<RepositoryCommit> getCommits(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getCommitService().getCommits(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getCommitService().getCommits(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -478,16 +477,16 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getCommitsBySha}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param sha            an optional Sha or branch to start listing commits from
      * @param path           optional Only commits containing this file path will be returned
      * @return non-null but possibly empty list of {@link RepositoryCommit}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<RepositoryCommit> getCommitsBySha(String owner, String repositoryName, @Optional String sha, @Optional String path) throws IOException
+    public List<RepositoryCommit> getCommitsBySha(String owner, String repository, @Optional String sha, @Optional String path) throws IOException
     {
-        return getServiceFactory().getCommitService().getCommits(RepositoryId.create(owner, repositoryName), sha, path);
+        return getServiceFactory().getCommitService().getCommits(RepositoryId.create(owner, repository), sha, path);
     }
 
     /**
@@ -496,15 +495,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getCommit}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param sha            Sha from comment
      * @return a {@link RepositoryCommit} for the given Sha and repository
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public RepositoryCommit getCommit(String owner, String repositoryName, String sha) throws IOException
+    public RepositoryCommit getCommit(String owner, String repository, String sha) throws IOException
     {
-        return getServiceFactory().getCommitService().getCommit(RepositoryId.create(owner, repositoryName), sha);
+        return getServiceFactory().getCommitService().getCommit(RepositoryId.create(owner, repository), sha);
     }
 
     /**
@@ -513,32 +512,32 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getCommmitComments}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param sha            Sha or branch to start listing commits comments from
      * @return non-null but possibly empty list of {@link CommitComment}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<CommitComment> getCommmitComments(String owner, String repositoryName, String sha) throws IOException
+    public List<CommitComment> getCommmitComments(String owner, String repository, String sha) throws IOException
     {
-        return getServiceFactory().getCommitService().getComments(RepositoryId.create(owner, repositoryName), sha);
+        return getServiceFactory().getCommitService().getComments(RepositoryId.create(owner, repository), sha);
     }
 
     /**
-     * Returns a comment from commit with the given id
+     * Returns a comment from commit with the given commentId
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getComment}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
-     * @param commentId      id from the comment
+     * @param repository     the name of the repository
+     * @param commentId      the id from the comment
      * @return a {@link CommitComment} that corresponds to the given id
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public CommitComment getComment(String owner, String repositoryName, long commentId) throws IOException
+    public CommitComment getComment(String owner, String repository, long commentId) throws IOException
     {
-        return getServiceFactory().getCommitService().getComment(RepositoryId.create(owner, repositoryName), commentId);
+        return getServiceFactory().getCommitService().getComment(RepositoryId.create(owner, repository), commentId);
     }
 
     /**
@@ -547,9 +546,9 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:addComment}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
-     * @param body           Body of the commit comment
-     * @param commitId       Sha of the commit to comment on
+     * @param repository     the name of the repository
+     * @param body           body of the commit comment
+     * @param commitId       sha of the commit to comment on
      * @param line           line number in the file to comment on
      * @param path           relative path of the file to comment on
      * @param position       line index in the diff to comment on
@@ -557,7 +556,7 @@ public class GitHubModule
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public CommitComment addComment(String owner, String repositoryName, String body, String commitId, int line, String path, int position) throws IOException
+    public CommitComment addComment(String owner, String repository, String body, String commitId, int line, String path, int position) throws IOException
     {
         CommitComment comment = new CommitComment();
         comment.setCommitId(commitId);
@@ -566,7 +565,7 @@ public class GitHubModule
         comment.setPosition(position);
         comment.setBody(body);
 
-        return getServiceFactory().getCommitService().addComment(RepositoryId.create(owner, repositoryName), commitId, comment);
+        return getServiceFactory().getCommitService().addComment(RepositoryId.create(owner, repository), commitId, comment);
     }
 
     /**
@@ -575,7 +574,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editCommitComment}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param body           Body of the commit comment
      * @param commentId      the id of commit comment
      * @param line           line number in the file to comment on
@@ -585,7 +584,7 @@ public class GitHubModule
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public CommitComment editCommitComment(String owner, String repositoryName, String body, long commentId, int line, String path, int position) throws IOException
+    public CommitComment editCommitComment(String owner, String repository, String body, long commentId, int line, String path, int position) throws IOException
     {
         CommitComment comment = new CommitComment();
         comment.setId(commentId);
@@ -594,7 +593,7 @@ public class GitHubModule
         comment.setPosition(position);
         comment.setBody(body);
 
-        return getServiceFactory().getCommitService().editComment(RepositoryId.create(owner, repositoryName), comment);
+        return getServiceFactory().getCommitService().editComment(RepositoryId.create(owner, repository), comment);
     }
 
     /**
@@ -603,14 +602,14 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:deleteCommitComment}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param commentId      id from the comment
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void deleteCommitComment(String owner, String repositoryName, long commentId) throws IOException
+    public void deleteCommitComment(String owner, String repository, long commentId) throws IOException
     {
-        getServiceFactory().getCommitService().deleteComment(RepositoryId.create(owner, repositoryName), commentId);
+        getServiceFactory().getCommitService().deleteComment(RepositoryId.create(owner, repository), commentId);
     }
 
     /**
@@ -618,15 +617,15 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getDeployKeys}
      *
-     * @param owner          the repositoryName of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param owner         the name of the user that owns the repository
+     * @param repository    the name of the repository
      * @return non-null but possibly empty list of {@link Key}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<Key> getDeployKeys(String owner, String repositoryName) throws IOException
+    public List<Key> getDeployKeys(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getDeployKeyService().getKeys(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getDeployKeyService().getKeys(RepositoryId.create(owner, repository));
     }
 
 
@@ -636,15 +635,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getDeployKey}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of the key
      * @return the {@link Key} corresponding to the given id
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Key getDeployKey(String owner, String repositoryName, int id) throws IOException
+    public Key getDeployKey(String owner, String repository, int id) throws IOException
     {
-        return getServiceFactory().getDeployKeyService().getKey(RepositoryId.create(owner, repositoryName), id);
+        return getServiceFactory().getDeployKeyService().getKey(RepositoryId.create(owner, repository), id);
     }
 
 
@@ -654,20 +653,20 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createDeployKey}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param title          the title of the key
      * @param key            ssh key
      * @return a new {@link Key} created based on the given parameters
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Key createDeployKey(String owner, String repositoryName, String title, String key) throws IOException
+    public Key createDeployKey(String owner, String repository, String title, String key) throws IOException
     {
         Key newKey = new Key();
         newKey.setTitle(title);
         newKey.setKey(key);
 
-        return getServiceFactory().getDeployKeyService().createKey(RepositoryId.create(owner, repositoryName), newKey);
+        return getServiceFactory().getDeployKeyService().createKey(RepositoryId.create(owner, repository), newKey);
     }
 
     /**
@@ -676,7 +675,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editDeployKey}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the ID of the key
      * @param title          the title of the key
      * @param key            ssh key
@@ -684,9 +683,9 @@ public class GitHubModule
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Key editDeployKey(String owner, String repositoryName, int id, @Optional String title, @Optional String key) throws IOException
+    public Key editDeployKey(String owner, String repository, int id, @Optional String title, @Optional String key) throws IOException
     {
-        Key keyToEdit = getDeployKey(owner, repositoryName, id);
+        Key keyToEdit = getDeployKey(owner, repository, id);
 
         if (title != null)
         {
@@ -698,7 +697,7 @@ public class GitHubModule
             keyToEdit.setKey(key);
         }
 
-        return getServiceFactory().getDeployKeyService().editKey(RepositoryId.create(owner, repositoryName), keyToEdit);
+        return getServiceFactory().getDeployKeyService().editKey(RepositoryId.create(owner, repository), keyToEdit);
     }
 
 
@@ -708,103 +707,29 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:deleteDeployKey}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of the deploy key
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void deleteDeployKey(String owner, String repositoryName, int id) throws IOException
+    public void deleteDeployKey(String owner, String repository, int id) throws IOException
     {
-        getServiceFactory().getDeployKeyService().deleteKey(RepositoryId.create(owner, repositoryName), id);
+        getServiceFactory().getDeployKeyService().deleteKey(RepositoryId.create(owner, repository), id);
     }
 
-    /**
-     * Returns a single download given the provided id
-     * </p>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getDownload}
-     *
-     * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
-     * @param id             the id of the download
-     * @return the download corresponding to the given id
-     * @throws java.io.IOException when the connection to the client failed
-     */
-    @Processor
-    public Download getDownload(String owner, String repositoryName, int id) throws IOException
-    {
-        return getServiceFactory().getDownloadService().getDownload(RepositoryId.create(owner, repositoryName), id);
-    }
-
-    /**
-     * Deletes a download given the provided id
-     * </p>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:deleteDownload}
-     *
-     * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
-     * @param id             the id of the download
-     * @throws java.io.IOException when the connection to the client failed
-     */
-    @Processor
-    public void deleteDownload(String owner, String repositoryName, int id) throws IOException
-    {
-        getServiceFactory().getDownloadService().deleteDownload(RepositoryId.create(owner, repositoryName), id);
-    }
-
-    /**
-     * Creates a new download resource
-     * </p>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createResource}
-     *
-     * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
-     * @param resourceName   the name of the resource
-     * @param size           Size of file in bytes.
-     * @param description    an optional description
-     * @param contentType    an optional content type
-     * @return a new {@link DownloadResource} resource
-     * @throws java.io.IOException when the connection to the client failed
-     */
-    @Processor
-    public DownloadResource createResource(String owner, String repositoryName, String resourceName, long size, @Optional String description, @Optional String contentType) throws IOException
-    {
-        Download download = new Download();
-        download.setName(resourceName);
-        download.setSize(size);
-        download.setDescription(description);
-        download.setContentType(contentType);
-
-        return getServiceFactory().getDownloadService().createResource(RepositoryId.create(owner, repositoryName), download);
-    }
-
-    /**
-     * Uploads a new resource
-     * </p>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:uploadResource}
-     *
-     * @param downloadResource download resource that contains the meta data of the file to be updated
-     * @param content          the content to be uploaded
-     * @throws java.io.IOException when the connection to the client failed
-     */
-    @Processor
-    public void uploadResource(DownloadResource downloadResource, InputStream content) throws IOException
-    {
-        getServiceFactory().getDownloadService().uploadResource(downloadResource, content, downloadResource.getSize());
-    }
-
-    /**
+     /**
      * Returns the gist according to the given id
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getGist}
      *
-     * @param id id of the wanted gist
-     * @return returns the {@link Gist} according to the provided id
+     * @param gistId    the id of the wanted gist
+     * @return returns  the {@link Gist} according to the provided id
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Gist getGist(String id) throws IOException
+    public Gist getGist(String gistId) throws IOException
     {
-        return getServiceFactory().getGistService().getGist(id);
+        return getServiceFactory().getGistService().getGist(gistId);
     }
 
     /**
@@ -819,7 +744,7 @@ public class GitHubModule
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Gist createGist(Boolean isPublic, @Optional String description, Map<String, String> files) throws IOException
+    public Gist createGist(boolean isPublic, @Optional String description, Map<String, String> files) throws IOException
     {
         Gist gist = new Gist();
         gist.setDescription(description);
@@ -837,13 +762,13 @@ public class GitHubModule
     /**
      * Returns the starred gists for the currently authenticated user
      * </p>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getStarredGist}
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getStarredGists}
      *
      * @return list of starred {@link Gist} for currently authenticated user
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<Gist> getStarredGist() throws IOException
+    public List<Gist> getStarredGists() throws IOException
     {
         return getServiceFactory().getGistService().getStarredGists();
     }
@@ -884,7 +809,7 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getGistComments}
      *
-     * @param gistId id of the gist
+     * @param gistId    id of the gist
      * @return a list with the comments of the given gist
      * @throws java.io.IOException when the connection to the client failed
      */
@@ -899,7 +824,7 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:deleteGist}
      *
-     * @param gistId id of the gist
+     * @param gistId    the id of the gist
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
@@ -993,14 +918,14 @@ public class GitHubModule
     /**
      * Returns whether the gist is starred or not
      * </p>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:isStarred}
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:isStarredGist}
      *
      * @param gistId id of the gist
      * @return returns true if the gist is starred, false otherwise
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public boolean isStarred(String gistId) throws IOException
+    public boolean isStarredGist(String gistId) throws IOException
     {
         return getServiceFactory().getGistService().isStarred(gistId);
     }
@@ -1021,19 +946,19 @@ public class GitHubModule
     }
 
     /**
-     * Returns a list of labels for the given repository and user
+     * Returns a list of labels for the given repository and owner
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getLabels}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repository the name of the repository
-     * @return a list of labels for the given repository and user
+     * @param owner       the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository  the name of the repository
+     * @return a list of labels for the given repository and owner
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<Label> getLabels(@Optional String user, String repository) throws IOException
+    public List<Label> getLabels(@Optional String owner, String repository) throws IOException
     {
-        return getServiceFactory().getLabelService().getLabels(getUser(user), repository);
+        return getServiceFactory().getLabelService().getLabels(getUser(owner), repository);
     }
 
     /**
@@ -1041,16 +966,16 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getLabel}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param owner       the owner of the repository, leave empty to use {@link ServiceFactory#user}
      * @param repository the name of the repository
      * @param label      the label name
      * @return the label associated to the given id
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Label getLabel(@Optional String user, String repository, String label) throws IOException
+    public Label getLabel(@Optional String owner, String repository, String label) throws IOException
     {
-        return getServiceFactory().getLabelService().getLabel(getUser(user), repository, label);
+        return getServiceFactory().getLabelService().getLabel(getUser(owner), repository, label);
     }
 
     /**
@@ -1058,15 +983,15 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:deleteLabel}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param owner      the owner of the repository, leave empty to use {@link ServiceFactory#user}
      * @param repository the name of the repository
      * @param label      the label name
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void deleteLabel(@Optional String user, String repository, String label) throws IOException
+    public void deleteLabel(@Optional String owner, String repository, String label) throws IOException
     {
-        getServiceFactory().getLabelService().deleteLabel(getUser(user), repository, label);
+        getServiceFactory().getLabelService().deleteLabel(getUser(owner), repository, label);
     }
 
     /**
@@ -1074,40 +999,38 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createLabel}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repository the name of the repository
-     * @param labelName  the name of the label
-     * @param color      the color of the label, a 6 character hex code, without a leading #
+     * @param owner         the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param repository    the name of the repository
+     * @param label         the name of the label
+     * @param color         the color of the label, a 6 character hex code, without a leading #
      * @return returns a new {@link Label}
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Label createLabel(@Optional String user, String repository, String labelName, String color) throws IOException
+    public Label createLabel(@Optional String owner, String repository, String label, String color) throws IOException
     {
-        Label label = new Label();
-        label.setName(labelName);
-        label.setColor(color);
+        Label newLabel = new Label();
+        newLabel.setName(label);
+        newLabel.setColor(color);
 
-        return getServiceFactory().getLabelService().createLabel(getUser(user), repository, label);
+        return getServiceFactory().getLabelService().createLabel(getUser(owner), repository, newLabel);
     }
-
-    // TODO add set labels method
 
     /**
      * Returns a list of milestones for the given repository
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getMilestones}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param owner       the owner of the repository, leave empty to use {@link ServiceFactory#user}
      * @param repository the name of the repository
      * @param state      state of the milestone, open or closed
      * @return s list of {@link Milestone} for the given repository
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<Milestone> getMilestones(@Optional String user, String repository, String state) throws IOException
+    public List<Milestone> getMilestones(@Optional String owner, String repository, String state) throws IOException
     {
-        return getServiceFactory().getMilestoneService().getMilestones(getUser(user), repository, state);
+        return getServiceFactory().getMilestoneService().getMilestones(getUser(owner), repository, state);
     }
 
 
@@ -1116,16 +1039,16 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getMilestone}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param owner      the owner of the repository, leave empty to use {@link ServiceFactory#user}
      * @param repository the name of the repository
      * @param number     milestone number
      * @return returns a single milestone
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Milestone getMilestone(@Optional String user, String repository, String number) throws IOException
+    public Milestone getMilestone(@Optional String owner, String repository, String number) throws IOException
     {
-        return getServiceFactory().getMilestoneService().getMilestone(getUser(user), repository, number);
+        return getServiceFactory().getMilestoneService().getMilestone(getUser(owner), repository, number);
     }
 
 
@@ -1134,15 +1057,15 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:deleteMilestone}
      *
-     * @param user       the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param owner      the owner of the repository, leave empty to use {@link ServiceFactory#user}
      * @param repository the name of the repository
      * @param number     number of the milestone
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public void deleteMilestone(@Optional String user, String repository, String number) throws IOException
+    public void deleteMilestone(@Optional String owner, String repository, String number) throws IOException
     {
-        getServiceFactory().getMilestoneService().deleteMilestone(getUser(user), repository, number);
+        getServiceFactory().getMilestoneService().deleteMilestone(getUser(owner), repository, number);
     }
 
     /**
@@ -1150,7 +1073,7 @@ public class GitHubModule
      * </p>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createMilestone}
      *
-     * @param user        the owner of the repository, leave empty to use {@link ServiceFactory#user}
+     * @param owner        the owner of the repository, leave empty to use {@link ServiceFactory#user}
      * @param repository  the name of the repository
      * @param title       the title of the milestone
      * @param state       the state of the milestone, open or closed,  by default is open
@@ -1160,7 +1083,7 @@ public class GitHubModule
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Milestone createMilestone(@Optional String user, String repository, String title, @Optional String state, @Optional String description, @Optional Date dueOn) throws IOException
+    public Milestone createMilestone(@Optional String owner, String repository, String title, @Optional String state, @Optional String description, @Optional Date dueOn) throws IOException
     {
         Milestone milestone = new Milestone();
         milestone.setTitle(title);
@@ -1168,7 +1091,7 @@ public class GitHubModule
         milestone.setDueOn(dueOn);
         milestone.setDescription(description);
 
-        return getServiceFactory().getMilestoneService().createMilestone(getUser(user), repository, milestone);
+        return getServiceFactory().getMilestoneService().createMilestone(getUser(owner), repository, milestone);
     }
 
     /**
@@ -1176,15 +1099,15 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getUserByLoginName}
      *
-     * @param loginName the login name of the user to look up
+     * @param login     the login name of the user to look up
      * @return a {@link User} instance
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/users/">Get a single user</a>
      */
     @Processor
-    public User getUserByLoginName(String loginName) throws IOException
+    public User getUserByLoginName(String login) throws IOException
     {
-        return getServiceFactory().getUserService().getUser(loginName);
+        return getServiceFactory().getUserService().getUser(login);
     }
 
     /**
@@ -1294,7 +1217,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:isFollowing}
      *
      * @param user the user to check
-     * @return wether the authenticated user is following the given user
+     * @return whether the authenticated user is following the given user
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/users/followers/">Check if you are following a user</a>
      */
@@ -1320,7 +1243,7 @@ public class GitHubModule
     }
 
     /**
-     * Make the currently authenticated user unfollow the given user
+     * Make the currently authenticated user stop following the given user
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:unfollow}
      *
@@ -1436,7 +1359,7 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editKey}
      *
-     * @param keyId the id of the key to edit
+     * @param id    the id of the key to edit
      * @param title a new title for the key
      * @param key   a new key
      * @return edited {@link Key}
@@ -1444,9 +1367,9 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/users/keys/">Update a public key</a>
      */
     @Processor
-    public Key editKey(int keyId, @Optional String title, @Optional String key) throws IOException
+    public Key editKey(int id, @Optional String title, @Optional String key) throws IOException
     {
-        Key keyToEdit = getKey(keyId);
+        Key keyToEdit = getKey(id);
 
         if (title != null)
         {
@@ -1481,7 +1404,7 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getTeam}
      *
-     * @param id the id of the team
+     * @param id    the id of the team
      * @return a {@link Team} instance
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/orgs/teams/">Get team</a>
@@ -1495,7 +1418,7 @@ public class GitHubModule
     /**
      * Get all teams in the given organization
      * <p/>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getTeamsForOrg}
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getTeams}
      *
      * @param organization the organization for which te get the teams associated with
      * @return list of {@link Team}
@@ -1503,38 +1426,38 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/orgs/teams/">List teams</a>
      */
     @Processor
-    public List<Team> getTeamsForOrg(String organization) throws IOException
+    public List<Team> getTeams(String organization) throws IOException
     {
         return getServiceFactory().getTeamService().getTeams(organization);
     }
 
     /**
-     * Create the given team
+     * Create the given name
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createTeam}
      *
-     * @param organization   the organization
-     * @param teamName       the team name
-     * @param teamPermission the team's {@link TeamPermission}
-     * @param repoNames      the associated repository names
+     * @param organization   the organization name will belong to
+     * @param team           the name of the team
+     * @param permission     the name's {@link TeamPermission}
+     * @param repositories   the associated repository names
      * @return the created {@link Team}
      * @throws java.io.IOException when the connection to the client failed
-     * @api.doc <a href="http://developer.github.com/v3/orgs/teams/">Create team</a>
+     * @api.doc <a href="http://developer.github.com/v3/orgs/teams/">Create name</a>
      */
     @Processor
-    public Team createTeam(String organization, String teamName, @Optional @Default("PULL") TeamPermission teamPermission, @Optional List<String> repoNames) throws IOException
+    public Team createTeam(String organization, String team, @Optional @Default("PULL") TeamPermission permission, @Optional List<String> repositories) throws IOException
     {
-        Team team = new Team();
-        team.setName(teamName);
-        team.setPermission(teamPermission.toString());
+        Team newTeam = new Team();
+        newTeam.setName(team);
+        newTeam.setPermission(permission.toString());
 
-        if (repoNames != null)
+        if (repositories != null)
         {
-            return getServiceFactory().getTeamService().createTeam(organization, team, repoNames);
+            return getServiceFactory().getTeamService().createTeam(organization, newTeam, repositories);
         }
         else
         {
-            return getServiceFactory().getTeamService().createTeam(organization, team);
+            return getServiceFactory().getTeamService().createTeam(organization, newTeam);
         }
     }
 
@@ -1544,28 +1467,28 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editTeam}
      *
      * @param id             the id of the team to edit
-     * @param teamName       the new name of the team
-     * @param teamPermission the new {@link TeamPermission} for the team
+     * @param team       the new name of the team
+     * @param permission the new {@link TeamPermission} for the team
      * @return the edited {@link Team}
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/orgs/teams/">Edit team</a>
      */
     @Processor
-    public Team editTeam(int id, @Optional String teamName, @Optional TeamPermission teamPermission) throws IOException
+    public Team editTeam(int id, @Optional String team, @Optional TeamPermission permission) throws IOException
     {
-        Team team = getTeam(id);
+        Team teamToEdit = getTeam(id);
 
-        if (teamName != null)
+        if (team != null)
         {
-            team.setName(teamName);
+            teamToEdit.setName(team);
         }
 
-        if (teamPermission != null)
+        if (permission != null)
         {
-            team.setPermission(teamPermission.toString());
+            teamToEdit.setPermission(permission.toString());
         }
 
-        return getServiceFactory().getTeamService().editTeam(team);
+        return getServiceFactory().getTeamService().editTeam(teamToEdit);
     }
 
     /**
@@ -1671,14 +1594,14 @@ public class GitHubModule
      *
      * @param id             the team id
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/orgs/teams/">Add team repo</a>
      */
     @Processor
-    public void addTeamRepository(int id, String owner, String repositoryName) throws IOException
+    public void addTeamRepository(int id, String owner, String repository) throws IOException
     {
-        getServiceFactory().getTeamService().addRepository(id, RepositoryId.create(owner, repositoryName));
+        getServiceFactory().getTeamService().addRepository(id, RepositoryId.create(owner, repository));
     }
 
     /**
@@ -1688,14 +1611,14 @@ public class GitHubModule
      *
      * @param id             the team id
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/orgs/teams/">Remove team repo</a>
      */
     @Processor
-    public void removeTeamRepository(int id, String owner, String repositoryName) throws IOException
+    public void removeTeamRepository(int id, String owner, String repository) throws IOException
     {
-        getServiceFactory().getTeamService().removeRepository(id, RepositoryId.create(owner, repositoryName));
+        getServiceFactory().getTeamService().removeRepository(id, RepositoryId.create(owner, repository));
     }
 
     /**
@@ -1736,7 +1659,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getOrgRepositories}
      *
      * @param organization the organization for which to get the repositories for
-     * @param filterData   data to filter repos, if non is specified all repos will be returned
+     * @param filterData   data to filter repositories. If none is specified all repositories will be returned
      * @return list of {@link Repository}
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/repos"></a>
@@ -1752,7 +1675,7 @@ public class GitHubModule
      * <p/>
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createRepository}
      *
-     * @param repositoryName the name of the new repository
+     * @param repository     the name of the new repository
      * @param description    a description for the new repository
      * @param isPrivate      true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false.
      * @param hasIssues      true to enable issues for this repository, false to disable them. Default is true.
@@ -1763,17 +1686,17 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/repos">Create</a>
      */
     @Processor
-    public Repository createRepository(String repositoryName, @Optional String description, @Optional @Default("false") boolean isPrivate, @Optional @Default("true") boolean hasIssues, @Optional @Default("true") boolean hasWiki, @Optional @Default("true") boolean hasDownloads) throws IOException
+    public Repository createRepository(String repository, @Optional String description, @Optional @Default("false") boolean isPrivate, @Optional @Default("true") boolean hasIssues, @Optional @Default("true") boolean hasWiki, @Optional @Default("true") boolean hasDownloads) throws IOException
     {
-        Repository repository = new Repository();
-        repository.setName(repositoryName);
-        repository.setDescription(description);
-        repository.setPrivate(isPrivate);
-        repository.setHasIssues(hasIssues);
-        repository.setHasWiki(hasWiki);
-        repository.setHasDownloads(hasDownloads);
+        Repository repo = new Repository();
+        repo.setName(repository);
+        repo.setDescription(description);
+        repo.setPrivate(isPrivate);
+        repo.setHasIssues(hasIssues);
+        repo.setHasWiki(hasWiki);
+        repo.setHasDownloads(hasDownloads);
 
-        return getServiceFactory().getRepositoryService().createRepository(repository);
+        return getServiceFactory().getRepositoryService().createRepository(repo);
     }
 
     /**
@@ -1782,7 +1705,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createRepositoryForOrg}
      *
      * @param organization   the organization for the new repository
-     * @param repositoryName the name of the new repository
+     * @param repository     the name of the new repository
      * @param description    a description for the new repository
      * @param isPrivate      true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false.
      * @param hasIssues      true to enable issues for this repository, false to disable them. Default is true.
@@ -1793,17 +1716,17 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/repos">Create</a>
      */
     @Processor
-    public Repository createRepositoryForOrg(String organization, String repositoryName, @Optional String description, @Optional @Default("false") boolean isPrivate, @Optional @Default("true") boolean hasIssues, @Optional @Default("true") boolean hasWiki, @Optional @Default("true") boolean hasDownloads) throws IOException
+    public Repository createRepositoryForOrg(String organization, String repository, @Optional String description, @Optional @Default("false") boolean isPrivate, @Optional @Default("true") boolean hasIssues, @Optional @Default("true") boolean hasWiki, @Optional @Default("true") boolean hasDownloads) throws IOException
     {
-        Repository repository = new Repository();
-        repository.setName(repositoryName);
-        repository.setDescription(description);
-        repository.setPrivate(isPrivate);
-        repository.setHasIssues(hasIssues);
-        repository.setHasWiki(hasWiki);
-        repository.setHasDownloads(hasDownloads);
+        Repository repo = new Repository();
+        repo.setName(repository);
+        repo.setDescription(description);
+        repo.setPrivate(isPrivate);
+        repo.setHasIssues(hasIssues);
+        repo.setHasWiki(hasWiki);
+        repo.setHasDownloads(hasDownloads);
 
-        return getServiceFactory().getRepositoryService().createRepository(organization, repository);
+        return getServiceFactory().getRepositoryService().createRepository(organization, repo);
     }
 
     /**
@@ -1812,15 +1735,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getRepository}
      *
      * @param owner          the name of the user that owns the repository
-     * @param repositoryName the name of the repository
+     * @param repository the name of the repository
      * @return repository
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/repos"></a>
      */
     @Processor
-    public Repository getRepository(String owner, String repositoryName) throws IOException
+    public Repository getRepository(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getRepositoryService().getRepository(owner, repositoryName);
+        return getServiceFactory().getRepositoryService().getRepository(owner, repository);
     }
 
     /**
@@ -1829,7 +1752,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editRepository}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param description    a new description for the repository
      * @param isPrivate      true to turn it into a private repository, false to make it public. Private repositories require a paid GitHub account.
      * @param hasIssues      true to enable issues for this repository, false to disable them.
@@ -1840,9 +1763,9 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/repos"></a>
      */
     @Processor
-    public Repository editRepository(String owner, String repositoryName, @Optional String description, @Optional Boolean isPrivate, @Optional Boolean hasIssues, @Optional Boolean hasWiki, @Optional Boolean hasDownloads) throws IOException
+    public Repository editRepository(String owner, String repository, @Optional String description, @Optional Boolean isPrivate, @Optional Boolean hasIssues, @Optional Boolean hasWiki, @Optional Boolean hasDownloads) throws IOException
     {
-        Repository repositoryToEdit = getRepository(owner, repositoryName);
+        Repository repositoryToEdit = getRepository(owner, repository);
 
         if (description != null)
         {
@@ -1878,14 +1801,14 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getForks}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return non-null but possibly empty list of repository
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<Repository> getForks(String owner, String repositoryName) throws IOException
+    public List<Repository> getForks(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getRepositoryService().getForks(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getRepositoryService().getForks(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -1895,14 +1818,14 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:forkRepository}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return forked repository
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Repository forkRepository(String owner, String repositoryName) throws IOException
+    public Repository forkRepository(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getRepositoryService().forkRepository(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getRepositoryService().forkRepository(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -1915,14 +1838,14 @@ public class GitHubModule
      *
      * @param organization   the organization where the new repository will be
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return forked repository
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Repository forkRepositoryForOrg(String organization, String owner, String repositoryName) throws IOException
+    public Repository forkRepositoryForOrg(String organization, String owner, String repository) throws IOException
     {
-        return getServiceFactory().getRepositoryService().forkRepository(RepositoryId.create(owner, repositoryName), organization);
+        return getServiceFactory().getRepositoryService().forkRepository(RepositoryId.create(owner, repository), organization);
     }
 
     /**
@@ -1931,15 +1854,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getLanguages}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return map of language names mapped to line counts
      * @throws java.io.IOException when the connection to the client failed\
      * @api.doc <a href="http://developer.github.com/v3/repos"></a>
      */
     @Processor
-    public Map<String, Long> getLanguages(String owner, String repositoryName) throws IOException
+    public Map<String, Long> getLanguages(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getRepositoryService().getLanguages(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getRepositoryService().getLanguages(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -1948,15 +1871,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getBranches}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return list of branches
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/repos"></a>
      */
     @Processor
-    public List<RepositoryBranch> getBranches(String owner, String repositoryName) throws IOException
+    public List<RepositoryBranch> getBranches(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getRepositoryService().getBranches(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getRepositoryService().getBranches(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -1965,15 +1888,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getTags}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return list of tags
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/repos"></a>
      */
     @Processor
-    public List<RepositoryTag> getTags(String owner, String repositoryName) throws IOException
+    public List<RepositoryTag> getTags(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getRepositoryService().getTags(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getRepositoryService().getTags(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -1982,32 +1905,32 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getContributors}
      *
      * @param owner            the owner of the repository
-     * @param repositoryName   the name of the repository
+     * @param repository       the name of the repository
      * @param includeAnonymous whether to include anonymus contributors
      * @return list of contributors
      * @throws java.io.IOException when the connection to the client failed
      * @api.doc <a href="http://developer.github.com/v3/repos"></a>
      */
     @Processor
-    public List<Contributor> getContributors(String owner, String repositoryName, @Optional @Default("false") boolean includeAnonymous) throws IOException
+    public List<Contributor> getContributors(String owner, String repository, @Optional @Default("false") boolean includeAnonymous) throws IOException
     {
-        return getServiceFactory().getRepositoryService().getContributors(RepositoryId.create(owner, repositoryName), includeAnonymous);
+        return getServiceFactory().getRepositoryService().getContributors(RepositoryId.create(owner, repository), includeAnonymous);
     }
 
     /**
-     * List downloads for a repository
+     * Get list of downloads for a repository
      * <p/>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:listDownloadsForRepository}
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getDownloads}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return list of downloads
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<Download> listDownloadsForRepository(String owner, String repositoryName) throws IOException
+    public List<Download> getDownloads(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getDownloadService().getDownloads(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getDownloadService().getDownloads(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -2016,15 +1939,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getTreeRecursively}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param sha            a sha to start listing the structure
      * @return a tree structure of the repository
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Tree getTreeRecursively(String owner, String repositoryName, String sha) throws IOException
+    public Tree getTreeRecursively(String owner, String repository, String sha) throws IOException
     {
-        return getServiceFactory().getDataService().getTree(RepositoryId.create(owner, repositoryName), sha, true);
+        return getServiceFactory().getDataService().getTree(RepositoryId.create(owner, repository), sha, true);
     }
 
     /**
@@ -2033,7 +1956,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getFileContent}
      *
      * @param owner          the owner of the repository, leave empty to use {@link ServiceFactory#user}
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param path           the path of the file to get
      * @param branch         default to master
      * @return s the content of the file
@@ -2041,9 +1964,9 @@ public class GitHubModule
      * @throws TransformerException when the file's contents couldn't be transformeds
      */
     @Processor
-    public String getFileContent(final String owner, final String repositoryName, final String path, @Optional @Default("master") String branch) throws IOException, TransformerException
+    public String getFileContent(String owner, String repository, String path, @Optional @Default("master") String branch) throws IOException, TransformerException
     {
-        List<RepositoryContents> contents = getServiceFactory().getContentsService().getContents(RepositoryId.create(owner, repositoryName), path, branch);
+        List<RepositoryContents> contents = getServiceFactory().getContentsService().getContents(RepositoryId.create(owner, repository), path, branch);
 
         if (CollectionUtils.isEmpty(contents))
         {
@@ -2067,16 +1990,16 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getContents}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param path           file or directory path
      * @param branch         branch name, defaults fo master
      * @return repository contents for given path
      * @throws IOException in case of connectivity issue
      */
     @Processor
-    public List<RepositoryContents> getContents(final String owner, final String repositoryName, final String path, @Optional @Default("master") String branch) throws IOException
+    public List<RepositoryContents> getContents(String owner, String repository, String path, @Optional @Default("master") String branch) throws IOException
     {
-        return getServiceFactory().getContentsService().getContents(RepositoryId.create(owner, repositoryName), path, branch);
+        return getServiceFactory().getContentsService().getContents(RepositoryId.create(owner, repository), path, branch);
     }
 
     /**
@@ -2085,22 +2008,22 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:putContents}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param path           file or directory path
-     * @param commitMessage  commit message
+     * @param message        commit message
      * @param content        content
      * @param sha            blob sha of contents that will be replaced
      * @param branch         branch name, defaults fo master
      * @throws IOException in case of connectivity issue
      */
     @Processor
-    public void putContents(String owner, String repositoryName, String path, String commitMessage, String content, String sha, String branch) throws IOException
+    public void putContents(String owner, String repository, String path, String message, String content, String sha, String branch) throws IOException
     {
         RepositoryContents newContent = new RepositoryContents();
         newContent.setPath(path);
         newContent.setContent(content);
         newContent.setSha(sha);
-        getServiceFactory().getContentsService().putContents(RepositoryId.create(owner, repositoryName), newContent, commitMessage, branch);
+        getServiceFactory().getContentsService().putContents(RepositoryId.create(owner, repository), newContent, message, branch);
     }
 
     /**
@@ -2108,12 +2031,12 @@ public class GitHubModule
      * Added solely for functional testing of the connector. Not exposed as processor.
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @throws IOException in case of connectivity issues or if repository does not exists
      */
-    public void deleteRepository(String owner, String repositoryName) throws IOException
+    public void deleteRepository(String owner, String repository) throws IOException
     {
-        getServiceFactory().getRepositoryService().deleteRepository(RepositoryId.create(owner, repositoryName));
+        getServiceFactory().getRepositoryService().deleteRepository(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -2122,15 +2045,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequest}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of pull request
      * @return pull request
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public PullRequest getPullRequest(String owner, String repositoryName, int id) throws IOException
+    public PullRequest getPullRequest(String owner, String repository, int id) throws IOException
     {
-        return getServiceFactory().getPullRequestService().getPullRequest(RepositoryId.create(owner, repositoryName), id);
+        return getServiceFactory().getPullRequestService().getPullRequest(RepositoryId.create(owner, repository), id);
     }
 
 
@@ -2140,15 +2063,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequests}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param state          the state of pull request
      * @return list of pull requests
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public List<PullRequest> getPullRequests(String owner, String repositoryName, String state) throws IOException
+    public List<PullRequest> getPullRequests(String owner, String repository, String state) throws IOException
     {
-        return getServiceFactory().getPullRequestService().getPullRequests(RepositoryId.create(owner, repositoryName), state);
+        return getServiceFactory().getPullRequestService().getPullRequests(RepositoryId.create(owner, repository), state);
     }
 
     /**
@@ -2157,7 +2080,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:pagePullRequests}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param state          the state of pull request
      * @param start          the number of first page. Default is <code>PagedRequest.PAGE_FIRST</code>
      * @param size           the page size. Default is <code>PagedRequest.PAGE_SIZE</code>
@@ -2165,7 +2088,7 @@ public class GitHubModule
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public PageIterator<PullRequest> pagePullRequests(String owner, String repositoryName, String state, @Optional Integer start, @Optional Integer size) throws IOException
+    public PageIterator<PullRequest> pagePullRequests(String owner, String repository, String state, @Optional Integer start, @Optional Integer size) throws IOException
     {
         if (start == null)
         {
@@ -2177,7 +2100,7 @@ public class GitHubModule
             size = PagedRequest.PAGE_SIZE;
         }
 
-        return getServiceFactory().getPullRequestService().pagePullRequests(RepositoryId.create(owner, repositoryName), state, start, size);
+        return getServiceFactory().getPullRequestService().pagePullRequests(RepositoryId.create(owner, repository), state, start, size);
     }
 
 
@@ -2187,7 +2110,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createPullRequest}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param body           the body of pull request
      * @param title          the title of pull request
      * @param head           branch name
@@ -2196,14 +2119,14 @@ public class GitHubModule
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public PullRequest createPullRequest(String owner, String repositoryName, @Optional String body, String title, String head, String base) throws IOException
+    public PullRequest createPullRequest(String owner, String repository, @Optional String body, String title, String head, String base) throws IOException
     {
         PullRequest pullRequest = new PullRequest();
         pullRequest.setBody(body);
         pullRequest.setTitle(title);
         pullRequest.setHead(new PullRequestMarker().setLabel(head));
         pullRequest.setBase(new PullRequestMarker().setLabel(base));
-        return getServiceFactory().getPullRequestService().createPullRequest(RepositoryId.create(owner, repositoryName), pullRequest);
+        return getServiceFactory().getPullRequestService().createPullRequest(RepositoryId.create(owner, repository), pullRequest);
     }
 
     /**
@@ -2212,17 +2135,17 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createPullRequestFromIssue}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
-     * @param issueId        the id of issue
+     * @param repository     the name of the repository
+     * @param issueNumber    the number of issue
      * @param head           reference to head
      * @param base           reference to base
      * @return created pull request
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public PullRequest createPullRequestFromIssue(String owner, String repositoryName, int issueId, String head, String base) throws IOException
+    public PullRequest createPullRequestFromIssue(String owner, String repository, int issueNumber, String head, String base) throws IOException
     {
-        return getServiceFactory().getPullRequestService().createPullRequest(RepositoryId.create(owner, repositoryName), issueId, head, base);
+        return getServiceFactory().getPullRequestService().createPullRequest(RepositoryId.create(owner, repository), issueNumber, head, base);
 
     }
 
@@ -2232,7 +2155,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editPullRequest}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of the pull request
      * @param title          the title of the pull request
      * @param body           the body of the pull request
@@ -2241,9 +2164,9 @@ public class GitHubModule
      * @throws IOException if pull request was not found by id or if connection to the client failed
      */
     @Processor
-    public PullRequest editPullRequest(String owner, String repositoryName, int id, @Optional String title, @Optional String body, @Optional String state) throws IOException
+    public PullRequest editPullRequest(String owner, String repository, int id, @Optional String title, @Optional String body, @Optional String state) throws IOException
     {
-        PullRequest pullRequest = getPullRequest(owner, repositoryName, id);
+        PullRequest pullRequest = getPullRequest(owner, repository, id);
 
         if (title != null)
         {
@@ -2260,7 +2183,7 @@ public class GitHubModule
             pullRequest.setState(state);
         }
 
-        return getServiceFactory().getPullRequestService().editPullRequest(RepositoryId.create(owner, repositoryName), pullRequest);
+        return getServiceFactory().getPullRequestService().editPullRequest(RepositoryId.create(owner, repository), pullRequest);
     }
 
     /**
@@ -2269,15 +2192,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequestCommits}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of pull request
      * @return list of commits
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public List<RepositoryCommit> getPullRequestCommits(String owner, String repositoryName, int id) throws IOException
+    public List<RepositoryCommit> getPullRequestCommits(String owner, String repository, int id) throws IOException
     {
-        return getServiceFactory().getPullRequestService().getCommits(RepositoryId.create(owner, repositoryName), id);
+        return getServiceFactory().getPullRequestService().getCommits(RepositoryId.create(owner, repository), id);
     }
 
     /**
@@ -2286,15 +2209,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequestFiles}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of pull request
      * @return list of files
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public List<CommitFile> getPullRequestFiles(String owner, String repositoryName, int id) throws IOException
+    public List<CommitFile> getPullRequestFiles(String owner, String repository, int id) throws IOException
     {
-        return getServiceFactory().getPullRequestService().getFiles(RepositoryId.create(owner, repositoryName), id);
+        return getServiceFactory().getPullRequestService().getFiles(RepositoryId.create(owner, repository), id);
     }
 
 
@@ -2304,15 +2227,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:isPullRequestMerged}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of pull request
      * @return rue if merged, false otherwise
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public boolean isPullRequestMerged(String owner, String repositoryName, int id) throws IOException
+    public boolean isPullRequestMerged(String owner, String repository, int id) throws IOException
     {
-        return getServiceFactory().getPullRequestService().isMerged(RepositoryId.create(owner, repositoryName), id);
+        return getServiceFactory().getPullRequestService().isMerged(RepositoryId.create(owner, repository), id);
     }
 
     /**
@@ -2321,16 +2244,16 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:mergePullRequest}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of pull request
      * @param commitMessage  commit message
      * @return status of merge
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public MergeStatus mergePullRequest(String owner, String repositoryName, int id, String commitMessage) throws IOException
+    public MergeStatus mergePullRequest(String owner, String repository, int id, String commitMessage) throws IOException
     {
-        return getServiceFactory().getPullRequestService().merge(RepositoryId.create(owner, repositoryName), id, commitMessage);
+        return getServiceFactory().getPullRequestService().merge(RepositoryId.create(owner, repository), id, commitMessage);
     }
 
 
@@ -2340,7 +2263,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createPullRequestComment}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of pull request
      * @param commitId       the id of commit
      * @param body           the body of comment
@@ -2351,7 +2274,7 @@ public class GitHubModule
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public CommitComment createPullRequestComment(String owner, String repositoryName, int id, String commitId, String body, String path, int position, int line) throws IOException
+    public CommitComment createPullRequestComment(String owner, String repository, int id, String commitId, String body, String path, int position, int line) throws IOException
     {
 
         CommitComment commitComment = new CommitComment();
@@ -2361,7 +2284,7 @@ public class GitHubModule
         commitComment.setPosition(position);
         commitComment.setLine(line);
 
-        return getServiceFactory().getPullRequestService().createComment(RepositoryId.create(owner, repositoryName), id, commitComment);
+        return getServiceFactory().getPullRequestService().createComment(RepositoryId.create(owner, repository), id, commitComment);
     }
 
     /**
@@ -2370,7 +2293,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:replyToPullRequestComment}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of pull request
      * @param commentId      the id of the comment
      * @param body           the body of response
@@ -2378,9 +2301,9 @@ public class GitHubModule
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public CommitComment replyToPullRequestComment(String owner, String repositoryName, int id, int commentId, String body) throws IOException
+    public CommitComment replyToPullRequestComment(String owner, String repository, int id, int commentId, String body) throws IOException
     {
-        return getServiceFactory().getPullRequestService().replyToComment(RepositoryId.create(owner, repositoryName), id, commentId, body);
+        return getServiceFactory().getPullRequestService().replyToComment(RepositoryId.create(owner, repository), id, commentId, body);
     }
 
     /**
@@ -2389,21 +2312,21 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:editPullRequestComment}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param commentId      id of edited comment
      * @param body           new text for comment
      * @return created commit comment
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public CommitComment editPullRequestComment(String owner, String repositoryName, long commentId, String body) throws IOException
+    public CommitComment editPullRequestComment(String owner, String repository, long commentId, String body) throws IOException
     {
 
-        IRepositoryIdProvider repository = RepositoryId.create(owner, repositoryName);
-        CommitComment comment = getServiceFactory().getPullRequestService().getComment(repository, commentId);
+        IRepositoryIdProvider repo = RepositoryId.create(owner, repository);
+        CommitComment comment = getServiceFactory().getPullRequestService().getComment(repo, commentId);
         comment.setBody(body);
 
-        return getServiceFactory().getPullRequestService().editComment(repository, comment);
+        return getServiceFactory().getPullRequestService().editComment(repo, comment);
     }
 
     /**
@@ -2412,14 +2335,14 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:deletePullRequestComment}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param commentId      id of deleted comment
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public void deletePullRequestComment(String owner, String repositoryName, long commentId) throws IOException
+    public void deletePullRequestComment(String owner, String repository, long commentId) throws IOException
     {
-        getServiceFactory().getPullRequestService().deleteComment(RepositoryId.create(owner, repositoryName), commentId);
+        getServiceFactory().getPullRequestService().deleteComment(RepositoryId.create(owner, repository), commentId);
     }
 
     /**
@@ -2428,15 +2351,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequestComment}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param commentId      id of comment
      * @return created commit comment
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public CommitComment getPullRequestComment(String owner, String repositoryName, long commentId) throws IOException
+    public CommitComment getPullRequestComment(String owner, String repository, long commentId) throws IOException
     {
-        return getServiceFactory().getPullRequestService().getComment(RepositoryId.create(owner, repositoryName), commentId);
+        return getServiceFactory().getPullRequestService().getComment(RepositoryId.create(owner, repository), commentId);
     }
 
     /**
@@ -2445,15 +2368,15 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getPullRequestComments}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of pull request
      * @return list of comments for given pull request
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public List<CommitComment> getPullRequestComments(String owner, String repositoryName, int id) throws IOException
+    public List<CommitComment> getPullRequestComments(String owner, String repository, int id) throws IOException
     {
-        return getServiceFactory().getPullRequestService().getComments(RepositoryId.create(owner, repositoryName), id);
+        return getServiceFactory().getPullRequestService().getComments(RepositoryId.create(owner, repository), id);
     }
 
 
@@ -2463,7 +2386,7 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:pagePullRequestComments}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param id             the id of pull request
      * @param start          the number of first page. Default is <code>PagedRequest.PAGE_FIRST</code>
      * @param size           the page size. Default is <code>PagedRequest.PAGE_SIZE</code>
@@ -2471,7 +2394,7 @@ public class GitHubModule
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public PageIterator<CommitComment> pagePullRequestComments(String owner, String repositoryName, int id, @Optional Integer start, @Optional Integer size) throws IOException
+    public PageIterator<CommitComment> pagePullRequestComments(String owner, String repository, int id, @Optional Integer start, @Optional Integer size) throws IOException
     {
         if (start == null)
         {
@@ -2483,7 +2406,7 @@ public class GitHubModule
             size = PagedRequest.PAGE_SIZE;
         }
 
-        return getServiceFactory().getPullRequestService().pageComments(RepositoryId.create(owner, repositoryName), id, start, size);
+        return getServiceFactory().getPullRequestService().pageComments(RepositoryId.create(owner, repository), id, start, size);
     }
 
     /**
@@ -2492,14 +2415,14 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getReferences}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @return               list of references for given pull request
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public List<Reference> getReferences(String owner, String repositoryName) throws IOException
+    public List<Reference> getReferences(String owner, String repository) throws IOException
     {
-        return getServiceFactory().getDataService().getReferences(RepositoryId.create(owner, repositoryName));
+        return getServiceFactory().getDataService().getReferences(RepositoryId.create(owner, repository));
     }
 
     /**
@@ -2508,21 +2431,21 @@ public class GitHubModule
      * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:createReference}
      *
      * @param owner          the owner of the repository
-     * @param repositoryName the name of the repository
+     * @param repository     the name of the repository
      * @param sha            the sha of reference base
      * @param referenceName  reference name
      * @return               new reference
      * @throws IOException when the connection to the client failed
      */
     @Processor
-    public Reference createReference(String owner, String repositoryName, String sha, String referenceName) throws IOException
+    public Reference createReference(String owner, String repository, String sha, String referenceName) throws IOException
     {
 
         Reference reference = new Reference();
         reference.setObject(new TypedResource());
         reference.getObject().setSha(sha);
         reference.setRef(referenceName);
-        return getServiceFactory().getDataService().createReference(RepositoryId.create(owner, repositoryName), reference);
+        return getServiceFactory().getDataService().createReference(RepositoryId.create(owner, repository), reference);
     }
 
 

@@ -10,16 +10,16 @@
 
 package org.mule.modules.github;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.egit.github.core.IRepositoryIdProvider;
 import org.eclipse.egit.github.core.RepositoryContents;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.ContentsService;
 import org.eclipse.egit.github.core.util.EncodingUtils;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_CONTENTS;
 import static org.eclipse.egit.github.core.client.IGitHubConstants.SEGMENT_REPOS;
