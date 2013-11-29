@@ -150,7 +150,6 @@ public class GitHubModule
             if (issueNumber >= iterator.next().getNumber())
             {
                 iterator.remove();
-                iterator.remove();
             }
         }
 
