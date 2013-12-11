@@ -1450,7 +1450,7 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/orgs/teams/">Create name</a>
      */
     @Processor
-    public Team createTeam(String organization, String team, @Optional @Default("PULL") TeamPermission permission, @Optional @Default("#[payload]") List<String> repositories) throws IOException
+    public Team createTeam(String organization, String team, @Optional @Default("PULL") TeamPermission permission, @Optional List<String> repositories) throws IOException
     {
         Team newTeam = new Team();
         newTeam.setName(team);
