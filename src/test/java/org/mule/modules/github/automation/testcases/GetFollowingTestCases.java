@@ -14,18 +14,34 @@ package org.mule.modules.github.automation.testcases;
 import java.util.List;
 
 import org.eclipse.egit.github.core.User;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 
 public class GetFollowingTestCases extends GitHubTestParent
 {
 
-	@Category({RegressionTests.class, UserTests.class})
+    @Before
+    public void setUp() throws Exception
+    {
+        initializeTestRunMessage("getFollowingTestData");
+        runFlowAndGetPayload("follow");
+    }
+
+    @After
+    public void tearDown() throws Exception
+    {
+        runFlowAndGetPayload("unfollow");
+    }
+
+    @Category({RegressionTests.class, UserTests.class})
     @Test
     public void testGetFollowing()
     {
@@ -33,6 +49,17 @@ public class GetFollowingTestCases extends GitHubTestParent
         {
         	List<User> following = runFlowAndGetPayload("getFollowing");
             assertNotNull(following);
+
+            boolean found = false;
+            for (User user: following)
+            {
+                if (getTestRunMessageValue("user").equals(user.getLogin()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
 
         } catch (Exception e)
         {

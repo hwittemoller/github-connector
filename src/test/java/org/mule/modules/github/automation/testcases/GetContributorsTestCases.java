@@ -14,6 +14,7 @@ package org.mule.modules.github.automation.testcases;
 import java.util.List;
 
 import org.eclipse.egit.github.core.Contributor;
+import org.eclipse.egit.github.core.RepositoryContents;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,7 +28,16 @@ public class GetContributorsTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
+        forkTestRepository();
         initializeTestRunMessage("getContributorsTestData");
+
+        //update Readme in master
+        List<RepositoryContents> retrievedContents = runFlowAndGetPayload("getReadme");
+        RepositoryContents file = retrievedContents.get(0);
+        upsertOnTestRunMessage("fileSha", file.getSha());
+        runFlowAndGetPayload("updateReadme");
+        Thread.sleep(5000);
+
     }
 
     @Category({RegressionTests.class, RepositoryTests.class})
@@ -38,6 +48,17 @@ public class GetContributorsTestCases extends GitHubTestParent
         {
             List<Contributor> contributors = runFlowAndGetPayload("getContributors");
             assertTrue(contributors.size() > 0);
+
+            boolean found = false;
+            for (Contributor contributor: contributors)
+            {
+                if (getTestRunMessageValue("owner").equals(contributor.getLogin()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
 
         } catch (Exception e)
         {

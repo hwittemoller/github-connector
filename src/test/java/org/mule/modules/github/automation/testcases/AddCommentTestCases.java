@@ -42,7 +42,7 @@ public class AddCommentTestCases extends GitHubTestParent
     }
 
     @Test
-    @Category({RegressionTests.class, CommitTests.class})
+    @Category({RegressionTests.class, CommitTests.class, SmokeTests.class})
     public void testAddComment()
     {
 

@@ -30,7 +30,7 @@ public class UnwatchTestCases extends GitHubTestParent
         initializeTestRunMessage("unWatchTestData");
     }
 
-    @Category({RegressionTests.class, WatcherTests.class})
+    @Category({RegressionTests.class, WatcherTests.class, SmokeTests.class})
     @Test
     public void testUnwatch()
     {

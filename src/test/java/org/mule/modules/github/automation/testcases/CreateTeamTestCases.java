@@ -37,7 +37,7 @@ public class CreateTeamTestCases extends GitHubTestParent
         runFlowAndGetPayload("deleteTeam");
     }
 
-	@Category({RegressionTests.class, TeamTests.class})
+	@Category({RegressionTests.class, TeamTests.class, SmokeTests.class})
     @Test
     public void testCreateTeam()
     {

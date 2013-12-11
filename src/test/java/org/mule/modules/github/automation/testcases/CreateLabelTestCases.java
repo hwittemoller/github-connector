@@ -37,7 +37,7 @@ public class CreateLabelTestCases extends GitHubTestParent
         runFlowAndGetPayload("deleteLabel");
     }
 
-    @Category({RegressionTests.class, LabelTests.class})
+    @Category({RegressionTests.class, LabelTests.class, SmokeTests.class})
     @Test
     public void testCreateLabel()
     {

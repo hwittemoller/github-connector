@@ -373,9 +373,9 @@
      <github:get-repositories-for-user user="federecio" />
 <!-- END_INCLUDE(github:getRepositoriesForUser) -->
 
-<!-- BEGIN_INCLUDE(github:getOrgRepositories) -->
-     <github:get-org-repositories organization="some org" />
-<!-- END_INCLUDE(github:getOrgRepositories) -->
+<!-- BEGIN_INCLUDE(github:getRepositoriesForOrg) -->
+     <github:get-repositories-for-org organization="some org" />
+<!-- END_INCLUDE(github:getRepositoriesForOrg) -->
 
 <!-- BEGIN_INCLUDE(github:createRepository) -->
      <github:create-repository repository="cool-repo" description="this is a cool repo" hasIssues="true" />

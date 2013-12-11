@@ -15,13 +15,13 @@ package org.mule.modules.github.automation.testcases;
 
 import java.util.List;
 
-import org.eclipse.egit.github.core.service.WatcherService;
+import org.eclipse.egit.github.core.User;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -32,7 +32,15 @@ public class GetWatchersTestCases extends GitHubTestParent
     public void setUp() throws Exception
     {
         initializeTestRunMessage("getWatchersTestData");
+        runFlowAndGetPayload("watch");
     }
+
+    @After
+    public void tearDown() throws Exception
+    {
+        runFlowAndGetPayload("unwatch");
+    }
+
 
     @Category({RegressionTests.class, WatcherTests.class})
     @Test
@@ -40,9 +48,19 @@ public class GetWatchersTestCases extends GitHubTestParent
     {
         try
         {
-            List<WatcherService> watchers = runFlowAndGetPayload("getWatchers");
-            assertNotNull(watchers);
+            List<User> watchers = runFlowAndGetPayload("getWatchers");
             assertTrue(watchers.size() > 0);
+
+            boolean found = false;
+            for (User watcher: watchers)
+            {
+                if (getTestRunMessageValue("user").equals(watcher.getLogin()))
+                {
+                    found=true;
+                    break;
+                }
+            }
+            assertTrue(found);
 
         } catch (Exception e)
         {

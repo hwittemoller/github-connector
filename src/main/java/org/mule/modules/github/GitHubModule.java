@@ -89,7 +89,7 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/issues/">List issues for a repository</a>
      */
     @Processor
-    public List<Issue> getIssues(@Optional String owner, String repository, @Optional Map<String, String> filterData) throws IOException
+    public List<Issue> getIssues(@Optional String owner, String repository, @Optional @Default("#[payload]") Map<String, String> filterData) throws IOException
     {
         if (filterData == null)
         {
@@ -738,12 +738,12 @@ public class GitHubModule
      *
      * @param isPublic    whether or not the gist is public
      * @param description optional description for the gist
-     * @param files       map of gist files to create
+     * @param files       optional map of gist files to create
      * @return returns the {@link Gist} created
      * @throws java.io.IOException when the connection to the client failed
      */
     @Processor
-    public Gist createGist(boolean isPublic, @Optional String description, Map<String, String> files) throws IOException
+    public Gist createGist(boolean isPublic, @Optional String description, @Optional @Default("#[payload]") Map<String, String> files) throws IOException
     {
         Gist gist = new Gist();
         gist.setDescription(description);
@@ -1281,9 +1281,12 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/users/emails/">Add email address(es)</a>
      */
     @Processor
-    public void addEmails(List<String> emails) throws IOException
+    public void addEmails(@Optional @Default("#[payload]") List<String> emails) throws IOException
     {
-        getServiceFactory().getUserService().addEmail(emails.toArray(new String[emails.size()]));
+        if (CollectionUtils.isNotEmpty(emails))
+        {
+            getServiceFactory().getUserService().addEmail(emails.toArray(new String[emails.size()]));
+        }
     }
 
     /**
@@ -1296,9 +1299,12 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/users/emails/">Delete email address(es)</a>
      */
     @Processor
-    public void removeEmails(List<String> emails) throws IOException
+    public void removeEmails(@Optional @Default("#[payload]") List<String> emails) throws IOException
     {
-        getServiceFactory().getUserService().removeEmail(emails.toArray(new String[emails.size()]));
+        if (CollectionUtils.isNotEmpty(emails))
+        {
+            getServiceFactory().getUserService().removeEmail(emails.toArray(new String[emails.size()]));
+        }
     }
 
     /**
@@ -1444,7 +1450,7 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/orgs/teams/">Create name</a>
      */
     @Processor
-    public Team createTeam(String organization, String team, @Optional @Default("PULL") TeamPermission permission, @Optional List<String> repositories) throws IOException
+    public Team createTeam(String organization, String team, @Optional @Default("PULL") TeamPermission permission, @Optional @Default("#[payload]") List<String> repositories) throws IOException
     {
         Team newTeam = new Team();
         newTeam.setName(team);
@@ -1631,7 +1637,7 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/repos"></a>
      */
     @Processor
-    public List<Repository> getRepositories(@Optional Map<String, String> filterData) throws IOException
+    public List<Repository> getRepositories(@Optional @Default("#[payload]") Map<String, String> filterData) throws IOException
     {
         return getServiceFactory().getRepositoryService().getRepositories(filterData);
     }
@@ -1655,7 +1661,7 @@ public class GitHubModule
     /**
      * Get organization repositories for the given organization
      * <p/>
-     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getOrgRepositories}
+     * {@sample.xml ../../../doc/GitHub-connector.xml.sample github:getRepositoriesForOrg}
      *
      * @param organization the organization for which to get the repositories for
      * @param filterData   data to filter repositories. If none is specified all repositories will be returned
@@ -1664,7 +1670,7 @@ public class GitHubModule
      * @api.doc <a href="http://developer.github.com/v3/repos"></a>
      */
     @Processor
-    public List<Repository> getOrgRepositories(String organization, @Optional Map<String, String> filterData) throws IOException
+    public List<Repository> getRepositoriesForOrg(String organization, @Optional @Default("#[payload]") Map<String, String> filterData) throws IOException
     {
         return getServiceFactory().getRepositoryService().getOrgRepositories(organization, filterData);
     }

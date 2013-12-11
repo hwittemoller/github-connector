@@ -14,6 +14,7 @@ package org.mule.modules.github.automation.testcases;
 import java.util.List;
 
 import org.eclipse.egit.github.core.RepositoryCommit;
+import org.eclipse.egit.github.core.RepositoryContents;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -29,6 +30,13 @@ public class GetCommitsTestCases extends GitHubTestParent
     {
         forkTestRepository();
         initializeTestRunMessage("getCommitsTestData");
+
+        //update Readme in master
+        List<RepositoryContents> retrievedContents = runFlowAndGetPayload("getReadme");
+        RepositoryContents file = retrievedContents.get(0);
+        upsertOnTestRunMessage("fileSha", file.getSha());
+        runFlowAndGetPayload("updateReadme");
+        Thread.sleep(5000);
     }
 
     @Test
@@ -40,6 +48,16 @@ public class GetCommitsTestCases extends GitHubTestParent
         {
             List<RepositoryCommit> commits = runFlowAndGetPayload("getCommits");
             assertTrue(commits.size() > 0);
+            boolean found  = false;
+            for (RepositoryCommit commit: commits)
+            {
+                if (getTestRunMessageValue("owner").equals(commit.getCommit().getCommitter().getName()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));
@@ -55,6 +73,16 @@ public class GetCommitsTestCases extends GitHubTestParent
         {
             List<RepositoryCommit> commits = runFlowAndGetPayload("getCommitsBySha");
             assertTrue(commits.size() > 0);
+            boolean found  = false;
+            for (RepositoryCommit commit: commits)
+            {
+                if (getTestRunMessageValue("owner").equals(commit.getCommit().getCommitter().getName()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

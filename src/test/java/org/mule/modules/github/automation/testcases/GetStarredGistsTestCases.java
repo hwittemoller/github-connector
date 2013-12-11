@@ -13,48 +13,45 @@ package org.mule.modules.github.automation.testcases;
 
 import java.util.List;
 
-import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.Gist;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-
-public class GetFollowersTestCases extends GitHubTestParent
+public class GetStarredGistsTestCases extends GitHubTestParent
 {
-
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("getFollowersTestData");
-        runFlowAndGetPayload("follow");
+        initializeTestRunMessage("getStarredGistsTestData");
+        Gist gist = runFlowAndGetPayload("createGist");
+        upsertOnTestRunMessage("gistId", gist.getId());
+        runFlowAndGetPayload("starGist");
     }
 
     @After
     public void tearDown() throws Exception
     {
-        runFlowAndGetPayload("unfollow");
+        runFlowAndGetPayload("deleteGist");
     }
 
-
-    @Category({RegressionTests.class, UserTests.class})
+    @Category({RegressionTests.class, GistTests.class})
     @Test
-    public void testGetFollowers()
+    public void testGetStarredGists()
     {
         try
         {
-        	List<User> followers = runFlowAndGetPayload("getFollowers");
-            assertNotNull(followers);
-
+            List<Gist> gists = runFlowAndGetPayload("getStarredGists");
+            assertTrue(gists.size() > 0);
             boolean found = false;
-            for (User follower: followers)
+            for (Gist gist: gists)
             {
-                if (getTestRunMessageValue("follower").equals(follower.getLogin()))
+                if (getTestRunMessageValue("gistId").equals(gist.getId()))
                 {
                     found = true;
                     break;
@@ -67,5 +64,6 @@ public class GetFollowersTestCases extends GitHubTestParent
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
+
 
 }

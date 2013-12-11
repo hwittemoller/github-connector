@@ -13,8 +13,8 @@ package org.mule.modules.github.automation.testcases;
 
 import java.util.List;
 
-import org.eclipse.egit.github.core.CommitComment;
-import org.eclipse.egit.github.core.RepositoryCommit;
+import org.eclipse.egit.github.core.Comment;
+import org.eclipse.egit.github.core.Issue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,33 +28,34 @@ public class DeleteCommentTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
-        forkTestRepository();
-        initializeTestRunMessage("getCommitsTestData");
-        List<RepositoryCommit> commits = runFlowAndGetPayload("getCommitsBySha");
-        upsertOnTestRunMessage("sha", commits.get(0).getSha());
-        CommitComment comment = runFlowAndGetPayload("addComment");
+        createTestRepository();
+        initializeTestRunMessage("deleteCommentTestData");
+        Issue issue = runFlowAndGetPayload("createIssue");
+        upsertOnTestRunMessage("issueNumber", issue.getNumber());
+        Comment comment = runFlowAndGetPayload("createComment");
         upsertOnTestRunMessage("commentId", comment.getId());
-
     }
 
+    @Category({RegressionTests.class, IssueTests.class})
     @Test
-    @Category({RegressionTests.class, CommitTests.class})
     public void testDeleteComment()
     {
-
         try
         {
-            runFlowAndGetPayload("deleteCommitComment");
-            List<CommitComment> comments = runFlowAndGetPayload("getCommmitComments");
+            runFlowAndGetPayload("deleteComment");
+
+            List<Comment> comments = runFlowAndGetPayload("getComments");
             boolean found = false;
-            for (CommitComment comment: comments)
+            for (Comment c : comments)
             {
-                if (getTestRunMessageValue("commentId").equals(comment.getId()))
+                if (getTestRunMessageValue("commentId").equals(c.getId()))
                 {
                     found = true;
+                    break;
                 }
             }
             assertFalse(found);
+
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

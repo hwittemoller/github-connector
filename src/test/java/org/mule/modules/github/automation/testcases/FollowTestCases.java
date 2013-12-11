@@ -35,7 +35,7 @@ public class FollowTestCases extends GitHubTestParent
         runFlowAndGetPayload("unfollow");
     }
 
-	@Category({RegressionTests.class, UserTests.class})
+	@Category({RegressionTests.class, UserTests.class, SmokeTests.class})
     @Test
     public void testFollow()
     {

@@ -38,7 +38,7 @@ public class CreateMilestoneTestCases extends GitHubTestParent
         runFlowAndGetPayload("deleteMilestone");
     }
 
-    @Category({RegressionTests.class, MilestoneTests.class})
+    @Category({RegressionTests.class, MilestoneTests.class, SmokeTests.class})
     @Test
     public void testCreateMilestone()
     {

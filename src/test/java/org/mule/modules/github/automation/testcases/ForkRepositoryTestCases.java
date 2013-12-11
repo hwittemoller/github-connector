@@ -11,48 +11,45 @@
 
 package org.mule.modules.github.automation.testcases;
 
-import org.eclipse.egit.github.core.Key;
+import org.eclipse.egit.github.core.Repository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class CreateDeployKeyTestCases extends GitHubTestParent
+public class ForkRepositoryTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception
     {
-        createTestRepository();
-        initializeTestRunMessage("createDeployKeyTestData");
+        initializeTestRunMessage("forkRepositoryTestData");
     }
 
     @After
     public void tearDown() throws Exception
     {
-        runFlowAndGetPayload("deleteDeployKey");
+        deleteTestRepository();
+        Thread.sleep(10000L);
     }
 
+    @Category({RegressionTests.class, RepositoryTests.class, SmokeTests.class})
     @Test
-    @Category({RegressionTests.class, DeployKeyTests.class, SmokeTests.class})
-    public void testCreateDeployKey()
+    public void testForkRepository()
     {
-
         try
         {
-            Key key = runFlowAndGetPayload("createDeployKey");
-            assertNotNull(key);
-            assertEquals(getTestRunMessageValue("title"), key.getTitle());
-            assertEquals(getTestRunMessageValue("key"), key.getKey());
-            upsertOnTestRunMessage("id", key.getId());
+            repository = runFlowAndGetPayload("forkRepository");
+            Thread.sleep(10000L);
+            assertEquals(getTestRunMessageValue("repository"), repository.getName());
 
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
+
 }

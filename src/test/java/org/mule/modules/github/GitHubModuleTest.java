@@ -431,11 +431,11 @@ public class GitHubModuleTest
     }
 
     @Test
-    public void getOrgRepositories() throws Exception
+    public void getRepositoriesForOrg() throws Exception
     {
         List<Repository> repositories = Arrays.asList(repository);
         when(repositoryService.getOrgRepositories(ORGANIZATION, filterData)).thenReturn(repositories);
-        assertEquals(repositories, gitHubModule.getOrgRepositories(ORGANIZATION, filterData));
+        assertEquals(repositories, gitHubModule.getRepositoriesForOrg(ORGANIZATION, filterData));
     }
 
     @Test
