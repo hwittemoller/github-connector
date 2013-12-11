@@ -22,12 +22,12 @@ import org.mule.modules.tests.ConnectorTestUtils;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class GetBranchesTestCases extends GitHubTestParent
+public class GetBranchesTestCases extends BasePullRequestTestCases
 {
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("getBranchesTestData");
+        prepareBranch();
     }
 
     @Category({RegressionTests.class, RepositoryTests.class})
@@ -38,6 +38,17 @@ public class GetBranchesTestCases extends GitHubTestParent
         {
             List<RepositoryBranch> branches = runFlowAndGetPayload("getBranches");
             assertTrue(branches.size() > 0);
+
+            boolean found = false;
+            for (RepositoryBranch branch: branches)
+            {
+                if (getTestRunMessageValue("branch").equals(branch.getName()) )
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
 
         } catch (Exception e)
         {

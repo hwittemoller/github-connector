@@ -36,7 +36,7 @@ public class CreateRepositoryTestCases extends GitHubTestParent
         Thread.sleep(10000L);
     }
 
-    @Category({RegressionTests.class, RepositoryTests.class})
+    @Category({RegressionTests.class, RepositoryTests.class, SmokeTests.class})
     @Test
     public void testCreateRepository()
     {

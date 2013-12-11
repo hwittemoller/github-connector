@@ -13,8 +13,8 @@ package org.mule.modules.github.automation.testcases;
 
 import java.util.List;
 
-import org.eclipse.egit.github.core.Comment;
-import org.eclipse.egit.github.core.Issue;
+import org.eclipse.egit.github.core.CommitComment;
+import org.eclipse.egit.github.core.RepositoryCommit;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -23,39 +23,38 @@ import org.mule.modules.tests.ConnectorTestUtils;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
-public class DeleteIssueCommentTestCases extends GitHubTestParent
+public class DeleteCommitCommentTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception
     {
-        createTestRepository();
-        initializeTestRunMessage("deleteCommentTestData");
-        Issue issue = runFlowAndGetPayload("createIssue");
-        upsertOnTestRunMessage("issueNumber", issue.getNumber());
-        Comment comment = runFlowAndGetPayload("createComment");
+        forkTestRepository();
+        initializeTestRunMessage("getCommitsTestData");
+        List<RepositoryCommit> commits = runFlowAndGetPayload("getCommitsBySha");
+        upsertOnTestRunMessage("sha", commits.get(0).getSha());
+        CommitComment comment = runFlowAndGetPayload("addComment");
         upsertOnTestRunMessage("commentId", comment.getId());
+
     }
 
-    @Category({RegressionTests.class, IssueTests.class})
     @Test
-    public void testDeleteIssueComment()
+    @Category({RegressionTests.class, CommitTests.class})
+    public void testDeleteCommitComment()
     {
+
         try
         {
-            runFlowAndGetPayload("deleteComment");
-
-            List<Comment> comments = runFlowAndGetPayload("getComments");
+            runFlowAndGetPayload("deleteCommitComment");
+            List<CommitComment> comments = runFlowAndGetPayload("getCommmitComments");
             boolean found = false;
-            for (Comment c : comments)
+            for (CommitComment comment: comments)
             {
-                if (getTestRunMessageValue("commentId").equals(c.getId()))
+                if (getTestRunMessageValue("commentId").equals(comment.getId()))
                 {
                     found = true;
-                    break;
                 }
             }
             assertFalse(found);
-
         } catch (Exception e)
         {
             fail(ConnectorTestUtils.getStackTrace(e));

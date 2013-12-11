@@ -262,7 +262,7 @@
     </flow>
 
     <flow name="getFollowers">
-        <github:get-followers/>
+        <github:get-followers user="#[payload.user]"/>
     </flow>
 
     <flow name="getFollowing">
@@ -379,8 +379,8 @@
         <github:get-repositories-for-user user="#[payload.user]"/>
     </flow>
 
-    <flow name="getOrgRepositories">
-        <github:get-org-repositories organization="#[payload.organization]"/>
+    <flow name="getRepositoriesForOrg">
+        <github:get-repositories-for-org organization="#[payload.organization]"/>
     </flow>
 
     <flow name="createRepository">
@@ -394,6 +394,10 @@
 
     <flow name="getForks">
         <github:get-forks owner="#[payload.owner]" repository="#[payload.repository]"/>
+    </flow>
+
+    <flow name="forkRepository">
+        <github:fork-repository owner="#[payload.owner]" repository="#[payload.repository]"/>
     </flow>
 
     <flow name="forkRepositoryForOrg">

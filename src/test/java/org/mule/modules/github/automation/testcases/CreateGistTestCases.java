@@ -37,7 +37,7 @@ public class CreateGistTestCases extends GitHubTestParent
         runFlowAndGetPayload("deleteGist");
     }
 
-    @Category({RegressionTests.class, GistTests.class})
+    @Category({RegressionTests.class, GistTests.class, SmokeTests.class})
     @Test
     public void testCreateGist()
     {

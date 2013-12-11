@@ -21,16 +21,16 @@ import org.mule.modules.github.automation.testcases.GetBranchesTestCases;
 import org.mule.modules.github.automation.testcases.GetContributorsTestCases;
 import org.mule.modules.github.automation.testcases.GetForksTestCases;
 import org.mule.modules.github.automation.testcases.GetLanguagesTestCases;
-import org.mule.modules.github.automation.testcases.GetRepositiesForOrgTestCases;
-import org.mule.modules.github.automation.testcases.GetRepositiesForUserTestCases;
-import org.mule.modules.github.automation.testcases.GetRepositiesTestCases;
+import org.mule.modules.github.automation.testcases.GetRepositoriesForOrgTestCases;
+import org.mule.modules.github.automation.testcases.GetRepositoriesForUserTestCases;
+import org.mule.modules.github.automation.testcases.GetRepositoriesTestCases;
 import org.mule.modules.github.automation.testcases.GetTagsTestCases;
 import org.mule.modules.github.automation.testcases.RepositoryTests;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(RepositoryTests.class)
 @Suite.SuiteClasses({GetBranchesTestCases.class,GetContributorsTestCases.class,GetForksTestCases.class,GetLanguagesTestCases.class,
-        GetRepositiesForOrgTestCases.class,GetRepositiesForUserTestCases.class,GetRepositiesTestCases.class,GetTagsTestCases.class,
+        GetRepositoriesForOrgTestCases.class,GetRepositoriesForUserTestCases.class,GetRepositoriesTestCases.class,GetTagsTestCases.class,
         CreateRepositoryTestCases.class, CreateRepositoryForOrgTestCases.class, ForkRepositoryForOrgTestCases.class})
 public class RepositoryTestSuite
 {

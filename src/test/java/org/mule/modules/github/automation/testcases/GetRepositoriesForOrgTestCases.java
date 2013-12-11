@@ -14,6 +14,7 @@ package org.mule.modules.github.automation.testcases;
 import java.util.List;
 
 import org.eclipse.egit.github.core.Repository;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -22,34 +23,43 @@ import org.mule.modules.tests.ConnectorTestUtils;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class GetRepositiesTestCases extends GitHubTestParent
+public class GetRepositoriesForOrgTestCases extends GitHubTestParent
 {
+
     @Before
     public void setUp() throws Exception
     {
-        createTestRepository();
-        initializeTestRunMessage("getRepositoriesTestData");
+        initializeTestRunMessage("getRepositoriesForOrgTestData");
+        runFlowAndGetPayload("forkRepositoryForOrg");
+        Thread.sleep(10000L);
+    }
+
+    @After
+    public void tearDown() throws Exception
+    {
+        deleteRepository((String)getTestRunMessageValue("organization"), (String)getTestRunMessageValue("repository"));
+        Thread.sleep(10000L);
     }
 
     @Category({RegressionTests.class, RepositoryTests.class})
     @Test
-    public void testGetRepositories()
+    public void testGetRepositoriesForOrg()
     {
         try
         {
-            List<Repository> repositories = runFlowAndGetPayload("getRepositories");
+            List<Repository> repositories = runFlowAndGetPayload("getRepositoriesForOrg");
             assertTrue(repositories.size() > 0);
+
             boolean found = false;
             for (Repository repo: repositories)
             {
-                if (repository.getName().equals(repo.getName()))
+                if (getTestRunMessageValue("repository").equals(repo.getName()))
                 {
                     found = true;
                     break;
                 }
             }
             assertTrue(found);
-
 
         } catch (Exception e)
         {

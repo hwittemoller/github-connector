@@ -22,7 +22,7 @@ import org.mule.modules.tests.ConnectorTestUtils;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class GetRepositiesForUserTestCases extends GitHubTestParent
+public class GetRepositoriesForUserTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception

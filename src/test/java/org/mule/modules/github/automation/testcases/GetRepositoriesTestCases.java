@@ -22,22 +22,34 @@ import org.mule.modules.tests.ConnectorTestUtils;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class GetRepositiesForOrgTestCases extends GitHubTestParent
+public class GetRepositoriesTestCases extends GitHubTestParent
 {
     @Before
     public void setUp() throws Exception
     {
-        initializeTestRunMessage("getRepositoriesForOrgTestData");
+        createTestRepository();
+        initializeTestRunMessage("getRepositoriesTestData");
     }
 
     @Category({RegressionTests.class, RepositoryTests.class})
     @Test
-    public void testGetRepositiesForOrg()
+    public void testGetRepositories()
     {
         try
         {
-            List<Repository> repositories = runFlowAndGetPayload("getOrgRepositories");
+            List<Repository> repositories = runFlowAndGetPayload("getRepositories");
             assertTrue(repositories.size() > 0);
+            boolean found = false;
+            for (Repository repo: repositories)
+            {
+                if (repository.getName().equals(repo.getName()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
+
 
         } catch (Exception e)
         {

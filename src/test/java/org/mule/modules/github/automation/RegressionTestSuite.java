@@ -34,10 +34,10 @@ import org.mule.modules.github.automation.testcases.CreateRepositoryForOrgTestCa
 import org.mule.modules.github.automation.testcases.CreateRepositoryTestCases;
 import org.mule.modules.github.automation.testcases.CreateTeamTestCases;
 import org.mule.modules.github.automation.testcases.DeleteCommentTestCases;
+import org.mule.modules.github.automation.testcases.DeleteCommitCommentTestCases;
 import org.mule.modules.github.automation.testcases.DeleteDeployKeyTestCases;
 import org.mule.modules.github.automation.testcases.DeleteGistCommentTestCases;
 import org.mule.modules.github.automation.testcases.DeleteGistTestCases;
-import org.mule.modules.github.automation.testcases.DeleteIssueCommentTestCases;
 import org.mule.modules.github.automation.testcases.DeleteKeyTestCases;
 import org.mule.modules.github.automation.testcases.DeleteLabelTestCases;
 import org.mule.modules.github.automation.testcases.DeleteMilestoneTestCases;
@@ -81,9 +81,9 @@ import org.mule.modules.github.automation.testcases.GetMilestoneTestCases;
 import org.mule.modules.github.automation.testcases.GetMilestonesTestCases;
 import org.mule.modules.github.automation.testcases.GetPullRequestCommentTestCases;
 import org.mule.modules.github.automation.testcases.GetPullRequestTestCases;
-import org.mule.modules.github.automation.testcases.GetRepositiesForOrgTestCases;
-import org.mule.modules.github.automation.testcases.GetRepositiesForUserTestCases;
-import org.mule.modules.github.automation.testcases.GetRepositiesTestCases;
+import org.mule.modules.github.automation.testcases.GetRepositoriesForOrgTestCases;
+import org.mule.modules.github.automation.testcases.GetRepositoriesForUserTestCases;
+import org.mule.modules.github.automation.testcases.GetRepositoriesTestCases;
 import org.mule.modules.github.automation.testcases.GetTagsTestCases;
 import org.mule.modules.github.automation.testcases.GetTeamMembersTestCases;
 import org.mule.modules.github.automation.testcases.GetTeamRepositoriesTestCases;
@@ -111,21 +111,21 @@ import org.mule.modules.github.automation.testcases.WatchTestCases;
 @RunWith(Categories.class)
 @Categories.IncludeCategory(RegressionTests.class)
 @Suite.SuiteClasses({AddCollaboratorTestCases.class, GetCollaboratorsTestCases.class, IsCollaboratorTestCases.class, RemoveCollaboratorTestCases.class,
-        AddCommentTestCases.class, DeleteCommentTestCases.class, EditCommentTestCases.class, GetCommentTestCases.class,
+        AddCommentTestCases.class, DeleteCommitCommentTestCases.class, EditCommentTestCases.class, GetCommentTestCases.class,
         GetCommitsTestCases.class, GetCommitTestCases.class,
         CreateDeployKeyTestCases.class,DeleteDeployKeyTestCases.class, EditDeployKeyTestCases.class, GetDeployKeyTestCases.class, GetDeployKeysTestCases.class,
         GetDownloadsTestCases.class,
         CreateGistCommentTestCases.class, CreateGistTestCases.class, DeleteGistCommentTestCases.class, DeleteGistTestCases.class,
         EditGistCommentTestCases.class, ForkGistTestCases.class, GetGistCommentsTestCases.class, GetGistCommentTestCases.class,
         GetGistsTestCases.class, GetGistTestCases.class, StarGistTestCases.class, UnStarGistTestCases.class,
-        CloseIssueTestCases.class, CreateCommentTestCases.class, CreateIssueTestCases.class, DeleteIssueCommentTestCases.class,
+        CloseIssueTestCases.class, CreateCommentTestCases.class, CreateIssueTestCases.class, DeleteCommentTestCases.class,
         EditIssueCommentTestCases.class, GetIssueCommentsTestCases.class, GetIssuesTestCases.class,  GetIssueTestCases.class,
         CreateLabelTestCases.class, DeleteLabelTestCases.class, GetLabelTestCases.class, GetLabelsTestCases.class,
         CreateMilestoneTestCases.class,DeleteMilestoneTestCases.class,GetMilestoneTestCases.class, GetMilestonesTestCases.class,
         CreatePullRequestCommentTestCases.class,CreatePullRequestTestCases.class,
         GetPullRequestCommentTestCases.class,GetPullRequestTestCases.class,
         GetBranchesTestCases.class,GetContributorsTestCases.class,GetForksTestCases.class,GetLanguagesTestCases.class,
-        GetRepositiesForOrgTestCases.class,GetRepositiesForUserTestCases.class,GetRepositiesTestCases.class,GetTagsTestCases.class,
+        GetRepositoriesForOrgTestCases.class,GetRepositoriesForUserTestCases.class,GetRepositoriesTestCases.class,GetTagsTestCases.class,
         CreateRepositoryTestCases.class, CreateRepositoryForOrgTestCases.class, ForkRepositoryForOrgTestCases.class,
         GetCurrentUserTestCases.class, GetFollowersTestCases.class, GetFollowingTestCases.class,
         GetUserByLoginNameTestCases.class, IsFollowingTestCases.class, UpdateCurrentUserTestCases.class, FollowTestCases.class, UnFollowTestCases.class,

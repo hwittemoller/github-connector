@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.mule.modules.github.automation.testcases.AddCommentTestCases;
 import org.mule.modules.github.automation.testcases.CommitTests;
-import org.mule.modules.github.automation.testcases.DeleteCommentTestCases;
+import org.mule.modules.github.automation.testcases.DeleteCommitCommentTestCases;
 import org.mule.modules.github.automation.testcases.EditCommentTestCases;
 import org.mule.modules.github.automation.testcases.GetCommentTestCases;
 import org.mule.modules.github.automation.testcases.GetCommitTestCases;
@@ -24,7 +24,7 @@ import org.mule.modules.github.automation.testcases.GetCommitsTestCases;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(CommitTests.class)
-@Suite.SuiteClasses({AddCommentTestCases.class, DeleteCommentTestCases.class, EditCommentTestCases.class, GetCommentTestCases.class,
+@Suite.SuiteClasses({AddCommentTestCases.class, DeleteCommitCommentTestCases.class, EditCommentTestCases.class, GetCommentTestCases.class,
         GetCommitsTestCases.class, GetCommitTestCases.class})
 public class CommitTestSuite
 {

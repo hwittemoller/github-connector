@@ -30,7 +30,7 @@ public class CreateIssueTestCases extends GitHubTestParent
         initializeTestRunMessage("createIssueTestData");
     }
 
-    @Category({RegressionTests.class, IssueTests.class})
+    @Category({RegressionTests.class, IssueTests.class, SmokeTests.class})
     @Test
     public void testCreateIssue()
     {

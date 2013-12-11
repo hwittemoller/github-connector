@@ -42,7 +42,7 @@ public class AddTeamRepositoryTestCases extends GitHubTestParent
         Thread.sleep(10000L);
     }
 
-	@Category({RegressionTests.class, TeamTests.class})
+	@Category({RegressionTests.class, TeamTests.class, SmokeTests.class})
     @Test
     public void testAddTeamRepository()
     {

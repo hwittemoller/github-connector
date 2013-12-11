@@ -33,7 +33,7 @@ public class CreateCommentTestCases extends GitHubTestParent
         upsertOnTestRunMessage("issueNumber", issue.getNumber());
     }
 
-    @Category({RegressionTests.class, IssueTests.class})
+    @Category({RegressionTests.class, IssueTests.class, SmokeTests.class})
     @Test
     public void testCreateComment()
     {

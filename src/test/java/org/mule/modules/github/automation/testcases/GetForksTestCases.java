@@ -27,6 +27,7 @@ public class GetForksTestCases extends GitHubTestParent
     @Before
     public void setUp() throws Exception
     {
+        forkTestRepository();
         initializeTestRunMessage("getForksTestData");
     }
 
@@ -38,6 +39,17 @@ public class GetForksTestCases extends GitHubTestParent
         {
             List<Repository> repositories = runFlowAndGetPayload("getForks");
             assertTrue(repositories.size() > 0);
+
+            boolean found = false;
+            for (Repository repo: repositories)
+            {
+                if (getTestRunMessageValue("user").equals(repo.getOwner().getLogin()))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
 
         } catch (Exception e)
         {

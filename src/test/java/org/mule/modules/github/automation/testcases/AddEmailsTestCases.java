@@ -37,7 +37,7 @@ public class AddEmailsTestCases extends GitHubTestParent
         runFlowAndGetPayload("removeEmails");
     }
     
-    @Category({RegressionTests.class, UserTests.class})
+    @Category({RegressionTests.class, UserTests.class, SmokeTests.class})
     @Test
     public void testAddEmails()
     {

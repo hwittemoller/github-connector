@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
 import org.mule.modules.github.automation.testcases.CloseIssueTestCases;
 import org.mule.modules.github.automation.testcases.CreateCommentTestCases;
 import org.mule.modules.github.automation.testcases.CreateIssueTestCases;
-import org.mule.modules.github.automation.testcases.DeleteIssueCommentTestCases;
+import org.mule.modules.github.automation.testcases.DeleteCommentTestCases;
 import org.mule.modules.github.automation.testcases.EditIssueCommentTestCases;
 import org.mule.modules.github.automation.testcases.GetIssueCommentsTestCases;
 import org.mule.modules.github.automation.testcases.GetIssueTestCases;
@@ -26,7 +26,7 @@ import org.mule.modules.github.automation.testcases.IssueTests;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory(IssueTests.class)
-@Suite.SuiteClasses({CloseIssueTestCases.class, CreateCommentTestCases.class, CreateIssueTestCases.class, DeleteIssueCommentTestCases.class,
+@Suite.SuiteClasses({CloseIssueTestCases.class, CreateCommentTestCases.class, CreateIssueTestCases.class, DeleteCommentTestCases.class,
         EditIssueCommentTestCases.class, GetIssueCommentsTestCases.class, GetIssuesTestCases.class,  GetIssueTestCases.class })
 public class IssueTestSuite
 {
