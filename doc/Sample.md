@@ -175,11 +175,11 @@ Let's create another slightly more complex example, this time we are going to im
 *	Then perform the following commands, notice, that instead of ```<github_name>``` you should put in the name of your GitHub account:		
 
 ```
-git init
-git add .
-git commit -m "first commit"
-git remote add origin https://github.com/<github_name>/New-repository.git
-git push -u origin master
+git init 	
+git add . 	
+git commit -m "first commit" 	
+git remote add origin https://github.com/<github_name>/New-repository.git 	
+git push -u origin master 	
 ```
 
 You will be asked to input your GitHub name, and then password.	
@@ -190,8 +190,8 @@ Finally, you will get your **test.txt** uploaded into your master branch, which 
 *	Then being in the **Master** folder create a new branch, run these commands:
 
 ```
-git branch new_branch
-git push origin new_branch
+git branch new_branch 	
+git push origin new_branch 	
 ```
 
 After confirmation with username/password, switch to your GitHub account. Using dropdown list ![switch_branch](images/switch_branch.png) you may switch between **Master** and **new_branch**.	
@@ -216,16 +216,16 @@ After confirmation with username/password, switch to your GitHub account. Using 
 *	In order to switch to **new_branch**, run this command:		
 
 ```
-git checkout new_branch
+git checkout new_branch 	
 ```
 
 *	Then edit **test.txt** and replace the content with the phrase **Have a good day**.	
 *	After that run these several rows:	
 
 ```
-git add .
-git commit -m "new data"
-git push
+git add . 	
+git commit -m "new data" 	
+git push 	
 ```
 
 *	After confirmation with username/password, switch to your GitHub account. Navigate to **new_branch**. Click the **pull request** icon:		
