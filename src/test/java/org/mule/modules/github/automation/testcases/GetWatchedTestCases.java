@@ -16,7 +16,6 @@ package org.mule.modules.github.automation.testcases;
 import java.util.List;
 
 import org.eclipse.egit.github.core.Repository;
-import org.eclipse.egit.github.core.service.WatcherService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
