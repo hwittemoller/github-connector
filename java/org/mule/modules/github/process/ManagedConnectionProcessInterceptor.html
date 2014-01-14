@@ -65,6 +65,49 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -213,6 +256,8 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/package-summary.html">org.mule.modules.github</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/github/adapter/package-summary.html">org.mule.modules.github.adapter</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/adapters/package-summary.html">org.mule.modules.github.adapters</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/agents/package-summary.html">org.mule.modules.github.agents</a></li>
@@ -221,7 +266,11 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/config/spring/package-summary.html">org.mule.modules.github.config.spring</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/github/connection/package-summary.html">org.mule.modules.github.connection</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/connectivity/package-summary.html">org.mule.modules.github.connectivity</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/github/devkit/package-summary.html">org.mule.modules.github.devkit</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/process/package-summary.html">org.mule.modules.github.process</a></li>
     <li class="api apilevel-">
@@ -283,6 +332,11 @@
 <div id="api-info-block">
 
 
+
+  
+  
+  
+  
 
   
    
@@ -365,7 +419,11 @@ Summary:
   
 
   
-    extends <a href="../../../../../../java/org/mule/modules/github/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a><br/>
+  
+  
+
+  
+    extends AbstractExpressionEvaluator<br/>
   
   
   
@@ -390,7 +448,7 @@ Summary:
 
     <tr>
         
-        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="4" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -398,11 +456,23 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/github/processors/AbstractExpressionEvaluator.html">org.mule.modules.github.processors.AbstractExpressionEvaluator</a></td>
+        <td colspan="3" class="jd-inheritance-class-cell">org.mule.devkit.processor.ExpressionEvaluatorSupport</td>
     </tr>
     
 
     <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+        
+        <td colspan="2" class="jd-inheritance-class-cell">org.mule.security.oauth.processor.AbstractExpressionEvaluator</td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
         
             <td class="jd-inheritance-space">&nbsp;</td>
         
@@ -476,7 +546,7 @@ Summary:
           private
           
           final
-          ConnectionManager&lt;<a href="../../../../../../java/org/mule/modules/github/connectivity/GitHubModuleConnectionKey.html">GitHubModuleConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt;</nobr></td>
+          <a href="../../../../../../java/org/mule/modules/github/connection/ConnectionManager.html">ConnectionManager</a>&lt;<a href="../../../../../../java/org/mule/modules/github/connectivity/GitHubModuleConnectionKey.html">GitHubModuleConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt;</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/github/process/ManagedConnectionProcessInterceptor.html#connectionManager">connectionManager</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
@@ -540,7 +610,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/process/ManagedConnectionProcessInterceptor.html#ManagedConnectionProcessInterceptor(org.mule.api.process.ProcessInterceptor<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.api.ConnectionManager<org.mule.modules.github.connectivity.GitHubModuleConnectionKey, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.api.MuleContext)">ManagedConnectionProcessInterceptor</a></span>(ProcessInterceptor&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; next, ConnectionManager&lt;<a href="../../../../../../java/org/mule/modules/github/connectivity/GitHubModuleConnectionKey.html">GitHubModuleConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; connectionManager, MuleContext muleContext)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/process/ManagedConnectionProcessInterceptor.html#ManagedConnectionProcessInterceptor(org.mule.api.devkit.ProcessInterceptor<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.modules.github.connection.ConnectionManager<org.mule.modules.github.connectivity.GitHubModuleConnectionKey, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.api.MuleContext)">ManagedConnectionProcessInterceptor</a></span>(ProcessInterceptor&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; next, <a href="../../../../../../java/org/mule/modules/github/connection/ConnectionManager.html">ConnectionManager</a>&lt;<a href="../../../../../../java/org/mule/modules/github/connectivity/GitHubModuleConnectionKey.html">GitHubModuleConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; connectionManager, MuleContext muleContext)</nobr>
         
   </td></tr>
 
@@ -569,7 +639,7 @@ Summary:
             T</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/process/ManagedConnectionProcessInterceptor.html#execute(org.mule.api.process.ProcessCallback<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter, org.mule.api.routing.filter.Filter, org.mule.api.MuleMessage)">execute</a></span>(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a> object, Filter filter, MuleMessage message)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/process/ManagedConnectionProcessInterceptor.html#execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter, org.mule.api.routing.filter.Filter, org.mule.api.MuleMessage)">execute</a></span>(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a> object, Filter filter, MuleMessage message)</nobr>
         
   </td></tr>
 
@@ -585,7 +655,7 @@ Summary:
             T</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/process/ManagedConnectionProcessInterceptor.html#execute(org.mule.api.process.ProcessCallback<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter, org.mule.api.processor.MessageProcessor, org.mule.api.MuleEvent)">execute</a></span>(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a> object, MessageProcessor messageProcessor, MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/process/ManagedConnectionProcessInterceptor.html#execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter, org.mule.api.processor.MessageProcessor, org.mule.api.MuleEvent)">execute</a></span>(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a> object, MessageProcessor messageProcessor, MuleEvent event)</nobr>
         
   </td></tr>
 
@@ -605,21 +675,23 @@ Summary:
   <div style="clear:left;">Inherited Methods</div></th></tr>
 
 
+
+
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.github.processors.AbstractExpressionEvaluator" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.modules.github.processors.AbstractExpressionEvaluator-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From class
 
-  <a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html">org.mule.modules.github.processors.AbstractExpressionEvaluator</a>
+  org.mule.devkit.processor.ExpressionEvaluatorSupport
 
-<div id="inherited-methods-org.mule.modules.github.processors.AbstractExpressionEvaluator">
-  <div id="inherited-methods-org.mule.modules.github.processors.AbstractExpressionEvaluator-list"
+<div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport">
+  <div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.modules.github.processors.AbstractExpressionEvaluator-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -635,10 +707,8 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#computeClassHierarchy(java.lang.Class, java.util.List)">computeClassHierarchy</a></span>(Class clazz, List classes)</nobr>
+        <span class="sympad">computeClassHierarchy</span>(Class arg0, List arg1)</nobr>
         
-        <div class="jd-descrdiv">Get all superclasses and interfaces recursively.</div>
-  
   </td></tr>
 
 
@@ -653,7 +723,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#evaluate(org.mule.util.TemplateParser.PatternInfo, org.mule.api.expression.ExpressionManager, org.mule.api.MuleMessage, java.lang.Object)">evaluate</a></span>(TemplateParser.PatternInfo patternInfo, ExpressionManager expressionManager, MuleMessage muleMessage, Object source)</nobr>
+        <span class="sympad">evaluate</span>(TemplateParser.PatternInfo arg0, ExpressionManager arg1, MuleMessage arg2, Object arg3)</nobr>
         
   </td></tr>
 
@@ -669,7 +739,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleMessage muleMessage, Type expectedType, String expectedMimeType, Object source)</nobr>
+        <span class="sympad">evaluateAndTransform</span>(MuleContext arg0, MuleEvent arg1, Type arg2, String arg3, Object arg4)</nobr>
         
   </td></tr>
 
@@ -685,7 +755,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleEvent, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleEvent event, Type expectedType, String expectedMimeType, Object source)</nobr>
+        <span class="sympad">evaluateAndTransform</span>(MuleContext arg0, MuleMessage arg1, Type arg2, String arg3, Object arg4)</nobr>
         
   </td></tr>
 
@@ -698,10 +768,10 @@ From class
             
             
             
-            boolean</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#isAssignableFrom(java.lang.reflect.Type, java.lang.Class)">isAssignableFrom</a></span>(Type expectedType, Class clazz)</nobr>
+        <span class="sympad">getAccessTokenId</span>(MuleEvent arg0, MessageProcessor arg1, OAuth2Manager&lt;?&gt; arg2)</nobr>
         
   </td></tr>
 
@@ -717,7 +787,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#isList(java.lang.reflect.Type)">isList</a></span>(Type type)</nobr>
+        <span class="sympad">isAssignableFrom</span>(Type arg0, Class arg1)</nobr>
         
   </td></tr>
 
@@ -733,10 +803,8 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#isListClass(java.lang.Class)">isListClass</a></span>(Class clazz)</nobr>
+        <span class="sympad">isList</span>(Type arg0)</nobr>
         
-        <div class="jd-descrdiv">Checks whether the specified class parameter is an instance of List</div>
-  
   </td></tr>
 
 
@@ -751,7 +819,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#isMap(java.lang.reflect.Type)">isMap</a></span>(Type type)</nobr>
+        <span class="sympad">isListClass</span>(Class arg0)</nobr>
         
   </td></tr>
 
@@ -767,10 +835,8 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#isMapClass(java.lang.Class)">isMapClass</a></span>(Class clazz)</nobr>
+        <span class="sympad">isMap</span>(Type arg0)</nobr>
         
-        <div class="jd-descrdiv">Checks whether the specified class parameter is an instance of Map</div>
-  
   </td></tr>
 
 
@@ -782,10 +848,10 @@ From class
             
             
             
-            Object</nobr>
+            boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleContext, org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.String, java.lang.Object)">transform</a></span>(MuleContext muleContext, MuleMessage message, Type expectedType, String expectedMimeType, Object source)</nobr>
+        <span class="sympad">isMapClass</span>(Class arg0)</nobr>
         
   </td></tr>
 
@@ -801,7 +867,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleContext, org.mule.api.MuleEvent, java.lang.reflect.Type, java.lang.String, java.lang.Object)">transform</a></span>(MuleContext muleContext, MuleEvent event, Type expectedType, String expectedMimeType, Object source)</nobr>
+        <span class="sympad">transform</span>(MuleMessage arg0, Type arg1, Object arg2)</nobr>
         
   </td></tr>
 
@@ -817,7 +883,23 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.Object)">transform</a></span>(MuleMessage muleMessage, Type expectedType, Object source)</nobr>
+        <span class="sympad">transform</span>(MuleContext arg0, MuleEvent arg1, Type arg2, String arg3, Object arg4)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">transform</span>(MuleContext arg0, MuleMessage arg1, Type arg2, String arg3, Object arg4)</nobr>
         
   </td></tr>
 
@@ -1033,19 +1115,19 @@ From class
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.process.ProcessInterceptor" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.process.ProcessInterceptor-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.devkit.ProcessInterceptor" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.devkit.ProcessInterceptor-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  org.mule.api.process.ProcessInterceptor
+  org.mule.api.devkit.ProcessInterceptor
 
-<div id="inherited-methods-org.mule.api.process.ProcessInterceptor">
-  <div id="inherited-methods-org.mule.api.process.ProcessInterceptor-list"
+<div id="inherited-methods-org.mule.api.devkit.ProcessInterceptor">
+  <div id="inherited-methods-org.mule.api.devkit.ProcessInterceptor-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.api.process.ProcessInterceptor-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.api.devkit.ProcessInterceptor-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -1061,7 +1143,7 @@ From interface
             T</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">execute</span>(ProcessCallback&lt;T,&nbsp;O&gt; arg0, O arg1, MessageProcessor arg2, MuleEvent arg3)</nobr>
+        <span class="sympad">execute</span>(ProcessCallback&lt;T,&nbsp;O&gt; arg0, O arg1, Filter arg2, MuleMessage arg3)</nobr>
         
   </td></tr>
 
@@ -1077,7 +1159,7 @@ From interface
             T</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">execute</span>(ProcessCallback&lt;T,&nbsp;O&gt; arg0, O arg1, Filter arg2, MuleMessage arg3)</nobr>
+        <span class="sympad">execute</span>(ProcessCallback&lt;T,&nbsp;O&gt; arg0, O arg1, MessageProcessor arg2, MuleEvent arg3)</nobr>
         
   </td></tr>
 
@@ -1128,7 +1210,7 @@ From interface
         private 
          
         final 
-        ConnectionManager&lt;<a href="../../../../../../java/org/mule/modules/github/connectivity/GitHubModuleConnectionKey.html">GitHubModuleConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt;
+        <a href="../../../../../../java/org/mule/modules/github/connection/ConnectionManager.html">ConnectionManager</a>&lt;<a href="../../../../../../java/org/mule/modules/github/connectivity/GitHubModuleConnectionKey.html">GitHubModuleConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt;
       </span>
         connectionManager
     </h4>
@@ -1249,7 +1331,7 @@ From interface
 
 
 
-<A NAME="ManagedConnectionProcessInterceptor(org.mule.api.process.ProcessInterceptor<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.api.ConnectionManager<org.mule.modules.github.connectivity.GitHubModuleConnectionKey, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.api.MuleContext)"></A>
+<A NAME="ManagedConnectionProcessInterceptor(org.mule.api.devkit.ProcessInterceptor<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.modules.github.connection.ConnectionManager<org.mule.modules.github.connectivity.GitHubModuleConnectionKey, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.api.MuleContext)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1262,7 +1344,7 @@ From interface
         
       </span>
       <span class="sympad">ManagedConnectionProcessInterceptor</span>
-      <span class="normal">(ProcessInterceptor&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; next, ConnectionManager&lt;<a href="../../../../../../java/org/mule/modules/github/connectivity/GitHubModuleConnectionKey.html">GitHubModuleConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; connectionManager, MuleContext muleContext)</span>
+      <span class="normal">(ProcessInterceptor&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; next, <a href="../../../../../../java/org/mule/modules/github/connection/ConnectionManager.html">ConnectionManager</a>&lt;<a href="../../../../../../java/org/mule/modules/github/connectivity/GitHubModuleConnectionKey.html">GitHubModuleConnectionKey</a>,&nbsp;<a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a>&gt; connectionManager, MuleContext muleContext)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1312,7 +1394,7 @@ From interface
 
 
 
-<A NAME="execute(org.mule.api.process.ProcessCallback<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter, org.mule.api.routing.filter.Filter, org.mule.api.MuleMessage)"></A>
+<A NAME="execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter, org.mule.api.routing.filter.Filter, org.mule.api.MuleMessage)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1373,7 +1455,7 @@ From interface
 </div>
 
 
-<A NAME="execute(org.mule.api.process.ProcessCallback<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter, org.mule.api.processor.MessageProcessor, org.mule.api.MuleEvent)"></A>
+<A NAME="execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter>, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter, org.mule.api.processor.MessageProcessor, org.mule.api.MuleEvent)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">

@@ -65,6 +65,49 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -213,6 +256,8 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/package-summary.html">org.mule.modules.github</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/github/adapter/package-summary.html">org.mule.modules.github.adapter</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/adapters/package-summary.html">org.mule.modules.github.adapters</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/agents/package-summary.html">org.mule.modules.github.agents</a></li>
@@ -220,8 +265,12 @@
   <a href="../../../../../../java/org/mule/modules/github/config/package-summary.html">org.mule.modules.github.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/config/spring/package-summary.html">org.mule.modules.github.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/github/connection/package-summary.html">org.mule.modules.github.connection</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/connectivity/package-summary.html">org.mule.modules.github.connectivity</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/github/devkit/package-summary.html">org.mule.modules.github.devkit</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/github/process/package-summary.html">org.mule.modules.github.process</a></li>
     <li class="api apilevel-">
@@ -332,6 +381,27 @@
    
   
   
+   
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+   
+  
+  
+  
+  
+
+  
+   
+  
+  
   
   
 
@@ -406,17 +476,21 @@ Summary:
   
       implements 
       
-        Capabilities 
-      
-        ConnectionManager&lt;K,&nbsp;C&nbsp;extends&nbsp;Connection&gt; 
-      
         MetadataAware 
       
         MuleContextAware 
       
+        ProcessAdapter&lt;O&gt; 
+      
+        Capabilities 
+      
+        Disposable 
+      
         Initialisable 
       
-        ProcessAdapter&lt;O&gt; 
+        Testable 
+      
+        <a href="../../../../../../java/org/mule/modules/github/connection/ConnectionManager.html">ConnectionManager</a>&lt;K,&nbsp;C&nbsp;extends&nbsp;<a href="../../../../../../java/org/mule/modules/github/connection/Connection.html">Connection</a>&gt; 
       
   
   
@@ -519,12 +593,19 @@ Summary:
     
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">String</td>
-        <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#MODULE_NAME">MODULE_NAME</a></td>
+        <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#MIN_MULE_VERSION">MIN_MULE_VERSION</a></td>
         <td class="jd-descrcol" width="100%"></td>
     </tr>
     
     
     <tr class=" api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#MODULE_NAME">MODULE_NAME</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">String</td>
         <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#MODULE_VERSION">MODULE_VERSION</a></td>
         <td class="jd-descrcol" width="100%"></td>
@@ -557,6 +638,37 @@ Summary:
 <tr class="api apilevel-" >
 <td colspan="12">
 
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.lifecycle.Disposable" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-org.mule.api.lifecycle.Disposable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From interface
+org.mule.api.lifecycle.Disposable
+<div id="inherited-constants-org.mule.api.lifecycle.Disposable">
+  <div id="inherited-constants-org.mule.api.lifecycle.Disposable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-org.mule.api.lifecycle.Disposable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol">PHASE_NAME</td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.lifecycle.Initialisable" class="jd-expando-trigger closed"
           ><img id="inherited-constants-org.mule.api.lifecycle.Initialisable-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
@@ -582,6 +694,10 @@ org.mule.api.lifecycle.Initialisable
   </div>
 </div>
 </td></tr>
+
+
+
+
 
 
 
@@ -757,10 +873,42 @@ org.mule.api.lifecycle.Initialisable
             
             
             
+            DefaultResult</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#buildFailureTestResult(java.lang.Exception)">buildFailureTestResult</a></span>(Exception exception)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#destroyConnection(org.mule.modules.github.connectivity.GitHubModuleConnectionKey, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter)">destroyConnection</a></span>(<a href="../../../../../../java/org/mule/modules/github/connectivity/GitHubModuleConnectionKey.html">GitHubModuleConnectionKey</a> key, <a href="../../../../../../java/org/mule/modules/github/adapters/GitHubModuleConnectionIdentifierAdapter.html">GitHubModuleConnectionIdentifierAdapter</a> connection)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#dispose()">dispose</a></span>()</nobr>
         
   </td></tr>
 
@@ -838,6 +986,8 @@ org.mule.api.lifecycle.Initialisable
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#getDefaultConnectionKey()">getDefaultConnectionKey</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Retrieve the default connection key</div>
+  
   </td></tr>
 
 
@@ -904,7 +1054,7 @@ org.mule.api.lifecycle.Initialisable
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#getModuleName()">getModuleName</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#getMinMuleVersion()">getMinMuleVersion</a></span>()</nobr>
         
   </td></tr>
 
@@ -920,13 +1070,29 @@ org.mule.api.lifecycle.Initialisable
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#getModuleVersion()">getModuleVersion</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#getModuleName()">getModuleName</a></span>()</nobr>
         
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#getModuleVersion()">getModuleVersion</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -946,7 +1112,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -962,7 +1128,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -982,7 +1148,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1002,7 +1168,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1018,7 +1184,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1028,7 +1194,7 @@ org.mule.api.lifecycle.Initialisable
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#isCapableOf(org.mule.api.Capability)">isCapableOf</a></span>(Capability capability)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#isCapableOf(org.mule.api.devkit.capability.ModuleCapability)">isCapableOf</a></span>(ModuleCapability capability)</nobr>
         
         <div class="jd-descrdiv">Returns true if this module implements such capability
  
@@ -1038,7 +1204,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1054,7 +1220,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1072,7 +1238,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1090,7 +1256,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1108,7 +1274,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1126,7 +1292,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1144,7 +1310,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1162,7 +1328,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1176,6 +1342,22 @@ org.mule.api.lifecycle.Initialisable
         
         <div class="jd-descrdiv">Sets scope</div>
   
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            TestResult</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connectivity/GitHubModuleConnectionManager.html#test()">test</a></span>()</nobr>
+        
   </td></tr>
 
 
@@ -1398,186 +1580,6 @@ From class
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.Capabilities" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.Capabilities-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.Capabilities
-
-<div id="inherited-methods-org.mule.api.Capabilities">
-  <div id="inherited-methods-org.mule.api.Capabilities-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.Capabilities-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isCapableOf</span>(Capability arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.ConnectionManager" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.ConnectionManager-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.mule.api.ConnectionManager
-
-<div id="inherited-methods-org.mule.api.ConnectionManager">
-  <div id="inherited-methods-org.mule.api.ConnectionManager-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.api.ConnectionManager-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            C</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">acquireConnection</span>(K arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">destroyConnection</span>(K arg0, C arg1)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            PoolingProfile</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getConnectionPoolingProfile</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            K</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getDefaultConnectionKey</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            RetryPolicyTemplate</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getRetryPolicyTemplate</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">releaseConnection</span>(K arg0, C arg1)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setConnectionPoolingProfile</span>(PoolingProfile arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.MetadataAware" class="jd-expando-trigger closed"
           ><img id="inherited-methods-org.mule.api.MetadataAware-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
@@ -1638,13 +1640,29 @@ From interface
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getModuleName</span>()</nobr>
+        <span class="sympad">getMinMuleVersion</span>()</nobr>
         
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">getModuleName</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1710,6 +1728,132 @@ From interface
 
 <tr class="api apilevel-" >
 <td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.devkit.ProcessAdapter" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.devkit.ProcessAdapter-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.api.devkit.ProcessAdapter
+
+<div id="inherited-methods-org.mule.api.devkit.ProcessAdapter">
+  <div id="inherited-methods-org.mule.api.devkit.ProcessAdapter-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.api.devkit.ProcessAdapter-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            &lt;T&gt;
+            ProcessTemplate&lt;T,&nbsp;O&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">getProcessTemplate</span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.devkit.capability.Capabilities" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.devkit.capability.Capabilities-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.api.devkit.capability.Capabilities
+
+<div id="inherited-methods-org.mule.api.devkit.capability.Capabilities">
+  <div id="inherited-methods-org.mule.api.devkit.capability.Capabilities-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.api.devkit.capability.Capabilities-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">isCapableOf</span>(ModuleCapability arg0)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Disposable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.lifecycle.Disposable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.api.lifecycle.Disposable
+
+<div id="inherited-methods-org.mule.api.lifecycle.Disposable">
+  <div id="inherited-methods-org.mule.api.lifecycle.Disposable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.api.lifecycle.Disposable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">dispose</span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Initialisable" class="jd-expando-trigger closed"
           ><img id="inherited-methods-org.mule.api.lifecycle.Initialisable-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
@@ -1750,21 +1894,23 @@ From interface
 
 
 
+
+
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.process.ProcessAdapter" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.process.ProcessAdapter-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.common.Testable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.common.Testable-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  org.mule.api.process.ProcessAdapter
+  org.mule.common.Testable
 
-<div id="inherited-methods-org.mule.api.process.ProcessAdapter">
-  <div id="inherited-methods-org.mule.api.process.ProcessAdapter-list"
+<div id="inherited-methods-org.mule.common.Testable">
+  <div id="inherited-methods-org.mule.common.Testable-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.api.process.ProcessAdapter-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.common.Testable-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -1776,12 +1922,165 @@ From interface
             
             
             
-            &lt;T&gt;
-            ProcessTemplate&lt;T,&nbsp;O&gt;</nobr>
+            
+            TestResult</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getProcessTemplate</span>()</nobr>
+        <span class="sympad">test</span>()</nobr>
         
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.github.connection.ConnectionManager" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.modules.github.connection.ConnectionManager-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="../../../../../../org/mule/modules/github/connection/ConnectionManager.html">org.mule.modules.github.connection.ConnectionManager</a>
+
+<div id="inherited-methods-org.mule.modules.github.connection.ConnectionManager">
+  <div id="inherited-methods-org.mule.modules.github.connection.ConnectionManager-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.modules.github.connection.ConnectionManager-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            C</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connection/ConnectionManager.html#acquireConnection(K)">acquireConnection</a></span>(K connectorKey)</nobr>
+        
+        <div class="jd-descrdiv">Borrow a connection from the pool</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connection/ConnectionManager.html#destroyConnection(K, C)">destroyConnection</a></span>(K connectorKey, C connector)</nobr>
+        
+        <div class="jd-descrdiv">Destroy a connection</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            PoolingProfile</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connection/ConnectionManager.html#getConnectionPoolingProfile()">getConnectionPoolingProfile</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieve the connection pooling profile</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            K</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connection/ConnectionManager.html#getDefaultConnectionKey()">getDefaultConnectionKey</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieve the default connection key</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            RetryPolicyTemplate</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connection/ConnectionManager.html#getRetryPolicyTemplate()">getRetryPolicyTemplate</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieve the reconnection strategy used by this connection
+ manager.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connection/ConnectionManager.html#releaseConnection(K, C)">releaseConnection</a></span>(K connectorKey, C connector)</nobr>
+        
+        <div class="jd-descrdiv">Return a connection to the pool</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/github/connection/ConnectionManager.html#setConnectionPoolingProfile(org.mule.config.PoolingProfile)">setConnectionPoolingProfile</a></span>(PoolingProfile value)</nobr>
+        
+        <div class="jd-descrdiv">Set the connection pooling profile</div>
+  
   </td></tr>
 
 
@@ -1849,7 +2148,7 @@ From interface
         <span class="jd-tagtitle">Constant Value: </span>
         <span>
             
-                "UNNAMED.1373.24989b8"
+                "UNKNOWN_BUILDNUMBER"
             
         </span>
         </div>
@@ -1888,7 +2187,46 @@ From interface
         <span class="jd-tagtitle">Constant Value: </span>
         <span>
             
-                "3.3.2"
+                "3.5.0-bighorn"
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
+<A NAME="MIN_MULE_VERSION"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+        static 
+        final 
+        String
+      </span>
+        MIN_MULE_VERSION
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                "3.5.0"
             
         </span>
         </div>
@@ -1966,7 +2304,7 @@ From interface
         <span class="jd-tagtitle">Constant Value: </span>
         <span>
             
-                "2.0.4-SNAPSHOT"
+                "2.1.0-SNAPSHOT"
             
         </span>
         </div>
@@ -2336,6 +2674,46 @@ From interface
 </div>
 
 
+<A NAME="buildFailureTestResult(java.lang.Exception)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        DefaultResult
+      </span>
+      <span class="sympad">buildFailureTestResult</span>
+      <span class="normal">(Exception exception)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>exception</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="destroyConnection(org.mule.modules.github.connectivity.GitHubModuleConnectionKey, org.mule.modules.github.adapters.GitHubModuleConnectionIdentifierAdapter)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2384,6 +2762,37 @@ From interface
         </tr>
       </table>
   </div>
+
+    </div>
+</div>
+
+
+<A NAME="dispose()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">dispose</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
@@ -2450,6 +2859,11 @@ From interface
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves connectionPoolingProfile
  
 </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>PoolingProfile representing the pooling parameters
+</li></ul>
+  </div>
 
     </div>
 </div>
@@ -2513,7 +2927,12 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieve the default connection key</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The default connection key
+</li></ul>
+  </div>
 
     </div>
 </div>
@@ -2609,6 +3028,37 @@ From interface
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves flowConstruct
  
 </p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getMinMuleVersion()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getMinMuleVersion</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
@@ -2768,6 +3218,11 @@ From interface
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves retryPolicyTemplate
  
 </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The reconnection strategy 
+</li></ul>
+  </div>
 
     </div>
 </div>
@@ -2837,7 +3292,7 @@ From interface
 </div>
 
 
-<A NAME="isCapableOf(org.mule.api.Capability)"></A>
+<A NAME="isCapableOf(org.mule.api.devkit.capability.ModuleCapability)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2850,7 +3305,7 @@ From interface
         boolean
       </span>
       <span class="sympad">isCapableOf</span>
-      <span class="normal">(Capability capability)</span>
+      <span class="normal">(ModuleCapability capability)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3214,6 +3669,37 @@ From interface
         </tr>
       </table>
   </div>
+
+    </div>
+</div>
+
+
+<A NAME="test()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        TestResult
+      </span>
+      <span class="sympad">test</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
