@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:github="http://www.mulesoft.org/schema/mule/github" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/github http://www.mulesoft.org/schema/mule/github/1.0/mule-github.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
+    <github:config name="GitHub" connectionUser="username" connectionPassword="password" scope="user,repo,public_repo,gist" doc:name="GitHub">
+        <github:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
+    </github:config>
+    <flow name="createRepository" doc:name="createRepository">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" path="createrepo" doc:name="HTTP"/>
+        <github:create-repository config-ref="GitHub" repository="New-repository" doc:name="GitHub. Create repository"/>
+    </flow>
+    <flow name="createIssue" doc:name="createIssue">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" path="createissue" doc:name="HTTP"/>
+        <github:create-issue config-ref="GitHub" body="Lorem ipsum dolor" repository="New-repository" title="First issue" doc:name="GitHub. Create issue"/>
+    </flow>
+    <flow name="createComment" doc:name="createComment">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" path="createcomment" doc:name="HTTP"/>
+        <github:create-comment config-ref="GitHub" comment="First comment"  repository="New-repository" doc:name="GitHub. Create comment" issueNumber="1"/>
+    </flow>
+    <flow name="editComment" doc:name="editComment">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" path="editcomment" doc:name="HTTP"/>
+        <github:edit-comment config-ref="GitHub" repository="New-repository" commentId="25231286" body="Brand new info" doc:name="GitHub. Edit comment"/>
+    </flow>
+    <flow name="getPullRequests" doc:name="getPullRequests">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="getpullrequests" doc:name="HTTP"/>
+        <github:get-pull-requests config-ref="GitHub" owner="username"   doc:name="GitHub. Get pull requests" state="open" repository="New-repository"/>
+        <mulexml:object-to-xml-transformer doc:name="Object to XML"/>
+    </flow>
+</mule>

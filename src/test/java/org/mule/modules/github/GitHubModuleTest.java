@@ -1,6 +1,8 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ * Mule GitHub Cloud Connector
  *
+ * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ * <p/>
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.md file.
@@ -11,21 +13,40 @@
  */
 package org.mule.modules.github;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.egit.github.core.Authorization;
-import org.eclipse.egit.github.core.Blob;
+import org.eclipse.egit.github.core.CommitComment;
+import org.eclipse.egit.github.core.CommitFile;
 import org.eclipse.egit.github.core.Contributor;
 import org.eclipse.egit.github.core.Download;
 import org.eclipse.egit.github.core.Issue;
 import org.eclipse.egit.github.core.Key;
+import org.eclipse.egit.github.core.MergeStatus;
+import org.eclipse.egit.github.core.PullRequest;
+import org.eclipse.egit.github.core.PullRequestMarker;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.RepositoryBranch;
+import org.eclipse.egit.github.core.RepositoryCommit;
+import org.eclipse.egit.github.core.RepositoryContents;
 import org.eclipse.egit.github.core.RepositoryId;
 import org.eclipse.egit.github.core.RepositoryTag;
 import org.eclipse.egit.github.core.Team;
 import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.client.PageIterator;
+import org.eclipse.egit.github.core.client.PagedRequest;
 import org.eclipse.egit.github.core.service.DownloadService;
 import org.eclipse.egit.github.core.service.IssueService;
 import org.eclipse.egit.github.core.service.OAuthService;
+import org.eclipse.egit.github.core.service.PullRequestService;
 import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
 import org.junit.Before;
@@ -37,24 +58,19 @@ import org.mockito.MockitoAnnotations;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.codec.Base64Encoder;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.refEq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class GitHubModuleTest {
+@SuppressWarnings("unchecked")
+public class GitHubModuleTest
+{
 
     private static final String REPOSITORY = "myRepo";
     private static final String USER = "pepe";
@@ -78,6 +94,10 @@ public class GitHubModuleTest {
     private OAuthService oAuthService;
     @Mock
     private DownloadService downloadService;
+    @Mock
+    private PullRequestService pullRequestService;
+    @Mock
+    private ExtendedContentsService contentsService;
     @Mock
     private Issue issue1;
     @Mock
@@ -106,15 +126,18 @@ public class GitHubModuleTest {
     private Team team2;
 
     @Before
-    public void setUpTests() throws Exception {
+    public void setUpTests() throws Exception
+    {
         MockitoAnnotations.initMocks(this);
-        ServiceFactory serviceFactory = new ServiceFactory(USER,"");
+        ServiceFactory serviceFactory = new ServiceFactory(USER, "");
         serviceFactory.setDefaultIssueService(issueService);
         serviceFactory.setDefaultUserService(userService);
         serviceFactory.setDefaultTeamService(teamService);
         serviceFactory.setDefaultRepositoryService(repositoryService);
         serviceFactory.setDefaultDownloadService(downloadService);
-        
+        serviceFactory.setDefaultPullRequestService(pullRequestService);
+        serviceFactory.setDefaultContentsService(contentsService);
+
         when(oAuthService.getAuthorizations()).thenReturn(createAuths());
         serviceFactory.setDefaultOAuthService(oAuthService);
         filterData = new HashMap<String, String>(1);
@@ -124,23 +147,26 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void getIssues() throws Exception {
+    public void getIssues() throws Exception
+    {
         List<Issue> issues = createList(issue1, issue2);
         when(issueService.getIssues(USER, REPOSITORY, filterData)).thenReturn(issues);
         assertEquals(issues, gitHubModule.getIssues(USER, REPOSITORY, filterData));
     }
 
     @Test
-    public void getIssuesCretedAfter() throws Exception {
+    public void getIssuesCretedAfter() throws Exception
+    {
         List<Issue> issues = createList(issue1, issue2);
         when(issueService.getIssues(USER, REPOSITORY, Collections.<String, String>emptyMap())).thenReturn(issues);
         when(issue1.getCreatedAt()).thenReturn(new Date(System.currentTimeMillis() - 10 * 1000 * 60));
         when(issue2.getCreatedAt()).thenReturn(new Date());
-        assertEquals(Arrays.asList(issue2), gitHubModule.getIssuesCretedAfter(USER, REPOSITORY, 1));
+        assertEquals(Arrays.asList(issue2), gitHubModule.getIssuesCreatedAfter(USER, REPOSITORY, 1));
     }
 
     @Test
-    public void getIssuesSinceNumber() throws Exception {
+    public void getIssuesSinceNumber() throws Exception
+    {
         List<Issue> issues = createList(issue1, issue2);
         when(issueService.getIssues(USER, REPOSITORY, Collections.<String, String>emptyMap())).thenReturn(issues);
         when(issue1.getNumber()).thenReturn(5);
@@ -149,7 +175,8 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void createIssue() throws Exception {
+    public void createIssue() throws Exception
+    {
         gitHubModule.createIssue(USER, REPOSITORY, "issue title", "issue body", "coco");
         verify(issueService).createIssue(eq(USER), eq(REPOSITORY), issueCaptor.capture());
         Issue issueSentToGitHub = issueCaptor.getValue();
@@ -159,7 +186,8 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void closeIssue() throws Exception {
+    public void closeIssue() throws Exception
+    {
         GitHubModule gitHubModuleSpy = spy(gitHubModule);
         when(gitHubModuleSpy.getIssue(USER, REPOSITORY, ISSUE_ID)).thenReturn(issue1);
         gitHubModule.closeIssue(USER, REPOSITORY, ISSUE_ID);
@@ -168,26 +196,30 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void getIssue() throws Exception {
+    public void getIssue() throws Exception
+    {
         when(issueService.getIssue(USER, REPOSITORY, ISSUE_ID)).thenReturn(issue1);
         assertEquals(issue1, gitHubModule.getIssue(USER, REPOSITORY, ISSUE_ID));
         verify(issueService).getIssue(USER, REPOSITORY, ISSUE_ID);
     }
 
     @Test
-    public void getUserByLoginName() throws Exception {
+    public void getUserByLoginName() throws Exception
+    {
         when(userService.getUser(LOGIN_NAME)).thenReturn(user);
         assertEquals(user, gitHubModule.getUserByLoginName(LOGIN_NAME));
     }
 
     @Test
-    public void getCurrentUser() throws Exception {
+    public void getCurrentUser() throws Exception
+    {
         when(userService.getUser()).thenReturn(user);
         assertEquals(user, gitHubModule.getCurrentUser());
     }
 
     @Test
-    public void updateCurrentUser() throws Exception {
+    public void updateCurrentUser() throws Exception
+    {
         GitHubModule gitHubModuleSpy = spy(gitHubModule);
         when(gitHubModuleSpy.getCurrentUser()).thenReturn(user);
         User updatedUser = mock(User.class);
@@ -202,63 +234,73 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void getFollowers() throws Exception {
+    public void getFollowers() throws Exception
+    {
         List<User> followers = Arrays.asList(user);
         when(userService.getFollowers(USER)).thenReturn(followers);
         assertEquals(followers, gitHubModule.getFollowers(null));
     }
 
     @Test
-    public void isFollowing() throws Exception {
+    public void isFollowing() throws Exception
+    {
         when(userService.isFollowing("some user")).thenReturn(true);
         assertTrue(gitHubModule.isFollowing("some user"));
     }
 
     @Test
-    public void follow() throws Exception {
+    public void follow() throws Exception
+    {
         gitHubModule.follow("some user");
         verify(userService).follow("some user");
     }
 
     @Test
-    public void unfollow() throws Exception {
+    public void unfollow() throws Exception
+    {
         gitHubModule.unfollow("some user");
         verify(userService).unfollow("some user");
     }
 
     @Test
-    public void getEmails() throws Exception {
+    public void getEmails() throws Exception
+    {
         when(userService.getEmails()).thenReturn(EMAILS);
         assertEquals(EMAILS, gitHubModule.getEmails());
     }
 
     @Test
-    public void addEmails() throws Exception {
+    public void addEmails() throws Exception
+    {
         gitHubModule.addEmails(EMAILS);
         verify(userService).addEmail((String[]) EMAILS.toArray());
     }
 
     @Test
-    public void removeEmails() throws Exception {
+    public void removeEmails() throws Exception
+    {
         gitHubModule.removeEmails(EMAILS);
         verify(userService).removeEmail((String[]) EMAILS.toArray());
     }
 
     @Test
-    public void getKeys() throws Exception {
+    public void getKeys() throws Exception
+    {
         List<Key> keys = Arrays.asList(key1, key2);
         when(userService.getKeys()).thenReturn(keys);
         assertEquals(keys, gitHubModule.getKeys());
     }
 
     @Test
-    public void getKey() throws Exception {
+    public void getKey() throws Exception
+    {
         when(userService.getKey(KEY_ID)).thenReturn(key1);
         assertEquals(key1, gitHubModule.getKey(KEY_ID));
     }
 
     @Test
-    public void createKey() throws Exception {
+    public void createKey() throws Exception
+    {
         gitHubModule.createKey("key title", "key");
         verify(userService).createKey(keyCaptor.capture());
         Key keySentToGitHub = keyCaptor.getValue();
@@ -267,7 +309,8 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void editKey() throws Exception {
+    public void editKey() throws Exception
+    {
         GitHubModule gitHubModuleSpy = spy(gitHubModule);
         when(gitHubModuleSpy.getKey(KEY_ID)).thenReturn(key1);
         when(userService.editKey(key1)).thenReturn(key2);
@@ -277,20 +320,23 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void getTeam() throws Exception {
+    public void getTeam() throws Exception
+    {
         when(teamService.getTeam(TEAM_ID)).thenReturn(team1);
         assertEquals(team1, gitHubModule.getTeam(TEAM_ID));
     }
 
     @Test
-    public void getTeamsForOrg() throws Exception {
+    public void getTeamsForOrg() throws Exception
+    {
         List<Team> teams = Arrays.asList(team1, team2);
         when(teamService.getTeams(ORGANIZATION)).thenReturn(teams);
-        assertEquals(teams, gitHubModule.getTeamsForOrg(ORGANIZATION));
+        assertEquals(teams, gitHubModule.getTeams(ORGANIZATION));
     }
 
     @Test
-    public void createTeam() throws Exception {
+    public void createTeam() throws Exception
+    {
         List<String> repos = Arrays.asList("repo1", "repo2");
         gitHubModule.createTeam(ORGANIZATION, TEAM_NAME, TeamPermission.ADMIN, repos);
         verify(teamService).createTeam(eq(ORGANIZATION), teamCaptor.capture(), eq(repos));
@@ -300,7 +346,8 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void editTeam() throws Exception {
+    public void editTeam() throws Exception
+    {
         GitHubModule gitHubModuleSpy = spy(gitHubModule);
         when(gitHubModuleSpy.getTeam(TEAM_ID)).thenReturn(team1);
         gitHubModule.editTeam(TEAM_ID, TEAM_NAME, TeamPermission.ADMIN);
@@ -310,78 +357,90 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void deleteTeam() throws Exception {
+    public void deleteTeam() throws Exception
+    {
         gitHubModule.deleteTeam(TEAM_ID);
         verify(teamService).deleteTeam(TEAM_ID);
     }
 
     @Test
-    public void getMembers() throws Exception {
+    public void getMembers() throws Exception
+    {
         List<User> teamMembers = Arrays.asList(user);
         when(teamService.getMembers(TEAM_ID)).thenReturn(teamMembers);
         assertEquals(teamMembers, gitHubModule.getTeamMembers(TEAM_ID));
     }
 
     @Test
-    public void isTeamMember() throws Exception {
+    public void isTeamMember() throws Exception
+    {
         when(teamService.isMember(TEAM_ID, USER)).thenReturn(true);
         assertTrue(gitHubModule.isTeamMember(TEAM_ID, USER));
     }
 
     @Test
-    public void addTeamMember() throws Exception {
+    public void addTeamMember() throws Exception
+    {
         gitHubModule.addTeamMember(TEAM_ID, USER);
         verify(teamService).addMember(TEAM_ID, USER);
     }
 
     @Test
-    public void removeTeamMember() throws Exception {
+    public void removeTeamMember() throws Exception
+    {
         gitHubModule.removeTeamMember(TEAM_ID, USER);
         verify(teamService).removeMember(TEAM_ID, USER);
     }
 
     @Test
-    public void getTeamRepositories() throws Exception {
+    public void getTeamRepositories() throws Exception
+    {
         List<Repository> repos = Arrays.asList(repository);
         when(teamService.getRepositories(TEAM_ID)).thenReturn(repos);
         assertEquals(repos, gitHubModule.getTeamRepositories(TEAM_ID));
     }
 
     @Test
-    public void addTeamRepository() throws Exception {
+    public void addTeamRepository() throws Exception
+    {
         gitHubModule.addTeamRepository(TEAM_ID, "owner", "name");
         verify(teamService).addRepository(eq(TEAM_ID), eq(new RepositoryId("owner", "name")));
     }
 
     @Test
-    public void removeTeamRepository() throws Exception {
+    public void removeTeamRepository() throws Exception
+    {
         gitHubModule.removeTeamRepository(TEAM_ID, "owner", "name");
         verify(teamService).removeRepository(eq(TEAM_ID), eq(new RepositoryId("owner", "name")));
     }
 
     @Test
-    public void getRepositories() throws Exception {
+    public void getRepositories() throws Exception
+    {
         List<Repository> repositories = Arrays.asList(repository);
         when(repositoryService.getRepositories(filterData)).thenReturn(repositories);
         assertEquals(repositories, gitHubModule.getRepositories(filterData));
     }
 
     @Test
-    public void getRepositoriesForUser() throws Exception {
+    public void getRepositoriesForUser() throws Exception
+    {
         List<Repository> repositories = Arrays.asList(repository);
         when(repositoryService.getRepositories(USER)).thenReturn(repositories);
         assertEquals(repositories, gitHubModule.getRepositoriesForUser(USER));
     }
 
     @Test
-    public void getOrgRepositories() throws Exception {
+    public void getRepositoriesForOrg() throws Exception
+    {
         List<Repository> repositories = Arrays.asList(repository);
         when(repositoryService.getOrgRepositories(ORGANIZATION, filterData)).thenReturn(repositories);
-        assertEquals(repositories, gitHubModule.getOrgRepositories(ORGANIZATION, filterData));
+        assertEquals(repositories, gitHubModule.getRepositoriesForOrg(ORGANIZATION, filterData));
     }
 
     @Test
-    public void createRepository() throws Exception {
+    public void createRepository() throws Exception
+    {
         gitHubModule.createRepository("repo name", "repo desc", true, true, true, true);
         verify(repositoryService).createRepository(repositoryCaptor.capture());
         Repository repositorySentToGitHub = repositoryCaptor.getValue();
@@ -394,7 +453,8 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void createRepositoryForOrg() throws Exception {
+    public void createRepositoryForOrg() throws Exception
+    {
         gitHubModule.createRepositoryForOrg(ORGANIZATION, "repo name", "repo desc", true, true, true, true);
         verify(repositoryService).createRepository(eq(ORGANIZATION), repositoryCaptor.capture());
         Repository repositorySentToGitHub = repositoryCaptor.getValue();
@@ -407,7 +467,8 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void getRepository() throws Exception {
+    public void getRepository() throws Exception
+    {
         GitHubModule gitHubModuleSpy = spy(gitHubModule);
         when(gitHubModuleSpy.getRepository("owner", "repo name")).thenReturn(repository);
         gitHubModule.editRepository("owner", "repo name", "repo desc", true, true, true, true);
@@ -420,32 +481,44 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void editRepository() throws Exception {
+    public void editRepository() throws Exception
+    {
         when(repositoryService.getRepository("owner", "name")).thenReturn(repository);
         assertEquals(repository, gitHubModule.getRepository("owner", "name"));
     }
 
     @Test
-    public void getForks() throws Exception {
+    public void deleteRepository() throws Exception
+    {
+        gitHubModule.deleteRepository("owner", "name");
+        verify(repositoryService).deleteRepository(new RepositoryId("owner", "name"));
+    }
+
+    @Test
+    public void getForks() throws Exception
+    {
         List<Repository> repositories = Arrays.asList(repository);
         when(repositoryService.getForks(eq(new RepositoryId("owner", "name")))).thenReturn(repositories);
         assertEquals(repositories, gitHubModule.getForks("owner", "name"));
     }
 
     @Test
-    public void forkRepository() throws Exception {
+    public void forkRepository() throws Exception
+    {
         when(repositoryService.forkRepository(eq(new RepositoryId("owner", "name")))).thenReturn(repository);
         assertEquals(repository, gitHubModule.forkRepository("owner", "name"));
     }
 
     @Test
-    public void forkRepositoryForOrg() throws Exception {
+    public void forkRepositoryForOrg() throws Exception
+    {
         when(repositoryService.forkRepository(eq(new RepositoryId("owner", "name")), eq(ORGANIZATION))).thenReturn(repository);
         assertEquals(repository, gitHubModule.forkRepositoryForOrg(ORGANIZATION, "owner", "name"));
     }
 
     @Test
-    public void getLanguages() throws Exception {
+    public void getLanguages() throws Exception
+    {
         Map<String, Long> languages = new HashMap<String, Long>(1);
         languages.put("C", 7888L);
         when(repositoryService.getLanguages(eq(new RepositoryId("owner", "name")))).thenReturn(languages);
@@ -453,7 +526,8 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void getBranches() throws Exception {
+    public void getBranches() throws Exception
+    {
         RepositoryBranch repositoryBranch = mock(RepositoryBranch.class);
         List<RepositoryBranch> repositoryBranches = Arrays.asList(repositoryBranch);
         when(repositoryService.getBranches(eq(new RepositoryId("owner", "name")))).thenReturn(repositoryBranches);
@@ -461,7 +535,8 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void getTags() throws Exception {
+    public void getTags() throws Exception
+    {
         RepositoryTag repositoryTag = mock(RepositoryTag.class);
         List<RepositoryTag> repositoryTags = Arrays.asList(repositoryTag);
         when(repositoryService.getTags(eq(new RepositoryId("owner", "name")))).thenReturn(repositoryTags);
@@ -469,42 +544,281 @@ public class GitHubModuleTest {
     }
 
     @Test
-    public void getContributors() throws Exception {
+    public void getContributors() throws Exception
+    {
         Contributor contributor = mock(Contributor.class);
         List<Contributor> contributors = Arrays.asList(contributor);
         when(repositoryService.getContributors(eq(new RepositoryId("owner", "name")), eq(true))).thenReturn(contributors);
         assertEquals(contributors, gitHubModule.getContributors("owner", "name", true));
     }
-    
+
     @Test
-    public void listDownloadsForRepository() throws Exception {
+    public void listDownloadsForRepository() throws Exception
+    {
         Download download = mock(Download.class);
         List<Download> downloads = Arrays.asList(download);
         when(downloadService.getDownloads(eq(new RepositoryId("owner", "name")))).thenReturn(downloads);
-        assertEquals(downloads, gitHubModule.listDownloadsForRepository("owner", "name"));
+        assertEquals(downloads, gitHubModule.getDownloads("owner", "name"));
     }
 
     @Test
-    public void getFileContent() throws TransformerException, IOException {
+    public void getFileContent() throws TransformerException, IOException
+    {
+        RepositoryContents content = new RepositoryContents();
         final String fileContent = "This is some file";
-        final Blob content = new Blob();
-        content.setContent(new Base64Encoder().doTransform(fileContent,"utf-8").toString());
+        content.setContent(new Base64Encoder().doTransform(fileContent, "utf-8").toString());
         content.setEncoding("utf-8");
-        when(repositoryService.getContents(eq(new RepositoryId(USER, REPOSITORY)), eq("some/path"), eq("master"))).thenReturn(content);
+        List<RepositoryContents> contentsList = Arrays.asList(content);
+        when(contentsService.getContents(eq(new RepositoryId(USER, REPOSITORY)), eq("some/path"), eq("master"))).thenReturn(contentsList);
         assertEquals(fileContent, gitHubModule.getFileContent(USER, REPOSITORY, "some/path", "master"));
     }
 
-    private <T> List<T> createList(T... elements) {
+    @Test
+    public void getContents() throws IOException
+    {
+        RepositoryContents content = new RepositoryContents();
+        List<RepositoryContents> contentsList = Arrays.asList(content);
+        when(contentsService.getContents(eq(new RepositoryId(USER, REPOSITORY)), eq("some/path"), eq("master"))).thenReturn(contentsList);
+        assertEquals(contentsList, gitHubModule.getContents(USER, REPOSITORY, "some/path", "master"));
+    }
+
+    @Test
+    public void putContents() throws IOException
+    {
+        gitHubModule.putContents(USER, REPOSITORY, "some/path", "commit message", "updated content", "abcdef", "feature-1");
+        RepositoryContents newContent = new RepositoryContents();
+        newContent.setPath("some/path");
+        newContent.setContent("updated content");
+        newContent.setSha("abcdef");
+        verify(contentsService).putContents(eq(new RepositoryId(USER, REPOSITORY)), refEq(newContent), eq("commit message"), eq("feature-1"));
+    }
+
+    @Test
+    public void getPullRequest() throws IOException
+    {
+        final PullRequest pullRequest = new PullRequest();
+        pullRequest.setBody("test");
+        when(pullRequestService.getPullRequest(eq(new RepositoryId(USER, REPOSITORY)), eq(1))).thenReturn(pullRequest);
+        assertEquals(pullRequest.getBody(), gitHubModule.getPullRequest(USER, REPOSITORY, 1).getBody());
+    }
+
+    @Test
+    public void getPullRequests() throws IOException
+    {
+        final PullRequest pullRequest = new PullRequest();
+        pullRequest.setBody("test");
+        List<PullRequest> pullRequests = Arrays.asList(pullRequest);
+        when(pullRequestService.getPullRequests(eq(new RepositoryId(USER, REPOSITORY)), eq("new"))).thenReturn(pullRequests);
+        assertEquals(pullRequests, gitHubModule.getPullRequests(USER, REPOSITORY, "new"));
+    }
+
+    @Test
+    public void pagePullRequests() throws IOException
+    {
+        PagedRequest<PullRequest> request = new PagedRequest<PullRequest>(0, 10);
+        PageIterator<PullRequest> pageIterator = new PageIterator<PullRequest>(request, new GitHubClient());
+        when(pullRequestService.pagePullRequests(eq(new RepositoryId(USER, REPOSITORY)), eq("new"), eq(10), eq(10))).thenReturn(pageIterator);
+        assertEquals(pageIterator, gitHubModule.pagePullRequests(USER, REPOSITORY, "new", 10, 10));
+    }
+
+    @Test
+    public void createPullRequest() throws IOException
+    {
+        final PullRequestForTest pullRequest = new PullRequestForTest();
+        pullRequest.setBody("body");
+        pullRequest.setTitle("title");
+        pullRequest.setHead(new PullRequestMarker().setRef("head"));
+        pullRequest.setBase(new PullRequestMarker().setRef("base"));
+        //when(pullRequestService.createPullRequest(eq(new RepositoryId(USER, REPOSITORY)), refEq(pullRequest, "milestone", "base", "head", "assignee", "mergedBy", "user"))).thenReturn(pullRequest);
+        when(pullRequestService.createPullRequest(eq(new RepositoryId(USER, REPOSITORY)), eq(pullRequest))).thenReturn(pullRequest);
+        assertEquals(pullRequest, gitHubModule.createPullRequest(USER, REPOSITORY, "body", "title", "head", "base"));
+    }
+
+    @Test
+    public void createPullRequestFromIssue() throws IOException
+    {
+        final PullRequestForTest pullRequest = new PullRequestForTest();
+        pullRequest.setBody("body");
+        pullRequest.setTitle("title");
+        pullRequest.setHead(new PullRequestMarker().setRef("head"));
+        pullRequest.setBase(new PullRequestMarker().setRef("base"));
+        when(pullRequestService.createPullRequest(eq(new RepositoryId(USER, REPOSITORY)), anyInt(), eq("head"), eq("base"))).thenReturn(pullRequest);
+        assertEquals(pullRequest, gitHubModule.createPullRequestFromIssue(USER, REPOSITORY, 49, "head", "base"));
+    }
+
+    @Test
+    public void createPullRequestComment() throws IOException
+    {
+
+        CommitComment commitComment = new CommitComment();
+        commitComment.setPath("file.txt");
+        commitComment.setPosition(5);
+        commitComment.setLine(1);
+        commitComment.setCommitId("abcdef");
+        commitComment.setBody("Great stuff");
+        when(pullRequestService.createComment(eq(new RepositoryId(USER, REPOSITORY)), eq(47), refEq(commitComment, "user"))).thenReturn(commitComment);
+        assertEquals(commitComment, gitHubModule.createPullRequestComment(USER, REPOSITORY, 47, "abcdef", "Great stuff", "file.txt", 5, 1));
+    }
+
+    @Test
+    public void getPullRequestComments() throws IOException
+    {
+        CommitComment commitComment = new CommitComment();
+        List<CommitComment> comments = Arrays.asList(commitComment);
+
+        when(pullRequestService.getComments(eq(new RepositoryId(USER, REPOSITORY)), eq(49))).thenReturn(comments);
+        assertEquals(comments, gitHubModule.getPullRequestComments(USER, REPOSITORY, 49));
+    }
+
+    @Test
+    public void pagePullRequestComments() throws IOException
+    {
+        PagedRequest<CommitComment> request = new PagedRequest<CommitComment>(0, 10);
+        PageIterator<CommitComment> pageIterator = new PageIterator<CommitComment>(request, new GitHubClient());
+        when(pullRequestService.pageComments(eq(new RepositoryId(USER, REPOSITORY)), eq(49), eq(10), eq(10))).thenReturn(pageIterator);
+        assertEquals(pageIterator, gitHubModule.pagePullRequestComments(USER, REPOSITORY, 49, 10, 10));
+    }
+
+    @Test
+    public void getPullRequestComment() throws IOException
+    {
+        CommitComment comment = new CommitComment();
+        comment.setId(49);
+
+        when(pullRequestService.getComment(eq(new RepositoryId(USER, REPOSITORY)), eq(49L))).thenReturn(comment);
+        assertEquals(comment, gitHubModule.getPullRequestComment(USER, REPOSITORY, 49));
+    }
+
+    @Test
+    public void editPullRequestComment() throws IOException
+    {
+
+        CommitComment commentOld = new CommitComment();
+        commentOld.setId(10);
+        commentOld.setLine(1);
+        commentOld.setPath("file.txt");
+        commentOld.setPosition(5);
+        commentOld.setBody("body");
+
+        CommitComment commentNew = new CommitComment();
+        commentNew.setId(10);
+        commentNew.setLine(1);
+        commentNew.setPath("file.txt");
+        commentNew.setPosition(5);
+        commentNew.setBody("body updated");
+
+        when(pullRequestService.getComment(new RepositoryId(USER, REPOSITORY), 10)).thenReturn(commentOld);
+        when(pullRequestService.editComment(new RepositoryId(USER, REPOSITORY), commentOld)).thenReturn(commentNew);
+
+        assertEquals(commentNew, gitHubModule.editPullRequestComment(USER, REPOSITORY, 10, "body updated"));
+    }
+
+    @Test
+    public void deletePullRequestComment() throws IOException
+    {
+        long commentId = 1;
+        gitHubModule.deletePullRequestComment(USER, REPOSITORY, commentId);
+        verify(pullRequestService).deleteComment(new RepositoryId(USER, REPOSITORY), commentId);
+    }
+
+    @Test
+    public void editPullRequest() throws IOException
+    {
+        final PullRequestForTest initialPullRequest = new PullRequestForTest();
+        initialPullRequest.setId(49);
+        initialPullRequest.setBody("body");
+        initialPullRequest.setTitle("title");
+        initialPullRequest.setState("open");
+
+        final PullRequestForTest resultPullRequest = new PullRequestForTest();
+        resultPullRequest.setId(49);
+        resultPullRequest.setBody("body updated");
+        resultPullRequest.setTitle("title updated");
+        resultPullRequest.setState("closed");
+
+        when(pullRequestService.getPullRequest(eq(new RepositoryId(USER, REPOSITORY)), eq(49))).thenReturn(initialPullRequest);
+        when(pullRequestService.editPullRequest(eq(new RepositoryId(USER, REPOSITORY)), eq(initialPullRequest))).thenReturn(resultPullRequest);
+        assertEquals(resultPullRequest, gitHubModule.editPullRequest(USER, REPOSITORY, 49, "title updated", "body updated", "closed"));
+    }
+
+    @Test
+    public void getPullRequestCommits() throws IOException
+    {
+        RepositoryCommit commit = new RepositoryCommit();
+        List<RepositoryCommit> commits = Arrays.asList(commit);
+        when(pullRequestService.getCommits(eq(new RepositoryId(USER, REPOSITORY)), eq(47))).thenReturn(commits);
+        assertEquals(commits, gitHubModule.getPullRequestCommits(USER, REPOSITORY, 47));
+    }
+
+    @Test
+    public void getPullRequestFiles() throws IOException
+    {
+        CommitFile commitFile = new CommitFile();
+        List<CommitFile> files = Arrays.asList(commitFile);
+        when(pullRequestService.getFiles(eq(new RepositoryId(USER, REPOSITORY)), eq(47))).thenReturn(files);
+        assertEquals(files, gitHubModule.getPullRequestFiles(USER, REPOSITORY, 47));
+    }
+
+    @Test
+    public void isPullRequestMerged() throws IOException
+    {
+        when(pullRequestService.isMerged(eq(new RepositoryId(USER, REPOSITORY)), eq(47))).thenReturn(Boolean.TRUE);
+        assertTrue(gitHubModule.isPullRequestMerged(USER, REPOSITORY, 47));
+    }
+
+    @Test
+    public void mergePullRequest() throws IOException
+    {
+        MergeStatus mergeStatus = new MergeStatus();
+        when(pullRequestService.merge(eq(new RepositoryId(USER, REPOSITORY)), eq(47), eq(""))).thenReturn(mergeStatus);
+        assertEquals(mergeStatus, gitHubModule.mergePullRequest(USER, REPOSITORY, 47, ""));
+    }
+
+    @Test
+    public void replyToPullRequestComment() throws IOException
+    {
+        CommitComment commitComment = new CommitComment();
+        when(pullRequestService.replyToComment(eq(new RepositoryId(USER, REPOSITORY)), eq(47), eq(1), eq("Yeah"))).thenReturn(commitComment);
+        assertEquals(commitComment, gitHubModule.replyToPullRequestComment(USER, REPOSITORY, 47, 1, "Yeah"));
+    }
+
+
+    private <T> List<T> createList(T... elements)
+    {
         List<T> result = new ArrayList<T>(elements.length);
         Collections.addAll(result, elements);
         return result;
     }
-    
-    private List<Authorization> createAuths() {
+
+    private List<Authorization> createAuths()
+    {
         Authorization auth = new Authorization();
         auth.setToken(TOKEN);
         auth.setScopes(createList("public_repo"));
         List<Authorization> auths = createList(auth);
         return auths;
     }
+
+
+    //adding equals that is needed for testing of PullRequest
+    private class PullRequestForTest extends PullRequest
+    {
+
+        @Override
+        public boolean equals(Object obj)
+        {
+            if (obj == this)
+            {
+                return true;
+            }
+            if (!(obj instanceof PullRequest))
+            {
+                return false;
+            }
+
+            PullRequest other = (PullRequest) obj;
+            return getId() == other.getId() && getBody().equals(other.getBody()) && getTitle().equals(other.getTitle());
+        }
+    }
+
 }
