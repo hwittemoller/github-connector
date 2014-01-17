@@ -534,57 +534,57 @@
 
     <util:map id="createTeamTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
-        <entry key="team" value="${github.team}}"/>
+        <entry key="team" value="${github.team}"/>
     </util:map>
 
     <util:map id="deleteTeamTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
-        <entry key="team" value="${github.team}}"/>
+        <entry key="team" value="${github.team}"/>
     </util:map>
 
     <util:map id="editTeamTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
-        <entry key="team" value="${github.team}}"/>
+        <entry key="team" value="${github.team}"/>
         <entry key="updatedTeamName" value="new-team-name"/>
     </util:map>
 
     <util:map id="getTeamMembersTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
-        <entry key="team" value="${github.team}}"/>
+        <entry key="team" value="${github.team}"/>
         <entry key="user" value="${github.user}"/>
     </util:map>
 
     <util:map id="getTeamRepositoriesTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
-        <entry key="team" value="${github.team}}"/>
+        <entry key="team" value="${github.team}"/>
         <entry key="repository" value-ref="githubRepository"/>
     </util:map>
 
     <util:map id="getTeamsForOrgTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
-        <entry key="team" value="${github.team}}"/>
+        <entry key="team" value="${github.team}"/>
     </util:map>
 
     <util:map id="getTeamTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
-        <entry key="team" value="${github.team}}"/>
+        <entry key="team" value="${github.team}"/>
     </util:map>
 
     <util:map id="isTeamMemberTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
-        <entry key="team" value="${github.team}}"/>
+        <entry key="team" value="${github.team}"/>
         <entry key="user" value="${github.user}"/>
     </util:map>
 
     <util:map id="removeTeamMemberTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
-        <entry key="team" value="${github.team}}"/>
+        <entry key="team" value="${github.team}"/>
         <entry key="user" value="${github.user}"/>
     </util:map>
 
     <util:map id="removeTeamRepositoryTestData" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object" scope="prototype">
         <entry key="organization" value="${github.organization}"/>
-        <entry key="team" value="${github.team}}"/>
+        <entry key="team" value="${github.team}"/>
         <entry key="repository" value-ref="githubRepository"/>
     </util:map>
 

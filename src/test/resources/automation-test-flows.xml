@@ -1,292 +1,297 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:context="http://www.springframework.org/schema/context"
       xmlns:github="http://www.mulesoft.org/schema/mule/github"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-        http://www.mulesoft.org/schema/mule/github http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd">
+http://www.mulesoft.org/schema/mule/github http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd" version="EE-3.5.0">
 
     <context:property-placeholder location="${GITHUB_CREDENTIALS}"/>
-    <github:config connectionUser="${github.user}" connectionPassword="${github.secret}" scope="${github.scope}" />
+    
+    <github:config connectionUser="${github.user}" connectionPassword="${github.secret}" scope="${github.scope}" name="Github" doc:name="GitHub">
+        <github:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
+    </github:config>
 
-    <flow name="createTestRepository">
-        <github:create-repository  repository="#[payload.repository]" description="#[payload.description]" />
+    <flow name="createTestRepository" doc:name="createTestRepository">
+        <github:create-repository  repository="#[payload.repository]" description="#[payload.description]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="forkTestRepository">
-        <github:fork-repository owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="forkTestRepository" doc:name="forkTestRepository">
+        <github:fork-repository owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getIssues">
-        <github:get-issues owner="#[payload.owner]" repository="#[payload.repository]">
+    <flow name="getIssues" doc:name="getIssues">
+        <github:get-issues owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub">
             <github:filter-data>
                 <github:filter-datum key="open">#[payload.state]</github:filter-datum>
             </github:filter-data>
         </github:get-issues>
     </flow>
 
-    <flow name="getIssuesCreatedAfter">
-        <github:get-issues-created-after repository="#[payload.repository]" minutes="1"/>
+    <flow name="getIssuesCreatedAfter" doc:name="getIssuesCreatedAfter">
+        <github:get-issues-created-after repository="#[payload.repository]" minutes="1" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getIssuesSinceNumber">
-        <github:get-issues-since-number owner="#[payload.owner]" repository="#[payload.repository]" issueNumber="0"/>
+    <flow name="getIssuesSinceNumber" doc:name="getIssuesSinceNumber">
+        <github:get-issues-since-number owner="#[payload.owner]" repository="#[payload.repository]" issueNumber="0" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createIssue">
-        <github:create-issue owner="#[payload.owner]" repository="#[payload.repository]" title="#[payload.title]" body="#[payload.body]" assignee="#[payload.assignee]"/>
+    <flow name="createIssue" doc:name="createIssue">
+        <github:create-issue owner="#[payload.owner]" repository="#[payload.repository]" title="#[payload.title]" body="#[payload.body]" assignee="#[payload.assignee]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="closeIssue">
-        <github:close-issue repository="#[payload.repository]" issueNumber="#[payload.issueNumber]"/>
+    <flow name="closeIssue" doc:name="closeIssue">
+        <github:close-issue repository="#[payload.repository]" issueNumber="#[payload.issueNumber]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getIssue">
-        <github:get-issue repository="#[payload.repository]" issueNumber="#[payload.issueNumber]"/>
+    <flow name="getIssue" doc:name="getIssue">
+        <github:get-issue repository="#[payload.repository]" issueNumber="#[payload.issueNumber]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getComments">
-        <github:get-comments repository="#[payload.repository]" issueNumber="#[payload.issueNumber]"/>
+    <flow name="getComments" doc:name="getComments">
+        <github:get-comments repository="#[payload.repository]" issueNumber="#[payload.issueNumber]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createComment">
-        <github:create-comment repository="#[payload.repository]" issueNumber="#[payload.issueNumber]" comment="#[payload.comment]"/>
+    <flow name="createComment" doc:name="createComment">
+        <github:create-comment repository="#[payload.repository]" issueNumber="#[payload.issueNumber]" comment="#[payload.comment]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="editComment">
-        <github:edit-comment repository="#[payload.repository]" commentId="#[payload.commentId]" body="#[payload.updatedComment]"/>
+    <flow name="editComment" doc:name="editComment">
+        <github:edit-comment repository="#[payload.repository]" commentId="#[payload.commentId]" body="#[payload.updatedComment]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="deleteComment">
-        <github:delete-comment repository="#[payload.repository]" commentId="#[payload.commentId]"/>
+    <flow name="deleteComment" doc:name="deleteComment">
+        <github:delete-comment repository="#[payload.repository]" commentId="#[payload.commentId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getIssueEvent">
-        <github:get-issue-event repository="#[payload.repository]" eventId="333"/>
+    <flow name="getIssueEvent" doc:name="getIssueEvent">
+        <github:get-issue-event repository="#[payload.repository]" eventId="333" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getWatchers">
-        <github:get-watchers owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="getWatchers" doc:name="getWatchers">
+        <github:get-watchers owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getWatched">
-        <github:get-watched user="#[payload.user]"/>
+    <flow name="getWatched" doc:name="getWatched">
+        <github:get-watched user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="isWatching">
-        <github:is-watching owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="isWatching" doc:name="isWatching">
+        <github:is-watching owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="watch">
-        <github:watch owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="watch" doc:name="watch">
+        <github:watch owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="unwatch">
-        <github:unwatch owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="unwatch" doc:name="unwatch">
+        <github:unwatch owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getCollaborators">
-        <github:get-collaborators owner="#[payload.owner]" repository="#[payload.repository]" />
+    <flow name="getCollaborators" doc:name="getCollaborators">
+        <github:get-collaborators owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="isCollaborator">
-        <github:is-collaborator owner="#[payload.owner]" repository="#[payload.repository]"  user="#[payload.user]"/>
+    <flow name="isCollaborator" doc:name="isCollaborator">
+        <github:is-collaborator owner="#[payload.owner]" repository="#[payload.repository]"  user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="addCollaborator">
-        <github:add-collaborator owner="#[payload.owner]" repository="#[payload.repository]" user="#[payload.user]"/>
+    <flow name="addCollaborator" doc:name="addCollaborator">
+        <github:add-collaborator owner="#[payload.owner]" repository="#[payload.repository]" user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="removeCollaborator">
-        <github:remove-collaborator owner="#[payload.owner]" repository="#[payload.repository]"  user="#[payload.user]"/>
+    <flow name="removeCollaborator" doc:name="removeCollaborator">
+        <github:remove-collaborator owner="#[payload.owner]" repository="#[payload.repository]"  user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getCommits">
-        <github:get-commits owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="getCommits" doc:name="getCommits">
+        <github:get-commits owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getCommitsBySha">
-        <github:get-commits-by-sha owner="#[payload.owner]" repository="#[payload.repository]" path="/README.md"/>
+    <flow name="getCommitsBySha" doc:name="getCommitsBySha">
+        <github:get-commits-by-sha owner="#[payload.owner]" repository="#[payload.repository]" path="/README.md" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getCommit">
-        <github:get-commit owner="#[payload.owner]" repository="#[payload.repository]" sha="#[payload.sha]"/>
+    <flow name="getCommit" doc:name="getCommit">
+        <github:get-commit owner="#[payload.owner]" repository="#[payload.repository]" sha="#[payload.sha]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getCommmitComments">
+    <flow name="getCommmitComments" doc:name="getCommmitComments">
         <github:get-commmit-comments owner="#[payload.owner]" repository="#[payload.repository]"
-                                     sha="#[payload.sha]"/>
+                                     sha="#[payload.sha]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getComment">
-        <github:get-comment owner="#[payload.owner]" repository="#[payload.repository]" commentId="#[payload.commentId]"/>
+    <flow name="getComment" doc:name="getComment">
+        <github:get-comment owner="#[payload.owner]" repository="#[payload.repository]" commentId="#[payload.commentId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="addComment">
+    <flow name="addComment" doc:name="addComment">
         <github:add-comment owner="#[payload.owner]" repository="#[payload.repository]" body="#[payload.body]" commitId="#[payload.sha]" line="10"
-                            path="/README.md" position="1"/>
+                            path="/README.md" position="1" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="editCommitComment">
+    <flow name="editCommitComment" doc:name="editCommitComment">
         <github:edit-commit-comment owner="#[payload.owner]" repository="#[payload.repository]" body="#[payload.body]" commentId="#[payload.commentId]"
-                                    line="10" path="/README.md" position="1"/>
+                                    line="10" path="/README.md" position="1" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="deleteCommitComment">
-        <github:delete-commit-comment owner="#[payload.owner]" repository="#[payload.repository]" commentId="#[payload.commentId]"/>
+    <flow name="deleteCommitComment" doc:name="deleteCommitComment">
+        <github:delete-commit-comment owner="#[payload.owner]" repository="#[payload.repository]" commentId="#[payload.commentId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getDeployKeys">
-        <github:get-deploy-keys owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="getDeployKeys" doc:name="getDeployKeys">
+        <github:get-deploy-keys owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getDeployKey">
-        <github:get-deploy-key owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]"/>
+    <flow name="getDeployKey" doc:name="getDeployKey">
+        <github:get-deploy-key owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createDeployKey">
-        <github:create-deploy-key owner="#[payload.owner]" repository="#[payload.repository]" title="#[payload.title]" key="#[payload.key]"/>
+    <flow name="createDeployKey" doc:name="createDeployKey">
+        <github:create-deploy-key owner="#[payload.owner]" repository="#[payload.repository]" title="#[payload.title]" key="#[payload.key]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="editDeployKey">
-        <github:edit-deploy-key owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" title="#[payload.title]" />
+    <flow name="editDeployKey" doc:name="editDeployKey">
+        <github:edit-deploy-key owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" title="#[payload.title]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="deleteDeployKey">
-        <github:delete-deploy-key owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]"/>
+    <flow name="deleteDeployKey" doc:name="deleteDeployKey">
+        <github:delete-deploy-key owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createGist">
-        <github:create-gist isPublic="true" description="#[payload.description]">
+    <flow name="createGist" doc:name="createGist">
+        <github:create-gist isPublic="true" description="#[payload.description]" config-ref="Github" doc:name="GitHub">
             <github:files>
                 <github:file key="#[payload.filename]" value-ref="#[payload.content]" />
             </github:files>
         </github:create-gist>
     </flow>
 
-    <flow name="getGist">
-        <github:get-gist gistId="#[payload.gistId]"/>
+    <flow name="getGist" doc:name="getGist">
+        <github:get-gist gistId="#[payload.gistId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getStarredGists">
-        <github:get-starred-gists/>
+    <flow name="getStarredGists" doc:name="getStarredGists">
+        <github:get-starred-gists config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getGists">
-        <github:get-gists user="#[payload.user]"/>
+    <flow name="getGists" doc:name="getGists">
+        <github:get-gists user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createGistComment">
-        <github:create-gist-comment gistId="#[payload.gistId]" comment="#[payload.comment]"/>
+    <flow name="createGistComment" doc:name="createGistComment">
+        <github:create-gist-comment gistId="#[payload.gistId]" comment="#[payload.comment]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getGistComments">
-        <github:get-gist-comments gistId="#[payload.gistId]"/>
+    <flow name="getGistComments" doc:name="getGistComments">
+        <github:get-gist-comments gistId="#[payload.gistId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="deleteGist">
-        <github:delete-gist gistId="#[payload.gistId]"/>
+    <flow name="deleteGist" doc:name="deleteGist">
+        <github:delete-gist gistId="#[payload.gistId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getGistComment">
-        <github:get-gist-comment gistId="#[payload.gistId]" commentId="#[payload.commentId]"/>
+    <flow name="getGistComment" doc:name="getGistComment">
+        <github:get-gist-comment gistId="#[payload.gistId]" commentId="#[payload.commentId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="deleteGistComment">
-        <github:delete-gist-comment gistId="#[payload.gistId]" commentId="#[payload.commentId]"/>
+    <flow name="deleteGistComment" doc:name="deleteGistComment">
+        <github:delete-gist-comment gistId="#[payload.gistId]" commentId="#[payload.commentId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="editGistComment">
-        <github:edit-gist-comment gistId="#[payload.gistId]" commentId="#[payload.commentId]" body="#[payload.body]"/>
+    <flow name="editGistComment" doc:name="editGistComment">
+        <github:edit-gist-comment gistId="#[payload.gistId]" commentId="#[payload.commentId]" body="#[payload.body]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="starGist">
-        <github:star-gist gistId="#[payload.gistId]"/>
+    <flow name="starGist" doc:name="starGist">
+        <github:star-gist gistId="#[payload.gistId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="unstarGist">
-        <github:unstar-gist gistId="#[payload.gistId]"/>
+    <flow name="unstarGist" doc:name="unstarGist">
+        <github:unstar-gist gistId="#[payload.gistId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="isStarred">
-        <github:is-starred-gist gistId="#[payload.gistId]"/>
+    <flow name="isStarred" doc:name="isStarred">
+        <github:is-starred-gist gistId="#[payload.gistId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="forkGist">
-        <github:fork-gist gistId="#[payload.gistId]"/>
+    <flow name="forkGist" doc:name="forkGist">
+        <github:fork-gist gistId="#[payload.gistId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getLabels">
-        <github:get-labels owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="getLabels" doc:name="getLabels">
+        <github:get-labels owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getLabel">
-        <github:get-label owner="#[payload.owner]" repository="#[payload.repository]" label="#[payload.label]"/>
+    <flow name="getLabel" doc:name="getLabel">
+        <github:get-label owner="#[payload.owner]" repository="#[payload.repository]" label="#[payload.label]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="deleteLabel">
-        <github:delete-label owner="#[payload.owner]" repository="#[payload.repository]" label="#[payload.label]"/>
+    <flow name="deleteLabel" doc:name="deleteLabel">
+        <github:delete-label owner="#[payload.owner]" repository="#[payload.repository]" label="#[payload.label]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createLabel">
-        <github:create-label owner="#[payload.owner]" repository="#[payload.repository]" label="#[payload.label]" color="#[payload.color]"/>
+    <flow name="createLabel" doc:name="createLabel">
+        <github:create-label owner="#[payload.owner]" repository="#[payload.repository]" label="#[payload.label]" color="#[payload.color]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getMilestones">
-        <github:get-milestones owner="#[payload.owner]" repository="#[payload.repository]" state="#[payload.state]"/>
+    <flow name="getMilestones" doc:name="getMilestones">
+        <github:get-milestones owner="#[payload.owner]" repository="#[payload.repository]" state="#[payload.state]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getMilestone">
-        <github:get-milestone owner="#[payload.owner]" repository="#[payload.repository]" number="#[payload.number]"/>
+    <flow name="getMilestone" doc:name="getMilestone">
+        <github:get-milestone owner="#[payload.owner]" repository="#[payload.repository]" number="#[payload.number]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="deleteMilestone">
-        <github:delete-milestone owner="#[payload.owner]" repository="#[payload.repository]" number="#[payload.number]"/>
+    <flow name="deleteMilestone" doc:name="deleteMilestone">
+        <github:delete-milestone owner="#[payload.owner]" repository="#[payload.repository]" number="#[payload.number]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createMilestone">
+    <flow name="createMilestone" doc:name="createMilestone">
         <github:create-milestone owner="#[payload.owner]" repository="#[payload.repository]" title="#[payload.title]" description="#[payload.description]"
-                                 state="#[payload.state]"/>
+                                 state="#[payload.state]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getUserByLoginName">
-        <github:get-user-by-login-name login="#[payload.login]"/>
+    <flow name="getUserByLoginName" doc:name="getUserByLoginName">
+        <github:get-user-by-login-name login="#[payload.login]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getCurrentUser">
-        <github:get-current-user/>
+    <flow name="getCurrentUser" doc:name="getCurrentUser">
+        <github:get-current-user config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="updateCurrentUser">
-        <github:update-current-user company="#[payload.company]" location="#[payload.location]" blog="#[payload.blog]"/>
+    <flow name="updateCurrentUser" doc:name="updateCurrentUser">
+        <github:update-current-user company="#[payload.company]" location="#[payload.location]" blog="#[payload.blog]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getFollowers">
-        <github:get-followers user="#[payload.user]"/>
+    <flow name="getFollowers" doc:name="getFollowers">
+        <github:get-followers user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getFollowing">
-        <github:get-following/>
+    <flow name="getFollowing" doc:name="getFollowing">
+        <github:get-following config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="isFollowing">
-        <github:is-following user="#[payload.user]"/>
+    <flow name="isFollowing" doc:name="isFollowing">
+        <github:is-following user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="follow">
-        <github:follow user="#[payload.user]"/>
+    <flow name="follow" doc:name="follow">
+        <github:follow user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="unfollow">
-        <github:unfollow user="#[payload.user]"/>
+    <flow name="unfollow" doc:name="unfollow">
+        <github:unfollow user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getEmails">
-        <github:get-emails/>
+    <flow name="getEmails" doc:name="getEmails">
+        <github:get-emails config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="addEmails">
-        <github:add-emails>
+    <flow name="addEmails" doc:name="addEmails">
+        <github:add-emails config-ref="Github" doc:name="GitHub">
             <github:emails>
                 <github:email>#[payload.email1]</github:email>
                 <github:email>#[payload.email2]</github:email>
@@ -294,8 +299,8 @@
         </github:add-emails>
     </flow>
 
-    <flow name="removeEmails">
-        <github:remove-emails>
+    <flow name="removeEmails" doc:name="removeEmails">
+        <github:remove-emails config-ref="Github" doc:name="GitHub">
             <github:emails>
                 <github:email>#[payload.email1]</github:email>
                 <github:email>#[payload.email2]</github:email>
@@ -303,211 +308,210 @@
         </github:remove-emails>
     </flow>
 
-    <flow name="getKeys">
-        <github:get-keys/>
+    <flow name="getKeys" doc:name="getKeys">
+        <github:get-keys config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getKey">
-        <github:get-key id="#[payload.id]"/>
+    <flow name="getKey" doc:name="getKey">
+        <github:get-key id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createKey">
-        <github:create-key title="#[payload.title]" key="#[payload.key]"/>
+    <flow name="createKey" doc:name="createKey">
+        <github:create-key title="#[payload.title]" key="#[payload.key]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="editKey">
-        <github:edit-key id="#[payload.id]" title="#[payload.updatedTitle]" />
+    <flow name="editKey" doc:name="editKey">
+        <github:edit-key id="#[payload.id]" title="#[payload.updatedTitle]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="deleteKey">
-        <github:delete-key id="#[payload.id]"/>
+    <flow name="deleteKey" doc:name="deleteKey">
+        <github:delete-key id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-   <flow name="getTeam">
-		<github:get-team id="#[payload.id]"/>
+   <flow name="getTeam" doc:name="getTeam">
+		<github:get-team id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
    </flow>
 
-	<flow name="getTeams">
-		<github:get-teams organization="#[payload.organization]"/>
+	<flow name="getTeams" doc:name="getTeams">
+		<github:get-teams organization="#[payload.organization]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-	<flow name="createTeam">
-		<github:create-team organization="#[payload.organization]" team="#[payload.team]" config-ref=""/>
+	<flow name="createTeam" doc:name="createTeam">
+		<github:create-team organization="#[payload.organization]" team="#[payload.team]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-	<flow name="editTeam">
-		<github:edit-team id="#[payload.id]" team="#[payload.updatedTeamName]"/>
+	<flow name="editTeam" doc:name="editTeam">
+		<github:edit-team id="#[payload.id]" team="#[payload.updatedTeamName]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-	<flow name="deleteTeam">
-		<github:delete-team id="#[payload.id]"/>
+	<flow name="deleteTeam" doc:name="deleteTeam">
+		<github:delete-team id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-	<flow name="getTeamMembers">
-		<github:get-team-members id="#[payload.id]"/>
+	<flow name="getTeamMembers" doc:name="getTeamMembers">
+		<github:get-team-members id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-	<flow name="isTeamMember">
-		<github:is-team-member id="#[payload.id]" user="#[payload.user]"/>
+	<flow name="isTeamMember" doc:name="isTeamMember">
+		<github:is-team-member id="#[payload.id]" user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-	<flow name="addTeamMember">
-		<github:add-team-member id="#[payload.id]" user="#[payload.user]"/>
+	<flow name="addTeamMember" doc:name="addTeamMember">
+		<github:add-team-member id="#[payload.id]" user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-	<flow name="removeTeamMember">
-		<github:remove-team-member id="#[payload.id]" user="#[payload.user]"/>
+	<flow name="removeTeamMember" doc:name="removeTeamMember">
+		<github:remove-team-member id="#[payload.id]" user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-	<flow name="getTeamRepositories">
-		<github:get-team-repositories id="#[payload.id]"/>
+	<flow name="getTeamRepositories" doc:name="getTeamRepositories">
+		<github:get-team-repositories id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-	<flow name="addTeamRepository">
-		<github:add-team-repository id="#[payload.id]" owner="#[payload.organization]" repository="#[payload.repository]"/>
+	<flow name="addTeamRepository" doc:name="addTeamRepository">
+		<github:add-team-repository id="#[payload.id]" owner="#[payload.organization]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-	<flow name="removeTeamRepository">
-		<github:remove-team-repository id="#[payload.id]" owner="#[payload.organization]" repository="#[payload.repository]"/>
+	<flow name="removeTeamRepository" doc:name="removeTeamRepository">
+		<github:remove-team-repository id="#[payload.id]" owner="#[payload.organization]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
 	</flow>
 
-    <flow name="getRepositories">
-        <github:get-repositories/>
+    <flow name="getRepositories" doc:name="getRepositories">
+        <github:get-repositories config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getRepositoriesForUser">
-        <github:get-repositories-for-user user="#[payload.user]"/>
+    <flow name="getRepositoriesForUser" doc:name="getRepositoriesForUser">
+        <github:get-repositories-for-user user="#[payload.user]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getRepositoriesForOrg">
-        <github:get-repositories-for-org organization="#[payload.organization]"/>
+    <flow name="getRepositoriesForOrg" doc:name="getRepositoriesForOrg">
+        <github:get-repositories-for-org organization="#[payload.organization]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createRepository">
-        <github:create-repository  repository="#[payload.repository]" description="#[payload.description]" hasIssues="true"/>
+    <flow name="createRepository" doc:name="createRepository">
+        <github:create-repository  repository="#[payload.repository]" description="#[payload.description]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createRepositoryForOrg">
-        <github:create-repository-for-org organization="#[payload.organization]" repository="#[payload.repository]" description="#[payload.description]"
-                                          hasIssues="true"/>
+    <flow name="createRepositoryForOrg" doc:name="createRepositoryForOrg">
+        <github:create-repository-for-org organization="#[payload.organization]" repository="#[payload.repository]" description="#[payload.description]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getForks">
-        <github:get-forks owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="getForks" doc:name="getForks">
+        <github:get-forks owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="forkRepository">
-        <github:fork-repository owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="forkRepository" doc:name="forkRepository">
+        <github:fork-repository owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="forkRepositoryForOrg">
-        <github:fork-repository-for-org organization="#[payload.organization]" owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="forkRepositoryForOrg" doc:name="forkRepositoryForOrg">
+        <github:fork-repository-for-org organization="#[payload.organization]" owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getReadme">
-        <github:get-contents owner="#[payload.owner]" repository="#[payload.repository]" path="/README.md" branch="#[payload.branch]"/>
+    <flow name="getReadme" doc:name="getReadme">
+        <github:get-contents owner="#[payload.owner]" repository="#[payload.repository]" path="/README.md" branch="#[payload.branch]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="updateReadme">
-        <github:put-contents owner="#[payload.owner]" repository="#[payload.repository]" path="/README.md" message="test commit" content="updated file content" sha="#[payload.fileSha]" branch="#[payload.branch]"/>
+    <flow name="updateReadme" doc:name="updateReadme">
+        <github:put-contents owner="#[payload.owner]" repository="#[payload.repository]" path="/README.md" message="test commit" content="updated file content" sha="#[payload.fileSha]" branch="#[payload.branch]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getLanguages">
-        <github:get-languages owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="getLanguages" doc:name="getLanguages">
+        <github:get-languages owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getBranches">
-        <github:get-branches owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="getBranches" doc:name="getBranches">
+        <github:get-branches owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getTags">
-        <github:get-tags owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="getTags" doc:name="getTags">
+        <github:get-tags owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getContributors">
-        <github:get-contributors owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="getContributors" doc:name="getContributors">
+        <github:get-contributors owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getDownloads">
-        <github:get-downloads owner="#[payload.owner]" repository="#[payload.repository]" />
+    <flow name="getDownloads" doc:name="getDownloads">
+        <github:get-downloads owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getReferences">
-        <github:get-references owner="#[payload.owner]" repository="#[payload.repository]"/>
+    <flow name="getReferences" doc:name="getReferences">
+        <github:get-references owner="#[payload.owner]" repository="#[payload.repository]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createReference">
-        <github:create-reference owner="#[payload.owner]" repository="#[payload.repository]" sha="#[payload.sha]" referenceName="#[payload.referenceName]"/>
+    <flow name="createReference" doc:name="createReference">
+        <github:create-reference owner="#[payload.owner]" repository="#[payload.repository]" sha="#[payload.sha]" referenceName="#[payload.referenceName]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getPullRequest">
-        <github:get-pull-request owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]"/>
+    <flow name="getPullRequest" doc:name="getPullRequest">
+        <github:get-pull-request owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getPullRequests">
-        <github:get-pull-requests owner="#[payload.owner]" repository="#[payload.repository]" state="open"/>
+    <flow name="getPullRequests" doc:name="getPullRequests">
+        <github:get-pull-requests owner="#[payload.owner]" repository="#[payload.repository]" state="open" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="pagePullRequests">
-        <github:page-pull-requests owner="#[payload.owner]" repository="#[payload.repository]" state="open"/>
+    <flow name="pagePullRequests" doc:name="pagePullRequests">
+        <github:page-pull-requests owner="#[payload.owner]" repository="#[payload.repository]" state="open" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createPullRequest">
-        <github:create-pull-request owner="#[payload.owner]" repository="#[payload.repository]" body="#[payload.body]" title="#[payload.title]" head="#[payload.head]" base="#[payload.base]"/>
+    <flow name="createPullRequest" doc:name="createPullRequest">
+        <github:create-pull-request owner="#[payload.owner]" repository="#[payload.repository]" body="#[payload.body]" title="#[payload.title]" head="#[payload.head]" base="#[payload.base]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createPullRequestFromIssue">
-        <github:create-pull-request-from-issue owner="#[payload.owner]" repository="#[payload.repository]" issueNumber="1" head="#[map-payload:head]" base="#[map-payload:base]"/>
+    <flow name="createPullRequestFromIssue" doc:name="createPullRequestFromIssue">
+        <github:create-pull-request-from-issue owner="#[payload.owner]" repository="#[payload.repository]" issueNumber="1" head="#[map-payload:head]" base="#[map-payload:base]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="editPullRequest">
-        <github:edit-pull-request owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" title="#[payload.updatedTitle]"/>
+    <flow name="editPullRequest" doc:name="editPullRequest">
+        <github:edit-pull-request owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" title="#[payload.updatedTitle]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getPullRequestCommits">
-        <github:get-pull-request-commits owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" />
+    <flow name="getPullRequestCommits" doc:name="getPullRequestCommits">
+        <github:get-pull-request-commits owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getPullRequestFiles">
-        <github:get-pull-request-files owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" />
+    <flow name="getPullRequestFiles" doc:name="getPullRequestFiles">
+        <github:get-pull-request-files owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="isPullRequestMerged">
-        <github:is-pull-request-merged owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" />
+    <flow name="isPullRequestMerged" doc:name="isPullRequestMerged">
+        <github:is-pull-request-merged owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="mergePullRequest">
-        <github:merge-pull-request owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" commitMessage="commit message" />
+    <flow name="mergePullRequest" doc:name="mergePullRequest">
+        <github:merge-pull-request owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" commitMessage="commit message" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="createPullRequestComment">
+    <flow name="createPullRequestComment" doc:name="createPullRequestComment">
         <github:create-pull-request-comment owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" commitId="#[payload.commitId]"
-                                            body="#[payload.comment]" path="README.md" position="10" line="1" />
+                                            body="#[payload.comment]" path="README.md" position="10" line="1" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="replyToPullRequestComment">
+    <flow name="replyToPullRequestComment" doc:name="replyToPullRequestComment">
         <github:reply-to-pull-request-comment owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]"
-                                              commentId="#[payload.commentId]" body="#[payload.reply]" />
+                                              commentId="#[payload.commentId]" body="#[payload.reply]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="editPullRequestComment">
-        <github:edit-pull-request-comment owner="#[payload.owner]" repository="#[payload.repository]" commentId="#[payload.commentId]" body="#[payload.updatedComment]" />
+    <flow name="editPullRequestComment" doc:name="editPullRequestComment">
+        <github:edit-pull-request-comment owner="#[payload.owner]" repository="#[payload.repository]" commentId="#[payload.commentId]" body="#[payload.updatedComment]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="deletePullRequestComment">
-        <github:delete-pull-request-comment owner="#[payload.owner]" repository="#[payload.repository]" commentId="#[payload.commentId]"/>
+    <flow name="deletePullRequestComment" doc:name="deletePullRequestComment">
+        <github:delete-pull-request-comment owner="#[payload.owner]" repository="#[payload.repository]" commentId="#[payload.commentId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getPullRequestComment">
-        <github:get-pull-request-comment owner="#[payload.owner]" repository="#[payload.repository]" commentId="#[payload.commentId]"/>
+    <flow name="getPullRequestComment" doc:name="getPullRequestComment">
+        <github:get-pull-request-comment owner="#[payload.owner]" repository="#[payload.repository]" commentId="#[payload.commentId]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="getPullRequestComments">
-        <github:get-pull-request-comments owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]"/>
+    <flow name="getPullRequestComments" doc:name="getPullRequestComments">
+        <github:get-pull-request-comments owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
-    <flow name="pagePullRequestComments">
-        <github:page-pull-request-comments owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]"/>
+    <flow name="pagePullRequestComments" doc:name="pagePullRequestComments">
+        <github:page-pull-request-comments owner="#[payload.owner]" repository="#[payload.repository]" id="#[payload.id]" config-ref="Github" doc:name="GitHub"/>
     </flow>
 
 
